@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<!--商户管理-->
+	<package name="shop" extends="struts-default,json-default" namespace="/api/shop">
+		<!--保存商户信息-->
+		<action name = "saveShop" class="shopAction" method="saveShop">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+		<!--获取商户列表-->
+		<action name = "getShopList" class="shopAction" method="getShopList">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+		<!--获取商户详情-->
+		<action name = "getShopInfo" class="shopAction" method="getShopInfo">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+		<!--更新商户详情-->
+		<action name = "updateShop" class="shopAction" method="updateShop">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+	</package>
+	
+</struts>

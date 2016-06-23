@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+</head>
+<script type="text/javascript" src="js/jQuery-2.1.4.min.js"></script>
+<script type="text/javascript" src="js/ajaxfileupload.js"></script>
+<body>
+	<input tag="autoUplaod" id="file1" type="file" name="file1"></input>
+	<input tag="autoUplaod" id="file2" type="file" name="file2"></input>
+	<button onclick="testuo()">上传</button>
+	<img src="api/fileutil?method=download"></img>
+	<script type="text/javascript">
+	$(function(){
+		$("img").error(function(){
+			$(this).attr("src","img/break.png");
+		});	
+	})
+	function testuo(){
+		ajaxFileUpload("test");
+	}
+	function test(args){
+		alert("回调成功了！");
+	}
+	function ajaxFileUpload(callback,filegroup) {
+		if(typeof(filegroup) == "undefined" || filegroup == "" || filegroup == null || filegroup == "null"){
+			filegroup = "";
+		}
+		var ids = new Array();
+		$("input[type='file']").each(function(i){
+			var file = $(this);
+			var value = file.val();
+			if(typeof(value) == "undefined" || value == "" || value == null || value == "null"){
+				return;
+			}
+			var id = file.attr("id");
+			var name = file.attr("name");
+			if(typeof(id) != "undefined" &&　id != "" && id != null  && id != 'null' && typeof(name) != "undefined" &&　name != "" && name != null  && name != 'null'){
+				ids.push(id);
+			}
+		});
+		/*if(ids.length<=0){
+			return;
+		}*/
+        $.ajaxFileUpload
+        (
+            {
+                url: 'api/fileutil?method=upload&callback='+callback+'&filegroup='+filegroup, //用于文件上传的服务器端请求地址
+                secureuri: false, //一般设置为false
+                //fileElementId: 'file1', // 原来只支持一个附件上传 文件上传空间的id属性  <input type="file" id="file" name="file" />
+                fileElementId: ids, // 原来只支持一个附件上传 文件上传空间的id属性  <input type="file" id="file" name="file" />
+                dataType: 'json' //返回值类型 一般设置为json
+            }
+        )
+    }
+	</script>
+</body>
+</html>

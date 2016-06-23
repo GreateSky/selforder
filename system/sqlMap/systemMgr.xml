@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.greatesky.systemmgr" >
+	<cache eviction="LRU" flushInterval="1000" size="1024" readOnly="false" />
+	<sql id="limit">
+		<choose>
+		<when test="pageStart != null and pageSize != null and pageStart != '' and pageSize != '' ">
+			limit ${pageStart},${pageSize}
+		</when>
+		<otherwise>
+			limit 0,20
+		</otherwise>
+		</choose>
+	</sql>
+	<!-- 获取业务字典 -->
+	<select id="getBizDict" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT WID,
+			 WCODE, 
+			 WVALUE, 
+			 WTEXT,
+			 PARENTID, 
+			 SEQ, 
+			 CONTENT,
+			 CRTDATE, 
+			 CRTER, 
+			 DELETED
+		FROM auto_work_dict
+		where deleted = 0
+		<if test="wid != null and wid !='' ">
+			and WID = #{wid}
+		</if>
+		<if test="wcode != null and wcode !=''">
+			and WCODE = #{wcode}
+		</if>
+		<if test="parentid != null and parentid !=''">
+			and PARENTID = #{parentid}
+		</if>
+		<if test="wvalue != null and wvalue !=''">
+			and WVALUE = #{wvalue}
+		</if>
+		<if test="wtext != null and wtext !=''">
+			and WTEXT = #{wtext}
+		</if>
+		<if test="parentcode != null and parentcode !=''">
+			and PARENTID = (select wid from auto_work_dict where deleted = 0 and wcode = #{parentcode} and wvalue = 'root')
+		</if>
+		order by SEQ desc
+	</select>
+	<!--新增业务字典 -->
+	<insert id="insertBizDict">
+		INSERT INTO 
+        	auto_work_dict 
+        	(WID, 
+        	 WCODE, 
+        	 WVALUE, 
+        	 WTEXT, 
+        	 PARENTID,
+        	 SEQ, 
+        	 CONTENT, 
+        	 CRTDATE, 
+        	 CRTER, 
+        	 DELETED) 
+         VALUES (replace(uuid(),'-',''), 
+         	#{wcode}, 
+         	#{wvalue},
+         	#{wtext}, 
+         	#{parentid},
+         	#{seq}, 
+         	#{content}, 
+         	sysdate(), 
+         	'admin', 
+         	0)
+	</insert>
+	
+	<!--修改业务字典 -->
+	<update id="updateBizDict" parameterType="bizdict">
+		UPDATE auto_work_dict SET 
+			WID = #{wid}
+			<if test="wcode != null and wcode !=''">
+				, WCODE = #{wcode}
+			</if>
+			<if test="wvalue != null and wvalue !=''">
+				, WVALUE = #{wvalue}
+			</if> 
+			<if test="wtext != null and wtext !=''">
+				, WTEXT = #{wtext}
+			</if> 
+			<if test="seq != null and seq !=''">
+				, SEQ = #{seq}
+			</if> 
+			<if test="content != null and content !=''">
+				, CONTENT = #{content}
+			</if>
+			<if test="deleted != null and deleted !=''">
+				, DELETED = #{deleted}
+			</if>
+			<if test="parentid != null and parentid !=''">
+				, PARENTID = #{parentid}
+			</if>	
+		WHERE WID = #{wid}
+	</update>
+	
+	<!-- 获取配件 -->
+	<select id="getParts" parameterType="java.util.Map" resultType="java.util.Map">
+		 SELECT items.PID,
+		       	(select wtext from auto_work_dict where wvalue = items.TYPE and deleted = 0) type,
+		       	(select wtext from auto_work_dict where wvalue = items.BRAND and deleted = 0) brand,
+		       items.PCODE,
+		       items.PNAME,
+		       items.PRICE,
+		       items.COMPRICE,
+		       items.COSTPRICE,
+		       items.UNIT,
+		       items.REMARK,
+		       items.CONTENT,
+		       items.IMGID,
+		       items.CRTDATE,
+		       items.CRTER,
+		       items.DELETED
+		  FROM auto_parts_items items
+		  where 1 = 1 
+		  <if test="pid != null and pid !=''">
+			  and items.PID = #{pid}
+		  </if>
+		  <if test="type != null and type !=''">
+			  and items.TYPE = #{type}
+		  </if>
+		  <if test="brand != null and brand !=''">
+			  and items.BRAND = #{brand}
+		  </if>
+		  <if test="pcode != null and pcode !=''">
+			  and items.PCODE = #{pcode}
+		  </if>
+		  <if test="pname != null and pname !=''">
+			  and items.PNAME = #{pname}
+		  </if>
+		  <if test="price != null and price !=''">
+			  and items.PRICE = #{price}
+		  </if>
+		  <if test="comprice != null and comprice !=''">
+			  and items.COMPRICE = #{comprice}
+		  </if>
+		  <if test="costprice != null and costprice !=''">
+			  and items.COSTPRICE = #{costprice}
+		  </if>
+		  <if test="unit != null and unit !=''">
+			  and items.UNIT = #{unit}
+		  </if>
+		  <if test="remark != null and remark !=''">
+			  and items.REMARK = #{remark}
+		  </if>
+		  <if test="content != null and content !=''">
+			  and items.CONTENT = #{content}
+		  </if>
+		  <if test="imgid != null and imgid !=''">
+			  and items.IMGID = #{imgid}
+		  </if>
+		  <include refid="limit"></include>
+	</select>
+	
+	<!-- 新增配件 -->
+	<insert id="insertParts" parameterType="parts">
+		INSERT INTO auto_parts_items (
+			PID
+			,TYPE
+			,BRAND
+			,PCODE
+			,PNAME
+			,PRICE
+			,COMPRICE
+			,COSTPRICE
+			,UNIT
+			,REMARK
+			,CONTENT
+			,IMGID
+			,CRTDATE
+			,CRTER
+			,DELETED
+			)
+		VALUES (
+			replace(uuid(),'-','')
+			,#{type}
+			,#{brand}
+			,#{pcode}
+			,#{pname}
+			,#{price}
+			,#{comprice}
+			,#{costprice}
+			,#{unit}
+			,#{remark}
+			,#{content}
+			,#{imgid}
+			,sysdate()
+			,'admin'
+			,0
+			)
+		
+	</insert>
+	
+	<!-- 修改配件 -->
+	<update id="saveParts"  parameterType="parts">
+		UPDATE auto_parts_items
+		   SET PID       =  #{pid}
+		   	  <if test="type != null and type !=''">
+				  , TYPE = #{type}
+			  </if>
+			  <if test="brand != null and brand !=''">
+				  , BRAND = #{brand}
+			  </if>
+			  <if test="pcode != null and pcode !=''">
+				  , PCODE = #{pcode}
+			  </if>
+			  <if test="pname != null and pname !=''">
+				  , PNAME = #{pname}
+			  </if>
+			  <if test="price != null and price !=''">
+				  , PRICE = #{price}
+			  </if>
+			  <if test="comprice != null and comprice !=''">
+				  , COMPRICE = #{comprice}
+			  </if>
+			  <if test="costprice != null and costprice !=''">
+				  , COSTPRICE = #{costprice}
+			  </if>
+			  <if test="unit != null and unit !=''">
+				  , UNIT = #{unit}
+			  </if>
+			  <if test="remark != null and remark !=''">
+				  , REMARK = #{unit}
+			  </if>
+			  <if test="content != null and content !=''">
+				  , CONTENT = #{content}
+			  </if>
+			  <if test="imgid != null and imgid !=''">
+				  , IMGID = #{imgid}
+			  </if>
+			  <if test="deleted != null and deleted !=''">
+				  , DELETED = #{deleted}
+			  </if>
+		 WHERE PID = #{pid}
+	</update>
+	
+	<!--新增附件上传记录 -->
+	<insert id="insertUpload" parameterType="java.util.Map">
+		INSERT INTO auto_fileupload (
+			FILEID
+			,FILETYPE
+			,FILENAME
+			,FILESAVENAME
+			,FILESIZE
+			,FILEPATH
+			,FILEGROUP
+			,IPADDRESS
+			,FILETIME
+			,UPLOADER
+			,DELETED
+			)
+		VALUES (
+			#{fileid}
+			,#{filetype}
+			,#{filename}
+			,#{filesavename}
+			,#{filesize}
+			,#{filepath}
+			,#{filegroup}
+			,#{ipaddress}
+			,sysdate()
+			,#{uploader}
+			,0
+			)
+	</insert>
+	
+	<!--获取附件详情 -->
+	<select id="getFileInfo" parameterType="java.lang.String" resultType="java.util.Map">
+		SELECT
+		    FILEID,
+		    FILETYPE,
+		    FILENAME,
+		    FILESAVENAME,
+		    FILESIZE,
+		    FILEPATH,
+		    FILEGROUP,
+		    IPADDRESS,
+		    FILETIME,
+		    UPLOADER,
+		    DELETED
+		FROM
+		    auto_fileupload
+		where DELETED = 0
+		and FILEID = #{fileid}
+	</select>
+</mapper>
+

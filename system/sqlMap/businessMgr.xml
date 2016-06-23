@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.selforder.business" >
+	<cache eviction="LRU" flushInterval="1000" size="1024" readOnly="false" />
+	<sql id="limit">
+		<choose>
+			<when test="pageStart != null and pageSize != null and pageStart != '' and pageSize != '' ">
+				limit ${pageStart},${pageSize}
+			</when>
+			<otherwise>
+				limit 0,2
+			</otherwise>
+		</choose>
+	</sql>
+	<!--新增商户信息 -->
+	<insert id="insertBusiness">
+		INSERT
+			INTO
+			    self_business
+			    (
+			        BID,
+			        BNAME,
+			        BCODE,
+			        LEGALER,
+			        PHONE,
+			        EMAIL,
+			        FAXES,
+			        ADDRESS,
+			        STATUS,
+			        BEGINDATE,
+			        ENDDATE,
+			        APPID,
+			        APPSECRET,
+			        LICENSEID,
+			        CRTER,
+			        CRTDATE,
+			        OPTER,
+			        OPTDATE,
+			        DELETED
+			    )
+			    VALUES
+			    (
+			        #{bid},
+			        #{bname},
+			        #{bcode},
+			        #{legaler},
+			        #{phone},
+			        #{email},
+			        #{faxes},
+			        #{address},
+			        #{status},
+			        #{begindate},
+			        #{enddate},
+			        #{appid},
+			        #{appsecret},
+			        #{licenseid},
+			        #{crter},
+			        sysdate(),
+			        #{opter},
+			        sysdate(),
+			        0
+			    )
+	</insert>
+	
+	<!--获取商户列表 -->
+	<select id="getBusinessList"  parameterType="business" resultType="business">
+		SELECT
+		    sb.BID,
+		    sb.BNAME,
+		    sb.BCODE,
+		    sb.LEGALER,
+		    sb.PHONE,
+		    sb.EMAIL,
+		    sb.FAXES,
+		    sb.ADDRESS,
+		    sb.STATUS,
+		    sb.BEGINDATE,
+		    sb.ENDDATE,
+		    sb.APPID,
+		    sb.APPSECRET,
+		    sb.LICENSEID,
+		    sb.CRTER,
+		    sb.CRTDATE,
+		    sb.OPTER,
+		    sb.OPTDATE,
+		    sb.DELETED
+		FROM
+		    self_business sb
+		where sb.deleted = 0 
+		<if test="bid != null and bid !='' ">
+			and sb.BID = #{bid}
+		</if>   
+		<if test="bname != null and bname !='' ">
+			and sb.BNAME like CONCAT('%',#{bname},'%')
+		</if>    
+		<if test="bcode != null and bcode !='' ">
+			and sb.BCODE like CONCAT('%',#{bcode},'%')
+		</if>
+		<if test="legaler != null and legaler !='' ">
+			and sb.LEGALER like CONCAT('%',#{legaler},'%')
+		</if>
+		<if test="status != null and status !='' ">
+			and sb.STATUS = #{status}
+		</if>
+		<choose>
+			<when test="pageStart != null and pageSize != null ">
+				limit ${pageStart},${pageSize}
+			</when>
+			<otherwise>
+				limit 0,2
+			</otherwise>
+		</choose>           
+	</select>
+	<!--查询商户列表统计数  用于列表分页 -->
+	<select id="getBusinessCount" parameterType="business" resultType="int">
+		SELECT
+		    count(1)
+		FROM
+		    self_business sb
+		where sb.deleted = 0   
+		<if test="bname != null and bname !='' ">
+			and sb.BNAME like CONCAT('%',#{bname},'%')
+		</if>    
+		<if test="bcode != null and bcode !='' ">
+			and sb.BCODE like CONCAT('%',#{bcode},'%')
+		</if>
+		<if test="legaler != null and legaler !='' ">
+			and sb.LEGALER like CONCAT('%',#{legaler},'%')
+		</if>
+	</select>
+	
+	<!--获取商户详情 -->
+	<select id="getBusinessInfo"  parameterType="business" resultType="business">
+		SELECT
+		    sb.BID,
+		    sb.BNAME,
+		    sb.BCODE,
+		    sb.LEGALER,
+		    sb.PHONE,
+		    sb.EMAIL,
+		    sb.FAXES,
+		    sb.ADDRESS,
+		    sb.STATUS,
+		    sb.BEGINDATE,
+		    sb.ENDDATE,
+		    sb.APPID,
+		    sb.APPSECRET,
+		    sb.LICENSEID,
+		    sb.CRTER,
+		    sb.CRTDATE,
+		    sb.OPTER,
+		    sb.OPTDATE,
+		    sb.DELETED
+		FROM
+		    self_business sb
+		where sb.deleted = 0
+		<if test="bid != null and bid !='' ">
+			and sb.BID =#{bid}
+		</if>  
+		<if test="bname != null and bname !='' ">
+			and sb.BNAME like CONCAT('%',#{bname},'%')
+		</if>    
+		<if test="bcode != null and bcode !='' ">
+			and sb.BCODE = #{bcode}
+		</if>
+		<if test="legaler != null and legaler !='' ">
+			and sb.LEGALER like CONCAT('%',#{legaler},'%')
+		</if>
+	</select>
+	
+	<!--更新商户信息 -->
+	<update id="updateBusiness" parameterType="business">
+		UPDATE
+		    self_business
+		SET
+		    OPTER = #{opter}
+		    , OPTDATE = sysdate()
+		    <if test="bname != null and bname !='' ">
+				, BNAME = #{bname}
+			</if>
+			<if test="bcode != null and bcode !='' ">
+				, BCODE = #{bcode}
+			</if>
+			<if test="legaler != null and legaler !='' ">
+				, LEGALER = #{legaler}
+			</if>
+			<if test="phone != null and phone !='' ">
+				, PHONE = #{phone}
+			</if>
+			<if test="email != null and email !='' ">
+				, EMAIL = #{email}
+			</if>
+			<if test="faxes != null and faxes !='' ">
+				, FAXES = #{faxes}
+			</if>
+			<if test="address != null and address !='' ">
+				, ADDRESS = #{address}
+			</if>
+			<if test="status != null and status !='' ">
+				, STATUS = #{status}
+			</if>
+			<if test="begindate != null and begindate !='' ">
+				, BEGINDATE = #{begindate}
+			</if>
+			<if test="enddate != null and enddate !='' ">
+				, ENDDATE = #{enddate}
+			</if>
+			<if test="appid != null and appid !='' ">
+				, APPID = #{appid}
+			</if>
+			<if test="appsecret != null and appsecret !='' ">
+				, APPSECRET = #{appsecret}
+			</if>
+			<if test="licenseid != null and licenseid !='' ">
+				, LICENSEID = #{licenseid}
+			</if>
+			<if test="deleted != null and deleted !='' ">
+				, DELETED = #{deleted}
+			</if>
+		WHERE
+		    BID = #{bid}
+	</update>
+</mapper>
+

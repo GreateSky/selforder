@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-2.5.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+           http://www.springframework.org/schema/tx 
+           http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+	<!--Service注册-->
+	<bean name="bizDictService" class="com.automobile.service.impl.BizDictServiceImpl" scope="prototype" >
+		<property name="bizDictDao" ref="bizDictDao"></property>
+	</bean>
+	<bean name="systemMgrService" class="com.automobile.service.impl.SystemMgrServiceImpl" scope="prototype" >
+		<property name="systemMgrDao" ref="systemMgrDao"></property>
+	</bean>
+	
+	<!--商户管理-->
+	<bean name="businessService" class="com.selforder.service.impl.BusinessServiceImpl" scope="prototype">
+		<property name="businessDao" ref="businessDao"></property>
+		<property name="employeeDao" ref="employeeDao"></property>
+	</bean>
+	<!--门店管理-->
+	<bean name="shopService" class="com.selforder.service.impl.ShopServiceImpl" scope="prototype">
+		<property name="shopDao" ref="shopDao"></property>
+	</bean>
+	<!--员工管理-->
+	<bean name="employeeService" class="com.selforder.service.impl.EmployeeServiceImpl" scope="prototype">
+		<property name="employeeDao" ref="employeeDao"></property>
+	</bean>
+	<!--权限管理-->
+	<bean name="myUserDetailsService" class="com.selforder.security.service.MyUserDetailsService" scope="prototype">
+		<property name="employeeDao" ref="employeeDao"></property>
+	</bean>
+	<!--权限角色资源管理-->
+	<bean name="powerService" class="com.selforder.service.impl.PowerServiceImpl" scope="prototype">
+		<property name="powerDao" ref="powerDao"></property>
+	</bean>
+	
+	<!-- *************************Dao注册*********************************-->
+	<bean name="bizDictDao" class="com.automobile.dao.impl.BizDictDaoImpl" scope="prototype" >
+		<property name="sqlSessionTemplate" ref="sqlSessionTemplate" ></property>
+	</bean>
+	<bean name="systemMgrDao" class="com.automobile.dao.impl.SystemMgrDaoImpl" scope="prototype" >
+		<property name="sqlSessionTemplate" ref="sqlSessionTemplate" ></property>
+	</bean>
+	
+	<!--商户管理-->
+	<bean name="businessDao" class="com.selforder.dao.impl.BusinessDaoImpl" scope="prototype" >
+		<property name="sqlSessionTemplate" ref="sqlSessionTemplate" ></property>
+	</bean>
+	<!--门店管理-->
+	<bean name="shopDao" class="com.selforder.dao.impl.ShopDaoImpl" scope="prototype" >
+		<property name="sqlSessionTemplate" ref="sqlSessionTemplate" ></property>
+	</bean>
+	<!--员工管理-->
+	<bean name="employeeDao" class="com.selforder.dao.impl.EmployeeDaoImpl" scope="prototype" >
+		<property name="sqlSessionTemplate" ref="sqlSessionTemplate" ></property>
+	</bean>
+	<!--权限角色资源管理-->
+	<bean name="powerDao" class="com.selforder.dao.impl.PowerDaoImpl" scope="prototype">
+		<property name="sqlSessionTemplate" ref="sqlSessionTemplate" ></property>
+	</bean>
+</beans>

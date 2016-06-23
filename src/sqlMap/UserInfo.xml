@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.greatesky.system" >
+	<cache eviction="LRU" flushInterval="1000" size="1024" readOnly="false" />
+	
+	<select id="getUserInfo" resultType="userinfo" parameterType="userinfo">
+		SELECT OID, OCODE, ONAME, OPASSWD, OPERATORNAME, PHONE, ROLE, WEIXIN, OPENID, AVATAR, GENDER, CRTDATE, CRTER, DELETED 
+		FROM auto_operator		
+		where 1 =1   
+		<if test="ocode != null">
+			and OCODE = #{ocode}
+		</if> 
+		<if test="password != null">
+			and us.password = #{password}
+		</if> 
+		<if test="oname != null">
+			and ONAME = #{oname}
+		</if>   
+	</select>
+
+</mapper>
+

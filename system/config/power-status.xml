@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<!--权限管理-->
+	<package name="power" extends="struts-default,json-default" namespace="/api/power">
+	
+		<!--保存资源信息-->
+		<action name = "saveResource" class="powerAction" method="saveResource">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+		<!--获取资源列表-->
+		<action name = "getResourceList" class="powerAction" method="getResourceList">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+		<!--待选择资源列表-->
+		<action name = "selectResourceList" class="powerAction" method="selectResourceList">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+		<!--获取资源详情-->
+		<action name = "getResourceInfo" class="powerAction" method="getResourceInfo">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+		<!--更新资源详情-->
+		<action name = "updateResource" class="powerAction" method="updateResource">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+		
+		<!--保存角色信息-->
+		<action name = "saveRole" class="powerAction" method="saveRole">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+		<!--获取角色列表-->
+		<action name = "getRoleList" class="powerAction" method="getRoleList">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+		<!--获取角色详情-->
+		<action name = "getRoleInfo" class="powerAction" method="getRoleInfo">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+		<!--更新角色详情-->
+		<action name = "updateRole" class="powerAction" method="updateRole">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+		<!--删除角色与资源关联关系-->
+		<action name = "delRolResourceRef" class="powerAction" method="delRolResourceRef">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+	</package>
+	
+</struts>

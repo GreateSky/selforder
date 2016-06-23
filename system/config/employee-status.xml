@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<!--员工管理-->
+	<package name="employee" extends="struts-default,json-default" namespace="/api/employee">
+		<!--员工商户信息-->
+		<action name = "saveEmployee" class="employeeAction" method="saveEmployee">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+		<!--修改员工密码-->
+		<action name = "updatePassword" class="employeeAction" method="updatePassword">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+		<!--修改员工密码-->
+		<action name ="getEmployeeInfo" class="employeeAction" method="getEmployeeInfo">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+		<!--更新员工信息-->
+		<action name ="updateEmployeeInfo" class="employeeAction" method="updateEmployeeInfo">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+	</package>
+	
+</struts>

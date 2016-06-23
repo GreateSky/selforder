@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.selforder.power" >
+	<cache eviction="LRU" flushInterval="1000" size="1024" readOnly="false" />
+	<sql id="limit">
+		<choose>
+			<when test="pageStart != null and pageSize != null">
+				limit ${pageStart},${pageSize}
+			</when>
+			<otherwise>
+				limit 0,20
+			</otherwise>
+		</choose>
+	</sql>
+	<!--新增资源信息 -->
+	<insert id="insertResource" parameterType="resource">
+	    INSERT
+			INTO
+			    self_resource
+			    (
+			        RID,
+			        RNAME,
+			        RURL,
+			        REMARK,
+			        CRTER,
+			        CRTDATE,
+			        DELETED
+			    )
+			    VALUES
+			    (
+			        #{rid},
+			        #{rname},
+			        #{rurl},
+			        #{remark},
+			        #{crter},
+			        sysdate(),
+			        0
+			    )
+	</insert>
+	
+	<!--获取资源列表 -->
+	<select id="getResourceList"  parameterType="resource" resultType="resource">
+		SELECT
+		    RID,
+		    RNAME,
+		    RURL,
+		    REMARK,
+		    CRTER,
+		    CRTDATE,
+		    DELETED
+		FROM
+		    self_resource
+		where DELETED = 0     
+		<if test="rname != null and rname !='' ">
+			and RNAME like CONCAT('%',#{rname},'%')
+		</if>    
+		<if test="rurl != null and rurl !='' ">
+			and RURL like CONCAT('%',#{rurl},'%')
+		</if>
+		order by CRTDATE desc      
+		<include refid="limit"></include>    
+	</select>
+	
+	<!--获取资源列表 -->
+	<select id="selectResourceList"  parameterType="java.util.HashMap" resultType="resource">
+		select re.RID,
+			 re.RNAME,
+			 re.RURL,
+			 re.REMARK
+		from self_resource re 
+		where re.DELETED = 0
+		<if test="role_id != null and role_id !='' ">
+			and not exists(select 1 
+					   from self_role_resource_ref rr 
+					   where rr.deleted = 0 
+					   and rr.role_id=#{role_id} 
+					   and rr.resource_id = re.RID)          
+		</if>
+		<if test="selectRole != null and selectRole !='' ">
+			and re.RID not in (${selectRole})          
+		</if>
+	</select>
+	
+	<!--查询资源列表统计数  用于列表分页 -->
+	<select id="getResourceCount" parameterType="resource" resultType="int">
+		SELECT
+		   count(1)
+		FROM
+		    self_resource
+		where DELETED = 0    
+		<if test="rname != null and rname !='' ">
+			and RNAME like CONCAT('%',#{rname},'%')
+		</if>    
+		<if test="rurl != null and rurl !='' ">
+			and RURL like CONCAT('%',#{rurl},'%')
+		</if>
+	</select>
+	
+	<!--获取资源详情 -->
+	<select id="getResourceInfo"  parameterType="resource" resultType="resource">
+		SELECT
+		    RID,
+		    RNAME,
+		    RURL,
+		    REMARK,
+		    CRTER,
+		    CRTDATE,
+		    DELETED
+		FROM
+		    self_resource
+		where DELETED = 0   
+		<if test="rname != null and rname !='' ">
+			and RNAME like CONCAT('%',#{rname},'%')
+		</if>    
+		<if test="rurl != null and rurl !='' ">
+			and RURL like CONCAT('%',#{rurl},'%')
+		</if>
+		<if test="rid != null and rid !='' ">
+			and RID = #{rid}
+		</if>
+	</select>
+	
+	<!--更新资源信息 -->
+	<update id="updateResource" parameterType="resource">
+		UPDATE
+		    self_resource
+		SET
+		   RID = #{rid}
+		    <if test="rname != null and rname !='' ">
+				, RNAME = #{rname}
+			</if>
+			<if test="rurl != null and rurl !='' ">
+				, RURL = #{rurl}
+			</if>
+			<if test="remark != null and remark !='' ">
+				, REMARK = #{remark}
+			</if>
+			<if test="deleted != null and deleted !='' ">
+				, DELETED = #{deleted}
+			</if>
+		WHERE
+		    RID = #{rid}
+	</update>
+	
+	<!--新增角色信息 -->
+	<insert id="insertRole" parameterType="role">
+		INSERT
+			INTO
+			    self_role
+			    (
+			        RID,
+			        RCODE,
+			        RNAME,
+			        REMARK,
+			        CRTDATE,
+			        CRTER,
+			        OPTDATE,
+			        OPTER,
+			        DELETED
+			    )
+			    VALUES
+			    (
+			        replace(uuid(),'-',''),
+					#{rcode},
+					#{rname},
+					#{remark},
+					sysdate(),
+					#{crter},
+					sysdate(),
+					#{opter},
+					0
+			    )
+	</insert>
+
+	<!--更新角色信息 -->
+	<update id="updateRole" parameterType="role">
+		UPDATE
+		    self_role
+		SET
+			OPTDATE = sysdate()
+			, OPTER = #{opter}
+			<if test="rcode != null and rcode !='' ">
+				, RCODE = #{rcode}
+			</if>
+			<if test="rname != null and rname !='' ">
+				, RNAME = #{rname}
+			</if>
+			<if test="remark != null ">
+				, REMARK = #{remark}
+			</if>
+			<if test="deleted != null and deleted !='' ">
+				, DELETED = #{deleted}
+			</if>
+		WHERE  RID = #{rid}  
+	</update>
+	
+	<!--获取角色详情 -->
+	<select id="getRoleInfo"  parameterType="role" resultType="role">
+		SELECT
+		    sr.RID,
+		    sr.RCODE,
+		    sr.RNAME,
+		    sr.REMARK,
+		    sr.CRTDATE,
+		    sr.CRTER,
+		    sr.OPTDATE,
+		    sr.OPTER,
+		    sr.DELETED
+		FROM
+		    self_role sr
+		where sr.DELETED = 0
+		<if test="rid != null and rid !='' ">
+			and sr.RID = #{rid}
+		</if>
+		<if test="rcode != null and rcode !='' ">
+			and sr.RCODE = #{rcode}
+		</if>
+		<if test="rname != null and rname !='' ">
+			and sr.RNAME = #{rname}
+		</if>
+	</select>
+	
+	<!--获取角色列表 -->
+	<select id="getRoleList"  parameterType="role" resultType="role">
+		select role.RID,
+			 role.RCODE,
+			 role.RNAME,
+			 role.REMARK,
+			 resource.resourceid,
+			 resource.resourcename
+		from self_role role
+		left join (
+			select rr.ROLE_ID,group_concat(RESOURCE_ID)as resourceid,group_concat(re.RNAME ) as resourcename
+			from self_role_resource_ref rr
+			left join self_resource re on re.RID = rr.RESOURCE_ID
+			where rr.DELETED = 0
+			and re.DELETED = 0
+			group by rr.ROLE_ID
+		) resource on resource.role_id = role.rid
+		where role.DELETED = 0
+		<if test="rid != null and rid !='' ">
+			and role.RID = #{rid}
+		</if>
+		<if test="rcode != null and rcode !='' ">
+			and role.RCODE like CONCAT('%',#{rcode},'%')
+		</if>
+		<if test="rname != null and rname !='' ">
+			and role.RNAME like CONCAT('%',#{rname},'%')
+		</if>
+		<include refid="limit"></include>           
+	</select>
+	
+	<!--查询资源列表统计数  用于列表分页 -->
+	<select id="getRoleCount" parameterType="role" resultType="int">
+		select count(1)
+		from self_role role
+		left join (
+			select rr.ROLE_ID,group_concat(RESOURCE_ID)as resourceid,group_concat(re.RNAME ) as resourcename
+			from self_role_resource_ref rr
+			left join self_resource re on re.RID = rr.RESOURCE_ID
+			where rr.DELETED = 0
+			and re.DELETED = 0
+			group by rr.ROLE_ID
+		) resource on resource.role_id = role.rid
+		where role.DELETED = 0
+		<if test="rid != null and rid !='' ">
+			and role.RID = #{rid}
+		</if>
+		<if test="rcode != null and rcode !='' ">
+			and role.RCODE like CONCAT('%',#{rcode},'%')
+		</if>
+		<if test="rname != null and rname !='' ">
+			and role.RNAME like CONCAT('%',#{rname},'%')
+		</if>
+	</select>
+	
+	<!--保存角色与资源的关联关系 -->
+	<insert id="insertRoleResourceRef" parameterType="java.util.HashMap">
+	    INSERT
+			INTO
+			    self_role_resource_ref
+			    (
+			        ID,
+			        ROLE_ID,
+			        RESOURCE_ID,
+			        CRTER,
+			        CRTDATE,
+			        OPTER,
+			        OPTDATE,
+			        DELETED
+			    )
+			    VALUES
+			   	<foreach collection="list" item="item" index="index" separator="," >  
+			        (replace(uuid(),'-',''),#{item.role_id},#{item.resource_id},#{item.crter},sysdate(),#{item.opter},sysdate(),0)  
+			    </foreach> 
+	</insert>
+	
+	<!--更新角色与资源的关联关系 -->
+	<update id="updateRoleResourceRef" parameterType="java.util.HashMap">
+		UPDATE
+		    self_role_resource_ref
+		SET
+			OPTDATE = sysdate()
+			, OPTER = #{opter}
+			<if test="role_id != null and role_id !='' ">
+				, ROLE_ID = #{role_id}
+			</if>
+			<if test="resource_id != null and resource_id !='' ">
+				, RESOURCE_ID = #{resource_id}
+			</if>
+			<if test="deleted != null and deleted !='' ">
+				, DELETED = #{deleted}
+			</if>
+		WHERE
+		    ID = #{id}
+	</update>
+	
+	<!--查询角色与资源的关联关系 -->
+	<select id="getRolResourceList" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select rr.ID,
+		        rol.RID as role_id,
+		        rol.RNAME as role_name,
+		        res.RID as resource_id,
+		        res.RNAME as resource_name,
+		        res.RURL as resource_url 
+		from SELF_ROLE_RESOURCE_REF rr
+		left join SELF_ROLE rol on rol.RID = rr.ROLE_ID
+		left join SELF_RESOURCE res on res.RID = rr.RESOURCE_ID
+		where rr.DELETED = 0
+		and rol.DELETED = 0
+		and res.DELETED = 0
+		<if test="rid != null and rid !='' ">
+			and rol.RID = #{rid}
+		</if>
+	</select>	
+	
+	<!--删除角色与资源的关联关系-->
+	<delete id="deltedRef" parameterType="java.lang.String">
+		delete from SELF_ROLE_RESOURCE_REF where role_id = #{role_id}
+	</delete>
+	
+	<!--删除角色与资源的关联关系-->
+	<delete id="deltedRefOne" parameterType="java.lang.String">
+		delete from SELF_ROLE_RESOURCE_REF where id = #{refid}
+	</delete>
+	
+	<!--查询已关联角色与资源(用于系统权限注册) -->
+	<select id="getAllRolResourceList"  resultType="java.util.HashMap">
+		select role.RCODE as role_code,
+		 	   res.RURL as resource_url
+		from self_role_resource_ref ref
+		left join self_role role on role.RID = ref.ROLE_ID
+		left join self_resource res on res.RID = ref.RESOURCE_ID
+		where ref.DELETED = 0 
+		and role.DELETED = 0
+		and res.DELETED = 0
+	</select>		
+</mapper>
+

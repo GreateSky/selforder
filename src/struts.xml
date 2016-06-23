@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<!--
+		<constant name="struts.enable.DynamicMethodInvocation" value="false"
+		/> <constant name="struts.devMode" value="false" /> <include
+		file="example.xml"/> <package name="default" namespace="/"
+		extends="struts-default"> <default-action-ref name="index" /> <action
+		name="index"> <result type="redirectAction"> <param
+		name="actionName">HelloWorld</param> <param
+		name="namespace">/example</param> </result> </action> </package>
+	-->
+	
+	<!--
+	<package name="struts2-spring" extends="struts-default">
+		<action name="login" class="User" method="login">
+			<result name="success">Success.jsp</result>
+			<result name="error">index.jsp</result>
+		</action>
+		<action name="register" class="User" method="register">
+			<result name="success">chenggong.jsp</result>
+			<result name="error">register.jsp</result>
+		</action>
+		<action name="queryall" class="User" method="queryall">
+			<result name="success">manage.jsp</result>
+		</action>
+		<action name="update" class="User" method="update">
+			<result name="success">chenggong.jsp</result>
+		</action>
+		<action name="delete" class="User" method="delete">
+			<result name="success">chenggong.jsp</result>
+		</action>
+	</package>
+	-->
+	
+	<!--
+	<package name="system-login" extends="struts-default" namespace="/system/login">
+		<action name = "loginAction" class="loginAction" method="userLogin">
+		</action>
+	</package>-->
+	
+	<!--JSON数据返回-->
+	<package name="system-login" extends="struts-default,json-default" namespace="/system/login">
+		<!--用户登录-->
+		<action name = "loginAction" class="loginAction" method="userLogin">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+		
+		<!--注销-->
+		<action name = "cancelAction" class="loginAction" method="cancelAction">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+	</package>
+	<!-- /JSON数据返回-->
+	<include file="config/status-system.xml"></include>
+	<include file="config/business-status.xml"></include>
+	<include file="config/shop-status.xml"></include>
+	<include file="config/employee-status.xml"></include>
+	<include file="config/power-status.xml"></include>
+</struts>

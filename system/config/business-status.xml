@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<!--商户管理-->
+	<package name="business" extends="struts-default,json-default" namespace="/api/business">
+		<!--保存商户信息-->
+		<action name = "saveBusiness" class="businessAction" method="saveBusiness">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+		<!--获取商户列表-->
+		<action name = "getBusinessList" class="businessAction" method="getBusinessList">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+		<!--获取商户详情-->
+		<action name = "getBusinessInfo" class="businessAction" method="getBusinessInfo">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+		<!--更新商户详情-->
+		<action name = "updateBusiness" class="businessAction" method="updateBusiness">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+	</package>
+	
+</struts>
