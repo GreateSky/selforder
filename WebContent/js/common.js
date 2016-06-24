@@ -95,3 +95,16 @@ function checkValue(value,remark){
 		return -1;
 	}
 }
+
+/**
+ * 验证值
+ * @param value
+ * @returns
+ */
+function checkValue(value){
+	if(typeof(value) != "undefined" && value != null && value != "" && value != "null"){
+		return true;
+	}else{
+		return false;
+	}
+}

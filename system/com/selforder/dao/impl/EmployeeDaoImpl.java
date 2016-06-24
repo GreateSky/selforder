@@ -1,9 +1,12 @@
 package com.selforder.dao.impl;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 
+import com.selforder.bean.Business;
 import com.selforder.bean.Employee;
 import com.selforder.dao.EmployeeDao;
 import com.selforder.util.Context;
@@ -100,5 +103,34 @@ public class EmployeeDaoImpl extends SqlSessionDaoSupport implements EmployeeDao
 		}
 		return result;
 	}
-
+	
+	/**
+	 * 获取员工列表
+	 * @param employee
+	 * @return
+	 */
+	public List<Employee> getEmployeeList(Employee employee){
+		List<Employee> employeelist = new ArrayList<Employee>();
+		try{
+			employeelist = getSqlSession().selectList("com.selforder.employee.getEmployeeList", employee);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return employeelist;
+	}
+	
+	/**
+	 * 获取列表统计数
+	 * @param employee
+	 * @return
+	 */
+	public int getEmployeeCount(Employee employee){
+		int count = 0;
+		try{
+			count = (Integer)getSqlSession().selectOne("com.selforder.employee.getEmployeeCount", employee);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return count;
+	}
 }

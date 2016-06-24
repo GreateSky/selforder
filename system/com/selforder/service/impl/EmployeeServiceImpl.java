@@ -1,6 +1,12 @@
 package com.selforder.service.impl;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.selforder.bean.Business;
 import com.selforder.bean.Employee;
+import com.selforder.bean.UserInfo;
 import com.selforder.dao.EmployeeDao;
 import com.selforder.service.EmployeeService;
 import com.selforder.util.Context;
@@ -93,6 +99,63 @@ public class EmployeeServiceImpl implements EmployeeService {
 			}
 		}else{
 			result = JsonResultUtil.getJsonResult(-1, "fail", "参数为空！");
+		}
+		return result;
+	}
+	
+	/**
+	 * 获取员工列表
+	 * @param employee
+	 * @return
+	 */
+	public String getEmployeeList(Employee employee){
+		String result = "";
+		Map resultMap = new HashMap();
+		try{
+			//判断当前登录人的类型  A：运营人员查询全部员工   B：商户管理人员查询自己的员工  S：门店管理人员查询自己门店的员工
+			UserInfo user = new Context().getLoginUserInfo();
+			String type = user.getType();
+			if("A".equals(type)){//查询全部商户
+				//查询商户列表
+				List<Employee> employeeList = employeeDao.getEmployeeList(employee);
+				if(employeeList != null && employeeList.size()>0){
+					//查询统计数
+					int count = employeeDao.getEmployeeCount(employee);
+					resultMap.put("rows", employeeList);
+					resultMap.put("total", count);
+					result = JsonResultUtil.MapToJsonStr(resultMap);
+				}
+			}else if("B".equals(type)){
+				String bid = user.getBid();
+				employee.setBid(bid);
+				//查询商户列表
+				List<Employee> employeeList = employeeDao.getEmployeeList(employee);
+				if(employeeList != null && employeeList.size()>0){
+					//查询统计数
+					int count = employeeDao.getEmployeeCount(employee);
+					resultMap.put("rows", employeeList);
+					resultMap.put("total", count);
+					result = JsonResultUtil.MapToJsonStr(resultMap);
+				}
+			}else if("S".equals(type)){
+				String bid = user.getBid();
+				String sid = user.getSid();
+				employee.setBid(bid);
+				employee.setSid(sid);
+				//查询商户列表
+				List<Employee> employeeList = employeeDao.getEmployeeList(employee);
+				if(employeeList != null && employeeList.size()>0){
+					//查询统计数
+					int count = employeeDao.getEmployeeCount(employee);
+					resultMap.put("rows", employeeList);
+					resultMap.put("total", count);
+					result = JsonResultUtil.MapToJsonStr(resultMap);
+				}
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			return "";
 		}
 		return result;
 	}

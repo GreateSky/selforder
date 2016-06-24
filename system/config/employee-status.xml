@@ -30,6 +30,12 @@
 				<param name="root">resultJson</param>
 			</result> 
 		</action>
+		<!--获取员工列表-->
+		<action name ="getEmployeeList" class="employeeAction" method="getEmployeeList">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
 	</package>
 	
 </struts>

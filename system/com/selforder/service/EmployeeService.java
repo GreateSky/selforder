@@ -1,5 +1,7 @@
 package com.selforder.service;
 
+import java.util.List;
+
 import com.selforder.bean.Employee;
 
 public interface EmployeeService {
@@ -31,4 +33,11 @@ public interface EmployeeService {
 	 * @return
 	 */
 	public String updateEmpInfo(Employee employee);
+	
+	/**
+	 * 获取员工列表
+	 * @param employee
+	 * @return
+	 */
+	public String getEmployeeList(Employee employee);
 }

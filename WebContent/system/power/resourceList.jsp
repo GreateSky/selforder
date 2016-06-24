@@ -110,6 +110,4 @@
     <script src="<%=cxtPath%>/js/common.js"></script>
     <script src="<%=cxtPath%>/plugins/layer/layer.js"></script>
     <script src="<%=cxtPath%>/js/jquery.twbsPagination.min.js"></script>
-    <script>
-    </script>
 </html>

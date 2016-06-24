@@ -1,118 +1,138 @@
-var setting = {
-	view: {
-		dblClickExpand: false
-	},
-	check: {
-		enable: true
-	},
-	callback: {
-		onRightClick: OnRightClick
-	}
-};
-
-var zNodes =[
-	{id:1, name:"集团总部", open:true,
-		children:[
-			   {id:11, name:"节点 1-1", noR:true},
-			   {id:12, name:"节点 1-2", noR:true}
-		]},
-	{id:2, name:"财务部", open:true,
-		children:[
-			   {id:21, name:"节点 2-1"},
-			   {id:22, name:"节点 2-2"},
-			   {id:23, name:"节点 2-3"},
-			   {id:24, name:"节点 2-4"}
-		]},
-	{id:3, name:"服务部", open:true,
-		children:[
-			   {id:31, name:"节点 3-1"},
-			   {id:32, name:"节点 3-2"},
-			   {id:33, name:"节点 3-3"},
-			   {id:34, name:"节点 3-4"}
-		]},
-	{id:3, name:"餐饮部", open:true,
-		children:[
-			   {id:31, name:"节点 3-1"},
-			   {id:32, name:"节点 3-2"},
-			   {id:33, name:"节点 3-3"},
-			   {id:34, name:"节点 3-4"}
-		]}
-];
-
-function OnRightClick(event, treeId, treeNode) {
-	if (!treeNode && event.target.tagName.toLowerCase() != "button" && $(event.target).parents("a").length == 0) {
-		zTree.cancelSelectedNode();
-		showRMenu("root", event.clientX, event.clientY);
-	} else if (treeNode && !treeNode.noR) {
-		zTree.selectNode(treeNode);
-		showRMenu("node", event.clientX, event.clientY);
-	}
-}
-
-function showRMenu(type, x, y) {
-	$("#rMenu ul").show();
-	if (type=="root") {
-		$("#m_del").hide();
-		$("#m_check").hide();
-		$("#m_unCheck").hide();
-	} else {
-		$("#m_del").show();
-		$("#m_check").show();
-		$("#m_unCheck").show();
-	}
-	rMenu.css({"top":y+"px", "left":x+"px", "visibility":"visible"});
-
-	$("body").bind("mousedown", onBodyMouseDown);
-}
-function hideRMenu() {
-	if (rMenu) rMenu.css({"visibility": "hidden"});
-	$("body").unbind("mousedown", onBodyMouseDown);
-}
-function onBodyMouseDown(event){
-	if (!(event.target.id == "rMenu" || $(event.target).parents("#rMenu").length>0)) {
-		rMenu.css({"visibility" : "hidden"});
-	}
-}
-var addCount = 1;
-function addTreeNode() {
-	hideRMenu();
-	var newNode = { name:"增加" + (addCount++)};
-	if (zTree.getSelectedNodes()[0]) {
-		newNode.checked = zTree.getSelectedNodes()[0].checked;
-		zTree.addNodes(zTree.getSelectedNodes()[0], newNode);
-	} else {
-		zTree.addNodes(null, newNode);
-	}
-}
-function removeTreeNode() {
-	hideRMenu();
-	var nodes = zTree.getSelectedNodes();
-	if (nodes && nodes.length>0) {
-		if (nodes[0].children && nodes[0].children.length > 0) {
-			var msg = "要删除的节点是父节点，如果删除将连同子节点一起删掉。\n\n请确认！";
-			if (confirm(msg)==true){
-				zTree.removeNode(nodes[0]);
-			}
-		} else {
-			zTree.removeNode(nodes[0]);
-		}
-	}
-}
-function checkTreeNode(checked) {
-	var nodes = zTree.getSelectedNodes();
-	if (nodes && nodes.length>0) {
-		zTree.checkNode(nodes[0], checked, true);
-	}
-	hideRMenu();
-}
-function resetTree() {
-	hideRMenu();
-	$.fn.zTree.init($("#treeDemo"), setting, zNodes);
-}
-
-var zTree, rMenu;
-$(document).ready(function(){
-	$.fn.zTree.init($("#treeDemo"), setting, zNodes);
-	zTree = $.fn.zTree.getZTreeObj("treeDemo");
-	rMenu = $("#rMenu");
+var total = 0;
+var pageSize = 20; //默认每页20条数据
+var pageStart = 0;
+$(function(){
+	//加载商户列表
+	loadOrganizationList("init",null);
+	keyEvent();
+	//pageOption();
 });
+
+/**
+ * 分页公共插件
+ * @returns
+ */
+function pageOption(paginationid,totalpage){
+	$("#"+paginationid).twbsPagination("destroy");
+	$('#'+paginationid).twbsPagination({
+        totalPages: totalpage,
+        visiblePages: 10,
+        first:"首页",
+        prev:"上一页",
+        next:"下一页",
+        last:"尾页",
+        onPageClick: function (event, page) {
+            var tag = event.target;
+            var data_optionStr = $(tag).attr("data-option");
+            data_optionStr = "("+data_optionStr+")";
+            data_option = eval(data_optionStr);
+            pageStart = page;
+            var temp_pageSize = data_option.pageSize;
+            if(checkValue(temp_pageSize)){
+            	pageSize = temp_pageSize;
+            }else{
+            	pageSize = 2;
+            }
+            var empname = $("#empname_search").val();
+        	var empcode = $("#empcode_search").val();
+        	var param = {};
+        	if(checkValue(empname)){
+        		param["employee.empname"] = empname;
+        	}
+        	if(checkValue(empcode)){
+        		param["employee.empcode"] = empcode;
+        	}
+        	loadOrganizationList("pageQuery",null);
+        }
+    });
+}
+
+function loadOrganizationList(type,param){
+	var load = layer.load(2, {shade: [1, 'rgba(0,0,0,.5)']});
+	if(typeof(param) == "undefined" || param == null || param == ""){
+		param = {};
+		param["page"] = pageStart;
+		param["limit"] = pageSize;
+	}else{
+		param["page"] = pageStart;
+		param["limit"] = pageSize;
+	}
+	$.ajax({
+		type:"POST",
+		url:"/selforder/api/employee/getEmployeeList.action",
+		data:param,
+		dataType:'json',
+		success:function(data){
+			layer.close(load);
+			//清除历史数据
+			$("tr[tag='append']").remove();
+			if(typeof(data) == "undefined" || data == ""){
+				return;
+			}else{
+				total = data.total;
+				var totalpage = Math.ceil(total/pageSize);
+				if("init" == type){
+					pageOption("pagination",totalpage);
+				}
+				var rows = data.rows;
+				if(rows.length > 0){
+					for(var i=0;i<rows.length;i++){
+						var tr = "";
+						var row = rows[i];
+						var empid = row.empid;
+						var empcode  = row.empcode;
+						var empname = row.empname;
+						var remark = row.remark;
+						tr +='<tr tag="append" empid="'+empid+'" class="animated flipInX">                                     ';
+						tr +='	<td>'+(i+1)+'</td>                             ';
+						tr +='	<td>'+empname+'</td>    ';
+						tr +='	<td>'+empcode+'</td>                        ';
+						tr +='	<td></td>                  ';
+						tr +='	<td><button type="button" class="btn btn-danger" onclick="openResourceWin(\'update\',\''+empid+'\')">修改</button>&nbsp;<button type="button" class="btn btn-warning" onclick="delResource(\''+empid+'\')">删除</button></td>                    ';
+						tr +='</tr>                                    ';
+						$("#employeelist").append(tr);
+					}
+				}
+			}
+		},
+		fail:function(){
+			layer.close(load);
+		}
+	});
+}
+
+/**
+ * 搜索
+ */
+function search(){
+	var empname = $("#empname_search").val();
+	var empcode = $("#empcode_search").val();
+	var param = {};
+	param["employee.empname"] = empname;
+	param["employee.empcode"] = empcode;
+	loadOrganizationList("init",param);
+}
+
+/**
+ * 重置查询条件
+ * @returns
+ */
+function clearParam(){
+	$("#empname_search").val("");
+	$("#empcode_search").val("");
+	loadOrganizationList("init",null);
+}
+
+/**
+ * 注册回车事件
+ */
+function keyEvent(){
+	$("*[id *= '_search']").each(function(i){
+		$(this).keydown(function (event){
+			var keyCode=event.keyCode ? event.keyCode:event.which?event.which:event.charCode;//解决浏览器之间的差异问题 
+			if(keyCode==13){ 
+				search(); 
+			} 
+		});
+	});
+}

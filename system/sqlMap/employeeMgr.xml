@@ -5,12 +5,12 @@
 	<cache eviction="LRU" flushInterval="1000" size="1024" readOnly="false" />
 	<sql id="limit">
 		<choose>
-		<when test="pageStart != null and pageSize != null and pageStart != '' and pageSize != '' ">
-			limit ${pageStart},${pageSize}
-		</when>
-		<otherwise>
-			limit 0,20
-		</otherwise>
+			<when test="pageStart != null and pageSize != null">
+				limit ${pageStart},${pageSize}
+			</when>
+			<otherwise>
+				limit 0,20
+			</otherwise>
 		</choose>
 	</sql>
 	<!--新增员工信息 -->
@@ -107,9 +107,6 @@
 		<if test="sid != null and sid !='' ">
 			and emp.SID =#{sid}
 		</if> 
-		<if test="sid != null and sid !='' ">
-			and emp.SID =#{sid}
-		</if>
 		<if test="empname != null and empname !='' ">
 			and emp.EMPNAME like CONCAT('%',#{empname},'%')
 		</if>
@@ -117,8 +114,11 @@
 			and emp.PHONE like CONCAT('%',#{phone},'%')
 		</if>
 		<if test="empcode != null and empcode !='' ">
-			and emp.EMPCODE like CONCAT('%',#{empcode},'%')
+			and emp.EMPCODE = #{empcode}
 		</if>
+		order by emp.OPTDATE desc,CRTDATE desc
+		<include refid="limit"></include>
+		
 	</select>
 	<!--查询员工列表统计数  用于列表分页 -->
 	<select id="getEmployeeCount" parameterType="employee" resultType="int">
@@ -135,9 +135,6 @@
 		<if test="sid != null and sid !='' ">
 			and emp.SID =#{sid}
 		</if> 
-		<if test="sid != null and sid !='' ">
-			and emp.SID =#{sid}
-		</if>
 		<if test="empname != null and empname !='' ">
 			and emp.EMPNAME like CONCAT('%',#{empname},'%')
 		</if>
@@ -145,7 +142,7 @@
 			and emp.PHONE like CONCAT('%',#{phone},'%')
 		</if>
 		<if test="empcode != null and empcode !='' ">
-			and emp.EMPCODE like CONCAT('%',#{empcode},'%')
+			and emp.EMPCODE = #{empcode}
 		</if>
 	</select>
 	

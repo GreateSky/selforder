@@ -1,6 +1,6 @@
 package com.selforder.dao;
 
-import java.util.Map;
+import java.util.List;
 
 import com.selforder.bean.Employee;
 
@@ -46,5 +46,19 @@ public interface EmployeeDao {
 	 * @return
 	 */
 	public int updateEmpInfo(Employee employee);
+	
+	/**
+	 * 获取员工列表
+	 * @param employee
+	 * @return
+	 */
+	public List<Employee> getEmployeeList(Employee employee);
+	
+	/**
+	 * 获取列表统计数
+	 * @param employee
+	 * @return
+	 */
+	public int getEmployeeCount(Employee employee);
 	
 }
