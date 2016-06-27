@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<!--组织架构管理-->
+	<package name="organization" extends="struts-default,json-default" namespace="/api/organization">
+	
+		<!--保存组织架构-->
+		<action name = "saveOrganization" class="organizationAction" method="saveOrganization">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+		<!--获取组织架构列表-->
+		<action name = "getorganizationList4Tree" class="organizationAction" method="getorganizationList4Tree">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+		<!--更新组织架构-->
+		<action name = "updateOrganization" class="organizationAction" method="updateOrganization">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+	</package>
+	
+</struts>

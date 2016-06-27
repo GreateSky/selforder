@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.selforder.organization" >
+	<cache eviction="LRU" flushInterval="1000" size="1024" readOnly="false" />
+	<sql id="limit">
+		<choose>
+			<when test="pageStart != null and pageSize != null">
+				limit ${pageStart},${pageSize}
+			</when>
+			<otherwise>
+				limit 0,20
+			</otherwise>
+		</choose>
+	</sql>
+	<!--新增组织架构信息 -->
+	<insert id="insertOrganization" parameterType="organization">
+	    INSERT
+			INTO
+			    self_organization
+			    (
+			        OID,
+			        ONAME,
+			        LEVEL,
+			        PARENTID,
+			        LEVELPATH,
+			        BID,
+			        SEQ,
+			        CRTER,
+			        CRTDATE,
+			        OPTER,
+			        OPTDATE,
+			        DELETED
+			    )
+			    VALUES
+			    (
+			        replace(uuid(),'-',''),
+			        #{oname},
+			        #{level},
+			        #{parentid},
+			        #{levelpath},
+			        #{bid},
+			        #{seq},
+			        #{crter},
+			        sysdate(),
+			        #{opter},
+			        sysdate(),
+			        0
+			    )
+	</insert>
+	
+	<!--获取组织架构信息 -->
+	<select id="getOrganizationList4Tree"  parameterType="organization" resultType="organization">
+		SELECT
+		    org.OID,
+		    org.ONAME,
+		    org.LEVEL,
+		    org.PARENTID,
+		    org.LEVELPATH,
+		    org.BID,
+		    org.CRTER,
+		    org.CRTDATE,
+		    org.OPTER,
+		    org.OPTDATE,
+		    org.DELETED
+		FROM
+		    self_organization org  
+		where org.DELETED = 0  
+		and org.BID = #{bid}
+		<choose>
+			<when test="parentid != null and parentid !='' ">
+				and org.PARENTID = #{parentid}
+			</when>
+			<otherwise>
+				and org.PARENTID is null
+			</otherwise>
+		</choose>     
+		<if test="level != null and level !='' ">
+			and org.LEVEL = #{level}
+		</if>
+		order by org.LEVEL,org.SEQ desc
+		  
+	</select>
+	
+	<!--更新组织架构 -->
+	<update id="updateOrganization" parameterType="organization">
+		UPDATE
+		    self_organization
+		SET
+			OPTER = #{opter}
+		    , OPTDATE = sysdate()
+		    <if test="oname != null and oname !='' ">
+				, ONAME = #{oname}
+			</if>
+			<if test="level != null and level !='' ">
+				, LEVEL = #{level}
+			</if>
+			<if test="parentid != null and parentid !='' ">
+				, PARENTID = #{parentid}
+			</if>
+			<if test="levelpath != null and levelpath !='' ">
+				, LEVELPATH = #{levelpath}
+			</if>
+			<if test="seq != null and seq !='' ">
+				, SEQ = #{seq}
+			</if>
+			<if test="deleted != null and deleted !='' ">
+				, DELETED = #{deleted}
+			</if>
+		    deleted = 0
+		WHERE
+		    OID = #{oid} 
+	</update>
+</mapper>
+

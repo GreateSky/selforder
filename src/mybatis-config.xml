@@ -19,6 +19,7 @@
         <typeAlias alias="employee" type="com.selforder.bean.Employee"/> 
         <typeAlias alias="resource" type="com.selforder.bean.Resource"/> 
         <typeAlias alias="role" type="com.selforder.bean.Role"/>
+        <typeAlias alias="organization" type="com.selforder.bean.Organization"/>
     </typeAliases>  
     
     <mappers>
@@ -29,5 +30,6 @@
     	<mapper resource="sqlMap/shopMgr.xml"/>
     	<mapper resource="sqlMap/employeeMgr.xml"/>
     	<mapper resource="sqlMap/powerMgr.xml"/>
+    	<mapper resource="sqlMap/organizationMgr.xml"/>
     </mappers>
 </configuration> 

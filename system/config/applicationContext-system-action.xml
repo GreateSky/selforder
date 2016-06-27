@@ -35,4 +35,8 @@
 	<bean name="powerAction" class="com.selforder.action.PowerAction" scope="prototype">
 		<property name="powerService" ref="powerService"></property>
 	</bean>
+	<!--组织架构管理-->
+	<bean name="organizationAction" class="com.selforder.action.OrganizationAction" scope="prototype">
+		<property name="organizationService" ref="organizationService"></property>
+	</bean>
 </beans>

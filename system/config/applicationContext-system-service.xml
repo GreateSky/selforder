@@ -39,6 +39,10 @@
 	<bean name="powerService" class="com.selforder.service.impl.PowerServiceImpl" scope="prototype">
 		<property name="powerDao" ref="powerDao"></property>
 	</bean>
+	<!--组织架构管理-->
+	<bean name="organizationService" class="com.selforder.service.impl.OrganizationServiceImpl" scope="prototype">
+		<property name="organizationDao" ref="organizationDao"></property>
+	</bean>
 	
 	<!-- *************************Dao注册*********************************-->
 	<bean name="bizDictDao" class="com.automobile.dao.impl.BizDictDaoImpl" scope="prototype" >
@@ -63,5 +67,9 @@
 	<!--权限角色资源管理-->
 	<bean name="powerDao" class="com.selforder.dao.impl.PowerDaoImpl" scope="prototype">
 		<property name="sqlSessionTemplate" ref="sqlSessionTemplate" ></property>
+	</bean>
+	<!--组织架构管理-->
+	<bean name="organizationDao" class="com.selforder.dao.impl.OrganizationDaoImpl" scope="prototype">
+		<property name="sqlSessionTemplate" ref="sqlSessionTemplate"></property>
 	</bean>
 </beans>
