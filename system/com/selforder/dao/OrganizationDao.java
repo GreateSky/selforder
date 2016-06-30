@@ -1,11 +1,9 @@
 package com.selforder.dao;
 
 import java.util.List;
-import java.util.Map;
 
+import com.selforder.bean.Employee;
 import com.selforder.bean.Organization;
-import com.selforder.bean.Resource;
-import com.selforder.bean.Role;
 
 /**
  * 组织机构管理Dao
@@ -34,4 +32,53 @@ public interface OrganizationDao {
 	 * @return
 	 */
 	public int updateOrganization(Organization  organization);
+	
+	/**
+	 * 批量插入员工与组织架构关联关系
+	 * @param employeeList
+	 * @return
+	 */
+	public int insertEmpOrg(List<Employee> employeeList);
+	
+	/**
+	 * 获取组织架构与人员关系列
+	 * @param organization
+	 * @return
+	 */
+	public List<Employee> getEmpOrgList(Employee  employee);
+	
+	/**
+	 * 获取组织架构与人员关系列表统计数
+	 * @param organization
+	 * @return
+	 */
+	public int getEmpOrgListCount(Employee  employee);
+	
+	/**
+	 * 更新组织与人员关系列
+	 * @param organization
+	 * @return
+	 */
+	public int updateEmpOrg(Employee  employee);
+	
+	/**
+	 * 获取未关联组织架构的员工信息
+	 * @param organization
+	 * @return
+	 */
+	public List<Employee> getNoEmpOrgList(Employee  employee);
+	
+	/**
+	 * 移除部门及下属部门
+	 * @param organization
+	 * @return
+	 */
+	public int removeOrg(Organization  organization);
+	
+	/**
+	 * 移除部门及下属部门员工
+	 * @param organization
+	 * @return
+	 */
+	public int removeOrgEmp(Organization  organization);
 }

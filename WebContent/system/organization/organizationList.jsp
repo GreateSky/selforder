@@ -59,7 +59,7 @@
 			                <i ></i> <span >新增下级</span> </i>
 			              </a>
 			            </li>
-			            <li class="treeview" id="m_add" onclick="checkTreeNode(true);">
+			            <li class="treeview" id="m_add" onclick="showTreeNodeInfo();">
 			              <a href="#">
 			                <i ></i> <span >修改</span> </i>
 			              </a>
@@ -96,8 +96,7 @@
                       <div class="col-sm-6">
                         <button class="btn btn-info"><i class="fa fa-search"></i>&nbsp;查询</button>
                         <button class="btn btn-info"><i class="fa fa-refresh"></i>&nbsp;重置</button>
-                        <button class="btn btn-warning"><i class="fa fa-plus"></i>&nbsp;添加人员</button>
-                        <button class="btn btn-danger"><i class="fa  fa-remove"></i>&nbsp;删除</button>
+                        <button type="button" onclick="showEmployeeWin()" class="btn btn-warning"><i class="fa fa-plus"></i>&nbsp;添加人员</button>
                        </div>
                     </div><!--/搜索信息 start-->
                     <!--门店列表start-->
@@ -112,12 +111,68 @@
                   </table><!--/门店列表-->
                   <!--分页条件-->
                   <nav>
-					  <ul class="pagination" id="pagination" data-option="{'pageSize':2,'loadData':'search()'}"> </ul>
+					  <ul class="pagination" id="pagination" data-option="{'pageSize':20,'loadData':'search()'}"> </ul>
 				   </nav><!--/分页条件-->
                   </div><!-- /.box-body -->
                 </form><!--/ form start -->
               </div><!-- /.box -->
         </section><!-- /.content -->
+        
+        <!--modal 添加员工-->
+        <div class="modal fade" id="employeeListWin" openType="" rid="" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		 	<div class="modal-dialog">
+			    <div class="modal-content">
+				      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				        <h4 class="modal-title" id="myModalLabel">资源选择</h4>
+				      </div>
+				      <div class="modal-body">
+					    <div class="form-group has-warning" >
+					      <label for="wcode">名称</label>
+					      <input type="text" class="form-control" id="rname" name="resource.rname" placeholder="名称" value="" >
+					      <label for="wcode">URL</label>
+					      <input type="text" class="form-control" id="rurl" name="resource.rurl" placeholder="URL" value="" >
+						</div>
+						<table id="noEmpOrglist" class="table table-striped ">
+		                    <tr>
+		                      <th></th>
+		                      <th>#</th>
+		                      <th>名称</th>
+		                      <th>编码</th>
+		                    </tr>
+		                </table><!--/门店列表-->
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">取消</button>
+				        <button type="button" class="btn btn-primary" onclick="saveEmpOrg()">保存</button>
+				      </div>
+			    </div><!-- /.modal-content -->
+			  </div><!-- /.modal-dialog -->
+		</div><!-- /<!--modal 添加员工-->
+		
+		<!--modal 添加组织架构-->
+        <div class="modal fade" id="editTreeWin" openType="" oid="" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		 	<div class="modal-dialog">
+			    <div class="modal-content">
+				      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				        <h4 class="modal-title" id="myModalLabel">编辑部门</h4>
+				      </div>
+				      <div class="modal-body">
+					    <div class="form-group has-warning" >
+					      <label for="wcode">名称</label>
+					      <input type="text" class="form-control" id="edit_oname"  placeholder="名称" value="" >
+					      <label for="wcode">排序(越大越靠前)</label>
+					      <input type="number" class="form-control" id="edit_seq" placeholder="排序(越大越靠前)" value="" >
+						</div>
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">取消</button>
+				        <button type="button" class="btn btn-primary" onclick="saveEditTree()">保存</button>
+				      </div>
+			    </div><!-- /.modal-content -->
+			  </div><!-- /.modal-dialog -->
+		</div><!-- /<!--modal 添加组织架构-->
 	</body>
 	<!-- jQuery 2.1.4 -->
     <script src="<%=cxtPath%>/plugins/jQuery/jQuery-2.1.4.min.js"></script>
@@ -127,9 +182,6 @@
     <script src="<%=cxtPath%>/js/jquery.twbsPagination.min.js"></script>
     <!--zTree-->
     <script type="text/javascript" src="../../plugins/zTree/js/jquery.ztree.all.min.js"></script>
-    <script type="text/javascript" src="../../plugins/zTree/js/jquery.ztree.core.js"></script>
-	<script type="text/javascript" src="../../plugins/zTree/js/jquery.ztree.excheck.js"></script>
-	<script type="text/javascript" src="../../plugins/zTree/js/jquery.ztree.exedit.js"></script>
 	<script src="tree.js"></script>
 	<script type="text/javascript" src="organizationList.js"></script>
     

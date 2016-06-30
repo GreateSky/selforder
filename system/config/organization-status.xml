@@ -25,6 +25,37 @@
 				<param name="root">resultJson</param>
 			</result> 
 		</action>
+		
+		<!--保存组织架构与员工关联关系-->
+		<action name = "saveEmpOrg" class="organizationAction" method="saveEmpOrg">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+		<!--更新组织架构与员工关联关系-->
+		<action name = "updateEmpOrg" class="organizationAction" method="updateEmpOrg">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+		<!--获取组织架构与员工关联关系列表-->
+		<action name = "getEmpOrgList" class="organizationAction" method="getEmpOrgList">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+		<!--获取未关联组织架构的员工信息-->
+		<action name = "getNoEmpOrgList" class="organizationAction" method="getNoEmpOrgList">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+		<!--移除组织架构-->
+		<action name = "removeOrgAndEmp" class="organizationAction" method="removeOrgAndEmp">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
 	</package>
 	
 </struts>

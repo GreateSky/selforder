@@ -1,6 +1,8 @@
 var total = 0;
 var pageSize = 20; //默认每页20条数据
 var pageStart = 0;
+var curr_oid = "";//当前的组织架构ID
+var curr_oname = "";
 $(function(){
 	//加载商户列表
 	loadOrganizationList("init",null);
@@ -31,7 +33,7 @@ function pageOption(paginationid,totalpage){
             if(checkValue(temp_pageSize)){
             	pageSize = temp_pageSize;
             }else{
-            	pageSize = 2;
+            	pageSize = 20;
             }
             var empname = $("#empname_search").val();
         	var empcode = $("#empcode_search").val();
@@ -48,7 +50,7 @@ function pageOption(paginationid,totalpage){
 }
 
 function loadOrganizationList(type,param){
-	var load = layer.load(2, {shade: [1, 'rgba(0,0,0,.5)']});
+	//var load = layer.load(2, {shade: [1, 'rgba(0,0,0,.5)']});
 	if(typeof(param) == "undefined" || param == null || param == ""){
 		param = {};
 		param["page"] = pageStart;
@@ -57,13 +59,14 @@ function loadOrganizationList(type,param){
 		param["page"] = pageStart;
 		param["limit"] = pageSize;
 	}
+	param["employee.oid"] = curr_oid;
 	$.ajax({
 		type:"POST",
-		url:"/selforder/api/employee/getEmployeeList.action",
+		url:"/selforder/api/organization/getEmpOrgList.action",
 		data:param,
 		dataType:'json',
 		success:function(data){
-			layer.close(load);
+			//layer.close(load);
 			//清除历史数据
 			$("tr[tag='append']").remove();
 			if(typeof(data) == "undefined" || data == ""){
@@ -82,13 +85,13 @@ function loadOrganizationList(type,param){
 						var empid = row.empid;
 						var empcode  = row.empcode;
 						var empname = row.empname;
-						var remark = row.remark;
+						var oname = row.oname;
 						tr +='<tr tag="append" empid="'+empid+'" class="animated flipInX">                                     ';
 						tr +='	<td>'+(i+1)+'</td>                             ';
 						tr +='	<td>'+empname+'</td>    ';
 						tr +='	<td>'+empcode+'</td>                        ';
-						tr +='	<td></td>                  ';
-						tr +='	<td><button type="button" class="btn btn-danger" onclick="openResourceWin(\'update\',\''+empid+'\')">修改</button>&nbsp;<button type="button" class="btn btn-warning" onclick="delResource(\''+empid+'\')">删除</button></td>                    ';
+						tr +='	<td>'+oname+'</td>                  ';
+						tr +='	<td><button type="button" class="btn btn-warning" onclick="delRef(\''+empid+'\')">删除</button></td>                    ';
 						tr +='</tr>                                    ';
 						$("#employeelist").append(tr);
 					}
@@ -99,6 +102,47 @@ function loadOrganizationList(type,param){
 			layer.close(load);
 		}
 	});
+}
+
+/**
+ * 删除用户关联
+ * @param oeid
+ */
+function delRef(empid){
+	if(typeof(empid) == "undefined" || empid == ""){
+		layer.msg("员工参数异常，请刷新后重试!",{icon:5});
+	}else if(typeof(curr_oid) == "undefined" || curr_oid == ""){
+		layer.msg("部门参数异常，请选择左边部门后重试!",{icon:5});
+	}else{
+		layer.confirm("确定要从【"+curr_oname+"】中移除该员工吗？",
+			{btn:["确定","取消"]},
+			function(){//确定
+				var param = {};
+				param["employee.empid"] = empid;
+				param["employee.oid"] = curr_oid;
+				param["employee.deleted"] = 1;
+				$.ajax({
+					type:"POST",
+					url:"/selforder/api/organization/updateEmpOrg.action",
+					data:param,
+					dataType:"json",
+					success:function(res){
+						var retCode = res.retCode;
+						var message = res.message;
+						if(retCode < 0){
+							layer.msg(message,{icon:5});
+						}else{
+							layer.msg(message,{icon:6});
+						}
+						loadOrganizationList("init",null);
+					}
+				});
+			},
+			function(){//取消
+				layer.closeAll();
+			}
+		);
+	}
 }
 
 /**
@@ -135,4 +179,101 @@ function keyEvent(){
 			} 
 		});
 	});
+}
+
+/**
+ * 显示选择人员列表
+ */
+function showEmployeeWin(){
+	loadEmployeeList("");
+	$("#employeeListWin").modal("show");
+}
+
+/**
+ * 加载当前组织架构中未包含的员工列表
+ */
+function loadEmployeeList(param){
+	var noemporg_load = layer.load(2, {shade: [1, 'rgba(0,0,0,.5)']});
+	if(!param){
+		param = {};
+	}
+	param["employee.oid"] = curr_oid;
+	$.ajax({
+		type:"POST",
+		url:"/selforder/api/organization/getNoEmpOrgList.action",
+		data:param,
+		dataType:"json",
+		success:function(res){
+			layer.close(noemporg_load);
+			//清除历史数据
+			$("tr[tag='emporglist_append']").remove();
+			var retCode = res.retCode;
+			var message = res.message;
+			var noemporglist = res.data;
+			if(retCode < 0){
+				layer.msg(message,{icon:2});
+			}else{
+				for(var i=0;i<noemporglist.length;i++){
+					var row = noemporglist[i];
+					var empid = row.empid;
+					var empname = row.empname;
+					var empcode = row.empcode;
+					var appendTr = "";
+					appendTr += '<tr tag="emporglist_append" empid="'+empid+'">';
+					appendTr +='   <td><input type="checkbox"></input></td>';
+					appendTr += '  <td>'+(i+1)+'</td>';
+					appendTr += '  <td>'+empname+'</td>';
+					appendTr += '  <td>'+empcode+'</td> ';
+					appendTr += '</tr>          ';
+					$("#noEmpOrglist").append(appendTr);
+				}
+			}
+		}
+	});
+}
+
+/**
+ * 保存选择的员工与组织关系
+ */
+function saveEmpOrg(){
+	var selectNum = -1;
+	selectNum = $("#noEmpOrglist input[type='checkbox']:checked").length;
+	if(selectNum <=0 ){
+		layer.msg("请选择需要关联的员工!", {icon: 5});
+		return;
+	}else{
+		layer.confirm('确定保存数据吗？', {
+			  btn: ['确定','取消'] //按钮
+			}, function(){
+				layer.closeAll();
+				//确定保存
+				var param = {};
+				$("#noEmpOrglist input[type='checkbox']:checked").each(function(i){
+					var tr = $(this).parent().parent();
+					var empid =  $(tr).attr("empid");
+					param["employeeList["+i+"].oid"] =  curr_oid;
+					param["employeeList["+i+"].empid"] = empid;
+				});
+				$.ajax({
+					type:"POST",
+					url:"/selforder/api/organization/saveEmpOrg.action",
+					data:param,
+					dataType:"json",
+					success:function(res){
+						$("#employeeListWin").modal("hide");
+						var retCode = res.retCode;
+						var message = res.message;
+						if(retCode < 0){
+							layer.msg(message,{icon:5});
+						}else{
+							layer.msg(message,{icon:1});
+						}
+					}
+				});
+			}, function(){
+				$("#employeeListWin").modal("hide");
+				//取消保存
+				layer.closeAll();
+			});
+	}
 }

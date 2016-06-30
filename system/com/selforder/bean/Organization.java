@@ -24,6 +24,7 @@ public class Organization extends baseBean {
 	private Date optdate;
 	private int deleted;
 	private int seq;
+	private String child_oid;
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
@@ -99,4 +100,12 @@ public class Organization extends baseBean {
 	public void setSeq(int seq) {
 		this.seq = seq;
 	}
+	public String getChild_oid() {
+		return child_oid;
+	}
+	public void setChild_oid(String child_oid) {
+		this.child_oid = child_oid;
+	}
+	
+
 }

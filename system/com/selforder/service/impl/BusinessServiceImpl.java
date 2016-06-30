@@ -157,6 +157,9 @@ public class BusinessServiceImpl implements BusinessService {
 		emp.setPassword("000000");
 		System.out.println("md5加密后的密码==============:"+Tools.MD5("000000{sysadmin}"));
 		System.out.println("set password===============:"+emp.getPassword());
+		
+		double t = 234.45;
+		System.out.println(t/23/25);
 	}
 
 }

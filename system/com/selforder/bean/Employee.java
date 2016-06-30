@@ -42,6 +42,9 @@ public class Employee extends baseBean {
 	private String role;
 	private String newpassword;
 	private String opter;
+	private String oid;//所属组织架构ID
+	private String oeid;//组织架构与人员关联表ID
+	private String oname;//组织架构名称
 	public String getEmpid() {
 		return empid;
 	}
@@ -220,5 +223,23 @@ public class Employee extends baseBean {
 	}
 	public void setOpter(String opter) {
 		this.opter = opter;
+	}
+	public String getOid() {
+		return oid;
+	}
+	public void setOid(String oid) {
+		this.oid = oid;
+	}
+	public String getOeid() {
+		return oeid;
+	}
+	public void setOeid(String oeid) {
+		this.oeid = oeid;
+	}
+	public String getOname() {
+		return oname;
+	}
+	public void setOname(String oname) {
+		this.oname = oname;
 	}
 }

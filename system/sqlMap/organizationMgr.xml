@@ -34,11 +34,25 @@
 			    )
 			    VALUES
 			    (
-			        replace(uuid(),'-',''),
+			        #{oid},
 			        #{oname},
-			        #{level},
+			        <choose>
+						<when test="parentid != null and parentid != null">
+							(select * from (select (p.level+1)  from self_organization p where p.oid = #{parentid}) temp) ,
+						</when>
+						<otherwise>
+							0,
+						</otherwise>
+					</choose>
 			        #{parentid},
-			        #{levelpath},
+			        <choose>
+						<when test="parentid != null and parentid != null">
+							(select * from (select concat(p.levelpath,'.',#{oid}) from self_organization p where p.oid = #{parentid}) temp2) ,
+						</when>
+						<otherwise>
+							(select * from (select concat('.',#{oid})) temp) ,
+						</otherwise>
+					</choose>
 			        #{bid},
 			        #{seq},
 			        #{crter},
@@ -57,14 +71,23 @@
 		    org.LEVEL,
 		    org.PARENTID,
 		    org.LEVELPATH,
+		    org.SEQ,
 		    org.BID,
 		    org.CRTER,
 		    org.CRTDATE,
 		    org.OPTER,
 		    org.OPTDATE,
-		    org.DELETED
+		    org.DELETED,
+		    corg.child_oid
 		FROM
-		    self_organization org  
+		    self_organization org 
+		left join (
+			select so.PARENTID,
+				   GROUP_CONCAT(so.OID) as child_oid 
+			from self_organization so 
+			where so.DELETED = 0 
+			group by so.PARENTID
+		)corg on corg.PARENTID = org.OID     
 		where org.DELETED = 0  
 		and org.BID = #{bid}
 		<choose>
@@ -75,11 +98,7 @@
 				and org.PARENTID is null
 			</otherwise>
 		</choose>     
-		<if test="level != null and level !='' ">
-			and org.LEVEL = #{level}
-		</if>
 		order by org.LEVEL,org.SEQ desc
-		  
 	</select>
 	
 	<!--更新组织架构 -->
@@ -107,9 +126,149 @@
 			<if test="deleted != null and deleted !='' ">
 				, DELETED = #{deleted}
 			</if>
-		    deleted = 0
 		WHERE
 		    OID = #{oid} 
 	</update>
+	
+	<!-- 保存组织架构与与员工关联关系 -->
+	<insert id="insertEmpOrg" parameterType="employee">
+	    INSERT
+			INTO
+			    self_org_emp_ref
+			    (
+			        OEID,
+			        OID,
+			        EMPID,
+			        CRTER,
+			        CRTDATE,
+			        OPTER,
+			        OPTDATE,
+			        DELETED
+			    )
+			    VALUES
+		    	<foreach collection="list" item="item" index="index" separator="," >  
+		        	(replace(uuid(),'-',''),#{item.oid},#{item.empid},#{item.crter},sysdate(),#{item.opter},sysdate(),0)  
+			    </foreach>
+	</insert>
+
+	<!--获取组织架构员工关联信息 -->
+	<select id="getEmpOrgList"  parameterType="employee" resultType="employee">
+		select emp.EMPID,
+				 emp.EMPNAME,
+				 emp.EMPCODE,
+				 orgnames.ONAME,
+				 orgnames.levelpath
+		from self_employee emp
+		left join  view_self_emp_org orgnames on orgnames.EMPID = emp.EMPID
+		where emp.DELETED = 0 
+		and emp.BID = 'BIGBOSS'
+		<if test="oid != null and oid !='' ">
+			and instr(orgnames.levelpath,#{oid}) &gt; 0
+		</if>
+		<if test="empname != null and empname !='' ">
+			and emp.EMPNAME like CONCAT('%',#{empname},'%')
+		</if>
+		<if test="empcode != null and empcode !='' ">
+			and emp.EMPCODE = #{empcode}
+		</if>
+		order by emp.EMPCODE asc
+		<include refid="limit"></include>
+	</select>	
+	
+	<!--查询员工列表统计数  用于列表分页 -->
+	<select id="getEmployeeCount" parameterType="employee" resultType="int">
+		select count(1)
+		from self_employee emp
+		left join  view_self_emp_org orgnames on orgnames.EMPID = emp.EMPID
+		where emp.DELETED = 0 
+		and emp.BID = 'BIGBOSS'
+		<if test="oid != null and oid !='' ">
+			and instr(orgnames.levelpath,#{oid}) &gt; 0
+		</if>
+		<if test="empname != null and empname !='' ">
+			and emp.EMPNAME like CONCAT('%',#{empname},'%')
+		</if>
+		<if test="empcode != null and empcode !='' ">
+			and emp.EMPCODE = #{empcode}
+		</if>
+	</select>	
+
+	<!--更新组织架构 -->
+	<update id="updateEmpOrg" parameterType="employee">
+		UPDATE
+		    self_org_emp_ref
+		SET
+			OPTDATE = sysdate()
+			, OPTER = #{opter}
+			<if test="empid != null and empid !='' ">
+				, EMPID = #{empid}
+			</if>
+			<if test="oid != null and oid !='' ">
+				, OID = #{oid}
+			</if>
+			<if test="deleted != null and deleted !='' ">
+				, deleted = #{deleted}
+			</if>
+		WHERE
+		    OID = #{oid}
+		    and EMPID = #{empid}
+	</update>
+	
+	<!--获取未关联组织架构的员工信息 -->
+	<select id="getNoEmpOrgList"  parameterType="employee" resultType="employee">
+		select emp.EMPID,
+				 emp.EMPNAME,
+				 emp.EMPCODE,
+				 emp.STATUS 
+		from self_employee emp
+		where emp.DELETED = 0
+		and  emp.EMPID not in (
+			select oe.EMPID
+			from self_org_emp_ref oe 
+			where oe.DELETED = 0 
+			<if test="oid != null and oid !='' ">
+				and oe.OID = #{oid}
+			</if>
+		)
+		and emp.BID = #{bid}
+		<if test="empname != null and empname !='' ">
+			and emp.EMPNAME like CONCAT('%',#{empname},'%')
+		</if>
+		<if test="empcode != null and empcode !='' ">
+			and emp.EMPCODE = #{empcode}
+		</if>
+	</select>
+	
+	<!--根据部门ID移除关联的员工-->
+	<update id="removeOrgEmp" parameterType="organization">
+		UPDATE
+		    self_org_emp_ref
+		SET
+			DELETED = 1 
+		WHERE
+		    OEID in (
+		    	select temp.OEID
+		    	from (
+		    		select oe.OEID
+					from self_org_emp_ref oe 
+					where oe.DELETED = 0 
+					and oe.OID in (
+						select org.oid
+						from self_organization org 
+						where org.DELETED = 0 
+						and instr(org.LEVELPATH,#{oid}) &gt; 0
+					)
+		    	)temp
+		    )
+	</update>
+	
+	<!--根据部门ID移除及其下属部门-->
+	<update id="removeOrg" parameterType="organization">
+		UPDATE
+		    self_organization org
+		SET
+			org.DELETED = 1 
+		WHERE instrs(org.LEVELPATH,#{oid}) &gt; 0
+	</update>		
 </mapper>
 
