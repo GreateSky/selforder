@@ -37,16 +37,16 @@
 			        #{oid},
 			        #{oname},
 			        <choose>
-						<when test="parentid != null and parentid != null">
-							(select * from (select (p.level+1)  from self_organization p where p.oid = #{parentid}) temp) ,
+						<when test="parentid !='' and parentid != null">
+							(select * from (select (ifnull(p.level,0)+1)  from self_organization p where p.oid = #{parentid}) temp) ,
 						</when>
 						<otherwise>
-							0,
+							1,
 						</otherwise>
 					</choose>
 			        #{parentid},
 			        <choose>
-						<when test="parentid != null and parentid != null">
+						<when test="parentid != '' and parentid != null">
 							(select * from (select concat(p.levelpath,'.',#{oid}) from self_organization p where p.oid = #{parentid}) temp2) ,
 						</when>
 						<otherwise>
@@ -95,7 +95,7 @@
 				and org.PARENTID = #{parentid}
 			</when>
 			<otherwise>
-				and org.PARENTID is null
+				and (org.PARENTID is null or org.PARENTID = '')
 			</otherwise>
 		</choose>     
 		order by org.LEVEL,org.SEQ desc

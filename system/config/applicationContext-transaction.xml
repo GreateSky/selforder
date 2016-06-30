@@ -30,7 +30,7 @@
 		 </tx:attributes>   
 	 </tx:advice>   
 	 <aop:config>   
-		 <aop:pointcut id="interceptorPointCuts" expression="execution(* com.selforder.service..*.*(..))" />   
+		 <aop:pointcut id="interceptorPointCuts" expression="execution(* com.selforder.service.*.*(..))" />   
 		 <!-- 
 		 	execution(* com.hisun.mvc.service..*.*(..))"中几个通配符的含义：
 		 	第一个 * —— 通配 任意返回值类型

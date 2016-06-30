@@ -1,4 +1,5 @@
 var zTree, rMenu;
+var autoExpand = 0;
 $(document).ready(function(){
 	$.fn.zTree.init($("#treeDemo"), setting);
 	zTree = $.fn.zTree.getZTreeObj("treeDemo");
@@ -50,6 +51,7 @@ function onBodyMouseDown(event){
  */
 function addTreeNode() {
 	hideRMenu();
+	clearWinData();
 	var selectTreeNode = zTree.getSelectedNodes()[0];
 	if (selectTreeNode) {
 		$("#editTreeWin").modal("show");
@@ -129,7 +131,19 @@ var setting = {
 		enable:true
 	},
 	callback:{
-		onRightClick:treeRightClick
+		onRightClick:treeRightClick,
+		onAsyncSuccess:function(){
+			if(autoExpand == 0 ){
+				try{
+					var rootNode = zTree.getNodeByParam("isRoot","root",null);
+					zTree.expandNode(rootNode);
+					autoExpand++;
+				}catch(err){
+					
+				}
+			}
+			
+		}
 	}
 };
 
@@ -143,24 +157,41 @@ var setting = {
 function filter(treeId, parentNode, childNodes) {
 	var treeNodes = new Array;
 	var tempNodes = childNodes.data;
-	if (!tempNodes) return null;
-	for (var i=0, l=tempNodes.length; i<l; i++) {
-		var treeNode = {};
-		var child_oid = tempNodes[i].child_oid;
-		treeNode["name"] = tempNodes[i].oname;
-		treeNode["id"] = tempNodes[i].oid;
-		treeNode["parentid"] = tempNodes[i].parentid==null?tempNodes[i].parentid:"";
-		treeNode["level"] = tempNodes[i].level;
-		treeNode["levelpath"] = tempNodes[i].levelpath;
-		treeNode["seq"] = tempNodes[i].seq;
-		treeNode["click"] = "loadEmpList('"+tempNodes[i].oid+"','"+tempNodes[i].oname+"')";
-		if(typeof(child_oid) == "undefined" || child_oid == ""){
-			treeNode["isParent"] = false;
-			treeNode["icon"] = "../../img/users.png";
-		}else{
-			treeNode["isParent"] = true;
+	//if (!tempNodes) return null;
+	if(!parentNode){
+		//设置根节点
+		var rootNode = {};
+		rootNode["name"] = "全部";
+		rootNode["id"] = "";
+		rootNode["parentid"] = "";
+		rootNode["level"] = "";
+		rootNode["levelpath"] = "";
+		rootNode["seq"] = "";
+		rootNode["isRoot"] = "root";
+		rootNode["open"] = true;
+		rootNode["isParent"] = true;
+		rootNode["click"] = "loadEmpList('','')";
+		treeNodes.push(rootNode);
+	}else{
+		//设置子节点
+		for (var i=0, l=tempNodes.length; i<l; i++) {
+			var treeNode = {};
+			var child_oid = tempNodes[i].child_oid;
+			treeNode["name"] = tempNodes[i].oname;
+			treeNode["id"] = tempNodes[i].oid;
+			treeNode["parentid"] = tempNodes[i].parentid==null?tempNodes[i].parentid:"";
+			treeNode["level"] = tempNodes[i].level;
+			treeNode["levelpath"] = tempNodes[i].levelpath;
+			treeNode["seq"] = tempNodes[i].seq;
+			treeNode["click"] = "loadEmpList('"+tempNodes[i].oid+"','"+tempNodes[i].oname+"')";
+			if(typeof(child_oid) == "undefined" || child_oid == ""){
+				treeNode["isParent"] = false;
+				treeNode["icon"] = "../../img/users.png";
+			}else{
+				treeNode["isParent"] = true;
+			}
+			treeNodes.push(treeNode);
 		}
-		treeNodes.push(treeNode);
 	}
 	return treeNodes;
 }
@@ -198,6 +229,7 @@ function treeRightClick(event, treeId, treeNode) {
  */
 function showTreeNodeInfo(){
 	hideRMenu();
+	clearWinData();
 	var nodes = zTree.getSelectedNodes();
 	if (nodes && nodes.length>0) {
 		var oid = nodes[0].id;
@@ -246,4 +278,14 @@ function removeTreeNode() {
 	}else{
 		layer.msg("请选择部门进行操作",{icon:5});
 	}
+}
+
+/**
+ * 清除历史数据
+ */
+function clearWinData(){
+	$("#edit_oname").val("");
+	$("#edit_seq").val("");
+	$("#editTreeWin").attr("openType","");
+	$("#editTreeWin").attr("oid","");
 }
