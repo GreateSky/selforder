@@ -312,7 +312,7 @@
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="javascript:viod(0);" onclick="linkMainFrame('system/organization/organizationList.html')"><i class="fa fa-circle-o"></i> 组织架构维护</a></li>
+                <li><a href="javascript:viod(0);" onclick="linkMainFrame('system/organization/organizationList.jsp')"><i class="fa fa-circle-o"></i> 组织架构维护</a></li>
               </ul>
             </li>
             <li class="treeview">

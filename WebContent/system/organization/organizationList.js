@@ -44,7 +44,7 @@ function pageOption(paginationid,totalpage){
         	if(checkValue(empcode)){
         		param["employee.empcode"] = empcode;
         	}
-        	loadOrganizationList("pageQuery",null);
+        	loadOrganizationList("pageQuery",param);
         }
     });
 }

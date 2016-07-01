@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
+
 import com.selforder.bean.Employee;
 import com.selforder.bean.Organization;
 import com.selforder.dao.OrganizationDao;
@@ -232,7 +234,7 @@ public class OrganizationServiceImpl implements OrganizationService  {
 			result = JsonResultUtil.getJsonResult(0, "success", "操作成功!");
 		}catch(Exception e){
 			result = JsonResultUtil.getJsonResult(-1, "fail", "操作失败!");
-			throw new RuntimeException(e.getMessage());
+			e.printStackTrace();
 		}finally{
 			return result;
 		}

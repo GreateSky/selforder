@@ -24,7 +24,7 @@
         </property>  
         <property name="password">  
             <value>123456</value>  
-        </property>  
+        </property>
     </bean> 
     
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">    

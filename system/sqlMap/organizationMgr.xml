@@ -268,7 +268,7 @@
 		    self_organization org
 		SET
 			org.DELETED = 1 
-		WHERE instrs(org.LEVELPATH,#{oid}) &gt; 0
+		WHERE instr(org.LEVELPATH,#{oid}) &gt; 0
 	</update>		
 </mapper>
 

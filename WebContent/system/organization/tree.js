@@ -85,6 +85,7 @@ function saveEditTree(){
 			dataType:"json",
 			success:function(res){
 				$("#editTreeWin").modal("hide");
+				zTree.refresh();
 			}
 		});
 	}else{//新增节点
@@ -109,6 +110,7 @@ function saveEditTree(){
 			dataType:"json",
 			success:function(res){
 				$("#editTreeWin").modal("hide");
+				zTree.refresh();
 			}
 		});
 	}
@@ -139,7 +141,7 @@ var setting = {
 					zTree.expandNode(rootNode);
 					autoExpand++;
 				}catch(err){
-					
+					console.error(err);
 				}
 			}
 			
@@ -269,6 +271,7 @@ function removeTreeNode() {
 						}else{
 							layer.msg(message,{icon:6});
 						}
+						zTree.refresh();
 					}
 				});
 			},

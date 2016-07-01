@@ -30,6 +30,19 @@
 				border-bottom: 1px solid #C9CCCF;
 				height: 35px;
 			}
+			.main-sidebar, .left-side{
+				position: absolute;
+			    top: 0;
+			    left: 0;
+			    padding-top: 50px;
+			    min-height: 100%;
+			    width: 13%;
+			    z-index: 810;
+			    -webkit-transition: -webkit-transform .3s ease-in-out,width .3s ease-in-out;
+			    -moz-transition: -moz-transform .3s ease-in-out,width .3s ease-in-out;
+			    -o-transition: -o-transform .3s ease-in-out,width .3s ease-in-out;
+			    transition: transform .3s 
+			}
 		</style>
 	</head>
 	<body style="margin: 0; padding: 0; background-color: #ECF0F5; width: 100%; height: 100%;" >
@@ -46,7 +59,7 @@
         </section>
         <aside class="main-sidebar">
 	        <!-- sidebar: style can be found in sidebar.less -->
-	        <section class="sidebar" style="margin-top: 8px;margin-left: 4px;width: 200px;" >
+	        <section class="sidebar" style="margin-top: 8px;margin-left: 4px;width: 100%;" >
 	          	<div class="content_wrap" style="border: 1px solid #00C0EF; background-color: white;height: 100%;width: 100%;">
 					<div class="zTreeDemoBackground left">
 						<ul id="treeDemo" class="ztree"></ul>
@@ -94,7 +107,7 @@
                         <input type="text" class="form-control" id="empcode_search" name="employee.empcode" placeholder="编码" value="" >
                       </div>
                       <div class="col-sm-6">
-                        <button class="btn btn-info"><i class="fa fa-search"></i>&nbsp;查询</button>
+                        <button type="button" onclick="search()" class="btn btn-info"><i class="fa fa-search"></i>&nbsp;查询</button>
                         <button class="btn btn-info"><i class="fa fa-refresh"></i>&nbsp;重置</button>
                         <button type="button" onclick="showEmployeeWin()" class="btn btn-warning"><i class="fa fa-plus"></i>&nbsp;添加人员</button>
                        </div>
