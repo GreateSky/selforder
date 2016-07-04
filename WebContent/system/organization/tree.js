@@ -184,6 +184,7 @@ function filter(treeId, parentNode, childNodes) {
 			treeNode["parentid"] = tempNodes[i].parentid==null?tempNodes[i].parentid:"";
 			treeNode["level"] = tempNodes[i].level;
 			treeNode["levelpath"] = tempNodes[i].levelpath;
+			treeNode["isRoot"] = "children";
 			treeNode["seq"] = tempNodes[i].seq;
 			treeNode["click"] = "loadEmpList('"+tempNodes[i].oid+"','"+tempNodes[i].oname+"')";
 			if(typeof(child_oid) == "undefined" || child_oid == ""){
@@ -218,10 +219,16 @@ function loadEmpList(oid,oname){
  */
 function treeRightClick(event, treeId, treeNode) {
 	if (!treeNode && event.target.tagName.toLowerCase() != "button" && $(event.target).parents("a").length == 0) {
+		curr_oid = treeNode.id;
+		curr_name = treeNode.name;
+		isRoot = treeNode.isRoot;
 		zTree.cancelSelectedNode();
 		showRMenu("root", event.clientX, event.clientY);
 	}else if (treeNode && !treeNode.noR) {
 		zTree.selectNode(treeNode);
+		curr_oid = treeNode.id;
+		curr_name = treeNode.name;
+		isRoot = treeNode.isRoot;
 		showRMenu("node", event.clientX, event.clientY);
 	}
 }
@@ -297,5 +304,5 @@ function clearWinData(){
  * 查看部门关联的权限
  */
 function showRoles(){
-	
+	openOrgRoleWin();
 }

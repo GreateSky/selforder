@@ -91,7 +91,7 @@ public interface OrganizationService {
 	 * @param role
 	 * @return
 	 */
-	public String insertOrgRole(Role role);
+	public String insertOrgRole(List<Role> roleList);
 	
 	/**
 	 * 获取部门未关联权限列表

@@ -247,9 +247,25 @@ public class OrganizationServiceImpl implements OrganizationService  {
 	 * 获取部门已关联权限列表
 	 */
 	public String getOrgRoleList(Role role){
+		/**
+		 * 逻辑处理过程：
+		 * 	判断oid的值：
+		 * 		queryAll:表示查询分配给商户的所有权限
+		 * 		其他值：则oid为部门ID，根据部门ID查询部门已关联的权限
+		 */
 		String result = "";
+		List<Role> orgRoleList;
 		try{
-			List<Role> orgRoleList = organizationDao.getOrgRoleList(role);
+			String oid = role.getOid();
+			if("queryAll".equals(oid)){
+				String bid = new Context().getLoginUserInfo().getBid();
+				role.setBid(bid);
+				//查询商户所有权限
+				orgRoleList = organizationDao.getBusinessList(role);
+			}else{
+				//更加部门ID查询已关联的权限
+				orgRoleList = organizationDao.getOrgRoleList(role);
+			}
 			if(null != orgRoleList && orgRoleList.size() > 0){
 				result = JsonResultUtil.getJsonResult(0, "success", "获取成功！", orgRoleList);
 			}else{
@@ -291,12 +307,11 @@ public class OrganizationServiceImpl implements OrganizationService  {
 	 * @param role
 	 * @return
 	 */
-	public String insertOrgRole(Role role){
+	public String insertOrgRole(List<Role> roleList){
 		String result = "";
 		try{
 			String opter = new Context().getLoginUserInfo().getCode();
-			role.setCrter(opter);
-			int temp = organizationDao.insertOrgRole(role);
+			int temp = organizationDao.insertOrgRole(roleList);
 			if(temp >0){
 				result = JsonResultUtil.getJsonResult(0, "success", "操作成功！");
 			}else{

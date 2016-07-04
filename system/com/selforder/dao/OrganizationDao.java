@@ -102,10 +102,15 @@ public interface OrganizationDao {
 	 * @param role
 	 * @return
 	 */
-	public int insertOrgRole(Role role);
+	public int insertOrgRole(List<Role> roleList);
 	
 	/**
 	 * 获取部门未关联权限列表
 	 */
 	public List<Role> getOrgRoleNoList(Role role);
+	
+	/**
+	 * 获取商户已关联权限列表
+	 */
+	public List<Role> getBusinessList(Role role);
 }

@@ -25,6 +25,15 @@ public class OrganizationAction extends GreateSkyActionSupport {
 	private OrganizationService organizationService;
 	private List<Employee> employeeList;
 	private Role role;
+	private List<Role> roleList;
+
+	public List<Role> getRoleList() {
+		return roleList;
+	}
+
+	public void setRoleList(List<Role> roleList) {
+		this.roleList = roleList;
+	}
 
 	public Role getRole() {
 		return role;
@@ -378,7 +387,7 @@ public class OrganizationAction extends GreateSkyActionSupport {
 		String result;
 		try{
 			out = response.getWriter();
-			result = organizationService.insertOrgRole(role);
+			result = organizationService.insertOrgRole(roleList);
 			System.out.println("插入关联关系========"+result);
 			out.write(result);
 			out.flush();
@@ -393,7 +402,7 @@ public class OrganizationAction extends GreateSkyActionSupport {
 	/**
 	 * 获取部门未关联权限列表
 	 */
-	public String getOrgRoleNoList(){
+	public String getOrgNoRoleList(){
 		HttpServletResponse response=ServletActionContext.getResponse();
 		/*
 		 * 在调用getWriter之前未设置编码(既调用setContentType或者setCharacterEncoding方法设置编码),

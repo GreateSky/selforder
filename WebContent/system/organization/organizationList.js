@@ -2,7 +2,8 @@ var total = 0;
 var pageSize = 20; //默认每页20条数据
 var pageStart = 0;
 var curr_oid = "";//当前的组织架构ID
-var curr_oname = "";
+var curr_oname = "";//当前部门名称
+var isRoot = "";//是否根节点
 $(function(){
 	//加载商户列表
 	loadOrganizationList("init",null);

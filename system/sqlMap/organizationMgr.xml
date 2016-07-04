@@ -277,7 +277,8 @@
 		select role.RID,
 			role.RCODE,
 			role.RNAME,
-			orr.OID
+			orr.OID,
+			orr.ORID
 		from self_org_role_ref orr
 		left join self_role role on role.RID = orr.RID
 		where orr.DELETED = 0 
@@ -286,6 +287,20 @@
 			and orr.OID = #{oid}
 		</if>
 	</select>
+	
+	<!-- 获取商户所关联的权限 -->
+	<select id="getBusinessRoleList"  parameterType="role" resultType="role">
+		select role.RID,
+				 role.RCODE,
+				 role.RNAME,
+				 '' as orid,
+				 '' as oid
+		from self_role_business_ref rb
+		left join self_role role on role.RID = rb.RID
+		where rb.DELETED = 0 
+		and role.DELETED = 0
+		and rb.BID = #{bid}
+	</select>	
 	
 	<!--删除部门与权限关联关系-->
 	<update id="deletedOrgRole" parameterType="role">
@@ -308,20 +323,13 @@
 			        DELETED
 			    )
 			    VALUES
-			    (
-			        replace(uuid(),'-',''),
-			        #{oid},
-			        #{rid},
-			        #{crter},
-			        sysdate(),
-			        #{opter},
-			        sysdate(),
-			        0
-			    )
+			    <foreach collection="list" item="item" index="index" separator="," >  
+		        	(replace(uuid(),'-',''),#{item.oid},#{item.rid},#{item.crter},sysdate(),#{item.opter},sysdate(),0)  
+			    </foreach>
 	</insert>
 	
 	<!--获取部门未关联的权限-->
-	<select id="getOrgRoleList"  parameterType="role" resultType="role">
+	<select id="getOrgNoRoleList"  parameterType="role" resultType="role">
 		select role.RID,
 				role.RCODE,
 				role.RNAME

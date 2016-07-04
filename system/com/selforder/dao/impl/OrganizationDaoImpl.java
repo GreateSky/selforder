@@ -136,15 +136,22 @@ public class OrganizationDaoImpl extends SqlSessionDaoSupport implements Organiz
 	 * @param role
 	 * @return
 	 */
-	public int insertOrgRole(Role role){
-		return getSqlSession().update("com.selforder.organization.insertOrgRole", role);
+	public int insertOrgRole(List<Role> roleList){
+		return getSqlSession().insert("com.selforder.organization.insertOrgRole", roleList);
 	}
 	
 	/**
 	 * 获取部门未关联权限列表
 	 */
 	public List<Role> getOrgRoleNoList(Role role){
-		return getSqlSession().selectList("com.selforder.organization.getOrgRoleList",role);
+		return getSqlSession().selectList("com.selforder.organization.getOrgNoRoleList",role);
+	}
+	
+	/**
+	 * 获取商户已关联权限列表
+	 */
+	public List<Role> getBusinessList(Role role){
+		return getSqlSession().selectList("com.selforder.organization.getBusinessRoleList", role);
 	}
 
 }

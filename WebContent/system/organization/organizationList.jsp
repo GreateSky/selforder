@@ -72,17 +72,17 @@
 			                <i ></i> <span >新增下级</span> </i>
 			              </a>
 			            </li>
-			            <li class="treeview" id="m_add" onclick="showTreeNodeInfo();">
+			            <li class="treeview" id="m_update" onclick="showTreeNodeInfo();">
 			              <a href="#">
 			                <i ></i> <span >修改</span> </i>
 			              </a>
 			            </li>
-			            <li class="treeview" id="m_add" onclick="showRoles();">
+			            <li class="treeview" id="m_roles" onclick="showRoles();">
 			              <a href="#">
 			                <i ></i> <span >查看权限</span> </i>
 			              </a>
 			            </li>
-			            <li class="treeview" id="m_add" onclick="removeTreeNode();">
+			            <li class="treeview" id="m_remove" onclick="removeTreeNode();">
 			              <a href="#">
 			                <i ></i> <span >删除</span> </i>
 			              </a>
@@ -200,19 +200,20 @@
 				        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				        <h4 class="modal-title" id="myModalLabel">权限选择</h4>
 				      </div>
-				      <div class="modal-body">
-					    <div class="form-group has-warning" >
-					      <label for="wcode">名称</label>
-					      <input type="text" class="form-control" id="rname" name="resource.rname" placeholder="名称" value="" >
-					      <label for="wcode">编码</label>
-					      <input type="text" class="form-control" id="rurl" name="resource.rurl" placeholder="编码" value="" >
-						</div>
+				      <div class="modal-body has-warning">
+				      	<div class="form-group">
+	                      	名称：<input type="text"  id="oname_search" placeholder="名称">
+	                      	编码：<input type="text"  id="ocode_search" placeholder="编码">
+	                      	<button class="btn btn-info"><i class="fa fa-search"></i>&nbsp;查询</button>
+	                      	<button class="btn btn-info"><i class="fa fa-refresh"></i>&nbsp;重置</button>
+	                      	<button class="btn btn-warning" onclick="showAddRole()"><i class="fa fa-plus"></i>&nbsp;添加权限</button>
+	                    </div>
 						<table id="orgRoleList" class="table table-striped ">
 		                    <tr>
-		                      <th></th>
 		                      <th>#</th>
 		                      <th>名称</th>
 		                      <th>编码</th>
+		                       <th>操作</th>
 		                    </tr>
 		                </table><!--/门店列表-->
 				      </div>
@@ -223,6 +224,38 @@
 			    </div><!-- /.modal-content -->
 			  </div><!-- /.modal-dialog -->
 		</div><!-- /<!--modal 组织架构权限管理-->
+		
+		<!--modal 组织架构未关联的权限-->
+        <div class="modal fade" id="orgNoRoleWin" openType="" oid="" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		 	<div class="modal-dialog">
+			    <div class="modal-content">
+				      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				        <h4 class="modal-title" id="myModalLabel">权限选择</h4>
+				      </div>
+				      <div class="modal-body">
+					    <div class="form-group has-warning" >
+					      <label for="wcode">名称</label>
+					      <input type="text" class="form-control" id="rname" name="resource.rname" placeholder="名称" value="" >
+					      <label for="wcode">编码</label>
+					      <input type="text" class="form-control" id="rurl" name="resource.rurl" placeholder="编码" value="" >
+						</div>
+						<table id="orgNoRoleList" class="table table-striped ">
+		                    <tr>
+		                      <th></th>
+		                      <th>#</th>
+		                      <th>名称</th>
+		                      <th>编码</th>
+		                    </tr>
+		                </table><!--/门店列表-->
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">取消</button>
+				        <button type="button" class="btn btn-primary" onclick="saveOrgNoRole()">保存</button>
+				      </div>
+			    </div><!-- /.modal-content -->
+			  </div><!-- /.modal-dialog -->
+		</div><!-- /<!--modal 组织架构未关联的权限-->
 	</body>
 	<!-- jQuery 2.1.4 -->
     <script src="<%=cxtPath%>/plugins/jQuery/jQuery-2.1.4.min.js"></script>

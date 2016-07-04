@@ -64,7 +64,7 @@
 			</result> 
 		</action>
 		<!--删除关联关系-->
-		<action name = "deletedOrgRole" class="organizationAction" method="getOrgRoleList">
+		<action name = "deletedOrgRole" class="organizationAction" method="deletedOrgRole">
 			<result type="json">
 				<param name="root">resultJson</param>
 			</result> 
@@ -76,7 +76,7 @@
 			</result> 
 		</action>
 		<!--获取部门未关联权限列表-->
-		<action name = "getOrgRoleNoList" class="organizationAction" method="getOrgRoleNoList">
+		<action name = "getOrgNoRoleList" class="organizationAction" method="getOrgNoRoleList">
 			<result type="json">
 				<param name="root">resultJson</param>
 			</result> 
