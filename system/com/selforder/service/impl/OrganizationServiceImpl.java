@@ -8,6 +8,7 @@ import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import com.selforder.bean.Employee;
 import com.selforder.bean.Organization;
+import com.selforder.bean.Role;
 import com.selforder.dao.OrganizationDao;
 import com.selforder.service.OrganizationService;
 import com.selforder.util.Context;
@@ -238,5 +239,93 @@ public class OrganizationServiceImpl implements OrganizationService  {
 		}finally{
 			return result;
 		}
+	}
+	
+	/********************************部门与权限管理***************************/
+	
+	/**
+	 * 获取部门已关联权限列表
+	 */
+	public String getOrgRoleList(Role role){
+		String result = "";
+		try{
+			List<Role> orgRoleList = organizationDao.getOrgRoleList(role);
+			if(null != orgRoleList && orgRoleList.size() > 0){
+				result = JsonResultUtil.getJsonResult(0, "success", "获取成功！", orgRoleList);
+			}else{
+				result = JsonResultUtil.getJsonResult(-1, "fail", "无数据！");
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			return result = JsonResultUtil.getJsonResult(-1, "fail", "获取失败");
+		}
+		return result;
+	}
+	
+	/**
+	 * 删除关联关系
+	 * @param role
+	 * @return
+	 */
+	public String deletedOrgRole(Role role){
+		String result = "";
+		try{
+			String opter = new Context().getLoginUserInfo().getCode();
+			role.setOpter(opter);
+			int temp = organizationDao.deletedOrgRole(role);
+			if(temp >0){
+				result = JsonResultUtil.getJsonResult(0, "success", "操作成功！");
+			}else{
+				result = JsonResultUtil.getJsonResult(-1, "fail", "操作失败！");
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			return result = JsonResultUtil.getJsonResult(-1, "fail", "操作异常！");
+		}
+		return result;
+	}
+	
+	/**
+	 * 插入关联关系
+	 * @param role
+	 * @return
+	 */
+	public String insertOrgRole(Role role){
+		String result = "";
+		try{
+			String opter = new Context().getLoginUserInfo().getCode();
+			role.setCrter(opter);
+			int temp = organizationDao.insertOrgRole(role);
+			if(temp >0){
+				result = JsonResultUtil.getJsonResult(0, "success", "操作成功！");
+			}else{
+				result = JsonResultUtil.getJsonResult(-1, "fail", "操作失败！");
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			return result = JsonResultUtil.getJsonResult(-1, "fail", "操作异常！");
+		}
+		return result;
+	}
+	
+	/**
+	 * 获取部门未关联权限列表
+	 */
+	public String getOrgRoleNoList(Role role){
+		String result = "";
+		try{
+			List<Role> orgRoleList = organizationDao.getOrgRoleNoList(role);
+			if(null != orgRoleList && orgRoleList.size() > 0){
+				result = JsonResultUtil.getJsonResult(0, "success", "获取成功！", orgRoleList);
+			}else{
+				result = JsonResultUtil.getJsonResult(-1, "fail", "无数据！");
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			return result = JsonResultUtil.getJsonResult(-1, "fail", "获取失败");
+		}
+		return result;
 	}
 }

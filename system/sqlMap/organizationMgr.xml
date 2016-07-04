@@ -269,6 +269,73 @@
 		SET
 			org.DELETED = 1 
 		WHERE instr(org.LEVELPATH,#{oid}) &gt; 0
-	</update>		
+	</update>
+	
+	<!--部门与权限管理-->
+	<!-- 获取部门所关联的权限 -->
+	<select id="getOrgRoleList"  parameterType="role" resultType="role">
+		select role.RID,
+			role.RCODE,
+			role.RNAME,
+			orr.OID
+		from self_org_role_ref orr
+		left join self_role role on role.RID = orr.RID
+		where orr.DELETED = 0 
+		and role.DELETED = 0 
+		<if test="oid != null and oid !='' ">
+			and orr.OID = #{oid}
+		</if>
+	</select>
+	
+	<!--删除部门与权限关联关系-->
+	<update id="deletedOrgRole" parameterType="role">
+		update self_org_role_ref set deleted = 1 where orid = #{orid}
+	</update>
+	
+	<!--插入部门与权限关联关系 -->
+	<insert id="insertOrgRole" parameterType="role">
+		INSERT
+			INTO
+			    self_org_role_ref
+			    (
+			        ORID,
+			        OID,
+			        RID,
+			        CRTER,
+			        CRTDATE,
+			        OPTER,
+			        OPTDATE,
+			        DELETED
+			    )
+			    VALUES
+			    (
+			        replace(uuid(),'-',''),
+			        #{oid},
+			        #{rid},
+			        #{crter},
+			        sysdate(),
+			        #{opter},
+			        sysdate(),
+			        0
+			    )
+	</insert>
+	
+	<!--获取部门未关联的权限-->
+	<select id="getOrgRoleList"  parameterType="role" resultType="role">
+		select role.RID,
+				role.RCODE,
+				role.RNAME
+		from self_role_business_ref rb 
+		left join self_role role on role.RID = rb.RID
+		where rb.DELETED = 0 
+		and role.DELETED = 0
+		and rb.RID not in (
+			select orr.RID
+			from self_org_role_ref orr 
+			where orr.DELETED = 0 
+			and orr.OID = #{oid}
+		)
+	</select>
+			
 </mapper>
 

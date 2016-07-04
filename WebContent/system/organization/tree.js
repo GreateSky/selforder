@@ -292,3 +292,10 @@ function clearWinData(){
 	$("#editTreeWin").attr("openType","");
 	$("#editTreeWin").attr("oid","");
 }
+
+/**
+ * 查看部门关联的权限
+ */
+function showRoles(){
+	
+}

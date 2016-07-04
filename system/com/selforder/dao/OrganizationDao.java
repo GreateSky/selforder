@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.selforder.bean.Employee;
 import com.selforder.bean.Organization;
+import com.selforder.bean.Role;
 
 /**
  * 组织机构管理Dao
@@ -81,4 +82,30 @@ public interface OrganizationDao {
 	 * @return
 	 */
 	public int removeOrgEmp(Organization  organization);
+	
+	/********************************部门与权限管理***************************/
+	
+	/**
+	 * 获取部门已关联权限列表
+	 */
+	public List<Role> getOrgRoleList(Role role);
+	
+	/**
+	 * 删除关联关系
+	 * @param role
+	 * @return
+	 */
+	public int deletedOrgRole(Role role);
+	
+	/**
+	 * 插入关联关系
+	 * @param role
+	 * @return
+	 */
+	public int insertOrgRole(Role role);
+	
+	/**
+	 * 获取部门未关联权限列表
+	 */
+	public List<Role> getOrgRoleNoList(Role role);
 }

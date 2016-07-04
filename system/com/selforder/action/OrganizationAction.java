@@ -10,6 +10,7 @@ import org.apache.struts2.ServletActionContext;
 import com.greatesky.action.GreateSkyActionSupport;
 import com.selforder.bean.Employee;
 import com.selforder.bean.Organization;
+import com.selforder.bean.Role;
 import com.selforder.service.OrganizationService;
 /**
  * 组织架构管理action
@@ -23,6 +24,15 @@ public class OrganizationAction extends GreateSkyActionSupport {
 	private Employee employee;
 	private OrganizationService organizationService;
 	private List<Employee> employeeList;
+	private Role role;
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
 
 	public List<Employee> getEmployeeList() {
 		return employeeList;
@@ -296,4 +306,115 @@ public class OrganizationAction extends GreateSkyActionSupport {
 		}
 		return this.SUCCESS;
 	}	
+	
+	/********************************部门与权限管理***************************/
+	
+	/**
+	 * 获取部门已关联权限列表
+	 */
+	public String getOrgRoleList(){
+		HttpServletResponse response=ServletActionContext.getResponse();
+		/*
+		 * 在调用getWriter之前未设置编码(既调用setContentType或者setCharacterEncoding方法设置编码),
+		 * HttpServletResponse则会返回一个用默认的编码(既ISO-8859-1)编码的PrintWriter实例。这样就会
+		 * 造成中文乱码。而且设置编码时必须在调用getWriter之前设置,不然是无效的。
+		 **/
+		response.setContentType("text/html;charset=utf-8");
+		Writer out;
+		String result;
+		try{
+			out = response.getWriter();
+			result = organizationService.getOrgRoleList(role);
+			System.out.println("获取部门已关联权限列表========"+result);
+			out.write(result);
+			out.flush();
+			out.close();
+		}catch(Exception e){
+			e.printStackTrace();
+			return this.ERROR;
+		}
+		return this.SUCCESS;
+	}
+	
+	/**
+	 * 删除关联关系
+	 */
+	public String deletedOrgRole(){
+		HttpServletResponse response=ServletActionContext.getResponse();
+		/*
+		 * 在调用getWriter之前未设置编码(既调用setContentType或者setCharacterEncoding方法设置编码),
+		 * HttpServletResponse则会返回一个用默认的编码(既ISO-8859-1)编码的PrintWriter实例。这样就会
+		 * 造成中文乱码。而且设置编码时必须在调用getWriter之前设置,不然是无效的。
+		 **/
+		response.setContentType("text/html;charset=utf-8");
+		Writer out;
+		String result;
+		try{
+			out = response.getWriter();
+			result = organizationService.deletedOrgRole(role);
+			System.out.println("删除关联关系========"+result);
+			out.write(result);
+			out.flush();
+			out.close();
+		}catch(Exception e){
+			e.printStackTrace();
+			return this.ERROR;
+		}
+		return this.SUCCESS;
+	}
+	
+	/**
+	 * 插入关联关系
+	 */
+	public String insertOrgRole(){
+		HttpServletResponse response=ServletActionContext.getResponse();
+		/*
+		 * 在调用getWriter之前未设置编码(既调用setContentType或者setCharacterEncoding方法设置编码),
+		 * HttpServletResponse则会返回一个用默认的编码(既ISO-8859-1)编码的PrintWriter实例。这样就会
+		 * 造成中文乱码。而且设置编码时必须在调用getWriter之前设置,不然是无效的。
+		 **/
+		response.setContentType("text/html;charset=utf-8");
+		Writer out;
+		String result;
+		try{
+			out = response.getWriter();
+			result = organizationService.insertOrgRole(role);
+			System.out.println("插入关联关系========"+result);
+			out.write(result);
+			out.flush();
+			out.close();
+		}catch(Exception e){
+			e.printStackTrace();
+			return this.ERROR;
+		}
+		return this.SUCCESS;
+	}
+	
+	/**
+	 * 获取部门未关联权限列表
+	 */
+	public String getOrgRoleNoList(){
+		HttpServletResponse response=ServletActionContext.getResponse();
+		/*
+		 * 在调用getWriter之前未设置编码(既调用setContentType或者setCharacterEncoding方法设置编码),
+		 * HttpServletResponse则会返回一个用默认的编码(既ISO-8859-1)编码的PrintWriter实例。这样就会
+		 * 造成中文乱码。而且设置编码时必须在调用getWriter之前设置,不然是无效的。
+		 **/
+		response.setContentType("text/html;charset=utf-8");
+		Writer out;
+		String result;
+		try{
+			out = response.getWriter();
+			result = organizationService.getOrgRoleNoList(role);
+			System.out.println("获取部门未关联权限列表========"+result);
+			out.write(result);
+			out.flush();
+			out.close();
+		}catch(Exception e){
+			e.printStackTrace();
+			return this.ERROR;
+		}
+		return this.SUCCESS;
+	}
+	
 }

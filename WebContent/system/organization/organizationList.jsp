@@ -77,6 +77,11 @@
 			                <i ></i> <span >修改</span> </i>
 			              </a>
 			            </li>
+			            <li class="treeview" id="m_add" onclick="showRoles();">
+			              <a href="#">
+			                <i ></i> <span >查看权限</span> </i>
+			              </a>
+			            </li>
 			            <li class="treeview" id="m_add" onclick="removeTreeNode();">
 			              <a href="#">
 			                <i ></i> <span >删除</span> </i>
@@ -137,7 +142,7 @@
 			    <div class="modal-content">
 				      <div class="modal-header">
 				        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				        <h4 class="modal-title" id="myModalLabel">资源选择</h4>
+				        <h4 class="modal-title" id="myModalLabel">员工选择</h4>
 				      </div>
 				      <div class="modal-body">
 					    <div class="form-group has-warning" >
@@ -186,6 +191,38 @@
 			    </div><!-- /.modal-content -->
 			  </div><!-- /.modal-dialog -->
 		</div><!-- /<!--modal 添加组织架构-->
+		
+		<!--modal 组织架构权限管理-->
+        <div class="modal fade" id="orgRoleWin" openType="" oid="" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		 	<div class="modal-dialog">
+			    <div class="modal-content">
+				      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				        <h4 class="modal-title" id="myModalLabel">权限选择</h4>
+				      </div>
+				      <div class="modal-body">
+					    <div class="form-group has-warning" >
+					      <label for="wcode">名称</label>
+					      <input type="text" class="form-control" id="rname" name="resource.rname" placeholder="名称" value="" >
+					      <label for="wcode">编码</label>
+					      <input type="text" class="form-control" id="rurl" name="resource.rurl" placeholder="编码" value="" >
+						</div>
+						<table id="orgRoleList" class="table table-striped ">
+		                    <tr>
+		                      <th></th>
+		                      <th>#</th>
+		                      <th>名称</th>
+		                      <th>编码</th>
+		                    </tr>
+		                </table><!--/门店列表-->
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">取消</button>
+				        <button type="button" class="btn btn-primary" onclick="saveOrgRole()">保存</button>
+				      </div>
+			    </div><!-- /.modal-content -->
+			  </div><!-- /.modal-dialog -->
+		</div><!-- /<!--modal 组织架构权限管理-->
 	</body>
 	<!-- jQuery 2.1.4 -->
     <script src="<%=cxtPath%>/plugins/jQuery/jQuery-2.1.4.min.js"></script>
@@ -195,7 +232,7 @@
     <script src="<%=cxtPath%>/js/jquery.twbsPagination.min.js"></script>
     <!--zTree-->
     <script type="text/javascript" src="../../plugins/zTree/js/jquery.ztree.all.min.js"></script>
+    <script type="text/javascript" src="organizationList.js"></script>
 	<script src="tree.js"></script>
-	<script type="text/javascript" src="organizationList.js"></script>
-    
+    <script src="orgRole.js"></script>
 </html>

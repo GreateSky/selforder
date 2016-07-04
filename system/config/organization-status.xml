@@ -56,6 +56,31 @@
 				<param name="root">resultJson</param>
 			</result> 
 		</action>
+		
+		<!--获取部门已关联权限列表-->
+		<action name = "getOrgRoleList" class="organizationAction" method="getOrgRoleList">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+		<!--删除关联关系-->
+		<action name = "deletedOrgRole" class="organizationAction" method="getOrgRoleList">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+		<!--插入关联关系-->
+		<action name = "insertOrgRole" class="organizationAction" method="insertOrgRole">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+		<!--获取部门未关联权限列表-->
+		<action name = "getOrgRoleNoList" class="organizationAction" method="getOrgRoleNoList">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
 	</package>
 	
 </struts>

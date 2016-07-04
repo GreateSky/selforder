@@ -8,6 +8,7 @@ import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import com.selforder.bean.Employee;
 import com.selforder.bean.Organization;
+import com.selforder.bean.Role;
 import com.selforder.dao.OrganizationDao;
 
 public class OrganizationDaoImpl extends SqlSessionDaoSupport implements OrganizationDao {
@@ -109,6 +110,41 @@ public class OrganizationDaoImpl extends SqlSessionDaoSupport implements Organiz
 	 */
 	public int removeOrgEmp(Organization  organization){
 		return getSqlSession().update("com.selforder.organization.removeOrgEmp",organization);
+	}
+	
+	
+	/********************************部门与权限管理***************************/
+	
+	/**
+	 * 获取部门已关联权限列表
+	 */
+	public List<Role> getOrgRoleList(Role role){
+		return getSqlSession().selectList("com.selforder.organization.getOrgRoleList",role);
+	}
+	
+	/**
+	 * 删除关联关系
+	 * @param role
+	 * @return
+	 */
+	public int deletedOrgRole(Role role){
+		return getSqlSession().update("com.selforder.organization.deletedOrgRole", role);
+	}
+	
+	/**
+	 * 插入关联关系
+	 * @param role
+	 * @return
+	 */
+	public int insertOrgRole(Role role){
+		return getSqlSession().update("com.selforder.organization.insertOrgRole", role);
+	}
+	
+	/**
+	 * 获取部门未关联权限列表
+	 */
+	public List<Role> getOrgRoleNoList(Role role){
+		return getSqlSession().selectList("com.selforder.organization.getOrgRoleList",role);
 	}
 
 }

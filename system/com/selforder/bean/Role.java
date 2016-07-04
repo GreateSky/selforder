@@ -20,6 +20,8 @@ public class Role extends baseBean{
 	private String opter;
 	private String resourceid;
 	private String resourcename;
+	private String oid;//绑定的部门ID
+	private String orid;//部门与权限关联ID
 	private int deleted;
 	public static long getSerialversionuid() {
 		return serialVersionUID;
@@ -89,5 +91,17 @@ public class Role extends baseBean{
 	}
 	public void setResourcename(String resourcename) {
 		this.resourcename = resourcename;
+	}
+	public String getOid() {
+		return oid;
+	}
+	public void setOid(String oid) {
+		this.oid = oid;
+	}
+	public String getOrid() {
+		return orid;
+	}
+	public void setOrid(String orid) {
+		this.orid = orid;
 	}
 }

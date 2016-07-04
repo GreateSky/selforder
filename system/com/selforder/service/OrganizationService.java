@@ -70,4 +70,31 @@ public interface OrganizationService {
 	 * @return
 	 */
 	public String removeOrgAndEmp(Organization  organization) throws Exception ;
+	
+	
+	/********************************部门与权限管理***************************/
+	
+	/**
+	 * 获取部门已关联权限列表
+	 */
+	public String getOrgRoleList(Role role);
+	
+	/**
+	 * 删除关联关系
+	 * @param role
+	 * @return
+	 */
+	public String deletedOrgRole(Role role);
+	
+	/**
+	 * 插入关联关系
+	 * @param role
+	 * @return
+	 */
+	public String insertOrgRole(Role role);
+	
+	/**
+	 * 获取部门未关联权限列表
+	 */
+	public String getOrgRoleNoList(Role role);
 }
