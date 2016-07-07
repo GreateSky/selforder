@@ -5,7 +5,6 @@ $(function(){
 	//加载商户列表
 	loadResourceList("init",null);
 	keyEvent();
-	//pageOption();
 });
 
 /**
@@ -44,7 +43,7 @@ function pageOption(paginationid,totalpage){
             if(checkValue(temp_pageSize)){
             	pageSize = temp_pageSize;
             }else{
-            	pageSize = 2;
+            	pageSize = 20;
             }
             var bname = $("#bname_search").val();
         	var phone = $("#phone_search").val();
@@ -63,7 +62,7 @@ function pageOption(paginationid,totalpage){
         	if(checkValue(legaler)){
         		param["business.legaler"] = legaler;
         	}
-        	//loadBusinessList("pageQuery",param);
+        	loadResourceList("pageQuery",param);
         }
     });
 }
@@ -77,11 +76,11 @@ function loadResourceList(type,param){
 	var load = layer.load(2, {shade: [1, 'rgba(0,0,0,.5)']});
 	if(typeof(param) == "undefined" || param == null || param == ""){
 		param = {};
-		//param["page"] = pageStart;
-		//param["limit"] = pageSize;
+		param["page"] = pageStart;
+		param["limit"] = pageSize;
 	}else{
-		//param["page"] = pageStart;
-		//param["limit"] = pageSize;
+		param["page"] = pageStart;
+		param["limit"] = pageSize;
 	}
 	$.ajax({
 		type:"POST",
@@ -178,10 +177,8 @@ function addResource(){
 			var message = data.message;
 			layer.close(load);
 			layer.msg(message, {icon: 1});
-			setTimeout(function(){
-				$("#resourceWin").modal('hide');
-				loadResourceList("init",null);
-			}, 1000);
+			$("#resourceWin").modal('hide');
+			loadResourceList("init",null);
 		}
 	});
 }
@@ -249,10 +246,8 @@ function updateResource(rid){
 			}else{
 				layer.msg(message, {icon: 1});
 			}
-			setTimeout(function(){
-				$("#resourceWin").modal('hide');
-				loadResourceList("init",null);
-			}, 1000);
+			$("#resourceWin").modal('hide');
+			loadResourceList("init",null);
 		}
 	});
 }
@@ -289,10 +284,8 @@ function delResource(rid){
 				}else{
 					layer.msg(message, {icon: 1});
 				}
-				setTimeout(function(){
-					$("#resourceWin").modal('hide');
-					loadResourceList("init",null);
-				}, 1000);
+				$("#resourceWin").modal('hide');
+				loadResourceList("init",null);
 			}
 		});
 	});

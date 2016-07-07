@@ -81,6 +81,7 @@ public class PowerServiceImpl implements PowerService {
 	public String updateResource(Resource resource) {
 		String result = "";
 		if(resource != null && !"".equals(resource.getRid())){
+			String optcode = new Context().getLoginUserInfo().getCode();
 			int updateRes = powerDao.updateResource(resource);
 			if(updateRes <=0){
 				result = JsonResultUtil.getJsonResult(-1, "fail", "更新资源信息失败!");
@@ -246,6 +247,131 @@ public class PowerServiceImpl implements PowerService {
 			result = JsonResultUtil.getJsonResult(0, "success","操作成功！");
 		}else{
 			result = JsonResultUtil.getJsonResult(-1, "fail", "操作失败！");
+		}
+		return result;
+	}
+	
+	//-----------------------商户与角色（权限）关联关系管理----------------------------------
+	
+	/**
+	 * 查询所有商户的授权信息
+	 * @param business
+	 * @return
+	 */
+	public String businessList(Business business){
+		String result = "";
+		Map resultMap = new HashMap();
+		try{
+			//查询资源列表
+			List<Business> businesslist = powerDao.businessList(business);
+			if(businesslist != null && businesslist.size()>0){
+				//查询统计数
+				int count = powerDao.getBusinessListCount(business);
+				resultMap.put("rows", businesslist);
+				resultMap.put("total", count);
+				result = JsonResultUtil.MapToJsonStr(resultMap);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			return "";
+		}
+		return result;
+	}
+	
+	/**
+	 * 根据商户获取商户已授权权限
+	 * @param business
+	 * @return
+	 */
+	public String getBusinessRoleInfo(Business business){
+		String result = "";
+		try{
+			List<Business> businessRoleList = powerDao.getBusinessRoleInfo(business);
+			if(null == businessRoleList || businessRoleList.size()<=0){
+				result = JsonResultUtil.getJsonResult(-1, "fail", "无数据!");
+			}else{
+				result = JsonResultUtil.getJsonResult(0, "success", "查询成功!", businessRoleList);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			return JsonResultUtil.getJsonResult(-1, "fail", "查询异常!");
+		}
+		return result;
+	}
+	
+	/**
+	 * 批量保存商户与权限关联关系
+	 * @param businessList
+	 * @return
+	 */
+	public String insertBusRoleRef(List<Business> businessList){
+		String result = "";
+		try{
+			int temp = powerDao.insertBusRoleRef(businessList);
+			if(temp < 0){
+				result = JsonResultUtil.getJsonResult(-1, "fail", "无操作数据!");
+			}else{
+				result = JsonResultUtil.getJsonResult(0, "success", "操作成功!");
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			return JsonResultUtil.getJsonResult(-1, "fail", "操作异常!");
+		}
+		return result;
+	}
+	
+	/**
+	 * 删除商户与权限的关联关系
+	 * @param business
+	 * @return
+	 */
+	public String deletedBusRoleRef(Business business){
+		/**
+		 * 逻辑处理过程：
+		 * 	1、删除商户下部门与被取消权限的关联关系
+		 *  2、删除商户与权限的关联关系
+		 */
+		String result = "";
+		try{
+			String opter = new Context().getLoginUserInfo().getCode();
+			business.setOpter(opter);
+			int temp = powerDao.deletedOrgRoleRef(business);
+			//先删除商户下部门与被取消权限的关联关系
+			if(temp < 0){
+				result = JsonResultUtil.getJsonResult(-1, "fail", "取消商户下部门与权限关联关系失败!");
+			}else{
+				//再删除商户与权限的关联关系
+				temp = powerDao.deletedBusRoleRef(business);
+				if(temp < 0){
+					result = JsonResultUtil.getJsonResult(-1, "fail", "取消商户与权限的关联关系失败!");
+				}else{
+					result = JsonResultUtil.getJsonResult(0, "success", "操作成功!");
+				}
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			return JsonResultUtil.getJsonResult(-1, "fail", "操作异常!");
+		}
+		return result;
+	}
+	
+	/**
+	 * 根据商户获取商户未授权权限
+	 * @param business
+	 * @return
+	 */
+	public String getBusNoRoleList(Business business){
+		String result = "";
+		try{
+			List<Role> rolelist = powerDao.getBusNoRoleList(business);
+			if(null != rolelist && rolelist.size()>0){
+				result = JsonResultUtil.getJsonResult(0, "success", "查询成功!",rolelist);
+			}else{
+				result = JsonResultUtil.getJsonResult(-1, "fail", "无数据!",rolelist);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			return JsonResultUtil.getJsonResult(-1, "fail", "操作异常!");
 		}
 		return result;
 	}

@@ -291,4 +291,75 @@ public class PowerDaoImpl extends SqlSessionDaoSupport implements PowerDao {
 		List<Map> reflist = getSqlSession().selectList("com.selforder.power.getAllRolResourceList");
 		return reflist;
 	}
+	
+	//-----------------------商户与角色（权限）关联关系管理----------------------------------
+	
+	/**
+	 * 查询所有商户的授权信息
+	 * @param business
+	 * @return
+	 */
+	public List<Business> businessList(Business business)throws Exception{
+		List<Business> businessList = new ArrayList<Business>();
+		try{
+			businessList = getSqlSession().selectList("com.selforder.power.getBusinessRoleList", business);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return businessList;
+	}
+	
+	/**
+	 * 查询所有商户的授权信息统计数
+	 * @param business
+	 * @return
+	 */
+	public int getBusinessListCount(Business business)throws Exception{
+		return (Integer)getSqlSession().selectOne("com.selforder.power.getBusinessRoleCount", business);
+	}
+	
+	/**
+	 * 根据商户获取商户已授权权限
+	 * @param business
+	 * @return
+	 */
+	public List<Business> getBusinessRoleInfo(Business business)throws Exception{
+		return (List<Business>)getSqlSession().selectList("com.selforder.power.getBusinessRoleInfo", business);
+	}
+	
+	/**
+	 * 批量保存商户与权限关联关系
+	 * @param businessList
+	 * @return
+	 */
+	public int insertBusRoleRef(List<Business> businessList)throws Exception{
+		return (Integer)getSqlSession().insert("com.selforder.power.insertBusRoleRef", businessList);
+	}
+	
+	/**
+	 * 删除商户与权限的关联关系
+	 * @param business
+	 * @return
+	 */
+	public int deletedBusRoleRef(Business business)throws Exception{
+		return (Integer)getSqlSession().update("com.selforder.power.deletedBusRoleRef", business);
+	}
+	
+	/**
+	 * 删除商户下部门已关联权限的关联关系
+	 * @param business
+	 * @return
+	 */
+	public int deletedOrgRoleRef(Business business)throws Exception{
+		return (Integer)getSqlSession().update("com.selforder.power.deletedOrgRoleRef", business);
+	}
+	
+	/**
+	 * 根据商户获取商户未授权权限
+	 * @param business
+	 * @return
+	 */
+	public List<Role> getBusNoRoleList(Business business)throws Exception{
+		return getSqlSession().selectList("com.selforder.power.getBusinessNoRole", business);
+	}
 }

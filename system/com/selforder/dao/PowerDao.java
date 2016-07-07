@@ -3,6 +3,7 @@ package com.selforder.dao;
 import java.util.List;
 import java.util.Map;
 
+import com.selforder.bean.Business;
 import com.selforder.bean.Resource;
 import com.selforder.bean.Role;
 
@@ -133,6 +134,57 @@ public interface PowerDao {
 	 * @return
 	 */
 	public List<Map> allRoleResourceList();
+	
+	//-----------------------商户与角色（权限）关联关系管理----------------------------------
+
+	/**
+	 * 查询所有商户的授权信息
+	 * @param business
+	 * @return
+	 */
+	public List<Business> businessList(Business business)throws Exception;
+	
+	/**
+	 * 查询所有商户的授权信息统计数
+	 * @param business
+	 * @return
+	 */
+	public int getBusinessListCount(Business business)throws Exception;
+	
+	/**
+	 * 根据商户获取商户已授权权限
+	 * @param business
+	 * @return
+	 */
+	public List<Business> getBusinessRoleInfo(Business business)throws Exception;
+	
+	/**
+	 * 批量保存商户与权限关联关系
+	 * @param businessList
+	 * @return
+	 */
+	public int insertBusRoleRef(List<Business> businessList)throws Exception;
+	
+	/**
+	 * 删除商户与权限的关联关系
+	 * @param business
+	 * @return
+	 */
+	public int deletedBusRoleRef(Business business)throws Exception;
+	
+	/**
+	 * 删除商户下部门已关联权限的关联关系
+	 * @param business
+	 * @return
+	 */
+	public int deletedOrgRoleRef(Business business)throws Exception;
+	
+	/**
+	 * 根据商户获取商户未授权权限
+	 * @param business
+	 * @return
+	 */
+	public List<Role> getBusNoRoleList(Business business)throws Exception;
 	
 	
 }

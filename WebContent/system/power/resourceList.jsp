@@ -64,7 +64,7 @@
                   </table><!--/门店列表-->
                   <!--分页条件-->
                   <nav>
-					  <ul class="pagination" id="pagination" data-option="{'pageSize':2,'loadData':'search()'}">
+					  <ul class="pagination" id="pagination" data-option="{'pageSize':20,'loadData':'search()'}">
 					  </ul>
 				   </nav><!--/分页条件-->
                   </div><!-- /.box-body -->

@@ -34,6 +34,41 @@ public class Business extends baseBean{
 	private int deleted;
 	private String sysadmin;
 	private String password;
+	private String rid;//权限ID
+	private	String rname;//权限名称
+	private String rcode;//权限编码
+	private String rbid;//商户与权限关联ID
+	public String getRbid() {
+		return rbid;
+	}
+	public void setRbid(String rbid) {
+		this.rbid = rbid;
+	}
+	public String getRcode() {
+		return rcode;
+	}
+	public void setRcode(String rcode) {
+		this.rcode = rcode;
+	}
+	private String rbrid;//商户与权限关联表ID
+	public String getRbrid() {
+		return rbrid;
+	}
+	public void setRbrid(String rbrid) {
+		this.rbrid = rbrid;
+	}
+	public String getRid() {
+		return rid;
+	}
+	public String getRname() {
+		return rname;
+	}
+	public void setRid(String rid) {
+		this.rid = rid;
+	}
+	public void setRname(String rname) {
+		this.rname = rname;
+	}
 	public String getBid() {
 		return bid;
 	}

@@ -3,6 +3,7 @@ package com.selforder.service;
 import java.util.List;
 import java.util.Map;
 
+import com.selforder.bean.Business;
 import com.selforder.bean.Resource;
 import com.selforder.bean.Role;
 
@@ -85,4 +86,41 @@ public interface PowerService {
 	 * @return
 	 */
 	public String delRolResourceRef(String refid);
+	
+	//-----------------------商户与角色（权限）关联关系管理----------------------------------
+
+	/**
+	 * 查询所有商户的授权信息
+	 * @param business
+	 * @return
+	 */
+	public String businessList(Business business);
+	
+	/**
+	 * 根据商户获取商户已授权权限
+	 * @param business
+	 * @return
+	 */
+	public String getBusinessRoleInfo(Business business);
+	
+	/**
+	 * 批量保存商户与权限关联关系
+	 * @param businessList
+	 * @return
+	 */
+	public String insertBusRoleRef(List<Business> businessList);
+	
+	/**
+	 * 删除商户与权限的关联关系
+	 * @param business
+	 * @return
+	 */
+	public String deletedBusRoleRef(Business business);
+	
+	/**
+	 * 根据商户获取商户未授权权限
+	 * @param business
+	 * @return
+	 */
+	public String getBusNoRoleList(Business business);
 }

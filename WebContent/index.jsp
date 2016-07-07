@@ -322,7 +322,9 @@
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="javascript:viod(0);" onclick="linkMainFrame('system/permission/permissionList.html')"><i class="fa fa-circle-o"></i> 权限列表</a></li>
+                <li><a href="javascript:viod(0);" onclick="linkMainFrame('system/power/roleList.jsp')"><i class="fa fa-circle-o"></i> 权限列表</a></li>
+                <li><a href="javascript:viod(0);" onclick="linkMainFrame('system/power/resourceList.jsp')"><i class="fa fa-circle-o"></i> 资源列表</a></li>
+                <li><a href="javascript:viod(0);" onclick="linkMainFrame('system/power/businessRoleList.jsp')"><i class="fa fa-circle-o"></i> 商户权限管理</a></li>
               </ul>
             </li>
             <li class="treeview">

@@ -68,6 +68,40 @@
 				<param name="root">resultJson</param>
 			</result> 
 		</action>
+		
+		
+		<!--查询所有商户的授权信息-->
+		<action name = "businessList" class="powerAction" method="businessList">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+		<!--根据商户获取商户已授权权限-->
+		<action name = "getBusinessRoleInfo" class="powerAction" method="getBusinessRoleInfo">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+		<!--批量保存商户与权限关联关系-->
+		<action name = "insertBusRoleRef" class="powerAction" method="insertBusRoleRef">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+		<!--删除商户与权限的关联关系-->
+		<action name = "deletedBusRoleRef" class="powerAction" method="deletedBusRoleRef">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+		<!--根据商户获取商户未授权权限-->
+		<action name = "getBusNoRoleList" class="powerAction" method="getBusNoRoleList">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+		
+		
 	</package>
 	
 </struts>

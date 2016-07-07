@@ -355,6 +355,149 @@
 		where ref.DELETED = 0 
 		and role.DELETED = 0
 		and res.DELETED = 0
-	</select>		
+	</select>	
+	
+	<!--查询商户已关联权限 -->
+	<select id="getBusinessRoleList"  parameterType="business" resultType="business">
+		select bus.BID,
+				bus.BNAME,
+				bus.BCODE,
+				br.rid,
+				br.rname
+		from self_business bus
+		left join (
+			select rbr.BID,
+					group_concat(rbr.RID) rid,
+					group_concat(role.RNAME) rname
+			from self_role_business_ref rbr 
+			left join self_role role on role.RID = rbr.RID
+			where rbr.DELETED = 0
+			and role.DELETED = 0 
+			group by rbr.BID
+		) br on br.bid = bus.BID
+		where bus.DELETED = 0 
+		and bus.STATUS &lt;&gt; -1
+		<if test="bname != null and bname !='' ">
+			and bus.BNAME like CONCAT('%',#{bname},'%')
+		</if>
+		<if test="bcode != null and bcode !='' ">
+			and bus.BCODE  = #{bcode}
+		</if>
+		<if test="rname != null and rname !='' ">
+			and br.rname like CONCAT('%',#{rname},'%')
+		</if>
+		order by bus.CRTDATE desc
+		<include refid="limit"></include>
+	</select>	
+	
+	<!--查询商户已关联权限统计数  用于列表分页 -->
+	<select id="getBusinessRoleCount" parameterType="business" resultType="int">
+		select count(1)
+		from self_business bus
+		left join (
+			select rbr.BID,
+					group_concat(rbr.RID) rid,
+					group_concat(role.RNAME) rname
+			from self_role_business_ref rbr 
+			left join self_role role on role.RID = rbr.RID
+			where rbr.DELETED = 0
+			and role.DELETED = 0 
+			group by rbr.BID
+		) br on br.bid = bus.BID
+		where bus.DELETED = 0 
+		and bus.STATUS &lt;&gt; -1
+		<if test="bname != null and bname !='' ">
+			and bus.BNAME like CONCAT('%',#{bname},'%')
+		</if>
+		<if test="bcode != null and bcode !='' ">
+			and bus.BCODE  = #{bcode}
+		</if>
+		<if test="rname != null and rname !='' ">
+			and br.rname like CONCAT('%',#{rname},'%')
+		</if>
+	</select>	
+	
+	<!--根据商户获取商户已授权权限 -->
+	<select id="getBusinessRoleInfo" parameterType="business" resultType="business">
+		select bus.BID,
+				 bus.BNAME,
+				 bus.LEGALER,
+				 bus.PHONE,
+				 bus.EMAIL,
+				 bus.BCODE,
+				 rbr.RBID,
+				 role.RID,
+				 role.RCODE,
+				 role.RNAME
+		from self_role_business_ref rbr
+		left join self_business bus on bus.BID = rbr.BID
+		left join self_role role on role.RID = rbr.RID
+		where rbr.DELETED = 0
+		and bus.DELETED = 0 
+		and role.DELETED = 0
+		and bus.BID = #{bid} 
+	</select>
+	
+	<!-- 保存商户与权限关联关系 -->
+	<insert id="insertBusRoleRef" parameterType="business">
+		INSERT
+			INTO
+			    self_role_business_ref
+			    (
+			        RBID,
+			        RID,
+			        BID,
+			        CRTER,
+			        CRTDATE,
+			        OPTER,
+			        OPTDATE,
+			        DELETED
+			    )
+			    VALUES
+			    <foreach collection="list" item="item" index="index" separator="," >  
+		        	(replace(uuid(),'-',''),#{item.rid},#{item.bid},#{item.crter},sysdate(),#{item.opter},sysdate(),0)  
+			    </foreach>	    
+	</insert>
+	
+	<!-- 删除商户与权限的关联关系 -->	
+	<update id="deletedBusRoleRef" parameterType="business">
+		UPDATE self_role_business_ref SET DELETED = 1, OPTDATE = sysdate(), OPTER = #{opter} WHERE RBID = #{rbid}
+	</update>
+	
+	<!-- 删除商户下部门已关联权限的关联关系 -->	
+	<update id="deletedOrgRoleRef" parameterType="business">
+		update 
+			self_org_role_ref orr 
+		set 
+			orr.DELETED = 1,
+			orr.OPTER = #{opter},
+			orr.OPTDATE = sysdate() 
+				where orr.ORID in (
+				select tt.orid
+				from (
+					select orr.ORID
+					from self_organization org 
+					left join self_org_role_ref orr on orr.OID = org.OID
+					where org.DELETED = 0 
+					and orr.DELETED = 0 
+					and org.BID = #{bid}
+					and orr.RID = #{rid}
+				)tt
+			)
+	</update>	
+	
+	<!--根据商户获取商户未授权权限 -->
+	<select id="getBusinessNoRole" parameterType="business" resultType="role">
+		select role.RID,
+				role.RCODE,
+				role.RNAME
+		from self_role role 
+		where role.DELETED = 0 
+		and role.RID not in (
+			select rbr.RID
+			from self_role_business_ref rbr
+			where rbr.DELETED = 0 
+			and rbr.BID = #{bid}
+		)
+	</select>	
 </mapper>
-

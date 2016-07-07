@@ -1,5 +1,5 @@
 var total = 0;
-var pageSize = 2; //默认每页20条数据
+var pageSize = 20; //默认每页20条数据
 var pageStart = 0;
 $(function(){
 	//加载商户列表
@@ -105,7 +105,7 @@ function roleList(type,param){
 						tr +='	<td>'+rcode+'</td>                        ';
 						tr +='	<td>'+remark+'</td>                  ';
 						tr +='	<td resourceid="'+resourceid+'">'+resourcename+'</td>                  ';
-						tr +='	<td><button type="button" class="btn btn-warning" onclick="delResource(\''+rid+'\')">编辑</button>&nbsp;<button type="button" class="btn btn-danger" onclick="updateRole(\''+rid+'\')">修改</button></td>                    ';
+						tr +='	<td><button type="button" class="btn btn-warning" onclick="updateRole(\''+rid+'\')">修改</button>&nbsp;<button type="button" class="btn btn-danger" onclick="delResource(\''+rid+'\')">删除</button></td>                    ';
 						tr +='</tr>                                    ';
 						$("#roleList").append(tr);
 					}
@@ -244,10 +244,9 @@ function updateResource(rid){
 function delResource(rid){
 	//询问框
 	layer.confirm('确定要删除吗？', {
-	  btn: ['取消','确定'] //按钮
-	}, function(){
-		layer.closeAll();
-	}, function(){
+	  btn: ['确定','取消'] //按钮
+	},
+	function(){
 		var load = layer.load(2);
 		//组装参数
 		var param = {};
@@ -269,12 +268,13 @@ function delResource(rid){
 				}else{
 					layer.msg(message, {icon: 1});
 				}
-				setTimeout(function(){
-					$("#resourceWin").modal('hide');
-					roleList("init",null);
-				}, 1000);
+				$("#resourceWin").modal('hide');
+				roleList("init",null);
 			}
 		});
+	},
+	function(){
+		layer.closeAll();
 	});
 }
 
