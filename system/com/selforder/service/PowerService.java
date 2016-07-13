@@ -87,6 +87,13 @@ public interface PowerService {
 	 */
 	public String delRolResourceRef(String refid);
 	
+	/**
+	 * 删除角色
+	 * @param role
+	 * @return
+	 */
+	public String delRole(Role role);
+	
 	//-----------------------商户与角色（权限）关联关系管理----------------------------------
 
 	/**

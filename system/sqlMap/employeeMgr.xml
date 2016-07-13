@@ -39,7 +39,8 @@
 			        SID,
 			        BID,
 			        CRTER,
-			        CRTDATE
+			        CRTDATE,
+			        ISADMIN
 			    )
 			    VALUES
 			    (
@@ -63,7 +64,8 @@
 					#{sid},
 					#{bid},
 					#{crter},
-					sysdate()
+					sysdate(),
+					#{isadmin}
 			    )
 	</insert>
 	
@@ -174,7 +176,8 @@
 		        emp.CRTDATE,
 		        emp.OPTER,
 		        emp.OPTDATE,
-		        emp.DELETED
+		        emp.DELETED,
+		        emp.ISADMIN
 		FROM
 		    self_employee emp
 		left join SELF_BUSINESS business on business.BID = emp.BID
@@ -296,5 +299,19 @@
 		WHERE
 		    EMPID = #{empid}
 	</update>
+	
+	<!--查询员工已关联权限 -->
+	<select id="getEmpRoles"  parameterType="employee" resultType="role">
+		select role.RID,
+				 role.RCODE,
+				 role.RNAME
+		from self_role role 
+		left join self_org_role_ref orr on orr.RID = role.RID
+		left join self_org_emp_ref oer on oer.OID = orr.OID
+		where role.DELETED = 0 
+		and orr.DELETED = 0 
+		and oer.DELETED = 0 
+		and oer.EMPID = #{empid}
+	</select>	
 </mapper>
 

@@ -1,19 +1,62 @@
 var total = 0;
+var pageSize = 20; //默认每页20条数据
+var pageStart = 0;
+var first = true;//是否第一次加载
 $(function(){
 	//加载商户列表
-	loadShopList();
+	loadShopList("init",null);
 	keyEvent();
 });
+
 /**
- * 加载商户列表
+ * 分页公共插件
+ * @returns
  */
-function loadShopList(param){
+function pageOption(paginationid,totalpage){
+	$("#"+paginationid).twbsPagination("destroy");
+	$('#'+paginationid).twbsPagination({
+        totalPages: totalpage,
+        visiblePages: 10,
+        first:"首页",
+        prev:"上一页",
+        next:"下一页",
+        last:"尾页",
+        onPageClick: function (event, page) {
+            var tag = event.target;
+            var data_optionStr = $(tag).attr("data-option");
+            data_optionStr = "("+data_optionStr+")";
+            data_option = eval(data_optionStr);
+            pageStart = page;
+            var temp_pageSize = data_option.pageSize;
+            if(checkValue(temp_pageSize)){
+            	pageSize = temp_pageSize;
+            }else{
+            	pageSize = 20;
+            }
+        	var param = {};
+        	if(!first){
+        		roleList("pageQuery",param);
+        	}
+        }
+    });
+}
+/**
+ * 加载门店列表
+ * @param type 查询类型  init:初始化查询   pageQuery:分页查询
+ * @param param 
+ */
+function loadShopList(type,param){
 	var load = layer.load(2, {shade: [1, 'rgba(0,0,0,.5)']});
 	if(typeof(param) == "undefined" || param == null || param == ""){
-		param = "";
+		param = {};
+		param["page"] = pageStart;
+		param["limit"] = pageSize;
+	}else{
+		param["page"] = pageStart;
+		param["limit"] = pageSize;
 	}
 	//清除历史数据
-	$("tr[tag='append']").remove();
+	$("tr[tag='appendShopTr']").remove();
 	$.ajax({
 		type:"POST",
 		url:"/selforder/api/shop/getShopList.action",
@@ -25,43 +68,46 @@ function loadShopList(param){
 				return;
 			}else{
 				total = data.total;
+				var totalpage = Math.ceil(total/pageSize);
+				if("init" == type){
+					pageOption("pagination",totalpage);
+				}
 				var rows = data.rows;
 				if(rows.length > 0){
 					for(var i=0;i<rows.length;i++){
 						var tr = "";
 						var row = rows[i];
-						var sid = row.sid;
-						var bname = row.bname;
-						var sname  = row.sname;
-						var linkman = row.linkman;
-						var phone = row.phone;
-						var isoutsell = row.isoutsell;
-						if(isoutsell == 0){
-							isoutsell = "否";
-						}else{
-							isoutsell = "是";
-						}
-						var isarray = row.isarray;
-						if(isarray == 0){
-							isarray = "否";
-						}else{
-							isarray = "是";
-						}
+						var id = row.id;
+						var weid = row.weid;
+						var title = row.title;
+						var tel = row.tel;
+						var location_p = row.location_p;
+						var location_c = row.location_c;
+						var location_a = row.location_a;
 						var address = row.address;
-						var longitude = row.longitude;
-						var latitude = row.latitude;
-						tr +='<tr tag="append" sid="'+sid+'" class="animated flipInX">                                     ';
+						var is_show = row.is_show;
+						var is_meal = row.is_meal;
+						var is_delivery = row.is_delivery;
+						var is_reservation = row.is_reservation;
+						var is_queue = row.is_queue;
+						var begintime = row.begintime;
+						var endtime = row.endtime;
+						var delivery_radius = row.delivery_radius;
+						
+						tr +='<tr tag="appendShopTr" sid="'+id+'" class="animated flipInX">                                     ';
 						tr +='	<td>'+(i+1)+'</td>                             ';
-						tr +='	<td>'+bname+'</td>    ';
-						tr +='	<td>'+sname+'</td>                        ';
-						tr +='	<td>'+linkman+'</td>                  ';
-						tr +='	<td>'+phone+'</td>                          ';
-						tr +='	<td>'+isoutsell+'</td>';
-						tr +='	<td>'+isarray+'</td>                    ';
+						tr +='	<td>'+title+'</td>    ';
+						tr +='	<td>'+tel+'</td>                        ';
+						tr +='	<td>'+begintime+'</td>                  ';
+						tr +='	<td>'+endtime+'</td>                          ';
+						tr +='	<td>'+is_meal+'</td>';
+						tr +='	<td>'+is_delivery+'</td>                    ';
+						tr +='	<td>'+is_reservation+'</td>                    ';
+						tr +='	<td>'+is_show+'</td>                    ';
+						tr +='	<td>'+is_queue+'</td>                    ';
+						tr +='	<td>'+delivery_radius+'</td>                    ';
 						tr +='	<td>'+address+'</td>                    ';
-						tr +='	<td>'+longitude+'</td>                    ';
-						tr +='	<td>'+latitude+'</td>                    ';
-						tr +='	<td><button type="button" class="btn btn-danger" onclick="updateShop(\''+sid+'\')">修改</button></td>                    ';
+						tr +='	<td><button type="button" class="btn btn-warning" onclick="updateShop(\''+id+'\')">编辑</button>&nbsp;<button type="button" class="btn btn-danger" onclick="updateShop(\''+id+'\')">删除</button></td>                    ';
 						tr +='</tr>                                    ';
 						$("#shoplist").append(tr);
 					}
@@ -87,16 +133,9 @@ function updateShop(sid){
  * 搜索
  */
 function search(){
-	var bname = $("#bname_search").val();
-	var phone = $("#phone_search").val();
-	var status = $("#status_search").val();
-	var legaler = $("#legaler_search").val();
 	var param = {};
-	param["business.bname"] = bname;
-	param["business.phone"] = phone;
-	param["business.status"] = status;
-	param["business.legaler"] = legaler;
-	loadBusinessList(param);
+	first = true;
+	loadBusinessList("init",param);
 }
 
 /**
@@ -104,7 +143,8 @@ function search(){
  * @returns
  */
 function clearParam(){
-	loadBusinessList();
+	first = true;
+	loadBusinessList("init",null);
 }
 
 /**

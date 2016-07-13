@@ -105,11 +105,47 @@ public class PowerServiceImpl implements PowerService {
 		Map map = new HashMap();
 		map.put("role_id",role.getRid());
 		map.put("selectRole", role.getResourceid());
+		map.put("keyword", role.getKeyword());
 		List<Resource> resourcelist = powerDao.selectResourceList(map);
 		result = JsonResultUtil.getJsonResult(0, "success", "查询成功", resourcelist);
 		return result;
 	}
-
+	
+	/**
+	 * 删除角色
+	 * @param role
+	 * @return
+	 */
+	public String delRole(Role role){
+		/**
+		 * 逻辑过程：
+		 * 	清除角色与资源关联关系
+		 * 	清除角色
+		 */
+		String result = "";
+		String usercode = new Context().getLoginUserInfo().getCode();
+		try{
+			//清除角色与资源关联关系
+			int delRef = powerDao.delRoleResource(role.getRid());
+			if(delRef<0){
+				result = JsonResultUtil.getJsonResult(-1, "fail", "删除权限与资源关联关系失败!");
+			}else{
+				//清除角色
+				role.setDeleted(1);
+				role.setOpter(usercode);
+				int delrole = powerDao.updateRole(role);
+				if(delrole < 0){
+					result = JsonResultUtil.getJsonResult(-1, "fail", "删除权限失败!");
+				}else{
+					result = JsonResultUtil.getJsonResult(0, "success", "操作成功!");
+				}
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			return JsonResultUtil.getJsonResult(-1, "fail", "操作失败!");
+		}
+		return result;
+	}
 	//-------------------角色管理------------------------------------
 	/**
 	 * 保存角色信息

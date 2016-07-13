@@ -1,5 +1,5 @@
 var total = 0;
-var pageSize = 2; //默认每页20条数据
+var pageSize = 20; //默认每页20条数据
 var pageStart = 0;
 $(function(){
 	//加载商户列表
@@ -44,7 +44,7 @@ function pageOption(paginationid,totalpage){
             if(checkValue(temp_pageSize)){
             	pageSize = temp_pageSize;
             }else{
-            	pageSize = 2;
+            	pageSize = 20;
             }
             var bname = $("#bname_search").val();
         	var phone = $("#phone_search").val();

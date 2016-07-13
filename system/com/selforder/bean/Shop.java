@@ -12,42 +12,276 @@ import com.automobile.bean.baseBean;
  * 2016-5-16
  */
 public class Shop extends baseBean{
-	private static final long serialVersionUID = -9098139579195531642L;
-	private String sid;
-	private String sname;
-	private String scode;
-	private String bid;
-	private String bname;
-	private String linkman;
-	private String phone;
+	private static final long serialVersionUID = 8435660058473839561L;
+	private String id;
+	private String weid;
+	private String title;
+	private String logo;
+	private String info;
+	private String announce;
+	private String tel;
+	private String location_p;
+	private String location_c;
+	private String location_a;
 	private String address;
-	private Double longitude;
-	private Double latitude;
-	private int isoutsell;
-	private int isarray;
-	private String shopimg;
-	private String crter;
-	private Date crtdate;
-	private String opter;
-	private Date optdate;
-	private int deleted;
-	public String getSid() {
-		return sid;
+	private String lat;
+	private String lng;
+	private String password;
+	private String hours;
+	private String recharging_password;
+	private String thumb_url;
+	private String enable_wifi;
+	private String enable_card;
+	private String enable_room;
+	private String enable_park;
+	private String is_rest;
+	private String is_show;
+	private String is_meal;
+	private String is_delivery;
+	private String is_reservation;
+	private String is_queue;
+	private String delivery_within_days;
+	private String delivery_radius;
+	private String not_in_delivery_radius;
+	private String sendingprice;
+	private String consume;
+	private String level;
+	private String updatetime;
+	private String dateline;
+	private String content;
+	private String begintime;
+	private String endtime;
+	private String bid;//商户ID
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
-	public void setSid(String sid) {
-		this.sid = sid;
+	public String getId() {
+		return id;
 	}
-	public String getSname() {
-		return sname;
+	public String getWeid() {
+		return weid;
 	}
-	public void setSname(String sname) {
-		this.sname = sname;
+	public String getTitle() {
+		return title;
 	}
-	public String getScode() {
-		return scode;
+	public String getLogo() {
+		return logo;
 	}
-	public void setScode(String scode) {
-		this.scode = scode;
+	public String getInfo() {
+		return info;
+	}
+	public String getAnnounce() {
+		return announce;
+	}
+	public String getTel() {
+		return tel;
+	}
+	public String getLocation_p() {
+		return location_p;
+	}
+	public String getLocation_c() {
+		return location_c;
+	}
+	public String getLocation_a() {
+		return location_a;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public String getLat() {
+		return lat;
+	}
+	public String getLng() {
+		return lng;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public String getHours() {
+		return hours;
+	}
+	public String getRecharging_password() {
+		return recharging_password;
+	}
+	public String getThumb_url() {
+		return thumb_url;
+	}
+	public String getEnable_wifi() {
+		return enable_wifi;
+	}
+	public String getEnable_card() {
+		return enable_card;
+	}
+	public String getEnable_room() {
+		return enable_room;
+	}
+	public String getEnable_park() {
+		return enable_park;
+	}
+	public String getIs_rest() {
+		return is_rest;
+	}
+	public String getIs_show() {
+		return is_show;
+	}
+	public String getIs_meal() {
+		return is_meal;
+	}
+	public String getIs_delivery() {
+		return is_delivery;
+	}
+	public String getIs_reservation() {
+		return is_reservation;
+	}
+	public String getIs_queue() {
+		return is_queue;
+	}
+	public String getDelivery_within_days() {
+		return delivery_within_days;
+	}
+	public String getDelivery_radius() {
+		return delivery_radius;
+	}
+	public String getNot_in_delivery_radius() {
+		return not_in_delivery_radius;
+	}
+	public String getSendingprice() {
+		return sendingprice;
+	}
+	public String getConsume() {
+		return consume;
+	}
+	public String getLevel() {
+		return level;
+	}
+	public String getUpdatetime() {
+		return updatetime;
+	}
+	public String getDateline() {
+		return dateline;
+	}
+	public String getContent() {
+		return content;
+	}
+	public String getBegintime() {
+		return begintime;
+	}
+	public String getEndtime() {
+		return endtime;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public void setWeid(String weid) {
+		this.weid = weid;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public void setLogo(String logo) {
+		this.logo = logo;
+	}
+	public void setInfo(String info) {
+		this.info = info;
+	}
+	public void setAnnounce(String announce) {
+		this.announce = announce;
+	}
+	public void setTel(String tel) {
+		this.tel = tel;
+	}
+	public void setLocation_p(String location_p) {
+		this.location_p = location_p;
+	}
+	public void setLocation_c(String location_c) {
+		this.location_c = location_c;
+	}
+	public void setLocation_a(String location_a) {
+		this.location_a = location_a;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public void setLat(String lat) {
+		this.lat = lat;
+	}
+	public void setLng(String lng) {
+		this.lng = lng;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public void setHours(String hours) {
+		this.hours = hours;
+	}
+	public void setRecharging_password(String recharging_password) {
+		this.recharging_password = recharging_password;
+	}
+	public void setThumb_url(String thumb_url) {
+		this.thumb_url = thumb_url;
+	}
+	public void setEnable_wifi(String enable_wifi) {
+		this.enable_wifi = enable_wifi;
+	}
+	public void setEnable_card(String enable_card) {
+		this.enable_card = enable_card;
+	}
+	public void setEnable_room(String enable_room) {
+		this.enable_room = enable_room;
+	}
+	public void setEnable_park(String enable_park) {
+		this.enable_park = enable_park;
+	}
+	public void setIs_rest(String is_rest) {
+		this.is_rest = is_rest;
+	}
+	public void setIs_show(String is_show) {
+		this.is_show = is_show;
+	}
+	public void setIs_meal(String is_meal) {
+		this.is_meal = is_meal;
+	}
+	public void setIs_delivery(String is_delivery) {
+		this.is_delivery = is_delivery;
+	}
+	public void setIs_reservation(String is_reservation) {
+		this.is_reservation = is_reservation;
+	}
+	public void setIs_queue(String is_queue) {
+		this.is_queue = is_queue;
+	}
+	public void setDelivery_within_days(String delivery_within_days) {
+		this.delivery_within_days = delivery_within_days;
+	}
+	public void setDelivery_radius(String delivery_radius) {
+		this.delivery_radius = delivery_radius;
+	}
+	public void setNot_in_delivery_radius(String not_in_delivery_radius) {
+		this.not_in_delivery_radius = not_in_delivery_radius;
+	}
+	public void setSendingprice(String sendingprice) {
+		this.sendingprice = sendingprice;
+	}
+	public void setConsume(String consume) {
+		this.consume = consume;
+	}
+	public void setLevel(String level) {
+		this.level = level;
+	}
+	public void setUpdatetime(String updatetime) {
+		this.updatetime = updatetime;
+	}
+	public void setDateline(String dateline) {
+		this.dateline = dateline;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
+	public void setBegintime(String begintime) {
+		this.begintime = begintime;
+	}
+	public void setEndtime(String endtime) {
+		this.endtime = endtime;
 	}
 	public String getBid() {
 		return bid;
@@ -55,90 +289,5 @@ public class Shop extends baseBean{
 	public void setBid(String bid) {
 		this.bid = bid;
 	}
-	public String getLinkman() {
-		return linkman;
-	}
-	public void setLinkman(String linkman) {
-		this.linkman = linkman;
-	}
-	public String getPhone() {
-		return phone;
-	}
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-	public String getAddress() {
-		return address;
-	}
-	public void setAddress(String address) {
-		this.address = address;
-	}
-	public Double getLongitude() {
-		return longitude;
-	}
-	public void setLongitude(Double longitude) {
-		this.longitude = longitude;
-	}
-	public Double getLatitude() {
-		return latitude;
-	}
-	public void setLatitude(Double latitude) {
-		this.latitude = latitude;
-	}
-	public int getIsoutsell() {
-		return isoutsell;
-	}
-	public void setIsoutsell(int isoutsell) {
-		this.isoutsell = isoutsell;
-	}
-	public int getIsarray() {
-		return isarray;
-	}
-	public void setIsarray(int isarray) {
-		this.isarray = isarray;
-	}
-	public String getCrter() {
-		return crter;
-	}
-	public void setCrter(String crter) {
-		this.crter = crter;
-	}
-	public Date getCrtdate() {
-		return crtdate;
-	}
-	public void setCrtdate(Date crtdate) {
-		this.crtdate = crtdate;
-	}
-	public String getOpter() {
-		return opter;
-	}
-	public void setOpter(String opter) {
-		this.opter = opter;
-	}
-	public Date getOptdate() {
-		return optdate;
-	}
-	public void setOptdate(Date optdate) {
-		this.optdate = optdate;
-	}
-	public int getDeleted() {
-		return deleted;
-	}
-	public void setDeleted(int deleted) {
-		this.deleted = deleted;
-	}
-	public String getShopimg() {
-		return shopimg;
-	}
-	public void setShopimg(String shopimg) {
-		this.shopimg = shopimg;
-	}
-	public String getBname() {
-		return bname;
-	}
-	public void setBname(String bname) {
-		this.bname = bname;
-	}
-
 	
 }

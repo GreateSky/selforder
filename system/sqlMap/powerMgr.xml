@@ -80,6 +80,9 @@
 		<if test="selectRole != null and selectRole !='' ">
 			and re.RID not in (${selectRole})          
 		</if>
+		<if test="keyword != null and keyword !='' ">
+			and upper(concat(re.RNAME,re.RURL)) like  concat('%',#{keyword},'%')       
+		</if>
 	</select>
 	
 	<!--查询资源列表统计数  用于列表分页 -->
@@ -500,4 +503,14 @@
 			and rbr.BID = #{bid}
 		)
 	</select>	
+	
+	<!--获取所有权限 -->
+	<select id="getAllRoles"  resultType="role">
+		select role.RID,role.RCODE,role.RNAME from self_role role where role.DELETED = 0 
+	</select>
+	
+	<!-- 删除权限与资源关联关系 -->
+	<update id="delRoleResource" parameterType="java.lang.String">
+		update self_role_resource_ref  set deleted = 1 where role_id = #{rid}
+	</update>
 </mapper>

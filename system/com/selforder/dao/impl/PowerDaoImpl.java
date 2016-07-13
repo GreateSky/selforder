@@ -192,6 +192,15 @@ public class PowerDaoImpl extends SqlSessionDaoSupport implements PowerDao {
 		}
 		return count;
 	}
+	
+	/**
+	 * 根据角色ID删除关联的资源
+	 * @param rid
+	 * @return
+	 */
+	public int delRoleResource(String rid){
+		return getSqlSession().update("com.selforder.power.delRoleResource",rid);
+	}
 
 	
 	//-----------------------角色与资源关联关系管理----------------------------------
@@ -361,5 +370,13 @@ public class PowerDaoImpl extends SqlSessionDaoSupport implements PowerDao {
 	 */
 	public List<Role> getBusNoRoleList(Business business)throws Exception{
 		return getSqlSession().selectList("com.selforder.power.getBusinessNoRole", business);
+	}
+	
+	/**
+	 * 根据所有权限
+	 * @return
+	 */
+	public List<Role> getAllRoles()throws Exception{
+		return getSqlSession().selectList("com.selforder.power.getAllRoles", null);
 	}
 }

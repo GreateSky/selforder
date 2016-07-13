@@ -330,6 +330,8 @@ public class OrganizationServiceImpl implements OrganizationService  {
 	public String getOrgRoleNoList(Role role){
 		String result = "";
 		try{
+			String bid = new Context().getLoginUserInfo().getBid();
+			role.setBid(bid);
 			List<Role> orgRoleList = organizationDao.getOrgRoleNoList(role);
 			if(null != orgRoleList && orgRoleList.size() > 0){
 				result = JsonResultUtil.getJsonResult(0, "success", "获取成功！", orgRoleList);

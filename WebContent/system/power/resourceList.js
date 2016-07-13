@@ -1,24 +1,12 @@
 var total = 0;
 var pageSize = 20; //默认每页20条数据
 var pageStart = 0;
+var first = true;//是否第一次加载
 $(function(){
 	//加载商户列表
 	loadResourceList("init",null);
 	keyEvent();
 });
-
-/**
- * 验证值
- * @param value
- * @returns
- */
-function checkValue(value){
-	if(typeof(value) != "undefined" && value != null && value != "" && value != "null"){
-		return true;
-	}else{
-		return false;
-	}
-}
 
 /**
  * 分页公共插件
@@ -45,24 +33,15 @@ function pageOption(paginationid,totalpage){
             }else{
             	pageSize = 20;
             }
-            var bname = $("#bname_search").val();
-        	var phone = $("#phone_search").val();
-        	var status = $("#status_search").val();
-        	var legaler = $("#legaler_search").val();
+            var rname = $("#rname_search").val();
+        	var rurl = $("#rurl_search").val();
         	var param = {};
-        	if(checkValue(bname)){
-        		param["business.bname"] = bname;
+        	param["resource.rname"] = rname;
+        	param["resource.rurl"] = rurl;
+        	if(!first){
+        		loadResourceList("pageQuery",param);
         	}
-        	if(checkValue(phone)){
-        		param["business.phone"] = phone;
-        	}
-        	if(checkValue(status)){
-        		param["business.status"] = status;
-        	}
-        	if(checkValue(legaler)){
-        		param["business.legaler"] = legaler;
-        	}
-        	loadResourceList("pageQuery",param);
+        	
         }
     });
 }
@@ -89,6 +68,7 @@ function loadResourceList(type,param){
 		dataType:'json',
 		success:function(data){
 			layer.close(load);
+			first = false;
 			//清除历史数据
 			$("tr[tag='append']").remove();
 			if(typeof(data) == "undefined" || data == ""){
@@ -300,6 +280,7 @@ var search = function(){
 	var param = {};
 	param["resource.rname"] = rname;
 	param["resource.rurl"] = rurl;
+	first = true;
 	loadResourceList("init",param);
 }
 
@@ -310,6 +291,7 @@ var search = function(){
 function clearParam(){
 	$("#rname_search").val("");
 	$("#rurl_search").val("");
+	first = true;
 	loadResourceList("init",null);
 }
 

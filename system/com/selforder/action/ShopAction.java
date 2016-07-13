@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.struts2.ServletActionContext;
 
 import com.greatesky.action.GreateSkyActionSupport;
+import com.selforder.bean.Organization;
 import com.selforder.bean.Shop;
 import com.selforder.service.ShopService;
 
@@ -75,6 +76,11 @@ public class ShopAction extends GreateSkyActionSupport {
 		String result;
 		try{
 			out = response.getWriter();
+			if(null == shop){
+				shop = new Shop();
+			}
+			shop.setPageSize(super.limit);
+			shop.setPageStart(super.page);
 			result = shopService.shopList(shop);
 			System.out.println("获取门店列表========"+result);
 			out.write(result);
@@ -133,7 +139,6 @@ public class ShopAction extends GreateSkyActionSupport {
 		String result;
 		try{
 			out = response.getWriter();
-			shop.setOpter("system");
 			result = shopService.updateShop(shop);
 			System.out.println("更新门店详情========"+result);
 			out.write(result);

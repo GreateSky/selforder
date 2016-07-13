@@ -30,6 +30,7 @@
 	<!--员工管理-->
 	<bean name="employeeService" class="com.selforder.service.impl.EmployeeServiceImpl" scope="prototype">
 		<property name="employeeDao" ref="employeeDao"></property>
+		<property name="powerDao" ref="powerDao"></property>
 	</bean>
 	<!--权限管理-->
 	<bean name="myUserDetailsService" class="com.selforder.security.service.MyUserDetailsService" scope="prototype">

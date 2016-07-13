@@ -54,27 +54,33 @@
                   <div class="box-body">
                   	<!--门店维护 start-->
 					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-1 control-label">商户：</label>
-					  <div class="col-sm-2">
-						<input type="text" class="form-control" id="bname" placeholder="商户" value="" disabled="disabled">
-					  </div>
-					</div>
-					<div class="form-group has-warning">
 					  <label for="inputEmail3" class="col-sm-1 control-label">门店：</label>
 					  <div class="col-sm-2">
-						<input type="text" class="form-control" id="sname" name="shop.sname" placeholder="门店" value="">
+						<input type="text" class="form-control" id="title" placeholder="门店" value="">
 					  </div>
 					</div>
 					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-1 control-label">负责人：</label>
+					  <label for="inputEmail3" class="col-sm-1 control-label">LOGO：</label>
 					  <div class="col-sm-2">
-						<input type="text" class="form-control" id="linkman"  name="shop.linkman" placeholder="负责人" value="">
+						<input type="file" id="fileid" name="fileid" class="form-control" />
 					  </div>
 					</div>
 					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-1 control-label">负责人电话：</label>
+					  <label for="inputEmail3" class="col-sm-1 control-label">电话：</label>
 					  <div class="col-sm-2">
-						<input type="text" class="form-control" id="phone" name="shop.phone" placeholder="负责人电话" value="">
+						<input type="text" class="form-control" id="tel" placeholder="电话" value="">
+					  </div>
+					</div>
+					<div class="form-group has-warning">
+					  <label for="inputEmail3" class="col-sm-1 control-label">描述：</label>
+					  <div class="col-sm-2">
+						<input type="text" class="form-control" id="info" placeholder="描述" value="">
+					  </div>
+					</div>
+					<div class="form-group has-warning">
+					  <label for="inputEmail3" class="col-sm-1 control-label">通知：</label>
+					  <div class="col-sm-2">
+						<input type="text" class="form-control" id="announce" placeholder="通知" value="">
 					  </div>
 					</div>
 					<div class="form-group has-warning">
@@ -94,12 +100,6 @@
 					  </div>
 					  <div class="col-sm-1">
 						<button class="btn btn-default">定位</button>
-					  </div>
-					</div>
-					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-1 control-label">门头照片：</label>
-					  <div class="col-sm-2">
-						<input type="file" id="fileid" name="fileid" class="form-control" />
 					  </div>
 					</div>
 					<div class="form-group has-warning">

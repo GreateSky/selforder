@@ -54,6 +54,7 @@ public class BusinessServiceImpl implements BusinessService {
 				emp.setType("B");//商户人员
 				emp.setBid(business.getBid());//所属商户
 				emp.setEmpname("系统管理员");
+				emp.setIsadmin("1");//设置成系统管理员
 				String saveEmp = employeeDao.saveEmployeeInfo(emp);
 				if(saveEmp.indexOf("fail") != -1){
 					result = JsonResultUtil.getJsonResult(-1, "fail", "保存商户系统管理员失败！");

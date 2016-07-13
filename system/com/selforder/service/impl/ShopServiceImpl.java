@@ -8,6 +8,7 @@ import com.selforder.bean.Business;
 import com.selforder.bean.Shop;
 import com.selforder.dao.ShopDao;
 import com.selforder.service.ShopService;
+import com.selforder.util.Context;
 import com.selforder.util.JsonResultUtil;
 
 public class ShopServiceImpl implements ShopService {
@@ -41,6 +42,8 @@ public class ShopServiceImpl implements ShopService {
 	public String shopList(Shop shop) {
 		String result = "";
 		Map resultMap = new HashMap();
+		String bid = new Context().getLoginUserInfo().getBid();
+		shop.setWeid(bid);
 		try{
 			//查询门店列表
 			List<Shop> shoplist = shopDao.ShopList(shop);
@@ -87,7 +90,7 @@ public class ShopServiceImpl implements ShopService {
 	@Override
 	public String updateShop(Shop shop) {
 		String result = "";
-		if(shop != null && !"".equals(shop.getSid())){
+		if(shop != null && !"".equals(shop.getId())){
 			int updateRes = shopDao.updateShop(shop);
 			if(updateRes <=0){
 				result = JsonResultUtil.getJsonResult(-1, "fail", "更新门店信息失败!");

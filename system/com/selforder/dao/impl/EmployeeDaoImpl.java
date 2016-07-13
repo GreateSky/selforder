@@ -8,6 +8,7 @@ import org.mybatis.spring.support.SqlSessionDaoSupport;
 
 import com.selforder.bean.Business;
 import com.selforder.bean.Employee;
+import com.selforder.bean.Role;
 import com.selforder.dao.EmployeeDao;
 import com.selforder.util.Context;
 import com.selforder.util.JsonResultUtil;
@@ -132,5 +133,14 @@ public class EmployeeDaoImpl extends SqlSessionDaoSupport implements EmployeeDao
 			e.printStackTrace();
 		}
 		return count;
+	}
+	
+	/**
+	 * 查询员工已关联权限
+	 * @param employee
+	 * @return
+	 */
+	public List<Role> getEmpRoles(Employee employee)throws Exception{
+		return getSqlSession().selectList("com.selforder.employee.getEmpRoles", employee);
 	}
 }

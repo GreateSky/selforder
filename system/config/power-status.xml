@@ -100,6 +100,12 @@
 				<param name="root">resultJson</param>
 			</result> 
 		</action>
+		<!--删除角色-->
+		<action name = "delRole" class="powerAction" method="delRole">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
 		
 		
 	</package>

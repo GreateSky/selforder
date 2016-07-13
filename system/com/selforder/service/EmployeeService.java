@@ -40,4 +40,18 @@ public interface EmployeeService {
 	 * @return
 	 */
 	public String getEmployeeList(Employee employee);
+	
+	/**
+	 * 获取当前登录员工已授权的权限
+	 * @param employee
+	 * @return
+	 */
+	public String getEmployeeRole(Employee employee);
+	
+	/**
+	 * 获取当前员工已授权权限（用于运营人员）
+	 * @param employee
+	 * @return
+	 */
+	public String getEmployeeRole4Admin(Employee employee);
 }

@@ -216,6 +216,7 @@ function loadResourceList(type,param){
 		//param["page"] = pageStart;
 		//param["limit"] = pageSize;
 	}
+	
 	//获取已经选择的资源
 	var resourid_ref = "";
 	$("tr[tag='roleResource_append']").each(function(){
@@ -226,7 +227,9 @@ function loadResourceList(type,param){
 	if(resourid_ref != ""){
 		param["role.resourceid"] = resourid_ref.substring(0,resourid_ref.length-1);
 	}
+	var keyword = $("#keyword").val();
 	param["role.rid"] = rid;
+	param["role.keyword"] = keyword;
 	$.ajax({
 		type:"POST",
 		url:"/selforder/api/power/selectResourceList.action",
@@ -334,5 +337,9 @@ function delResourceOne(e){
 	}else{
 		$(e).remove();
 	}
+}
+
+function resourceSearch(){
+	
 }
 

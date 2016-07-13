@@ -12,6 +12,16 @@ public class baseBean implements Serializable {
 	private static final long serialVersionUID = 3745355757797128150L;
 	private int pageStart = 0;
 	private int pageSize = 0;
+	private String keyword = "";
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	public String getKeyword() {
+		return keyword;
+	}
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
 	public int getPageStart() {
 		return pageStart;
 	}

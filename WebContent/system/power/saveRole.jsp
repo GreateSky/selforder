@@ -106,12 +106,16 @@
 		        <h4 class="modal-title" id="myModalLabel">资源选择</h4>
 		      </div>
 		      <div class="modal-body">
-			    <div class="form-group has-warning" >
-			      <label for="wcode">名称</label>
-			      <input type="text" class="form-control" id="rname" name="resource.rname" placeholder="名称" value="" >
-			      <label for="wcode">URL</label>
-			      <input type="text" class="form-control" id="rurl" name="resource.rurl" placeholder="URL" value="" >
-				</div>
+			    <div class="row" style="margin-bottom: 10px">
+			      <div class="col-xs-12">
+			      	  <div class="input-group input-group-sm">
+				      	<input type="text" class="form-control" id="keyword"  placeholder="名称/URL" value="" >
+				      	<span class="input-group-btn">
+	                      <button class="btn btn-info btn-flat" type="button" onclick="loadResourceList('init',null)">Go!</button>
+	                    </span>
+				      </div>
+			      </div>
+			    </div>
 				<table id="resourceList" class="table table-striped ">
                     <tr>
                       <th></th>

@@ -3,6 +3,7 @@ package com.selforder.dao;
 import java.util.List;
 
 import com.selforder.bean.Employee;
+import com.selforder.bean.Role;
 
 /**
  * 員工信息管理服務接口
@@ -60,5 +61,12 @@ public interface EmployeeDao {
 	 * @return
 	 */
 	public int getEmployeeCount(Employee employee);
+	
+	/**
+	 * 查询员工已关联权限
+	 * @param employee
+	 * @return
+	 */
+	public List<Role> getEmpRoles(Employee employee)throws Exception;
 	
 }

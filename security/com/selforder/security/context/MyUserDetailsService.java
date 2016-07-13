@@ -1,21 +1,34 @@
 package com.selforder.security.context;
 
+import java.beans.IntrospectionException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.GrantedAuthorityImpl;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.selforder.bean.Employee;
 import com.selforder.bean.UserInfo;
 import com.selforder.dao.EmployeeDao;
+import com.selforder.service.EmployeeService;
+import com.selforder.util.BeanToMapUtil;
 
 public class MyUserDetailsService implements UserDetailsService  {
+	private EmployeeService employeeService;
 	private EmployeeDao employeeDao;
+	public EmployeeService getEmployeeService() {
+		return employeeService;
+	}
+	public void setEmployeeService(EmployeeService employeeService) {
+		this.employeeService = employeeService;
+	}
 	public EmployeeDao getEmployeeDao() {
 		return employeeDao;
 	}
@@ -24,7 +37,7 @@ public class MyUserDetailsService implements UserDetailsService  {
 	}
 	//登录验证
 	public UserDetails loadUserByUsername(String name)
-			throws UsernameNotFoundException {
+			throws UsernameNotFoundException{
 		System.out.println("show login name================："+name+" ");
 		if(null == name || "".equals(name)){
 			return null;
@@ -32,10 +45,58 @@ public class MyUserDetailsService implements UserDetailsService  {
 		//根据登录名获取登录账户的基本信息
 		Employee employee = new Employee();
 		employee.setLoginname(name);
-		Employee emp = employeeDao.getEmployeeInfo(employee);
+		String empinfo = employeeService.getEmployeeInfo(employee);
+		if(empinfo.indexOf("succcess") != -1){//查询员工信息失败
+			return null;
+		}
+		//將返回的json字符串转换成对象
+		Gson gson = new Gson();
+		Map map = gson.fromJson(empinfo, new TypeToken<Map>(){}.getType());
+		Map empMap = (Map)map.get("data");
+		Employee emp = new Employee();
+		try {
+			emp = (Employee)BeanToMapUtil.convertMap(Employee.class, empMap);
+		} catch (IntrospectionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		//判断是否有当前登录信息
 		if(null != emp){
-			emp.setRole("ROLE_LOGIN,ROLE_ADMIN,ROLE_BUSINESS");//暂未提供权限功能写固定值
+			/**
+			 * 获取当前登录员工的权限列表
+			 * 	 判断员工类型  运营人员、商户人员
+			 * 		商户人员：查询商户人员的权限
+			 * 		运营人员：查询运营人员的权限
+			 */
+			String type = emp.getType();//员工类型
+			String empRoleStr = "";//已授权的权限字符串，多个权限用","隔开
+			if("A".equals(type)){
+				//运营人员
+				empRoleStr = employeeService.getEmployeeRole4Admin(emp);
+				
+			}else if("B".equals(type) || "S".equals(type)){ //B.商户员工	S.门店员工
+				//商户和门店员工
+				empRoleStr = employeeService.getEmployeeRole(emp);//查询商户员工权限
+			}
+			String role = "";//员工绑定的权限
+			if(null == empRoleStr || "".equals(empRoleStr) || empRoleStr.indexOf("success") == -1){
+				role = "";
+			}else{
+				Gson roleGson = new Gson();
+				Map roleMap = roleGson.fromJson(empRoleStr, new TypeToken<Map>(){}.getType());
+				Map roles = (Map)roleMap.get("data");
+				role = roles.get("role").toString();
+			}
+			emp.setRole(role);//为员工权限赋值
 			int status = emp.getStatus();
 			boolean enables = true;
 			boolean accountNonExpired = true;
@@ -68,7 +129,6 @@ public class MyUserDetailsService implements UserDetailsService  {
 		}
 	}
 	
-	
 	/**
 	 * 根据权限字符串配置权限列表
 	 * @param roles
@@ -82,16 +142,4 @@ public class MyUserDetailsService implements UserDetailsService  {
 		}
 		return authSet;
 	}
-	
-	public static void main(String[] args) {
-		int[] arr = new int[]{8,2,1,0,3};
-		int[] index = new int[]{2,0,3,2,4,0,1,3,2,3,3};
-		String tel = "";
-		for(int i:index){
-			tel += arr[i];
-		}
-		System.out.println(tel);
-	}
-
-
 }

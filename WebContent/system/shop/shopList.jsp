@@ -66,36 +66,23 @@
                     <table class="table table-striped animated flipInX" id="shoplist">
                     <tr>
                       <th>#</th>
-                      <th>商户名</th>
                       <th>门店名</th>
-                      <th>负责人</th>
-                      <th>负责人电话</th>
-                      <th>是否开通外卖</th>
-                      <th>是否开通排号</th>
+                      <th>电话</th>
+                      <th>开时间</th>
+                      <th>结束时间</th>
+                      <th>店内点餐</th>
+                      <th>外卖订餐</th>
+                      <th>支持预定</th>
+                      <th>支持排队</th>
+                      <th>手机端显示</th>
+                      <th>半径</th>
                       <th>地址</th>
-                      <th>经度</th>
-                      <th>维度</th>
                       <th>操作</th>
                     </tr>
                   </table><!--/门店列表-->
                   <!--分页条件-->
                   <nav>
-					  <ul class="pagination">
-					    <li>
-					      <a href="#" aria-label="Previous">
-					        <span aria-hidden="true">&laquo;</span>
-					      </a>
-					    </li>
-					    <li><a href="#">1</a></li>
-					    <li><a href="#">2</a></li>
-					    <li><a href="#">3</a></li>
-					    <li><a href="#">4</a></li>
-					    <li><a href="#">5</a></li>
-					    <li>
-					      <a href="#" aria-label="Next">
-					        <span aria-hidden="true">&raquo;</span>
-					      </a>
-					    </li>
+					  <ul class="pagination" id="pagination" data-option="{'pageSize':20,'loadData':'search()'}">
 					  </ul>
 				   </nav><!--/分页条件-->
                   </div><!-- /.box-body -->
@@ -109,6 +96,7 @@
     <script src="shopList.js"></script>
     <script src="<%=cxtPath%>/js/common.js"></script>
     <script src="<%=cxtPath%>/plugins/layer/layer.js"></script>
+    <script src="<%=cxtPath%>/js/jquery.twbsPagination.min.js"></script>
     <script>
     </script>
 </html>

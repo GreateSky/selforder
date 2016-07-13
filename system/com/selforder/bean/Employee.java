@@ -45,6 +45,14 @@ public class Employee extends baseBean {
 	private String oid;//所属组织架构ID
 	private String oeid;//组织架构与人员关联表ID
 	private String oname;//组织架构名称
+	private String isadmin;//是否系统管理员
+	
+	public String getIsadmin() {
+		return isadmin;
+	}
+	public void setIsadmin(String isadmin) {
+		this.isadmin = isadmin;
+	}
 	public String getEmpid() {
 		return empid;
 	}

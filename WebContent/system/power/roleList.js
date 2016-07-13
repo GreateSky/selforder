@@ -1,24 +1,12 @@
 var total = 0;
 var pageSize = 20; //默认每页20条数据
 var pageStart = 0;
+var first = true;//是否第一次加载
 $(function(){
 	//加载商户列表
 	roleList("init",null);
 	keyEvent();
 });
-
-/**
- * 验证值
- * @param value
- * @returns
- */
-function checkValue(value){
-	if(typeof(value) != "undefined" && value != null && value != "" && value != "null"){
-		return true;
-	}else{
-		return false;
-	}
-}
 
 /**
  * 分页公共插件
@@ -43,15 +31,16 @@ function pageOption(paginationid,totalpage){
             if(checkValue(temp_pageSize)){
             	pageSize = temp_pageSize;
             }else{
-            	pageSize = 2;
+            	pageSize = 20;
             }
             var rname = $("#rname_search").val();
         	var rcode = $("#rcode_search").val();
         	var param = {};
         	param["role.rname"] = rname;
         	param["role.rcode"] = rcode;
-        	roleList("pageQuery",param);
-            
+        	if(!first){
+        		roleList("pageQuery",param);
+        	}
         }
     });
 }
@@ -78,6 +67,7 @@ function roleList(type,param){
 		dataType:'json',
 		success:function(data){
 			layer.close(load);
+			first = false;
 			//清除历史数据
 			$("tr[tag='append']").remove();
 			if(typeof(data) == "undefined" || data == ""){
@@ -105,7 +95,7 @@ function roleList(type,param){
 						tr +='	<td>'+rcode+'</td>                        ';
 						tr +='	<td>'+remark+'</td>                  ';
 						tr +='	<td resourceid="'+resourceid+'">'+resourcename+'</td>                  ';
-						tr +='	<td><button type="button" class="btn btn-warning" onclick="updateRole(\''+rid+'\')">修改</button>&nbsp;<button type="button" class="btn btn-danger" onclick="delResource(\''+rid+'\')">删除</button></td>                    ';
+						tr +='	<td><button type="button" class="btn btn-warning" onclick="updateRole(\''+rid+'\')">修改</button>&nbsp;<button type="button" class="btn btn-danger" onclick="delRole(\''+rid+'\')">删除</button></td>                    ';
 						tr +='</tr>                                    ';
 						$("#roleList").append(tr);
 					}
@@ -287,6 +277,7 @@ function search(){
 	var param = {};
 	param["role.rname"] = rname;
 	param["role.rcode"] = rcode;
+	first = true;
 	roleList("init",param);
 }
 
@@ -297,6 +288,7 @@ function search(){
 function clearParam(){
 	$("#rname_search").val("");
 	$("#rcode_search").val("");
+	first = true;
 	roleList("init",null);
 }
 
@@ -312,5 +304,46 @@ function keyEvent(){
 			} 
 		});
 	});
+}
+
+/**
+ * 删除权限
+ * @param rid
+ */
+function delRole(rid){
+	if(!checkValue(rid)){
+		layer.msg("操作参数异常,请刷新后重试!",{icon:5});
+		return;
+	}else{
+		layer.confirm("确定要删除吗?",
+				{btn:["确定","取消"]},
+				function(){//确定
+					//组装参数
+					var param = {};
+					param["role.rid"] = rid;
+					//发送请求
+					$.ajax({
+						type:"POST",
+						url:"/selforder/api/power/delRole.action",
+						data:param,
+						dataType:'json',
+						success:function(data){
+							//处理返回结果
+							var retCode = data.retCode;
+							var message = data.message;
+							if(retCode < 0){
+								layer.msg(message, {icon: 5});
+							}else{
+								layer.msg(message, {icon: 6});
+							}
+							roleList("init",null);
+						}
+					});
+				},
+				function(){//取消
+					layer.closeAll();
+				});
+				 
+	}
 }
 

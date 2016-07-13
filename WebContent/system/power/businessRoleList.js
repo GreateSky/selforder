@@ -1,7 +1,7 @@
 var total = 0;
 var pageSize = 20; //默认每页20条数据
 var pageStart = 0;
-
+var first = true;//是否第一次加载
 $(function(){
 	//加载商户已开通权限列表
 	loadBusinessRoleList("init",null);
@@ -31,14 +31,17 @@ function pageOption(paginationid,totalpage){
             if(checkValue(temp_pageSize)){
             	pageSize = temp_pageSize;
             }else{
-            	pageSize = 2;
+            	pageSize = 20;
             }
-            var bcode = $("#bname_search").val();
-        	var bname = $("#bcode_search").val();
+            var bname_search = $("#bname_search").val();
+        	var bcode_search = $("#bcode_search").val();
         	var param = {};
-        	param["business.bcode"] = bcode;
-        	param["business.bname"] = bname;
-        	loadBusinessRoleList("pageQuery",param);
+        	param["business.bname"] = bname_search;
+        	param["business.bcode"] = bcode_search;
+        	if(!first){
+        		loadBusinessRoleList("pageQuery",param);
+        	}
+        	
             
         }
     });
@@ -66,6 +69,7 @@ function loadBusinessRoleList(type,param){
 		dataType:'json',
 		success:function(data){
 			layer.close(load);
+			first = false;
 			//清除历史数据
 			$("tr[tag='append']").remove();
 			if(typeof(data) == "undefined" || data == ""){
@@ -88,8 +92,8 @@ function loadBusinessRoleList(type,param){
 						var rname= row.rname;
 						tr +='<tr tag="append" bid="'+bid+'" class="animated flipInX">                                     ';
 						tr +='	<td>'+(i+1)+'</td>                             ';
-						tr +='	<td>'+bcode+'</td>    ';
 						tr +='	<td>'+bname+'</td>                        ';
+						tr +='	<td>'+bcode+'</td>    ';
 						tr +='	<td>'+rname+'</td>                  ';
 						tr +='	<td><button type="button" class="btn btn-warning" onclick="viewBusiness(\''+bid+'\')">查看</button></td>                    ';
 						tr +='</tr>                                    ';
@@ -124,4 +128,28 @@ function keyEvent(){
  */
 function viewBusiness(bid){
 	window.location.href="saveBusinessRole.jsp?bid="+bid;
+}
+
+
+/**
+ * 搜索功能
+ */
+function search(){
+	var bname_search = $("#bname_search").val();
+	var bcode_search = $("#bcode_search").val();
+	var param = {};
+	param["business.bname"] = bname_search;
+	param["business.bcode"] = bcode_search;
+	first = true;
+	loadBusinessRoleList('init',param);
+}
+
+/**
+ * 重置
+ */
+function resetSearch(){
+	$("#bname_search").val("");
+	$("#bcode_search").val("");
+	first = true;
+	loadBusinessRoleList('init',null);
 }

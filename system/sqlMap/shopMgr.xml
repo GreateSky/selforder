@@ -5,195 +5,331 @@
 	<cache eviction="LRU" flushInterval="1000" size="1024" readOnly="false" />
 	<sql id="limit">
 		<choose>
-		<when test="pageStart != null and pageSize != null and pageStart != '' and pageSize != '' ">
-			limit ${pageStart},${pageSize}
-		</when>
-		<otherwise>
-			limit 0,20
-		</otherwise>
+			<when test="pageStart != null and pageSize != null">
+				limit ${pageStart},${pageSize}
+			</when>
+			<otherwise>
+				limit 0,20
+			</otherwise>
 		</choose>
 	</sql>
 	<!--新增商户信息 -->
 	<insert id="insertShop">
-		INSERT
+	    INSERT
 			INTO
-			    self_business_shop
+			    wx_dish_stores
 			    (
-			        SID,
-			        SNAME,
-			        SCODE,
-			        BID,
-			        LINKMAN,
-			        PHONE,
-			        ADDRESS,
-			        LONGITUDE,
-			        LATITUDE,
-			        ISOUTSELL,
-			        ISARRAY,
-			        SHOPIMG,
-			        CRTER,
-			        CRTDATE,
-			        OPTER,
-			        OPTDATE,
-			        DELETED
+			    	id,
+			        weid,
+			        title,
+			        logo,
+			        info,
+			        announce,
+			        tel,
+			        location_p,
+			        location_c,
+			        location_a,
+			        address,
+			        lat,
+			        lng,
+			        password,
+			        hours,
+			        recharging_password,
+			        thumb_url,
+			        enable_wifi,
+			        enable_card,
+			        enable_room,
+			        enable_park,
+			        is_rest,
+			        is_show,
+			        is_meal,
+			        is_delivery,
+			        is_reservation,
+			        is_queue,
+			        delivery_within_days,
+			        delivery_radius,
+			        not_in_delivery_radius,
+			        sendingprice,
+			        consume,
+			        level,
+			        updatetime,
+			        dateline,
+			        content,
+			        begintime,
+			        endtime
 			    )
 			    VALUES
 			    (
-			        replace(uuid(),'-',''),
-			        #{sname},
-			        #{scode},
-			        #{bid},
-			        #{linkman},
-			        #{phone},
-			        #{address},
-			        #{longitude},
-			        #{latitude},
-			        #{isoutsell},
-			        #{isarray},
-			        #{shopimg},
-			        #{crter},
-			        sysdate(),
-			        #{opter},
-			        sysdate(),
-			        0
+			    	replace(uuid(),'-',''),
+					#{weid},
+					#{title},
+					#{logo},
+					#{info},
+					#{announce},
+					#{tel},
+					#{location_p},
+					#{location_c},
+					#{location_a},
+					#{address},
+					#{lat},
+					#{lng},
+					#{password},
+					#{hours},
+					#{recharging_password},
+					#{thumb_url},
+					#{enable_wifi},
+					#{enable_card},
+					#{enable_room},
+					#{enable_park},
+					#{is_rest},
+					#{is_show},
+					#{is_meal},
+					#{is_delivery},
+					#{is_reservation},
+					#{is_queue},
+					#{delivery_within_days},
+					#{delivery_radius},
+					#{not_in_delivery_radius},
+					#{sendingprice},
+					#{consume},
+					#{level},
+					#{updatetime},
+					#{dateline},
+					#{content},
+					#{begintime},
+					#{endtime}
 			    )
 	</insert>
 	
 	<!--获取商户列表 -->
 	<select id="getShopList"  parameterType="shop" resultType="shop">
 		SELECT
-		    shop.SID,
-		    shop.SNAME,
-		    shop.SCODE,
-		    shop.BID,
-		    business.BNAME,
-		    shop.LINKMAN,
-		    shop.PHONE,
-		    shop.ADDRESS,
-		    shop.LONGITUDE,
-		    shop.LATITUDE,
-		    shop.ISOUTSELL,
-		    shop.ISARRAY,
-		    shop.SHOPIMG,
-		    shop.CRTER,
-		    shop.CRTDATE,
-		    shop.OPTER,
-		    shop.OPTDATE,
-		    shop.DELETED
+		        store.id,
+		        store.weid,
+		        store.title,
+		        store.logo,
+		        store.info,
+		        store.announce,
+		        store.tel,
+		        store.location_p,
+		        store.location_c,
+		        store.location_a,
+		        store.address,
+		        store.lat,
+		        store.lng,
+		        store.password,
+		        store.hours,
+		        store.recharging_password,
+		        store.thumb_url,
+		        store.enable_wifi,
+		        store.enable_card,
+		        store.enable_room,
+		        store.enable_park,
+		        store.is_rest,
+		        store.is_show,
+		        store.is_meal,
+		        store.is_delivery,
+		        store.is_reservation,
+		        store.is_queue,
+		        store.delivery_within_days,
+		        store.delivery_radius,
+		        store.not_in_delivery_radius,
+		        store.sendingprice,
+		        store.consume,
+		        store.level,
+		        store.updatetime,
+		        store.dateline,
+		        store.content,
+		        store.begintime,
+		        store.endtime
 		FROM
-		    self_business_shop shop
-		left join SELF_BUSINESS business on business.BID = shop.BID
-		where business.DELETED = 0
-		and shop.DELETED = 0
-		<if test="sname != null and sname !='' ">
-			and shop.SNAME like CONCAT('%',#{sname},'%')
-		</if>    
-		<if test="scode != null and scode !='' ">
-			and shop.SCODE like CONCAT('%',#{scode},'%')
-		</if>
-		<if test="linkman != null and linkman !='' ">
-			and shop.LINKMAN like CONCAT('%',#{linkman},'%')
-		</if>
+		    wx_dish_stores store
+		where store.weid = #{weid}    
+		<if test="title != null and title !='' ">
+			and store.TITLE like CONCAT('%',#{title},'%')
+		</if> 
+		<include refid="limit"></include>   
 	</select>
-	<!--查询商户列表统计数  用于列表分页 -->
+	<!--查询门店列表统计数  用于列表分页 -->
 	<select id="getShopCount" parameterType="shop" resultType="int">
 		SELECT
-		    count(1) 
+		        count(1)
 		FROM
-		    self_business_shop shop
-		left join SELF_BUSINESS business on business.BID = shop.BID
-		where business.DELETED = 0
-		and shop.DELETED = 0   
-		<if test="sname != null and sname !='' ">
-			and shop.SNAME like CONCAT('%',#{sname},'%')
-		</if>    
-		<if test="scode != null and scode !='' ">
-			and shop.SCODE like CONCAT('%',#{scode},'%')
-		</if>
-		<if test="linkman != null and linkman !='' ">
-			and shop.LINKMAN like CONCAT('%',#{linkman},'%')
-		</if>
+		    wx_dish_stores store
+		where store.weid = #{weid}  
+		<if test="title != null and title !='' ">
+			and store.TITLE like CONCAT('%',#{title},'%')
+		</if> 
 	</select>
 	
 	<!--获取商户详情 -->
 	<select id="getShopInfo"  parameterType="shop" resultType="shop">
 		SELECT
-		    shop.SID,
-		    shop.SNAME,
-		    shop.SCODE,
-		    shop.BID,
-		    business.BNAME,
-		    shop.LINKMAN,
-		    shop.PHONE,
-		    shop.ADDRESS,
-		    shop.LONGITUDE,
-		    shop.LATITUDE,
-		    shop.ISOUTSELL,
-		    shop.ISARRAY,
-		    shop.SHOPIMG,
-		    shop.CRTER,
-		    shop.CRTDATE,
-		    shop.OPTER,
-		    shop.OPTDATE,
-		    shop.DELETED
+		        store.id,
+		        store.weid,
+		        store.title,
+		        store.logo,
+		        store.info,
+		        store.announce,
+		        store.tel,
+		        store.location_p,
+		        store.location_c,
+		        store.location_a,
+		        store.address,
+		        store.lat,
+		        store.lng,
+		        store.password,
+		        store.hours,
+		        store.recharging_password,
+		        store.thumb_url,
+		        store.enable_wifi,
+		        store.enable_card,
+		        store.enable_room,
+		        store.enable_park,
+		        store.is_rest,
+		        store.is_show,
+		        store.is_meal,
+		        store.is_delivery,
+		        store.is_reservation,
+		        store.is_queue,
+		        store.delivery_within_days,
+		        store.delivery_radius,
+		        store.not_in_delivery_radius,
+		        store.sendingprice,
+		        store.consume,
+		        store.level,
+		        store.updatetime,
+		        store.dateline,
+		        store.content,
+		        store.begintime,
+		        store.endtime
 		FROM
-		    self_business_shop shop
-		left join SELF_BUSINESS business on business.BID = shop.BID
-		where business.DELETED = 0
-		and shop.DELETED = 0
-		<if test="sid != null and sid !='' ">
-			and shop.SID = #{sid}
-		</if>  
-		<if test="sname != null and sname !='' ">
-			and shop.SNAME like CONCAT('%',#{sname},'%')
-		</if>    
-		<if test="scode != null and scode !='' ">
-			and shop.SCODE like CONCAT('%',#{scode},'%')
-		</if>
-		<if test="linkman != null and linkman !='' ">
-			and shop.LINKMAN like CONCAT('%',#{linkman},'%')
-		</if>
+		    wx_dish_stores store
+		where store.weid = #{weid}    
 	</select>
 	
 	<!--更新商户信息 -->
 	<update id="updateShop" parameterType="shop">
 		UPDATE
-		    self_business_shop
+		    wx_dish_stores
 		SET
-			OPTER = #{opter}
-		    , OPTDATE = sysdate()
-		    <if test="sname != null and sname !='' ">
-				, SNAME = #{sname}
+		    id = #{id}
+		    <if test="weid != null and weid !='' ">
+				, weid = #{weid}
 			</if>
-			<if test="scode != null and scode !='' ">
-				, SCODE = #{scode}
+			<if test="title != null and title !='' ">
+				, title = #{title}
 			</if>
-			<if test="linkman != null and linkman !='' ">
-				, LINKMAN = #{linkman}
+			<if test="logo != null and logo !='' ">
+				, logo = #{logo}
 			</if>
-			<if test="phone != null and phone !='' ">
-				, PHONE = #{phone}
+			<if test="info != null and info !='' ">
+				, info = #{info}
+			</if>
+			<if test="announce != null and announce !='' ">
+				, announce = #{announce}
+			</if>
+			<if test="tel != null and tel !='' ">
+				, tel = #{tel}
+			</if>
+			<if test="location_p != null and location_p !='' ">
+				, location_p = #{location_p}
+			</if>
+			<if test="location_c != null and location_c !='' ">
+				, location_c = #{location_c}
+			</if>
+			<if test="location_a != null and location_a !='' ">
+				, location_a = #{location_a}
 			</if>
 			<if test="address != null and address !='' ">
-				, ADDRESS = #{address}
+				, address = #{address}
 			</if>
-			<if test="longitude != null and longitude !='' ">
-				, LONGITUDE = #{longitude}
+			<if test="lat != null and lat !='' ">
+				, lat = #{lat}
 			</if>
-			<if test="latitude != null and latitude !='' ">
-				, LATITUDE = #{latitude}
+			<if test="lng != null and lng !='' ">
+				, lng = #{lng}
 			</if>
-			<if test="isoutsell != null and isoutsell !='' ">
-				, ISOUTSELL = #{isoutsell}
+			<if test="password != null and password !='' ">
+				, password = #{password}
 			</if>
-			<if test="isarray != null and isarray !='' ">
-				, ISARRAY = #{isarray}
+			<if test="hours != null and hours !='' ">
+				, hours = #{hours}
 			</if>
-			<if test="shopimg != null and shopimg !='' ">
-				, SHOPIMG = #{shopimg}
+			<if test="recharging_password != null and recharging_password !='' ">
+				, recharging_password = #{recharging_password}
+			</if>
+			<if test="thumb_url != null and thumb_url !='' ">
+				, thumb_url = #{thumb_url}
+			</if>
+			<if test="enable_wifi != null and enable_wifi !='' ">
+				, enable_wifi = #{enable_wifi}
+			</if>
+			<if test="enable_card != null and enable_card !='' ">
+				, enable_card = #{enable_card}
+			</if>
+			<if test="enable_room != null and enable_room !='' ">
+				, enable_room = #{enable_room}
+			</if>
+			<if test="enable_park != null and enable_park !='' ">
+				, enable_park = #{enable_park}
+			</if>
+			<if test="is_rest != null and is_rest !='' ">
+				, is_rest = #{is_rest}
+			</if>
+			<if test="is_show != null and is_show !='' ">
+				, is_show = #{is_show}
+			</if>
+			<if test="is_meal != null and is_meal !='' ">
+				, is_meal = #{is_meal}
+			</if>
+			<if test="is_delivery != null and is_delivery !='' ">
+				, is_delivery = #{is_delivery}
+			</if>
+			<if test="is_reservation != null and is_reservation !='' ">
+				, is_reservation = #{is_reservation}
+			</if>
+			<if test="is_queue != null and is_queue !='' ">
+				, is_queue = #{is_queue}
+			</if>
+			<if test="delivery_within_days != null and delivery_within_days !='' ">
+				, delivery_within_days = #{delivery_within_days}
+			</if>
+			<if test="delivery_radius != null and delivery_radius !='' ">
+				, delivery_radius = #{delivery_radius}
+			</if>
+			<if test="not_in_delivery_radius != null and not_in_delivery_radius !='' ">
+				, not_in_delivery_radius = #{not_in_delivery_radius}
+			</if>
+			<if test="sendingprice != null and sendingprice !='' ">
+				, sendingprice = #{sendingprice}
+			</if>
+			<if test="consume != null and seconsumendingprice !='' ">
+				, consume = #{consume}
+			</if>
+			<if test="level != null and level !='' ">
+				, level = #{level}
+			</if>
+			<if test="bid != null and bid !='' ">
+				, bid = #{bid}
+			</if>
+			<if test="updatetime != null and updatetime !='' ">
+				, updatetime = #{updatetime}
+			</if>
+			<if test="dateline != null and dateline !='' ">
+				, dateline = #{dateline}
+			</if>
+			<if test="content != null and content !='' ">
+				, content = #{content}
+			</if>
+			<if test="begintime != null and begintime !='' ">
+				, begintime = #{begintime}
+			</if>
+			<if test="endtime != null and endtime !='' ">
+				, endtime = #{endtime}
 			</if>
 		WHERE
-		    SID = #{sid}
+		    id = #{id}
 	</update>
 </mapper>
 

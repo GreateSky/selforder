@@ -94,6 +94,12 @@ public interface PowerDao {
 	 */
 	public int updateRole(Role role);
 	
+	/**
+	 * 根据角色ID删除关联的资源
+	 * @param rid
+	 * @return
+	 */
+	public int delRoleResource(String rid);
 	//-----------------------角色与资源关联关系管理----------------------------------
 	
 	/**
@@ -185,6 +191,12 @@ public interface PowerDao {
 	 * @return
 	 */
 	public List<Role> getBusNoRoleList(Business business)throws Exception;
+	
+	/**
+	 * 根据所有权限
+	 * @return
+	 */
+	public List<Role> getAllRoles()throws Exception;
 	
 	
 }

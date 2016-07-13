@@ -10,6 +10,8 @@
      <!--不拦截 -->  
 	 <http pattern="/login.jsp" security="none" />  
      <http pattern="/assets/**" security="none" /> 
+     <http pattern="/js/**" security="none" />
+     <http pattern="/css/**" security="none" />
              
    	 <!--设置拦截-->  
 	 <http auto-config='true' access-denied-page="/403.jsp">  
@@ -44,11 +46,12 @@
   	
   	<beans:bean name="myUserDetailsService" class="com.selforder.security.context.MyUserDetailsService">
   		<beans:property  name ="employeeDao"  ref ="employeeDao"   /> 
+  		<beans:property  name ="employeeService"  ref ="employeeService"   /> 
   	</beans:bean>
   	<!--  访问决策器，决定某个用户具有的角色，是否有足够的权限去访问某个资源  --> 
     <beans:bean  id ="myAccessDecisionManagerBean" class ="com.selforder.security.context.MyAccessDecisionManager"></beans:bean >
     <!--  资源源数据定义，即定义某一资源可以被哪些角色访问  --> 
     <beans:bean  id ="securityMetadataSource" class ="com.selforder.security.context.MyInvocationSecurityMetadataSource" >
-    	<beans:constructor-arg name="powerDao" ref="powerDao"></beans:constructor-arg>  
+    	<beans:constructor-arg name="powerDao" ref="powerDao"></beans:constructor-arg> 
     </beans:bean>  
 </beans:beans>             

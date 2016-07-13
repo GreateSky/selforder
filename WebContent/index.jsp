@@ -219,17 +219,19 @@
           <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu">
             <li class="header">全功能菜单</li>
-            <li class="treeview">
-              <a href="#">
-                <i class="fa fa-folder"></i>
-                <span>商户管理</span>
-                <i class="fa fa-angle-left pull-right"></i>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="javascript:viod(0);" onclick="linkMainFrame('system/business/businessList.jsp')"><i class="fa fa-circle-o"></i> 商户列表</a></li>
-                <li><a href="javascript:viod(0);" onclick="linkMainFrame('system/business/saveBusiness.jsp')"><i class="fa fa-circle-o"></i> 商户维护</a></li>
-              </ul>
-            </li>
+            <sec:authorize ifAnyGranted ="ROLE_BUSINESS_MGR">
+            	<li class="treeview">
+	              <a href="#">
+	                <i class="fa fa-folder"></i>
+	                <span>商户管理</span>
+	                <i class="fa fa-angle-left pull-right"></i>
+	              </a>
+	              <ul class="treeview-menu">
+	                <li><a href="javascript:viod(0);" onclick="linkMainFrame('system/business/businessList.jsp')"><i class="fa fa-circle-o"></i> 商户列表</a></li>
+	                <li><a href="javascript:viod(0);" onclick="linkMainFrame('system/business/saveBusiness.jsp')"><i class="fa fa-circle-o"></i> 商户维护</a></li>
+	              </ul>
+	            </li>
+            </sec:authorize >
             <li class="treeview">
               <a href="#">
                 <i class="fa  fa-folder"></i> <span>门店管理</span> <i class="fa fa-angle-left pull-right"></i>
@@ -305,28 +307,33 @@
                 <li><a href="javascript:viod(0);" onclick="linkMainFrame('system/comment/auditComment.html')"><i class="fa fa-circle-o"></i> 审核/回复</a></li>
               </ul>
             </li>
-            <li class="treeview">
-              <a href="#">
-                <i class="fa fa-folder"></i>
-                <span>组织架构</span>
-                <i class="fa fa-angle-left pull-right"></i>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="javascript:viod(0);" onclick="linkMainFrame('system/organization/organizationList.jsp')"><i class="fa fa-circle-o"></i> 组织架构维护</a></li>
-              </ul>
-            </li>
-            <li class="treeview">
-              <a href="#">
-                <i class="fa fa-folder"></i>
-                <span>权限管理</span>
-                <i class="fa fa-angle-left pull-right"></i>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="javascript:viod(0);" onclick="linkMainFrame('system/power/roleList.jsp')"><i class="fa fa-circle-o"></i> 权限列表</a></li>
-                <li><a href="javascript:viod(0);" onclick="linkMainFrame('system/power/resourceList.jsp')"><i class="fa fa-circle-o"></i> 资源列表</a></li>
-                <li><a href="javascript:viod(0);" onclick="linkMainFrame('system/power/businessRoleList.jsp')"><i class="fa fa-circle-o"></i> 商户权限管理</a></li>
-              </ul>
-            </li>
+            <sec:authorize ifAnyGranted ="ROLE_ORG_MGR">
+            	<li class="treeview">
+	              <a href="#">
+	                <i class="fa fa-folder"></i>
+	                <span>组织架构</span>
+	                <i class="fa fa-angle-left pull-right"></i>
+	              </a>
+	              <ul class="treeview-menu">
+	                <li><a href="javascript:viod(0);" onclick="linkMainFrame('system/organization/organizationList.jsp')"><i class="fa fa-circle-o"></i> 组织架构维护</a></li>
+	              </ul>
+	            </li>
+            </sec:authorize >
+            <sec:authorize ifAnyGranted ="ROLE_POWER_MGR">
+            	<li class="treeview">
+	              <a href="#">
+	                <i class="fa fa-folder"></i>
+	                <span>权限管理</span>
+	                <i class="fa fa-angle-left pull-right"></i>
+	              </a>
+	              <ul class="treeview-menu">
+	                <li><a href="javascript:viod(0);" onclick="linkMainFrame('system/power/roleList.jsp')"><i class="fa fa-circle-o"></i> 权限列表</a></li>
+	                <li><a href="javascript:viod(0);" onclick="linkMainFrame('system/power/resourceList.jsp')"><i class="fa fa-circle-o"></i> 资源列表</a></li>
+	                <li><a href="javascript:viod(0);" onclick="linkMainFrame('system/power/businessRoleList.jsp')"><i class="fa fa-circle-o"></i> 商户权限管理</a></li>
+	              </ul>
+	            </li>
+            </sec:authorize >
+            
             <li class="treeview">
               <a href="#">
                 <i class="fa fa-folder"></i>
@@ -344,7 +351,8 @@
 
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
-        <iframe id="mainframe" src="home.html" style="margin: 0; padding: 0; border: 0px;" width="100%" height="100%" scrolling="no" onload="iFrameHeight()"></iframe>
+        <iframe id="mainframe" name="mainss" src="home.html" style="margin: 0; padding: 0; border: 0px;" width="100%" height="1000px" scrolling="no" onload = "height = document.frames(this.name).document.body.scrollHeight + 30"
+        ></iframe>
       </div><!-- /.content-wrapper -->
       <footer class="main-footer">
         <div class="pull-right hidden-xs">
@@ -427,13 +435,34 @@
 			$("#empname").html("您好，"+empname);
 			$("#empcode").html("编码："+empcode);
 			$("#empnameBig").html(empname);
-			function iFrameHeight() { 
-				var ifm= document.getElementById("mainframe"); 
-				var subWeb = document.frames ? document.frames["iframepage"].document : ifm.contentDocument; 
-				if(ifm != null && subWeb != null) {
-				ifm.height = subWeb.body.scrollHeight;
-				} 
+			
+			var iframeids = ["mainframe"];
+			var iframehide = "yes";
+			function dyniframesize() {
+				var dyniframe = new Array()
+				for (i = 0; i < iframeids.length; i++) {
+					if (document.getElementById) {
+						dyniframe[dyniframe.length] = document.getElementById(iframeids[i]);
+						if (dyniframe[i] && !window.opera) {
+							dyniframe[i].style.display = "block"
+							if (dyniframe[i].contentDocument && dyniframe[i].contentDocument.body.offsetHeight)
+								dyniframe[i].height = dyniframe[i].contentDocument.body.offsetHeight;
+							else if (dyniframe[i].Document && dyniframe[i].Document.body.scrollHeight)
+								dyniframe[i].height = dyniframe[i].Document.body.scrollHeight;
+						}
+					}
+					if ((document.all || document.getElementById) && iframehide == "no") {
+						var tempobj = document.all ? document.all[iframeids[i]] : document.getElementById(iframeids[i])
+						tempobj.style.display = "block"
+					}
+				}
 			}
+			if (window.addEventListener)
+				window.addEventListener("load", dyniframesize, false)
+			else if (window.attachEvent)
+				window.attachEvent("onload", dyniframesize)
+			else
+				window.onload = dyniframesize
 			
 			/**
 			 * 点击菜单栏连接至主页面
@@ -441,6 +470,7 @@
 			 */
 			function linkMainFrame(url){
 				$("#mainframe").attr('src',url);
+				dyniframesize();
 			}
 		</script>
   </body>

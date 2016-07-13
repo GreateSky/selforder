@@ -40,16 +40,15 @@
                     <div class="form-group has-warning">
                       <label for="inputEmail3" class="col-sm-1 control-label">名称：</label>
                       <div class="col-sm-2">
-                        <input id="rname_search" type="text" class="form-control" id="bname_search" name="business.bname" placeholder="名称 "  value="">
+                        <input type="text" class="form-control" id="bname_search" name="business.bname" placeholder="名称 "  value="">
                       </div>
                       <label for="inputEmail3" class="col-sm-1 control-label">编码：</label>
                       <div class="col-sm-2">
-                        <input id="rurl_search" type="text" class="form-control" id="bcode_search" name="business.bcode" placeholder="编码 "  value="">
+                        <input type="text" class="form-control" id="bcode_search" name="business.bcode" placeholder="编码 "  value="">
                       </div>
                       <div class="col-sm-6">
 	                        <button type="button" onclick="search();" class="btn btn-info"><i class="fa fa-search"></i>&nbsp;查询</button>
-	                        <button type="button" onclick="clearParam();" class="btn btn-info"><i class="fa fa-refresh"></i>&nbsp;重置</button>
-	                        <button type="button" onclick="openResourceWin('add','')" class="btn btn-warning"><i class="fa fa-plus-circle"></i>&nbsp;新增</button>
+	                        <button type="button" onclick="resetSearch();" class="btn btn-info"><i class="fa fa-refresh"></i>&nbsp;重置</button>
                         </div>
                     </div><!--/搜索信息 start-->
                     <!--门店列表start-->
