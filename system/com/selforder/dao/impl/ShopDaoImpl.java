@@ -105,5 +105,14 @@ public class ShopDaoImpl extends SqlSessionDaoSupport implements ShopDao {
 		}
 		return result;
 	}
+	
+	/**
+	 * 删除门店
+	 * @param shop
+	 * @return
+	 */
+	public int delShop(Shop shop) throws Exception{
+		return getSqlSession().delete("com.selforder.shop.delShop", shop);
+	}
 
 }

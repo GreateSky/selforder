@@ -44,6 +44,10 @@
 	<bean name="organizationService" class="com.selforder.service.impl.OrganizationServiceImpl" scope="prototype">
 		<property name="organizationDao" ref="organizationDao"></property>
 	</bean>
+	<!--餐桌管理-->
+	<bean name="tableService" class="com.selforder.service.impl.TableServiceImpl" scope="prototype">
+		<property name="tableDao" ref="tableDao"></property>
+	</bean>
 	
 	<!-- *************************Dao注册*********************************-->
 	<bean name="bizDictDao" class="com.automobile.dao.impl.BizDictDaoImpl" scope="prototype" >
@@ -71,6 +75,10 @@
 	</bean>
 	<!--组织架构管理-->
 	<bean name="organizationDao" class="com.selforder.dao.impl.OrganizationDaoImpl" scope="prototype">
+		<property name="sqlSessionTemplate" ref="sqlSessionTemplate"></property>
+	</bean>
+	<!--餐桌管理-->
+	<bean name="tableDao" class="com.selforder.dao.impl.TableDaoImpl" scope="prototype">
 		<property name="sqlSessionTemplate" ref="sqlSessionTemplate"></property>
 	</bean>
 </beans>

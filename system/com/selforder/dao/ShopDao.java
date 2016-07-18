@@ -45,4 +45,11 @@ public interface ShopDao {
 	 * @return
 	 */
 	public int updateShop(Shop shop);
+	
+	/**
+	 * 删除门店
+	 * @param shop
+	 * @return
+	 */
+	public int delShop(Shop shop) throws Exception;
 }

@@ -30,6 +30,8 @@ public class ShopServiceImpl implements ShopService {
 	@Override
 	public String saveShop(Shop shop) {
 		// TODO Auto-generated method stub
+		String bid = new Context().getLoginUserInfo().getBid();
+		shop.setWeid(bid);
 		return shopDao.saveShop(shop);
 	}
 
@@ -99,6 +101,27 @@ public class ShopServiceImpl implements ShopService {
 			}
 		}else{
 			result = JsonResultUtil.getJsonResult(-1, "fail", "更新门店信息参数异常!");
+		}
+		return result;
+	}
+	
+	/**
+	 * 删除门店
+	 * @param shop
+	 * @return
+	 */
+	public String delShop(Shop shop){
+		String result = "";
+		try{
+			int temp = shopDao.delShop(shop);
+			if(temp < 0 ){
+				result = JsonResultUtil.getJsonResult(-1, "fail", "操作失败!");
+			}else{
+				result = JsonResultUtil.getJsonResult(0, "success", "操作成功!");
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			return JsonResultUtil.getJsonResult(-1, "fail", "操作异常!");
 		}
 		return result;
 	}

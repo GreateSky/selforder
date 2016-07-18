@@ -30,6 +30,12 @@
 				<param name="root">resultJson</param>
 			</result> 
 		</action>
+		<!--删除商户-->
+		<action name = "delShop" class="shopAction" method="delShop">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
 	</package>
 	
 </struts>

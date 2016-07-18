@@ -65,4 +65,5 @@
 	<include file="config/employee-status.xml"></include>
 	<include file="config/power-status.xml"></include>
 	<include file="config/organization-status.xml"></include>
+	<include file="config/table-status.xml"></include>
 </struts>

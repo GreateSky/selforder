@@ -148,6 +148,12 @@
 		<if test="title != null and title !='' ">
 			and store.TITLE like CONCAT('%',#{title},'%')
 		</if> 
+		<if test="tel != null and tel !='' ">
+			and store.tel like CONCAT('%',#{tel},'%')
+		</if>
+		<if test="address != null and address !='' ">
+			and concat(store.location_p,store.location_c,store.location_a,store.address) like CONCAT('%',#{address},'%')
+		</if>
 		<include refid="limit"></include>   
 	</select>
 	<!--查询门店列表统计数  用于列表分页 -->
@@ -160,6 +166,12 @@
 		<if test="title != null and title !='' ">
 			and store.TITLE like CONCAT('%',#{title},'%')
 		</if> 
+		<if test="tel != null and tel !='' ">
+			and store.tel like CONCAT('%',#{tel},'%')
+		</if>
+		<if test="address != null and address !='' ">
+			and concat(store.location_p,store.location_c,store.location_a,store.address) like CONCAT('%',#{address},'%')
+		</if>
 	</select>
 	
 	<!--获取商户详情 -->
@@ -205,7 +217,13 @@
 		        store.endtime
 		FROM
 		    wx_dish_stores store
-		where store.weid = #{weid}    
+		where 1 = 1
+		<if test="id != null and id !='' ">
+			and store.id = #{id}
+		</if> 
+		<if test="weid != null and weid !='' ">
+			and store.weid = #{weid}
+		</if> 
 	</select>
 	
 	<!--更新商户信息 -->
@@ -331,5 +349,10 @@
 		WHERE
 		    id = #{id}
 	</update>
+	
+	<!--删除门店 -->
+	<delete id="delShop" parameterType="shop">
+		delete from wx_dish_stores where id = #{id}
+	</delete>
 </mapper>
 

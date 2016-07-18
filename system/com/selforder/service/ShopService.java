@@ -37,4 +37,11 @@ public interface ShopService {
 	 * @return
 	 */
 	public String updateShop(Shop shop);
+	
+	/**
+	 * 删除门店
+	 * @param shop
+	 * @return
+	 */
+	public String delShop(Shop shop);
 }

@@ -40,19 +40,15 @@
                     <div class="form-group has-warning">
                       <label for="inputEmail3" class="col-sm-1 control-label">店名：</label>
                       <div class="col-sm-2">
-                        <input type="text" class="form-control" id="inputEmail3" placeholder="店名 "  value="">
+                        <input type="text" class="form-control" id="title_search" placeholder="店名 "  value="">
                       </div>
-                      <label for="inputEmail3" class="col-sm-1 control-label">负责人：</label>
+                      <label for="inputEmail3" class="col-sm-1 control-label">电话：</label>
                       <div class="col-sm-2">
-                        <input type="text" class="form-control" id="inputEmail3" placeholder="负责人">
-                      </div>
-                      <label for="inputEmail3" class="col-sm-1 control-label">负责人电话：</label>
-                      <div class="col-sm-2">
-                        <input type="text" class="form-control" id="inputEmail3" placeholder="负责人电话">
+                        <input type="text" class="form-control" id="tel_search" placeholder="电话">
                       </div>
                       <label for="inputEmail3" class="col-sm-1 control-label">地址：</label>
                       <div class="col-sm-2">
-                        <input type="text" class="form-control" id="inputEmail3" placeholder="地址">
+                        <input type="text" class="form-control" id="address" placeholder="地址">
                       </div>
                     </div>
                     <div class="form-group has-warning">
@@ -68,8 +64,7 @@
                       <th>#</th>
                       <th>门店名</th>
                       <th>电话</th>
-                      <th>开时间</th>
-                      <th>结束时间</th>
+                      <th>营业时间</th>
                       <th>店内点餐</th>
                       <th>外卖订餐</th>
                       <th>支持预定</th>

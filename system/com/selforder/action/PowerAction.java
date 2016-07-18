@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.chainsaw.Main;
 import org.apache.struts2.ServletActionContext;
 
 import com.greatesky.action.GreateSkyActionSupport;
@@ -529,6 +530,11 @@ public class PowerAction extends GreateSkyActionSupport {
 			return this.ERROR;
 		}
 		return this.SUCCESS;
+	}
+	public static void main(String[] args) {
+		String tt = "'C8231C55E83DA996E040007DYC000050','C8231C55E83DA996E040007DYF000008'";
+		tt = tt.substring(0,33);
+		System.out.println(tt.replaceAll("'", ""));
 	}
 	
 }
