@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.selforder.table" >
+	<cache eviction="LRU" flushInterval="1000" size="1024" readOnly="false" />
+	<sql id="limit">
+		<choose>
+			<when test="pageStart != null and pageSize != null">
+				limit ${pageStart},${pageSize}
+			</when>
+			<otherwise>
+				limit 0,20
+			</otherwise>
+		</choose>
+	</sql>
+	<!--新增商户信息 -->
+	<insert id="insertTable" parameterType="table">
+		INSERT
+			INTO
+			    wx_dish_tables
+			    (
+			        id,
+			        weid,
+			        storeid,
+			        limit_price,
+			        title,
+			        user_count,
+			        displayorder,
+			        dateline,
+			        status,
+			        crter,
+			        crtdate,
+			        opter,
+			        optdate,
+			        deleted
+			    )
+			    VALUES
+			    (
+			        replace(uuid(),'-',''),
+					#{weid},
+					#{storeid},
+					#{limit_price},
+					#{title},
+					#{user_count},
+					#{displayorder},
+					#{dateline},
+					#{status},
+					#{crter},
+					sysdate(),
+					#{opter},
+					sysdate(),
+					0
+			    )		    
+	</insert>
+	
+	<!--获取商户列表 -->
+	<select id="getTableList"  parameterType="table" resultType="table">
+		SELECT
+		        tab.id,
+		        tab.weid,
+		        tab.storeid,
+		        tab.limit_price,
+		        tab.title,
+		        tab.user_count,
+		        tab.displayorder,
+		        tab.dateline,
+		        tab.status,
+		        tab.crter,
+		        tab.crtdate,
+		        tab.opter,
+		        tab.optdate,
+		        tab.deleted
+		FROM
+		    wx_dish_tables tab
+		where tab.DELETED = 0
+		<if test="weid != null and weid !='' ">
+			and tab.weid = #{weid}
+		</if> 
+		<if test="storeid != null and storeid !='' ">
+			and tab.storeid = #{storeid}
+		</if> 
+		<if test="title != null and title !='' ">
+			and tab.title = #{title}
+		</if> 
+		<if test="user_count != null and user_count !='' ">
+			and tab.user_count &gt;= #{user_count}
+		</if>
+		<include refid="limit"></include>   
+	</select>
+	<!--查询门店列表统计数  用于列表分页 -->
+	<select id="getTableListCount" parameterType="table" resultType="int">
+		SELECT
+		        count(1)
+		FROM
+		    wx_dish_tables tab
+		where tab.DELETED = 0
+		<if test="weid != null and weid !='' ">
+			and tab.weid = #{weid}
+		</if> 
+		<if test="storeid != null and storeid !='' ">
+			and tab.storeid = #{storeid}
+		</if> 
+		<if test="title != null and title !='' ">
+			and tab.title = #{title}
+		</if> 
+		<if test="user_count != null and user_count !='' ">
+			and tab.user_count &gt;= #{user_count}
+		</if>
+	</select>
+	
+	<!--获取商户详情 -->
+	<select id="getTableInfo"  parameterType="table" resultType="table">
+		SELECT
+		        tab.id,
+		        tab.weid,
+		        tab.storeid,
+		        tab.limit_price,
+		        tab.title,
+		        tab.user_count,
+		        tab.displayorder,
+		        tab.dateline,
+		        tab.status,
+		        tab.crter,
+		        tab.crtdate,
+		        tab.opter,
+		        tab.optdate,
+		        tab.deleted
+		FROM
+		    wx_dish_tables tab
+		where tab.DELETED = 0
+		<if test="weid != null and weid !='' ">
+			and tab.weid = #{weid}
+		</if> 
+		<if test="storeid != null and storeid !='' ">
+			and tab.storeid = #{storeid}
+		</if> 
+		<if test="title != null and title !='' ">
+			and tab.title = #{title}
+		</if> 
+		<if test="user_count != null and user_count !='' ">
+			and tab.user_count &gt;= #{user_count}
+		</if>
+	</select>
+	
+	<!--更新商户信息 -->
+	<update id="updateTable" parameterType="table">
+		UPDATE
+		    wx_dish_tables
+		SET
+			opter = #{opter}
+			, optdate = sysdate()
+			<if test="limit_price != null and limit_price !='' ">
+				, limit_price = #{limit_price}
+			</if>
+			<if test="title != null and title !='' ">
+				, title = #{title}
+			</if>
+			<if test="user_count != null and user_count !='' ">
+				, user_count = #{user_count}
+			</if>
+			<if test="displayorder != null and displayorder !='' ">
+				, displayorder = #{displayorder}
+			</if>
+			<if test="status != null and status !='' ">
+				, status = #{status}
+			</if>
+			<if test="deleted != null and deleted !='' ">
+				, deleted = #{deleted}
+			</if>
+		WHERE
+		    id = #{id}    
+	</update>
+</mapper>
+
