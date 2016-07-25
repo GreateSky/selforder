@@ -47,6 +47,7 @@
 	<!--餐桌管理-->
 	<bean name="tableService" class="com.selforder.service.impl.TableServiceImpl" scope="prototype">
 		<property name="tableDao" ref="tableDao"></property>
+		<property name="systemMgrDao" ref="systemMgrDao"></property>
 	</bean>
 	
 	<!-- *************************Dao注册*********************************-->

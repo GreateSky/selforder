@@ -17,20 +17,20 @@
 	<insert id="insertOrganization" parameterType="organization">
 	    INSERT
 			INTO
-			    self_organization
+			    wx_dish_organization
 			    (
-			        OID,
-			        ONAME,
-			        LEVEL,
-			        PARENTID,
-			        LEVELPATH,
-			        BID,
-			        SEQ,
-			        CRTER,
-			        CRTDATE,
-			        OPTER,
-			        OPTDATE,
-			        DELETED
+			        oid,
+			        oname,
+			        level,
+			        parentid,
+			        levelpath,
+			        bid,
+			        seq,
+			        crter,
+			        crtdate,
+			        opter,
+			        optdate,
+			        deleted
 			    )
 			    VALUES
 			    (
@@ -38,7 +38,7 @@
 			        #{oname},
 			        <choose>
 						<when test="parentid !='' and parentid != null">
-							(select * from (select (ifnull(p.level,0)+1)  from self_organization p where p.oid = #{parentid}) temp) ,
+							(select * from (select (ifnull(p.level,0)+1)  from wx_dish_organization p where p.oid = #{parentid}) temp) ,
 						</when>
 						<otherwise>
 							1,
@@ -47,7 +47,7 @@
 			        #{parentid},
 			        <choose>
 						<when test="parentid != '' and parentid != null">
-							(select * from (select concat(p.levelpath,'.',#{oid}) from self_organization p where p.oid = #{parentid}) temp2) ,
+							(select * from (select concat(p.levelpath,'.',#{oid}) from wx_dish_organization p where p.oid = #{parentid}) temp2) ,
 						</when>
 						<otherwise>
 							(select * from (select concat('.',#{oid})) temp) ,
@@ -80,11 +80,11 @@
 		    org.DELETED,
 		    corg.child_oid
 		FROM
-		    self_organization org 
+		    wx_dish_organization org 
 		left join (
 			select so.PARENTID,
 				   GROUP_CONCAT(so.OID) as child_oid 
-			from self_organization so 
+			from wx_dish_organization so 
 			where so.DELETED = 0 
 			group by so.PARENTID
 		)corg on corg.PARENTID = org.OID     
@@ -104,7 +104,7 @@
 	<!--更新组织架构 -->
 	<update id="updateOrganization" parameterType="organization">
 		UPDATE
-		    self_organization
+		    wx_dish_organization
 		SET
 			OPTER = #{opter}
 		    , OPTDATE = sysdate()
@@ -134,16 +134,16 @@
 	<insert id="insertEmpOrg" parameterType="employee">
 	    INSERT
 			INTO
-			    self_org_emp_ref
+			    wx_dish_org_emp_ref
 			    (
-			        OEID,
-			        OID,
-			        EMPID,
-			        CRTER,
-			        CRTDATE,
-			        OPTER,
-			        OPTDATE,
-			        DELETED
+			        oeid,
+			        oid,
+			        empid,
+			        crter,
+			        crtdate,
+			        opter,
+			        optdate,
+			        deleted
 			    )
 			    VALUES
 		    	<foreach collection="list" item="item" index="index" separator="," >  
@@ -158,8 +158,8 @@
 				 emp.EMPCODE,
 				 orgnames.ONAME,
 				 orgnames.levelpath
-		from self_employee emp
-		left join  view_self_emp_org orgnames on orgnames.EMPID = emp.EMPID
+		from wx_dish_employee emp
+		left join  view_emp_org orgnames on orgnames.EMPID = emp.EMPID
 		where emp.DELETED = 0 
 		and emp.BID = #{bid}
 		<if test="oid != null and oid !='' ">
@@ -178,8 +178,8 @@
 	<!--查询员工列表统计数  用于列表分页 -->
 	<select id="getEmployeeCount" parameterType="employee" resultType="int">
 		select count(1)
-		from self_employee emp
-		left join  view_self_emp_org orgnames on orgnames.EMPID = emp.EMPID
+		from wx_dish_employee emp
+		left join  view_emp_org orgnames on orgnames.EMPID = emp.EMPID
 		where emp.DELETED = 0 
 		and emp.BID = #{bid}
 		<if test="oid != null and oid !='' ">
@@ -196,7 +196,7 @@
 	<!--更新组织架构 -->
 	<update id="updateEmpOrg" parameterType="employee">
 		UPDATE
-		    self_org_emp_ref
+		    wx_dish_org_emp_ref
 		SET
 			OPTDATE = sysdate()
 			, OPTER = #{opter}
@@ -220,11 +220,11 @@
 				 emp.EMPNAME,
 				 emp.EMPCODE,
 				 emp.STATUS 
-		from self_employee emp
+		from wx_dish_employee emp
 		where emp.DELETED = 0
 		and  emp.EMPID not in (
 			select oe.EMPID
-			from self_org_emp_ref oe 
+			from wx_dish_org_emp_ref oe 
 			where oe.DELETED = 0 
 			<if test="oid != null and oid !='' ">
 				and oe.OID = #{oid}
@@ -242,7 +242,7 @@
 	<!--根据部门ID移除关联的员工-->
 	<update id="removeOrgEmp" parameterType="organization">
 		UPDATE
-		    self_org_emp_ref
+		    wx_dish_org_emp_ref
 		SET
 			DELETED = 1 
 		WHERE
@@ -250,11 +250,11 @@
 		    	select temp.OEID
 		    	from (
 		    		select oe.OEID
-					from self_org_emp_ref oe 
+					from wx_dish_org_emp_ref oe 
 					where oe.DELETED = 0 
 					and oe.OID in (
 						select org.oid
-						from self_organization org 
+						from wx_dish_organization org 
 						where org.DELETED = 0 
 						and instr(org.LEVELPATH,#{oid}) &gt; 0
 					)
@@ -265,7 +265,7 @@
 	<!--根据部门ID移除及其下属部门-->
 	<update id="removeOrg" parameterType="organization">
 		UPDATE
-		    self_organization org
+		    wx_dish_organization org
 		SET
 			org.DELETED = 1 
 		WHERE instr(org.LEVELPATH,#{oid}) &gt; 0
@@ -279,8 +279,8 @@
 			role.RNAME,
 			orr.OID,
 			orr.ORID
-		from self_org_role_ref orr
-		left join self_role role on role.RID = orr.RID
+		from wx_dish_org_role_ref orr
+		left join wx_dish_role role on role.RID = orr.RID
 		where orr.DELETED = 0 
 		and role.DELETED = 0 
 		<if test="oid != null and oid !='' ">
@@ -295,8 +295,8 @@
 				 role.RNAME,
 				 '' as orid,
 				 '' as oid
-		from self_role_business_ref rb
-		left join self_role role on role.RID = rb.RID
+		from wx_dish_role_business_ref rb
+		left join wx_dish_role role on role.RID = rb.RID
 		where rb.DELETED = 0 
 		and role.DELETED = 0
 		and rb.BID = #{bid}
@@ -304,23 +304,23 @@
 	
 	<!--删除部门与权限关联关系-->
 	<update id="deletedOrgRole" parameterType="role">
-		update self_org_role_ref set deleted = 1 where orid = #{orid}
+		update wx_dish_org_role_ref set deleted = 1 where orid = #{orid}
 	</update>
 	
 	<!--插入部门与权限关联关系 -->
 	<insert id="insertOrgRole" parameterType="role">
 		INSERT
 			INTO
-			    self_org_role_ref
+			    wx_dish_org_role_ref
 			    (
-			        ORID,
-			        OID,
-			        RID,
-			        CRTER,
-			        CRTDATE,
-			        OPTER,
-			        OPTDATE,
-			        DELETED
+			        orid,
+			        oid,
+			        rid,
+			        crter,
+			        crtdate,
+			        opter,
+			        optdate,
+			        deleted
 			    )
 			    VALUES
 			    <foreach collection="list" item="item" index="index" separator="," >  
@@ -333,13 +333,13 @@
 		select role.RID,
 				role.RCODE,
 				role.RNAME
-		from self_role_business_ref rb 
-		left join self_role role on role.RID = rb.RID
+		from wx_dish_role_business_ref rb 
+		left join wx_dish_role role on role.RID = rb.RID
 		where rb.DELETED = 0 
 		and role.DELETED = 0
 		and rb.RID not in (
 			select orr.RID
-			from self_org_role_ref orr 
+			from wx_dish_org_role_ref orr 
 			where orr.DELETED = 0 
 			and orr.OID = #{oid}
 		)

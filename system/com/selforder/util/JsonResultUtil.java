@@ -11,6 +11,7 @@ import net.sf.json.JSONObject;
  * 返回json格式结果集工具类
  * @author xingwanzhao
  *
+ * 2016-7-22
  */
 public class JsonResultUtil {
 	/**

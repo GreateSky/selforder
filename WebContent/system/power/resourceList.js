@@ -102,6 +102,9 @@ function loadResourceList(type,param){
 		},
 		fail:function(){
 			layer.close(load);
+		},
+		error:function(){
+			layer.close(load);
 		}
 	});
 }

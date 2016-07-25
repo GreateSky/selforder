@@ -11,17 +11,39 @@ public class Table extends baseBean {
 	private String id;
 	private String weid;
 	private String storeid;
-	private String limit_price;
+	private int limit_price;
 	private String title;
-	private String user_count;
-	private String displayorder;
+	private int user_count;
+	private int displayorder;
 	private String dateline;
-	private String status;
+	private int status;
 	private String crter;
 	private String crtdate;
 	private String opter;
 	private String optdate;
-	private String deleted;
+	private int deleted;
+	private String room_id;
+	private String room_name;
+	private int tabnum;//餐桌数量
+	private String qrcodeid;//餐桌二维码id
+	public int getTabnum() {
+		return tabnum;
+	}
+	public void setTabnum(int tabnum) {
+		this.tabnum = tabnum;
+	}
+	public String getRoom_id() {
+		return room_id;
+	}
+	public String getRoom_name() {
+		return room_name;
+	}
+	public void setRoom_id(String room_id) {
+		this.room_id = room_id;
+	}
+	public void setRoom_name(String room_name) {
+		this.room_name = room_name;
+	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
@@ -34,23 +56,13 @@ public class Table extends baseBean {
 	public String getStoreid() {
 		return storeid;
 	}
-	public String getLimit_price() {
-		return limit_price;
-	}
+	
 	public String getTitle() {
 		return title;
 	}
-	public String getUser_count() {
-		return user_count;
-	}
-	public String getDisplayorder() {
-		return displayorder;
-	}
+	
 	public String getDateline() {
 		return dateline;
-	}
-	public String getStatus() {
-		return status;
 	}
 	public String getCrter() {
 		return crter;
@@ -64,9 +76,6 @@ public class Table extends baseBean {
 	public String getOptdate() {
 		return optdate;
 	}
-	public String getDeleted() {
-		return deleted;
-	}
 	public void setId(String id) {
 		this.id = id;
 	}
@@ -76,24 +85,14 @@ public class Table extends baseBean {
 	public void setStoreid(String storeid) {
 		this.storeid = storeid;
 	}
-	public void setLimit_price(String limit_price) {
-		this.limit_price = limit_price;
-	}
+	
 	public void setTitle(String title) {
 		this.title = title;
-	}
-	public void setUser_count(String user_count) {
-		this.user_count = user_count;
-	}
-	public void setDisplayorder(String displayorder) {
-		this.displayorder = displayorder;
 	}
 	public void setDateline(String dateline) {
 		this.dateline = dateline;
 	}
-	public void setStatus(String status) {
-		this.status = status;
-	}
+	
 	public void setCrter(String crter) {
 		this.crter = crter;
 	}
@@ -106,8 +105,41 @@ public class Table extends baseBean {
 	public void setOptdate(String optdate) {
 		this.optdate = optdate;
 	}
-	public void setDeleted(String deleted) {
+	public int getDeleted() {
+		return deleted;
+	}
+	public void setDeleted(int deleted) {
 		this.deleted = deleted;
+	}
+	public String getQrcodeid() {
+		return qrcodeid;
+	}
+	public void setQrcodeid(String qrcodeid) {
+		this.qrcodeid = qrcodeid;
+	}
+	public int getLimit_price() {
+		return limit_price;
+	}
+	public int getUser_count() {
+		return user_count;
+	}
+	public int getDisplayorder() {
+		return displayorder;
+	}
+	public void setLimit_price(int limit_price) {
+		this.limit_price = limit_price;
+	}
+	public void setUser_count(int user_count) {
+		this.user_count = user_count;
+	}
+	public void setDisplayorder(int displayorder) {
+		this.displayorder = displayorder;
+	}
+	public int getStatus() {
+		return status;
+	}
+	public void setStatus(int status) {
+		this.status = status;
 	}
 	
 }

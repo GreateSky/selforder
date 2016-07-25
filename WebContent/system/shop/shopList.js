@@ -35,7 +35,7 @@ function pageOption(paginationid,totalpage){
             }
         	var param = {};
         	if(!first){
-        		roleList("pageQuery",param);
+        		loadShopList("pageQuery",param);
         	}
         }
     });

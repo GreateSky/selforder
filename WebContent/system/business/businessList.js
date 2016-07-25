@@ -151,6 +151,9 @@ function loadBusinessList(type,param){
 					//未新增的tr添加点击事件
 				}
 			}
+		},
+		error:function(){
+			layer.close(load);
 		}
 	});
 }

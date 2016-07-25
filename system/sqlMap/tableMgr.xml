@@ -24,7 +24,9 @@
 			        storeid,
 			        limit_price,
 			        title,
+			        room_id,
 			        user_count,
+			        qrcodeid,
 			        displayorder,
 			        dateline,
 			        status,
@@ -41,7 +43,9 @@
 					#{storeid},
 					#{limit_price},
 					#{title},
+					#{room_id},
 					#{user_count},
+					#{qrcodeid},
 					#{displayorder},
 					#{dateline},
 					#{status},
@@ -62,6 +66,8 @@
 		        tab.limit_price,
 		        tab.title,
 		        tab.user_count,
+		        tab.qrcodeid,
+		        room.rname room_name,
 		        tab.displayorder,
 		        tab.dateline,
 		        tab.status,
@@ -72,6 +78,7 @@
 		        tab.deleted
 		FROM
 		    wx_dish_tables tab
+		left join wx_dish_room room on (room.id = tab.room_id and room.deleted = 0)
 		where tab.DELETED = 0
 		<if test="weid != null and weid !='' ">
 			and tab.weid = #{weid}
@@ -82,9 +89,16 @@
 		<if test="title != null and title !='' ">
 			and tab.title = #{title}
 		</if> 
+		<if test="room_id != null and room_id !='' ">
+			and room.id = #{room_id}
+		</if> 
+		<if test="status != null and status !='' ">
+			and tab.status = #{status}
+		</if> 
 		<if test="user_count != null and user_count !='' ">
 			and tab.user_count &gt;= #{user_count}
 		</if>
+		order by tab.displayorder desc
 		<include refid="limit"></include>   
 	</select>
 	<!--查询门店列表统计数  用于列表分页 -->
@@ -93,7 +107,9 @@
 		        count(1)
 		FROM
 		    wx_dish_tables tab
+		left join wx_dish_room room on (room.id = tab.room_id and room.deleted = 0)
 		where tab.DELETED = 0
+		
 		<if test="weid != null and weid !='' ">
 			and tab.weid = #{weid}
 		</if> 
@@ -117,6 +133,8 @@
 		        tab.limit_price,
 		        tab.title,
 		        tab.user_count,
+		        tab.qrcodeid,
+		        room.id room_id,
 		        tab.displayorder,
 		        tab.dateline,
 		        tab.status,
@@ -127,7 +145,11 @@
 		        tab.deleted
 		FROM
 		    wx_dish_tables tab
+		left join wx_dish_room room on (room.id = tab.room_id and room.deleted = 0)    
 		where tab.DELETED = 0
+		<if test="id != null and id !='' ">
+			and tab.id = #{id}
+		</if>
 		<if test="weid != null and weid !='' ">
 			and tab.weid = #{weid}
 		</if> 
@@ -135,7 +157,7 @@
 			and tab.storeid = #{storeid}
 		</if> 
 		<if test="title != null and title !='' ">
-			and tab.title = #{title}
+			and UPPER(tab.title) = UPPER(#{title})
 		</if> 
 		<if test="user_count != null and user_count !='' ">
 			and tab.user_count &gt;= #{user_count}
@@ -155,6 +177,9 @@
 			<if test="title != null and title !='' ">
 				, title = #{title}
 			</if>
+			<if test="room_id != null and room_id !='' ">
+				, room_id = #{room_id}
+			</if>
 			<if test="user_count != null and user_count !='' ">
 				, user_count = #{user_count}
 			</if>
@@ -169,6 +194,69 @@
 			</if>
 		WHERE
 		    id = #{id}    
+	</update>
+	
+	<!-- 保存包厢信息 -->
+	<insert id="insertRoom" parameterType="table">
+		INSERT
+			INTO
+			    wx_dish_room
+			    (
+			        id,
+			        rname,
+			        sid,
+			        crter,
+			        crtdate,
+			        opter,
+			        optdate,
+			        deleted
+			    )
+			    VALUES
+			    (
+			        replace(uuid(),'-',''),
+			        #{room_name},
+			        #{storeid},
+			        #{crter},
+			        sysdate(),
+			        #{opter},
+			        sysdate(),
+			        0
+			    )
+	</insert>
+	
+	<!-- 更新包厢 -->
+	<update id="updateRoom" parameterType="table">
+		UPDATE
+		    wx_dish_room
+		SET
+		    opter = #{opter}
+			, optdate = sysdate()
+			<if test="room_name != null and room_name !='' ">
+				, rname = #{room_name}
+			</if>
+			<if test="deleted != null and deleted !='' ">
+				, deleted = #{deleted}
+			</if>
+		WHERE
+		    id = #{room_id}
+	</update>
+	
+	<!--获取包厢列表 -->
+	<select id="getRoomList" parameterType="table" resultType="table">
+		select room.id room_id,
+				 room.rname room_name,
+				 (select count(1) from wx_dish_tables tab where tab.room_id = room.id and tab.deleted = 0) tabnum
+		from wx_dish_room room 
+		where room.deleted = 0  
+		and room.sid = #{storeid}
+		<if test="room_name != null and room_name !='' ">
+			and room.rname = #{room_name}
+		</if>
+	</select>
+	
+	<!-- 取消餐桌与包厢关联信息 -->
+	<update id="updateTableRoom" parameterType="table">
+		update wx_dish_tables set room_id = '' where room_id = #{room_id}
 	</update>
 </mapper>
 

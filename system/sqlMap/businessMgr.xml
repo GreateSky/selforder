@@ -17,27 +17,27 @@
 	<insert id="insertBusiness">
 		INSERT
 			INTO
-			    self_business
+			    wx_dish_business
 			    (
-			        BID,
-			        BNAME,
-			        BCODE,
-			        LEGALER,
-			        PHONE,
-			        EMAIL,
-			        FAXES,
-			        ADDRESS,
-			        STATUS,
-			        BEGINDATE,
-			        ENDDATE,
-			        APPID,
-			        APPSECRET,
-			        LICENSEID,
-			        CRTER,
-			        CRTDATE,
-			        OPTER,
-			        OPTDATE,
-			        DELETED
+			        bid,
+			        bname,
+			        bcode,
+			        legaler,
+			        phone,
+			        email,
+			        faxes,
+			        address,
+			        status,
+			        begindate,
+			        enddate,
+			        appid,
+			        appsecret,
+			        licenseid,
+			        crter,
+			        crtdate,
+			        opter,
+			        optdate,
+			        deleted
 			    )
 			    VALUES
 			    (
@@ -86,7 +86,7 @@
 		    sb.OPTDATE,
 		    sb.DELETED
 		FROM
-		    self_business sb
+		    wx_dish_business sb
 		where sb.deleted = 0 
 		<if test="bid != null and bid !='' ">
 			and sb.BID = #{bid}
@@ -117,7 +117,7 @@
 		SELECT
 		    count(1)
 		FROM
-		    self_business sb
+		    wx_dish_business sb
 		where sb.deleted = 0   
 		<if test="bname != null and bname !='' ">
 			and sb.BNAME like CONCAT('%',#{bname},'%')
@@ -153,7 +153,7 @@
 		    sb.OPTDATE,
 		    sb.DELETED
 		FROM
-		    self_business sb
+		    wx_dish_business sb
 		where sb.deleted = 0
 		<if test="bid != null and bid !='' ">
 			and sb.BID =#{bid}
@@ -172,7 +172,7 @@
 	<!--更新商户信息 -->
 	<update id="updateBusiness" parameterType="business">
 		UPDATE
-		    self_business
+		    wx_dish_business
 		SET
 		    OPTER = #{opter}
 		    , OPTDATE = sysdate()

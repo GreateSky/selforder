@@ -60,5 +60,42 @@ public class TableDaoImpl extends SqlSessionDaoSupport implements TableDao {
 	public int updateTable(Table table) throws SQLException {
 		return getSqlSession().update("com.selforder.table.updateTable",table);
 	}
+	
+	/**
+	 * 新增包厢
+	 * @param table
+	 * @return
+	 */
+	public int insertRoom (Table table)throws SQLException{
+		return getSqlSession().insert("com.selforder.table.insertRoom", table);
+	}
+	
+	/**
+	 * 更新包厢
+	 * @param table
+	 * @return
+	 */
+	public int updateRoom(Table table)throws SQLException{
+		return getSqlSession().update("com.selforder.table.updateRoom",table);
+	}
+	
+	/**
+	 * 获取包厢列表 
+	 * @param table
+	 * @return
+	 * @throws SQLException
+	 */
+	public List<Table> roomList(Table table)throws SQLException{
+		return getSqlSession().selectList("com.selforder.table.getRoomList", table);
+	}
+	
+	/**
+	 * 删除餐桌与包厢关联信息
+	 * @param table
+	 * @return
+	 */
+	public int updateTableRoom(Table table)throws SQLException{
+		return getSqlSession().update("com.selforder.table.updateTableRoom",table);
+	}
 
 }

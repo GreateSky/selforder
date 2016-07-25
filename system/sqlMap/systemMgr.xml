@@ -243,18 +243,18 @@
 	
 	<!--新增附件上传记录 -->
 	<insert id="insertUpload" parameterType="java.util.Map">
-		INSERT INTO auto_fileupload (
-			FILEID
-			,FILETYPE
-			,FILENAME
-			,FILESAVENAME
-			,FILESIZE
-			,FILEPATH
-			,FILEGROUP
-			,IPADDRESS
-			,FILETIME
-			,UPLOADER
-			,DELETED
+		INSERT INTO wx_dish_fileupload (
+			fileid
+			,filetype
+			,filename
+			,filesavename
+			,filesize
+			,filepath
+			,filegroup
+			,ipaddress
+			,filetime
+			,uploader
+			,deleted
 			)
 		VALUES (
 			#{fileid}
@@ -286,7 +286,7 @@
 		    UPLOADER,
 		    DELETED
 		FROM
-		    auto_fileupload
+		    wx_dish_fileupload
 		where DELETED = 0
 		and FILEID = #{fileid}
 	</select>

@@ -17,15 +17,15 @@
 	<insert id="insertResource" parameterType="resource">
 	    INSERT
 			INTO
-			    self_resource
+			    wx_dish_resource
 			    (
-			        RID,
-			        RNAME,
-			        RURL,
-			        REMARK,
-			        CRTER,
-			        CRTDATE,
-			        DELETED
+			        rid,
+			        rname,
+			        rurl,
+			        remark,
+			        crter,
+			        crtdate,
+			        deleted
 			    )
 			    VALUES
 			    (
@@ -50,7 +50,7 @@
 		    CRTDATE,
 		    DELETED
 		FROM
-		    self_resource
+		    wx_dish_resource
 		where DELETED = 0     
 		<if test="rname != null and rname !='' ">
 			and RNAME like CONCAT('%',#{rname},'%')
@@ -68,11 +68,11 @@
 			 re.RNAME,
 			 re.RURL,
 			 re.REMARK
-		from self_resource re 
+		from wx_dish_resource re 
 		where re.DELETED = 0
 		<if test="role_id != null and role_id !='' ">
 			and not exists(select 1 
-					   from self_role_resource_ref rr 
+					   from wx_dish_role_resource_ref rr 
 					   where rr.deleted = 0 
 					   and rr.role_id=#{role_id} 
 					   and rr.resource_id = re.RID)          
@@ -90,7 +90,7 @@
 		SELECT
 		   count(1)
 		FROM
-		    self_resource
+		    wx_dish_resource
 		where DELETED = 0    
 		<if test="rname != null and rname !='' ">
 			and RNAME like CONCAT('%',#{rname},'%')
@@ -111,7 +111,7 @@
 		    CRTDATE,
 		    DELETED
 		FROM
-		    self_resource
+		    wx_dish_resource
 		where DELETED = 0   
 		<if test="rname != null and rname !='' ">
 			and RNAME like CONCAT('%',#{rname},'%')
@@ -127,7 +127,7 @@
 	<!--更新资源信息 -->
 	<update id="updateResource" parameterType="resource">
 		UPDATE
-		    self_resource
+		    wx_dish_resource
 		SET
 		   RID = #{rid}
 		    <if test="rname != null and rname !='' ">
@@ -150,17 +150,17 @@
 	<insert id="insertRole" parameterType="role">
 		INSERT
 			INTO
-			    self_role
+			    wx_dish_role
 			    (
-			        RID,
-			        RCODE,
-			        RNAME,
-			        REMARK,
-			        CRTDATE,
-			        CRTER,
-			        OPTDATE,
-			        OPTER,
-			        DELETED
+			        rid,
+			        rcode,
+			        rname,
+			        remark,
+			        crtdate,
+			        crter,
+			        optdate,
+			        opter,
+			        deleted
 			    )
 			    VALUES
 			    (
@@ -179,7 +179,7 @@
 	<!--更新角色信息 -->
 	<update id="updateRole" parameterType="role">
 		UPDATE
-		    self_role
+		    wx_dish_role
 		SET
 			OPTDATE = sysdate()
 			, OPTER = #{opter}
@@ -211,7 +211,7 @@
 		    sr.OPTER,
 		    sr.DELETED
 		FROM
-		    self_role sr
+		    wx_dish_role sr
 		where sr.DELETED = 0
 		<if test="rid != null and rid !='' ">
 			and sr.RID = #{rid}
@@ -232,11 +232,11 @@
 			 role.REMARK,
 			 resource.resourceid,
 			 resource.resourcename
-		from self_role role
+		from wx_dish_role role
 		left join (
 			select rr.ROLE_ID,group_concat(RESOURCE_ID)as resourceid,group_concat(re.RNAME ) as resourcename
-			from self_role_resource_ref rr
-			left join self_resource re on re.RID = rr.RESOURCE_ID
+			from wx_dish_role_resource_ref rr
+			left join wx_dish_resource re on re.RID = rr.RESOURCE_ID
 			where rr.DELETED = 0
 			and re.DELETED = 0
 			group by rr.ROLE_ID
@@ -257,11 +257,11 @@
 	<!--查询资源列表统计数  用于列表分页 -->
 	<select id="getRoleCount" parameterType="role" resultType="int">
 		select count(1)
-		from self_role role
+		from wx_dish_role role
 		left join (
 			select rr.ROLE_ID,group_concat(RESOURCE_ID)as resourceid,group_concat(re.RNAME ) as resourcename
-			from self_role_resource_ref rr
-			left join self_resource re on re.RID = rr.RESOURCE_ID
+			from wx_dish_role_resource_ref rr
+			left join wx_dish_resource re on re.RID = rr.RESOURCE_ID
 			where rr.DELETED = 0
 			and re.DELETED = 0
 			group by rr.ROLE_ID
@@ -282,16 +282,16 @@
 	<insert id="insertRoleResourceRef" parameterType="java.util.HashMap">
 	    INSERT
 			INTO
-			    self_role_resource_ref
+			    wx_dish_role_resource_ref
 			    (
-			        ID,
-			        ROLE_ID,
-			        RESOURCE_ID,
-			        CRTER,
-			        CRTDATE,
-			        OPTER,
-			        OPTDATE,
-			        DELETED
+			        id,
+			        role_id,
+			        resource_id,
+			        crter,
+			        crtdate,
+			        opter,
+			        optdate,
+			        deleted
 			    )
 			    VALUES
 			   	<foreach collection="list" item="item" index="index" separator="," >  
@@ -302,7 +302,7 @@
 	<!--更新角色与资源的关联关系 -->
 	<update id="updateRoleResourceRef" parameterType="java.util.HashMap">
 		UPDATE
-		    self_role_resource_ref
+		    wx_dish_role_resource_ref
 		SET
 			OPTDATE = sysdate()
 			, OPTER = #{opter}
@@ -327,9 +327,9 @@
 		        res.RID as resource_id,
 		        res.RNAME as resource_name,
 		        res.RURL as resource_url 
-		from SELF_ROLE_RESOURCE_REF rr
-		left join SELF_ROLE rol on rol.RID = rr.ROLE_ID
-		left join SELF_RESOURCE res on res.RID = rr.RESOURCE_ID
+		from wx_dish_ROLE_RESOURCE_REF rr
+		left join wx_dish_ROLE rol on rol.RID = rr.ROLE_ID
+		left join wx_dish_RESOURCE res on res.RID = rr.RESOURCE_ID
 		where rr.DELETED = 0
 		and rol.DELETED = 0
 		and res.DELETED = 0
@@ -340,21 +340,21 @@
 	
 	<!--删除角色与资源的关联关系-->
 	<delete id="deltedRef" parameterType="java.lang.String">
-		delete from SELF_ROLE_RESOURCE_REF where role_id = #{role_id}
+		delete from wx_dish_ROLE_RESOURCE_REF where role_id = #{role_id}
 	</delete>
 	
 	<!--删除角色与资源的关联关系-->
 	<delete id="deltedRefOne" parameterType="java.lang.String">
-		delete from SELF_ROLE_RESOURCE_REF where id = #{refid}
+		delete from wx_dish_ROLE_RESOURCE_REF where id = #{refid}
 	</delete>
 	
 	<!--查询已关联角色与资源(用于系统权限注册) -->
 	<select id="getAllRolResourceList"  resultType="java.util.HashMap">
 		select role.RCODE as role_code,
 		 	   res.RURL as resource_url
-		from self_role_resource_ref ref
-		left join self_role role on role.RID = ref.ROLE_ID
-		left join self_resource res on res.RID = ref.RESOURCE_ID
+		from wx_dish_role_resource_ref ref
+		left join wx_dish_role role on role.RID = ref.ROLE_ID
+		left join wx_dish_resource res on res.RID = ref.RESOURCE_ID
 		where ref.DELETED = 0 
 		and role.DELETED = 0
 		and res.DELETED = 0
@@ -367,13 +367,13 @@
 				bus.BCODE,
 				br.rid,
 				br.rname
-		from self_business bus
+		from wx_dish_business bus
 		left join (
 			select rbr.BID,
 					group_concat(rbr.RID) rid,
 					group_concat(role.RNAME) rname
-			from self_role_business_ref rbr 
-			left join self_role role on role.RID = rbr.RID
+			from wx_dish_role_business_ref rbr 
+			left join wx_dish_role role on role.RID = rbr.RID
 			where rbr.DELETED = 0
 			and role.DELETED = 0 
 			group by rbr.BID
@@ -396,13 +396,13 @@
 	<!--查询商户已关联权限统计数  用于列表分页 -->
 	<select id="getBusinessRoleCount" parameterType="business" resultType="int">
 		select count(1)
-		from self_business bus
+		from wx_dish_business bus
 		left join (
 			select rbr.BID,
 					group_concat(rbr.RID) rid,
 					group_concat(role.RNAME) rname
-			from self_role_business_ref rbr 
-			left join self_role role on role.RID = rbr.RID
+			from wx_dish_role_business_ref rbr 
+			left join wx_dish_role role on role.RID = rbr.RID
 			where rbr.DELETED = 0
 			and role.DELETED = 0 
 			group by rbr.BID
@@ -432,9 +432,9 @@
 				 role.RID,
 				 role.RCODE,
 				 role.RNAME
-		from self_role_business_ref rbr
-		left join self_business bus on bus.BID = rbr.BID
-		left join self_role role on role.RID = rbr.RID
+		from wx_dish_role_business_ref rbr
+		left join wx_dish_business bus on bus.BID = rbr.BID
+		left join wx_dish_role role on role.RID = rbr.RID
 		where rbr.DELETED = 0
 		and bus.DELETED = 0 
 		and role.DELETED = 0
@@ -445,16 +445,16 @@
 	<insert id="insertBusRoleRef" parameterType="business">
 		INSERT
 			INTO
-			    self_role_business_ref
+			    wx_dish_role_business_ref
 			    (
-			        RBID,
-			        RID,
-			        BID,
-			        CRTER,
-			        CRTDATE,
-			        OPTER,
-			        OPTDATE,
-			        DELETED
+			        rbid,
+			        rid,
+			        bid,
+			        crter,
+			        crtdate,
+			        opter,
+			        optdate,
+			        deleted
 			    )
 			    VALUES
 			    <foreach collection="list" item="item" index="index" separator="," >  
@@ -464,13 +464,13 @@
 	
 	<!-- 删除商户与权限的关联关系 -->	
 	<update id="deletedBusRoleRef" parameterType="business">
-		UPDATE self_role_business_ref SET DELETED = 1, OPTDATE = sysdate(), OPTER = #{opter} WHERE RBID = #{rbid}
+		UPDATE wx_dish_role_business_ref SET DELETED = 1, OPTDATE = sysdate(), OPTER = #{opter} WHERE RBID = #{rbid}
 	</update>
 	
 	<!-- 删除商户下部门已关联权限的关联关系 -->	
 	<update id="deletedOrgRoleRef" parameterType="business">
 		update 
-			self_org_role_ref orr 
+			wx_dish_org_role_ref orr 
 		set 
 			orr.DELETED = 1,
 			orr.OPTER = #{opter},
@@ -479,8 +479,8 @@
 				select tt.orid
 				from (
 					select orr.ORID
-					from self_organization org 
-					left join self_org_role_ref orr on orr.OID = org.OID
+					from wx_dish_organization org 
+					left join wx_dish_org_role_ref orr on orr.OID = org.OID
 					where org.DELETED = 0 
 					and orr.DELETED = 0 
 					and org.BID = #{bid}
@@ -494,11 +494,11 @@
 		select role.RID,
 				role.RCODE,
 				role.RNAME
-		from self_role role 
+		from wx_dish_role role 
 		where role.DELETED = 0 
 		and role.RID not in (
 			select rbr.RID
-			from self_role_business_ref rbr
+			from wx_dish_role_business_ref rbr
 			where rbr.DELETED = 0 
 			and rbr.BID = #{bid}
 		)
@@ -506,11 +506,11 @@
 	
 	<!--获取所有权限 -->
 	<select id="getAllRoles"  resultType="role">
-		select role.RID,role.RCODE,role.RNAME from self_role role where role.DELETED = 0 
+		select role.RID,role.RCODE,role.RNAME from wx_dish_role role where role.DELETED = 0 
 	</select>
 	
 	<!-- 删除权限与资源关联关系 -->
 	<update id="delRoleResource" parameterType="java.lang.String">
-		update self_role_resource_ref  set deleted = 1 where role_id = #{rid}
+		update wx_dish_role_resource_ref  set deleted = 1 where role_id = #{rid}
 	</update>
 </mapper>

@@ -26,7 +26,7 @@ public class OrganizationAction extends GreateSkyActionSupport {
 	private List<Employee> employeeList;
 	private Role role;
 	private List<Role> roleList;
-
+	public static final String test = "tt_xx_yyy";
 	public List<Role> getRoleList() {
 		return roleList;
 	}
@@ -93,6 +93,7 @@ public class OrganizationAction extends GreateSkyActionSupport {
 		response.setContentType("text/html;charset=utf-8");
 		Writer out;
 		String result;
+		
 		try{
 			out = response.getWriter();
 			result = organizationService.insertOrganization(organization);
@@ -424,6 +425,11 @@ public class OrganizationAction extends GreateSkyActionSupport {
 			return this.ERROR;
 		}
 		return this.SUCCESS;
+	}
+	
+	public static void main(String[] args) {
+		String tt = test.replace("tt", "TTTT");
+		System.out.println(tt);
 	}
 	
 }

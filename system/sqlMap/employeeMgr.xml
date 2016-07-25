@@ -15,34 +15,34 @@
 	</sql>
 	<!--新增员工信息 -->
 	<insert id="insertEmployee">
-	    INSERT
-			INTO
-			    self_employee
+	    insert
+			into
+			    wx_dish_employee
 			    (
-			        EMPID,
-			        EMPCODE,
-			        LOGINNAME,
-			        PASSWORD,
-			        EMPNAME,
-			        SEX,
-			        STATUS,
-			        TYPE,
-			        PHONE,
-			        HOMEADDRESS,
-			        WECHATID,
-			        OPENID,
-			        HEADIMGURL,
-			        CONTACTNAME,
-			        CONTACTPHONE,
-			        LOGINNUM,
-			        LASTLOGINDATE,
-			        SID,
-			        BID,
-			        CRTER,
-			        CRTDATE,
-			        ISADMIN
+			        empid,
+			        empcode,
+			        loginname,
+			        password,
+			        empname,
+			        sex,
+			        status,
+			        type,
+			        phone,
+			        homeaddress,
+			        wechatid,
+			        openid,
+			        headimgurl,
+			        contactname,
+			        contactphone,
+			        loginnum,
+			        lastlogindate,
+			        sid,
+			        bid,
+			        crter,
+			        crtdate,
+			        isadmin
 			    )
-			    VALUES
+			    values
 			    (
 			        replace(uuid(),'-',''),
 					#{empcode},
@@ -71,247 +71,247 @@
 	
 	<!--获取员工列表 -->
 	<select id="getEmployeeList"  parameterType="employee" resultType="employee">
-		SELECT
-		        emp.EMPID,
-		        emp.EMPCODE,
-		        emp.LOGINNAME,
-		        emp.PASSWORD,
-		        emp.EMPNAME,
-		        emp.SEX,
-		        emp.STATUS,
-		        emp.TYPE,
-		        emp.PHONE,
-		        emp.HOMEADDRESS,
-		        emp.WECHATID,
-		        emp.OPENID,
-		        emp.HEADIMGURL,
-		        emp.CONTACTNAME,
-		        emp.CONTACTPHONE,
-		        emp.LOGINNUM,
-		        emp.LASTLOGINDATE,
-		        emp.SID,
-		        emp.BID,
-		        business.BNAME,
-		        bs.SNAME,
-		        emp.CRTER,
-		        emp.CRTDATE,
-		        emp.OPTER,
-		        emp.OPTDATE,
-		        emp.DELETED
-		FROM
-		    self_employee emp
-		left join SELF_BUSINESS business on business.BID = emp.BID
-		left join SELF_BUSINESS_SHOP bs on bs.SID = emp.SID    
-		where emp.DELETED = 0 
+		select
+		        emp.empid,
+		        emp.empcode,
+		        emp.loginname,
+		        emp.password,
+		        emp.empname,
+		        emp.sex,
+		        emp.status,
+		        emp.type,
+		        emp.phone,
+		        emp.homeaddress,
+		        emp.wechatid,
+		        emp.openid,
+		        emp.headimgurl,
+		        emp.contactname,
+		        emp.contactphone,
+		        emp.loginnum,
+		        emp.lastlogindate,
+		        emp.sid,
+		        emp.bid,
+		        business.bname,
+		        bs.sname,
+		        emp.crter,
+		        emp.crtdate,
+		        emp.opter,
+		        emp.optdate,
+		        emp.deleted
+		from
+		    wx_dish_employee emp
+		left join wx_dish_business business on business.bid = emp.bid
+		left join wx_dish_business_shop bs on bs.sid = emp.sid    
+		where emp.deleted = 0 
 		<if test="bid != null and bid !='' ">
-			and emp.BID =#{bid}
+			and emp.bid =#{bid}
 		</if>  
 		<if test="sid != null and sid !='' ">
-			and emp.SID =#{sid}
+			and emp.sid =#{sid}
 		</if> 
 		<if test="empname != null and empname !='' ">
-			and emp.EMPNAME like CONCAT('%',#{empname},'%')
+			and emp.empname like concat('%',#{empname},'%')
 		</if>
 		<if test="phone != null and phone !='' ">
-			and emp.PHONE like CONCAT('%',#{phone},'%')
+			and emp.phone like concat('%',#{phone},'%')
 		</if>
 		<if test="empcode != null and empcode !='' ">
-			and emp.EMPCODE = #{empcode}
+			and emp.empcode = #{empcode}
 		</if>
-		order by emp.OPTDATE desc,CRTDATE desc
+		order by emp.optdate desc,crtdate desc
 		<include refid="limit"></include>
 		
 	</select>
 	<!--查询员工列表统计数  用于列表分页 -->
 	<select id="getEmployeeCount" parameterType="employee" resultType="int">
-		SELECT
+		select
 		       count(1)
-		FROM
-		    self_employee emp
-		left join SELF_BUSINESS business on business.BID = emp.BID
-		left join SELF_BUSINESS_SHOP bs on bs.SID = emp.SID    
-		where emp.DELETED = 0 
+		from
+		    wx_dish_employee emp
+		left join wx_dish_business business on business.bid = emp.bid
+		left join wx_dish_business_shop bs on bs.sid = emp.sid    
+		where emp.deleted = 0 
 		<if test="bid != null and bid !='' ">
-			and emp.BID =#{bid}
+			and emp.bid =#{bid}
 		</if>  
 		<if test="sid != null and sid !='' ">
-			and emp.SID =#{sid}
+			and emp.sid =#{sid}
 		</if> 
 		<if test="empname != null and empname !='' ">
-			and emp.EMPNAME like CONCAT('%',#{empname},'%')
+			and emp.empname like concat('%',#{empname},'%')
 		</if>
 		<if test="phone != null and phone !='' ">
-			and emp.PHONE like CONCAT('%',#{phone},'%')
+			and emp.phone like concat('%',#{phone},'%')
 		</if>
 		<if test="empcode != null and empcode !='' ">
-			and emp.EMPCODE = #{empcode}
+			and emp.empcode = #{empcode}
 		</if>
 	</select>
 	
 	<!--获取员工详情 -->
 	<select id="getEmployeeInfo"  parameterType="employee" resultType="employee">
-		SELECT
-		        emp.EMPID,
-		        emp.EMPCODE,
-		        emp.LOGINNAME,
-		        emp.PASSWORD,
-		        emp.EMPNAME,
-		        emp.SEX,
-		        emp.STATUS,
-		        emp.TYPE,
-		        emp.PHONE,
-		        emp.HOMEADDRESS,
-		        emp.WECHATID,
-		        emp.OPENID,
-		        emp.HEADIMGURL,
-		        emp.CONTACTNAME,
-		        emp.CONTACTPHONE,
-		        emp.LOGINNUM,
-		        emp.LASTLOGINDATE,
-		        emp.SID,
-		        emp.BID,
-		        business.BNAME,
-		        bs.SNAME,
-		        emp.CRTER,
-		        emp.CRTDATE,
-		        emp.OPTER,
-		        emp.OPTDATE,
-		        emp.DELETED,
-		        emp.ISADMIN
-		FROM
-		    self_employee emp
-		left join SELF_BUSINESS business on business.BID = emp.BID
-		left join SELF_BUSINESS_SHOP bs on bs.SID = emp.SID    
-		where emp.DELETED = 0 
+		select
+		        emp.empid,
+		        emp.empcode,
+		        emp.loginname,
+		        emp.password,
+		        emp.empname,
+		        emp.sex,
+		        emp.status,
+		        emp.type,
+		        emp.phone,
+		        emp.homeaddress,
+		        emp.wechatid,
+		        emp.openid,
+		        emp.headimgurl,
+		        emp.contactname,
+		        emp.contactphone,
+		        emp.loginnum,
+		        emp.lastlogindate,
+		        emp.sid,
+		        emp.bid,
+		        business.bname,
+		        bs.sname,
+		        emp.crter,
+		        emp.crtdate,
+		        emp.opter,
+		        emp.optdate,
+		        emp.deleted,
+		        emp.isadmin
+		from
+		    wx_dish_employee emp
+		left join wx_dish_business business on business.bid = emp.bid
+		left join wx_dish_business_shop bs on bs.sid = emp.sid    
+		where emp.deleted = 0 
 		<if test="bid != null and bid !='' ">
-			and emp.BID =#{bid}
+			and emp.bid =#{bid}
 		</if>  
 		<if test="sid != null and sid !='' ">
-			and emp.SID =#{sid}
+			and emp.sid =#{sid}
 		</if> 
 		<if test="sid != null and sid !='' ">
-			and emp.SID =#{sid}
+			and emp.sid =#{sid}
 		</if>
 		<if test="empname != null and empname !='' ">
-			and emp.EMPNAME like CONCAT('%',#{empname},'%')
+			and emp.empname like concat('%',#{empname},'%')
 		</if>
 		<if test="phone != null and phone !='' ">
-			and emp.PHONE like CONCAT('%',#{phone},'%')
+			and emp.phone like concat('%',#{phone},'%')
 		</if>
 		<if test="empcode != null and empcode !='' ">
-			and emp.EMPCODE like CONCAT('%',#{empcode},'%')
+			and emp.empcode like concat('%',#{empcode},'%')
 		</if>
 		<if test="loginname != null and loginname !='' ">
-			and emp.LOGINNAME = #{loginname}
+			and emp.loginname = #{loginname}
 		</if>
 		<if test="empid != null and empid !='' ">
-			and emp.EMPID = #{empid}
+			and emp.empid = #{empid}
 		</if>
 		<if test="password != null and password !='' ">
-			and EMP.PASSWORD = #{password}
+			and emp.password = #{password}
 		</if>
 	</select>
 	
 	<!--更新员工信息 -->
 	<update id="updateEmployee" parameterType="employee">
-		UPDATE
-		    self_employee
-		SET
-			OPTER = #{opter}
-		    , OPTDATE = sysdate()
+		update
+		    wx_dish_employee
+		set
+			opter = #{opter}
+		    , optdate = sysdate()
 		    <if test="empid != null and empid !='' ">
-				, EMPID =  #{empid}   
+				, empid =  #{empid}   
 			</if>
 		    <if test="empcode != null and empcode !='' ">
-				, EMPCODE =       #{empcode}      
+				, empcode =       #{empcode}      
 			</if>     
 			<if test="loginname != null and loginname !='' ">
-				, LOGINNAME =     #{loginname}      
+				, loginname =     #{loginname}      
 			</if> 
 			<if test="empname != null and empname !='' ">
-				, EMPNAME =       #{empname}  
+				, empname =       #{empname}  
 			</if>  
 			<if test=" sex != null and sex !='' ">
-				, SEX =           #{sex}
+				, sex =           #{sex}
 			</if>  
 			<if test=" status != null and status !='' ">
-				, STATUS =        #{status}  
+				, status =        #{status}  
 			</if>
 			<if test=" type != null and type !='' ">
-				, TYPE =          #{type}
+				, type =          #{type}
 			</if>
 			<if test=" phone != null and phone !='' ">
-				, PHONE =         #{phone}
+				, phone =         #{phone}
 			</if>
 			<if test=" homeaddress != null and homeaddress !='' ">
-				, HOMEADDRESS =   #{homeaddress}
+				, homeaddress =   #{homeaddress}
 			</if>
 			<if test=" wechatid != null and wechatid !='' ">
-				, WECHATID =      #{wechatid} 
+				, wechatid =      #{wechatid} 
 			</if>
 			<if test=" openid != null and openid !='' ">
-				, OPENID =        #{openid}
+				, openid =        #{openid}
 			</if>
 			<if test=" headimgurl != null and  headimgurl !='' ">
-				, HEADIMGURL =    #{headimgurl} 
+				, headimgurl =    #{headimgurl} 
 			</if>
 			<if test=" contactname != null and  contactname !='' ">
-				, CONTACTNAME =   #{contactname} 
+				, contactname =   #{contactname} 
 			</if>
 			<if test=" contactphone != null and contactphone  !='' ">
-				, CONTACTPHONE =  #{contactphone} 
+				, contactphone =  #{contactphone} 
 			</if>
 			<if test=" loginnum != null and loginnum !='' ">
-				, LOGINNUM =      #{loginnum}
+				, loginnum =      #{loginnum}
 			</if>
 			<if test=" lastlogindate != null and lastlogindate !='' ">
-				, LASTLOGINDATE = #{lastlogindate} 
+				, lastlogindate = #{lastlogindate} 
 			</if>
 			<if test=" sid != null and sid !='' ">
-				, SID =           #{sid} 
+				, sid =           #{sid} 
 			</if>
 			<if test=" bid != null and bid !='' ">
-				, BID =           #{bid}  
+				, bid =           #{bid}  
 			</if>
 			<if test=" deleted != null and deleted !='' ">
-				, DELETED =       #{deleted} 
+				, deleted =       #{deleted} 
 			</if>
-		WHERE
-		    EMPID = #{empid}
+		where
+		    empid = #{empid}
 		
 	</update>
 	
 	<!--获取商户最大员工编号 -->
 	<select id="getMaxEmpCode"  parameterType="java.lang.String" resultType="java.lang.String">
-		select max(emp.EMPCODE) from self_employee emp where emp.DELETED = 0 and emp.BID = #{bid}
+		select max(emp.empcode) from wx_dish_employee emp where emp.deleted = 0 and emp.bid = #{bid}
 	</select>
 	
 	<!--修改员工密码-->
 	<update id="updatePassword" parameterType="employee">
-		UPDATE
-		    self_employee
-		SET
-			OPTER = #{opter}
-		    , OPTDATE = sysdate()
+		update
+		    wx_dish_employee
+		set
+			opter = #{opter}
+		    , optdate = sysdate()
 		    <if test="password != null and password !='' ">
-				, PASSWORD =  #{password}   
+				, password =  #{password}   
 			</if> 
-		WHERE
-		    EMPID = #{empid}
+		where
+		    empid = #{empid}
 	</update>
 	
 	<!--查询员工已关联权限 -->
 	<select id="getEmpRoles"  parameterType="employee" resultType="role">
-		select role.RID,
-				 role.RCODE,
-				 role.RNAME
-		from self_role role 
-		left join self_org_role_ref orr on orr.RID = role.RID
-		left join self_org_emp_ref oer on oer.OID = orr.OID
-		where role.DELETED = 0 
-		and orr.DELETED = 0 
-		and oer.DELETED = 0 
-		and oer.EMPID = #{empid}
+		select role.rid,
+				 role.rcode,
+				 role.rname
+		from wx_dish_role role 
+		left join wx_dish_org_role_ref orr on orr.rid = role.rid
+		left join wx_dish_org_emp_ref oer on oer.oid = orr.oid
+		where role.deleted = 0 
+		and orr.deleted = 0 
+		and oer.deleted = 0 
+		and oer.empid = #{empid}
 	</select>	
 </mapper>
 

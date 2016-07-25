@@ -83,16 +83,16 @@ function getDateByTime(time,format){
  * @param remark 验证失败后的提示
  * @returns 0 验证成功   -1 验证失败
  */
-function checkValue(value,remark){
+function checkValueWithInfo(value,remark){
 	//默认提示
 	if(typeof(remark) == "undefined" || remark == null || remark == "" || remark == "null"){
 		remark = "参数验证失败！";
 	}
 	if(typeof(value) != "undefined" && value != null && value != "" && value != "null"){
-		return 0;
+		return true;
 	}else{
-		layer.alert(remark,{icon:5});
-		return -1;
+		layer.msg(remark,{icon:5});
+		return false;
 	}
 }
 
@@ -106,5 +106,18 @@ function checkValue(value){
 		return true;
 	}else{
 		return false;
+	}
+}
+
+/**
+ * 显示请求执行结果
+ * @param retCode  0 成功  -1 失败
+ * @param message  执行结果的详细描述
+ */
+function showResult(retCode,message){
+	if(retCode < 0){
+		layer.msg(message,{icon:5});
+	}else{
+		layer.msg(message,{icon:6});
 	}
 }

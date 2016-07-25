@@ -39,4 +39,25 @@ public interface TableService {
 	 * @return
 	 */
 	public String updateTable(Table table);
+	
+	/**
+	 * 新增包厢
+	 * @param table
+	 * @return
+	 */
+	public String insertRoom (Table table);
+	
+	/**
+	 * 更新包厢
+	 * @param table
+	 * @return
+	 */
+	public String updateRoom(Table table);
+	
+	/**
+	 * 获取包厢列表 
+	 * @param table
+	 * @return
+	 */
+	public String roomList(Table table);
 }

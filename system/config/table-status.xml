@@ -30,6 +30,24 @@
 				<param name="root">resultJson</param>
 			</result> 
 		</action>
+		<!--新增包厢-->
+		<action name = "insertRoom" class="tableAction" method="insertRoom">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+		<!--更新包厢-->
+		<action name = "updateRoom" class="tableAction" method="updateRoom">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+		<!--包厢列表-->
+		<action name = "roomList" class="tableAction" method="roomList">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
 	</package>
 	
 </struts>

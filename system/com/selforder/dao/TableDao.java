@@ -47,4 +47,33 @@ public interface TableDao {
 	 * @return
 	 */
 	public int updateTable(Table table)throws SQLException;
+	
+	/**
+	 * 新增包厢
+	 * @param table
+	 * @return
+	 */
+	public int insertRoom (Table table)throws SQLException;
+	
+	/**
+	 * 更新包厢
+	 * @param table
+	 * @return
+	 */
+	public int updateRoom(Table table)throws SQLException;
+	
+	/**
+	 * 获取包厢列表 
+	 * @param table
+	 * @return
+	 * @throws SQLException
+	 */
+	public List<Table> roomList(Table table)throws SQLException; 
+	
+	/**
+	 * 删除餐桌与包厢关联信息
+	 * @param table
+	 * @return
+	 */
+	public int updateTableRoom(Table table)throws SQLException;
 }
