@@ -232,5 +232,26 @@ public class TableServiceImpl implements TableService {
 		}
 		return result;
 	}
+	
+	/**
+	 * 获取所有餐桌
+	 * @param table
+	 * @return
+	 */
+	public String allTableList(Table table){
+		String result = "";
+		try{
+			List<Table> tablelist = tableDao.allTableList(table);
+			if(null != tablelist && tablelist.size()> 0){
+				result = JsonResultUtil.getJsonResult(0, "success", "查询数据成功!", tablelist);
+			}else{
+				result = JsonResultUtil.getJsonResult(-1, "fail", "查询数据为空!");
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			return JsonResultUtil.getJsonResult(-1, "fail", "操作异常!");
+		}
+		return result;
+	}
 
 }

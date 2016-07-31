@@ -141,6 +141,9 @@ function loadShopList(type,param){
 					}
 				}
 			}
+		},
+		error:function(){
+			layer.close(load);
 		}
 	});
 }

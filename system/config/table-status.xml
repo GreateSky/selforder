@@ -48,6 +48,12 @@
 				<param name="root">resultJson</param>
 			</result> 
 		</action>
+		<!--获取所有餐桌列表-->
+		<action name = "allTableList" class="tableAction" method="allTableList">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
 	</package>
 	
 </struts>

@@ -6,42 +6,50 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.struts2.ServletActionContext;
 
 import com.greatesky.action.GreateSkyActionSupport;
-import com.selforder.bean.Shop;
-import com.selforder.bean.Table;
-import com.selforder.service.TableService;
+import com.selforder.bean.Goods;
+import com.selforder.bean.GoodsCategory;
+import com.selforder.service.GoodsService;
 
 /**
- * 餐桌管理action
+ * 食谱管理action
  * @author xingwanzhao
  *
  * 2016-5-16
  */
-public class TableAction extends GreateSkyActionSupport {
-	private Table table;
-	private TableService tableService;
-	
-	
-	public Table getTable() {
-		return table;
+public class GoodsAction extends GreateSkyActionSupport {
+	private Goods goods;
+	private GoodsCategory goodsCategory;
+	private GoodsService goodsService;
+
+	public Goods getGoods() {
+		return goods;
 	}
 
-	public TableService getTableService() {
-		return tableService;
+	public GoodsCategory getGoodsCategory() {
+		return goodsCategory;
 	}
 
-	public void setTable(Table table) {
-		this.table = table;
+	public GoodsService getGoodsService() {
+		return goodsService;
 	}
 
-	public void setTableService(TableService tableService) {
-		this.tableService = tableService;
+	public void setGoods(Goods goods) {
+		this.goods = goods;
+	}
+
+	public void setGoodsCategory(GoodsCategory goodsCategory) {
+		this.goodsCategory = goodsCategory;
+	}
+
+	public void setGoodsService(GoodsService goodsService) {
+		this.goodsService = goodsService;
 	}
 
 	/**
-	 * 保存门店信息
+	 * 保存食谱信息
 	 * @return
 	 */
-	public String insertTable(){
+	public String insertGoods(){
 		HttpServletResponse response=ServletActionContext.getResponse();
 		/*
 		 * 在调用getWriter之前未设置编码(既调用setContentType或者setCharacterEncoding方法设置编码),
@@ -53,8 +61,8 @@ public class TableAction extends GreateSkyActionSupport {
 		String result;
 		try{
 			out = response.getWriter();
-			result = tableService.insertTable(table);
-			System.out.println("保存餐桌结果==================："+result);
+			result = goodsService.insertGoods(goods);
+			System.out.println("保存食谱结果==================："+result);
 			out.write(result);
 			out.flush();
 			out.close();
@@ -66,10 +74,10 @@ public class TableAction extends GreateSkyActionSupport {
 	}
 	
 	/**
-	 * 获取餐桌列表
+	 * 获取食谱列表
 	 * @return
 	 */
-	public String getTableList(){
+	public String getGoodsList(){
 		HttpServletResponse response=ServletActionContext.getResponse();
 		/*
 		 * 在调用getWriter之前未设置编码(既调用setContentType或者setCharacterEncoding方法设置编码),
@@ -81,13 +89,13 @@ public class TableAction extends GreateSkyActionSupport {
 		String result;
 		try{
 			out = response.getWriter();
-			if(null == table){
-				table = new Table();
+			if(null == goods){
+				goods = new Goods();
 			}
-			table.setPageSize(super.limit);
-			table.setPageStart(super.page);
-			result = tableService.tableList(table);
-			System.out.println("获取餐桌列表========"+result);
+			goods.setPageSize(super.limit);
+			goods.setPageStart(super.page);
+			result = goodsService.goodsList(goods);
+			System.out.println("获取食谱列表========"+result);
 			out.write(result);
 			out.flush();
 			out.close();
@@ -99,10 +107,10 @@ public class TableAction extends GreateSkyActionSupport {
 	}	
 	
 	/**
-	 * 获取餐桌详情
+	 * 获取食谱详情
 	 * @return
 	 */
-	public String getTableInfo(){
+	public String getGoodsInfo(){
 		HttpServletResponse response=ServletActionContext.getResponse();
 		/*
 		 * 在调用getWriter之前未设置编码(既调用setContentType或者setCharacterEncoding方法设置编码),
@@ -114,8 +122,8 @@ public class TableAction extends GreateSkyActionSupport {
 		String result;
 		try{
 			out = response.getWriter();
-			result = tableService.tableInfo(table);
-			System.out.println("获取餐桌详情========"+result);
+			result = goodsService.goodsInfo(goods);
+			System.out.println("获取食谱详情========"+result);
 			out.write(result);
 			out.flush();
 			out.close();
@@ -127,11 +135,10 @@ public class TableAction extends GreateSkyActionSupport {
 	}
 	
 	/**
-	 * 更餐桌店详情
-	 * @param Shop
+	 * 更新食谱详情
 	 * @return
 	 */
-	public String updateTable(){
+	public String updateGoods(){
 		HttpServletResponse response=ServletActionContext.getResponse();
 		/*
 		 * 在调用getWriter之前未设置编码(既调用setContentType或者setCharacterEncoding方法设置编码),
@@ -143,8 +150,8 @@ public class TableAction extends GreateSkyActionSupport {
 		String result;
 		try{
 			out = response.getWriter();
-			result = tableService.updateTable(table);
-			System.out.println("更新餐桌详情========"+result);
+			result = goodsService.updateGoods(goods);
+			System.out.println("更新食谱详情========"+result);
 			out.write(result);
 			out.flush();
 			out.close();
@@ -156,11 +163,10 @@ public class TableAction extends GreateSkyActionSupport {
 	}
 	
 	/**
-	 * 新增包厢
-	 * @param Shop
+	 * 新增食谱分类
 	 * @return
 	 */
-	public String insertRoom(){
+	public String insertGoodsCategory(){
 		HttpServletResponse response=ServletActionContext.getResponse();
 		/*
 		 * 在调用getWriter之前未设置编码(既调用setContentType或者setCharacterEncoding方法设置编码),
@@ -172,8 +178,8 @@ public class TableAction extends GreateSkyActionSupport {
 		String result;
 		try{
 			out = response.getWriter();
-			result = tableService.insertRoom(table);
-			System.out.println("新增包厢========"+result);
+			result = goodsService.insertGoodsCategory(goodsCategory);
+			System.out.println("新增食谱分类========"+result);
 			out.write(result);
 			out.flush();
 			out.close();
@@ -185,11 +191,10 @@ public class TableAction extends GreateSkyActionSupport {
 	}
 	
 	/**
-	 * 更新包厢
-	 * @param Shop
+	 * 更新食谱分类
 	 * @return
 	 */
-	public String updateRoom(){
+	public String updateGoodsCategory(){
 		HttpServletResponse response=ServletActionContext.getResponse();
 		/*
 		 * 在调用getWriter之前未设置编码(既调用setContentType或者setCharacterEncoding方法设置编码),
@@ -201,8 +206,8 @@ public class TableAction extends GreateSkyActionSupport {
 		String result;
 		try{
 			out = response.getWriter();
-			result = tableService.updateRoom(table);
-			System.out.println("更新包厢========"+result);
+			result = goodsService.updateGoodsCategory(goodsCategory);
+			System.out.println("更新食谱分类========"+result);
 			out.write(result);
 			out.flush();
 			out.close();
@@ -214,11 +219,10 @@ public class TableAction extends GreateSkyActionSupport {
 	}
 	
 	/**
-	 * 包厢列表
-	 * @param Shop
+	 * 食谱分类列表
 	 * @return
 	 */
-	public String roomList(){
+	public String goodsCategoryList(){
 		HttpServletResponse response=ServletActionContext.getResponse();
 		/*
 		 * 在调用getWriter之前未设置编码(既调用setContentType或者setCharacterEncoding方法设置编码),
@@ -230,37 +234,8 @@ public class TableAction extends GreateSkyActionSupport {
 		String result;
 		try{
 			out = response.getWriter();
-			result = tableService.roomList(table);
-			System.out.println("包厢列表========"+result);
-			out.write(result);
-			out.flush();
-			out.close();
-		}catch(Exception e){
-			e.printStackTrace();
-			return this.ERROR;
-		}
-		return this.SUCCESS;
-	}
-	
-	/**
-	 * 获取所有餐桌列表
-	 * @param Shop
-	 * @return
-	 */
-	public String allTableList(){
-		HttpServletResponse response=ServletActionContext.getResponse();
-		/*
-		 * 在调用getWriter之前未设置编码(既调用setContentType或者setCharacterEncoding方法设置编码),
-		 * HttpServletResponse则会返回一个用默认的编码(既ISO-8859-1)编码的PrintWriter实例。这样就会
-		 * 造成中文乱码。而且设置编码时必须在调用getWriter之前设置,不然是无效的。
-		 * */
-		response.setContentType("text/html;charset=utf-8");
-		Writer out;
-		String result;
-		try{
-			out = response.getWriter();
-			result = tableService.allTableList(table);
-			System.out.println("获取所有餐桌列表========"+result);
+			result = goodsService.goodsCategoryList(goodsCategory);
+			System.out.println("食谱分类列表========"+result);
 			out.write(result);
 			out.flush();
 			out.close();

@@ -53,7 +53,7 @@ function pageOption(paginationid,totalpage){
  * @param param
  */
 function loadBusinessRoleList(type,param){
-	var load = layer.load(2, {shade: [1, 'rgba(0,0,0,.5)']});
+	//var load = layer.load(2, {shade: [1, 'rgba(0,0,0,.5)']});
 	if(typeof(param) == "undefined" || param == null || param == ""){
 		param = {};
 		param["page"] = pageStart;
@@ -68,7 +68,7 @@ function loadBusinessRoleList(type,param){
 		data:param,
 		dataType:'json',
 		success:function(data){
-			layer.close(load);
+			layer.closeAll();
 			first = false;
 			//清除历史数据
 			$("tr[tag='append']").remove();
@@ -103,7 +103,7 @@ function loadBusinessRoleList(type,param){
 			}
 		},
 		fail:function(){
-			layer.close(load);
+			layer.closeAll();
 		}
 	});
 }

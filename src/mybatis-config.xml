@@ -21,6 +21,8 @@
         <typeAlias alias="role" type="com.selforder.bean.Role"/>
         <typeAlias alias="organization" type="com.selforder.bean.Organization"/>
         <typeAlias alias="table" type="com.selforder.bean.Table"/>
+        <typeAlias alias="goods" type="com.selforder.bean.Goods"/>
+        <typeAlias alias="goodsCategory" type="com.selforder.bean.GoodsCategory"/>
     </typeAliases>  
     
     <mappers>
@@ -33,5 +35,6 @@
     	<mapper resource="sqlMap/powerMgr.xml"/>
     	<mapper resource="sqlMap/organizationMgr.xml"/>
     	<mapper resource="sqlMap/tableMgr.xml"/>
+    	<mapper resource="sqlMap/goodsMgr.xml"/>
     </mappers>
 </configuration> 

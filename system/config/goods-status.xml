@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<!--食谱管理-->
+	<package name="goods" extends="struts-default,json-default" namespace="/api/goods">
+		<!--保存食谱信息-->
+		<action name = "insertGoods" class="goodsAction" method="insertGoods">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+		<!--获取食谱列表-->
+		<action name = "getGoodsList" class="goodsAction" method="getGoodsList">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+		<!--获取食谱详情-->
+		<action name = "getGoodsInfo" class="goodsAction" method="getGoodsInfo">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+		<!--更新食谱详情-->
+		<action name = "updateGoods" class="goodsAction" method="updateGoods">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+		<!--新增食谱分类-->
+		<action name = "insertGoodsCategory" class="goodsAction" method="insertGoodsCategory">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+		<!--更新食谱分类-->
+		<action name = "updateGoodsCategory" class="goodsAction" method="updateGoodsCategory">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+		<!--食谱分类列表-->
+		<action name = "goodsCategoryList" class="goodsAction" method="goodsCategoryList">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+	</package>
+	
+</struts>

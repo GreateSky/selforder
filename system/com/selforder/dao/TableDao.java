@@ -76,4 +76,12 @@ public interface TableDao {
 	 * @return
 	 */
 	public int updateTableRoom(Table table)throws SQLException;
+	
+	/**
+	 * 获取所有餐桌
+	 * @param table
+	 * @return
+	 * @throws SQLException
+	 */
+	public List<Table> allTableList(Table table)throws SQLException;
 }

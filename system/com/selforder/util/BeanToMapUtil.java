@@ -35,15 +35,17 @@ public class BeanToMapUtil {
         for (int i = 0; i< propertyDescriptors.length; i++) {
             PropertyDescriptor descriptor = propertyDescriptors[i];
             String propertyName = descriptor.getName();
+            Class propertyType = descriptor.getPropertyType();
             if (map.containsKey(propertyName)) {
                 // 下面一句可以 try 起来，这样当一个属性赋值失败的时候就不会影响其他属性赋值。
                try{
             	   Object value = map.get(propertyName);
-                   Object[] args = new Object[1];
+            	   Class valueType = value.getClass();
+            	   Object[] args = new Object[1];
                    args[0] = value;
                    descriptor.getWriteMethod().invoke(obj, args);
                }catch(Exception e){
-            	   //
+            	   //System.out.println("赋值失败！=："+e.getMessage());
                }
             }
         }

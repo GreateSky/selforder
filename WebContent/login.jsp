@@ -43,6 +43,8 @@
 					message = "帐户未启动";
 				}else if(loginstatus == "CredentialExpiredException"){
 					message = "密码过期";
+				}else if(loginstatus == "A granted authority textual representation is required"){
+					message = "无登录权限";
 				}else{
 					message = "登录失败";
 				}

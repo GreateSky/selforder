@@ -49,6 +49,10 @@
 		<property name="tableDao" ref="tableDao"></property>
 		<property name="systemMgrDao" ref="systemMgrDao"></property>
 	</bean>
+	<!--食谱管理-->
+	<bean name="goodsService" class="com.selforder.service.impl.GoodsServiceImpl" scope="prototype">
+		<property name="goodsDao" ref="goodsDao"></property>
+	</bean>
 	
 	<!-- *************************Dao注册*********************************-->
 	<bean name="bizDictDao" class="com.automobile.dao.impl.BizDictDaoImpl" scope="prototype" >
@@ -80,6 +84,10 @@
 	</bean>
 	<!--餐桌管理-->
 	<bean name="tableDao" class="com.selforder.dao.impl.TableDaoImpl" scope="prototype">
+		<property name="sqlSessionTemplate" ref="sqlSessionTemplate"></property>
+	</bean>
+	<!--食谱管理-->
+	<bean name="goodsDao" class="com.selforder.dao.impl.GoodsDaoImpl" scope="prototype">
 		<property name="sqlSessionTemplate" ref="sqlSessionTemplate"></property>
 	</bean>
 </beans>

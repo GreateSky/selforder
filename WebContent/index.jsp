@@ -237,8 +237,7 @@
                 <i class="fa  fa-folder"></i> <span>门店管理</span> <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li class="active"><a href="javascript:viod(0);" onclick="linkMainFrame('system/shop/shopList.html')"><i class="fa fa-circle-o"></i> 门店列表</a></li>
-                <li><a href="javascript:viod(0);" onclick="linkMainFrame('system/shop/saveshop.html')"><i class="fa fa-circle-o" ></i> 门店维护</a></li>
+                <li class="active"><a href="javascript:viod(0);" onclick="linkMainFrame('system/shop/shopList.jsp')"><i class="fa fa-circle-o"></i> 门店列表</a></li>
               </ul>
             </li>
             <li class="treeview">

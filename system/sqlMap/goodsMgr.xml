@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.selforder.goods" >
+	<cache eviction="LRU" flushInterval="1000" size="1024" readOnly="false" />
+	<sql id="limit">
+		<choose>
+			<when test="pageStart != null and pageSize != null">
+				limit ${pageStart},${pageSize}
+			</when>
+			<otherwise>
+				limit 0,20
+			</otherwise>
+		</choose>
+	</sql>
+	<!--新增菜谱 -->
+	<insert id="insertGoods" parameterType="goods">
+			INSERT
+				INTO
+				    wx_dish_goods
+				    (
+				        id,
+				        weid,
+				        storeid,
+				        pcate,
+				        ccate,
+				        status,
+				        recommend,
+				        displayorder,
+				        title,
+				        thumb,
+				        unitname,
+				        description,
+				        taste,
+				        isspecial,
+				        marketprice,
+				        productprice,
+				        subcount,
+				        cid,
+				        crter,
+				        crtdate,
+				        opter,
+				        optdate
+				    )
+				    VALUES
+				    (
+				        replace(uuid(),'-',''),
+						#{weid},
+						#{storeid},
+						#{pcate},
+						#{ccate},
+						#{status},
+						#{recommend},
+						#{displayorder},
+						#{title},
+						#{thumb},
+						#{unitname},
+						#{description},
+						#{taste},
+						#{isspecial},
+						#{marketprice},
+						#{productprice},
+						#{subcount},
+						#{cid},
+						#{crter},
+						sysdate(),
+						#{opter},
+						sysdate()
+				    )    		    
+	</insert>
+	
+	<!--获取食谱列表 -->
+	<select id="getGoodsList"  parameterType="goods" resultType="goods">
+		SELECT
+		    goods.id,
+		    goods.weid,
+		    goods.storeid,
+		    goods.pcate,
+		    goods.ccate,
+		    goods.status,
+		    goods.recommend,
+		    goods.displayorder,
+		    goods.title,
+		    goods.thumb,
+		    goods.unitname,
+		    goods.description,
+		    goods.taste,
+		    goods.isspecial,
+		    goods.marketprice,
+		    goods.productprice,
+		    goods.subcount,
+		    goods.cid,
+		    gc.name cname,
+		    goods.crter,
+		    goods.crtdate,
+		    goods.opter,
+		    goods.optdate,
+		    goods.deleted
+		FROM
+		    wx_dish_goods goods
+		left join wx_dish_goods_category gc on gc.id = goods.cid
+		where goods.deleted = 0 
+		and gc.deleted = 0
+		<if test="weid != null and weid !='' ">
+			and goods.weid = #{weid}
+		</if>
+		<if test="id != null and id !='' ">
+			and goods.id = #{id}
+		</if> 
+		<if test="title != null and title !='' ">
+			and goods.title = #{title}
+		</if>
+		<if test="cname != null and cname !='' ">
+			and gc.name = #{cname}
+		</if>
+		order by gc.displayorder desc,goods.displayorder desc
+		<include refid="limit"></include>   
+	</select>
+	<!--查询食谱列表统计数  用于列表分页 -->
+	<select id="getGoodsListCount" parameterType="goods" resultType="int">
+		SELECT
+		    count(1)
+		FROM
+		    wx_dish_goods goods
+		left join wx_dish_goods_category gc on gc.id = goods.cid
+		where goods.deleted = 0 
+		and gc.deleted = 0
+		<if test="weid != null and weid !='' ">
+			and goods.weid = #{weid}
+		</if>
+		<if test="id != null and id !='' ">
+			and goods.id = #{id}
+		</if> 
+		<if test="title != null and title !='' ">
+			and goods.title = #{title}
+		</if>
+		<if test="cname != null and cname !='' ">
+			and gc.name = #{cname}
+		</if>
+	</select>
+	
+	<!--获取食谱详情 -->
+	<select id="getGoodsInfo"  parameterType="goods" resultType="goods">
+		SELECT
+		    goods.id,
+		    goods.weid,
+		    goods.storeid,
+		    goods.pcate,
+		    goods.ccate,
+		    goods.status,
+		    goods.recommend,
+		    goods.displayorder,
+		    goods.title,
+		    goods.thumb,
+		    goods.unitname,
+		    goods.description,
+		    goods.taste,
+		    goods.isspecial,
+		    goods.marketprice,
+		    goods.productprice,
+		    goods.subcount,
+		    goods.cid,
+		    gc.name cname,
+		    goods.crter,
+		    goods.crtdate,
+		    goods.opter,
+		    goods.optdate,
+		    goods.deleted
+		FROM
+		    wx_dish_goods goods
+		left join wx_dish_goods_category gc on gc.id = goods.cid
+		where goods.deleted = 0 
+		and gc.deleted = 0
+		<if test="id != null and id !='' ">
+			and goods.id = #{id}
+		</if> 
+		<if test="title != null and title !='' ">
+			and goods.title = #{title}
+		</if>
+		<if test="cname != null and cname !='' ">
+			and gc.name = #{cname}
+		</if>
+	</select>
+	
+	<!--更新食谱信息 -->
+	<update id="updateGoods" parameterType="goods">
+		UPDATE
+		    wx_dish_tables
+		SET
+			opter = #{opter}
+			, optdate = sysdate()
+			<if test="limit_price != null and limit_price !='' ">
+				, limit_price = #{limit_price}
+			</if>
+			<if test="title != null and title !='' ">
+				, title = #{title}
+			</if>
+			<if test="room_id != null and room_id !='' ">
+				, room_id = #{room_id}
+			</if>
+			<if test="user_count != null and user_count !='' ">
+				, user_count = #{user_count}
+			</if>
+			<if test="displayorder != null and displayorder !='' ">
+				, displayorder = #{displayorder}
+			</if>
+			<if test=" status == -1 ">
+				, status = 0
+			</if>
+			<if test="status != null and status !='' ">
+				, status = #{status}
+			</if>
+			<if test="deleted != null and deleted !='' ">
+				, deleted = #{deleted}
+			</if>
+		WHERE
+		    id = #{id}  
+		    
+		UPDATE
+		    wx_dish_goods
+		SET
+		    opter = #{opter}
+			, optdate = sysdate()
+		   <if test="pcate != null and pcate !='' ">
+				, pcate = #{pcate}
+			</if>
+			<if test="ccate != null and ccate !='' ">
+				, ccate = #{ccate}
+			</if>
+			<if test="status != null and status !='' ">
+				, status = #{status}
+			</if>
+			<if test="recommend != null and recommend !='' ">
+				, recommend = #{recommend}
+			</if>
+			<if test="displayorder != null and displayorder !='' ">
+				, displayorder = #{displayorder}
+			</if>
+			<if test="title != null and title !='' ">
+				, title = #{title}
+			</if>
+			<if test="thumb != null and thumb !='' ">
+				, thumb = #{thumb}
+			</if>
+			<if test="unitname != null and unitname !='' ">
+				, unitname = #{unitname}
+			</if>
+			<if test="description != null and description !='' ">
+				, description = #{description}
+			</if>
+			<if test="taste != null and taste !='' ">
+				, taste = #{taste}
+			</if>
+			<if test="isspecial != null and isspecial !='' ">
+				, isspecial = #{isspecial}
+			</if>
+			<if test="marketprice != null and marketprice !='' ">
+				, marketprice = #{marketprice}
+			</if>
+			<if test="productprice != null and productprice !='' ">
+				, productprice = #{productprice}
+			</if>
+			<if test="subcount != null and subcount !='' ">
+				, subcount = #{subcount}
+			</if>
+			<if test="cid != null and cid !='' ">
+				, cid = #{cid}
+			</if>
+			<if test="deleted != null and deleted !='' ">
+				, deleted = #{deleted}
+			</if>
+		WHERE
+		    id = #{id};      
+	</update>
+	
+	<!-- 保存食谱分类信息 -->
+	<insert id="insertGoodsCategory" parameterType="goodsCategory">
+			INSERT
+				INTO
+				    wx_dish_goods_category
+				    (
+				        id,
+				        weid,
+				        storeid,
+				        name,
+				        parentid,
+				        displayorder,
+				        enabled,
+				        crter,
+				        crtdate,
+				        opter,
+				        optdate
+				    )
+				    VALUES
+				    (
+				        replace(uuid(),'-',''),
+				        #{weid},
+						#{storeid},
+						#{name},
+						#{parentid},
+						#{displayorder},
+						#{enabled},
+						#{crter},
+						sysdate(),
+						#{opter},
+						sysdate()
+				    )    
+	</insert>
+	
+	<!-- 更新食谱分类 -->
+	<update id="updateGoodsCategory" parameterType="goodsCategory">
+		    
+		UPDATE
+		    wx_dish_goods_category
+		SET
+			opter = #{opter}
+			, optdate = sysdate()
+			<if test="name != null and name !='' ">
+				, name = #{name}
+			</if>
+			<if test="parentid != null and parentid !='' ">
+				, parentid = #{parentid}
+			</if>
+			<if test="displayorder != null and displayorder !='' ">
+				, displayorder = #{displayorder}
+			</if>
+			<if test="enabled != null and enabled !='' ">
+				, enabled = #{enabled}
+			</if>
+			<if test="deleted != null and deleted !='' ">
+				, deleted = #{deleted}
+			</if>
+		WHERE
+		    id = #{id};    
+	</update>
+	
+	<!--获取食谱分类列表 -->
+	<select id="getGoodsCategoryList" parameterType="goodsCategory" resultType="goodsCategory">
+		SELECT
+		    cate.id,
+		    cate.weid,
+		    cate.storeid,
+		    cate.name,
+		    cate.parentid,
+		    cate.displayorder,
+		    cate.enabled,
+		    cate.crter,
+		    cate.crtdate,
+		    cate.opter,
+		    cate.optdate,
+		    cate.deleted
+		FROM
+		    wx_dish_goods_category cate
+		    where cate.deleted = 0 
+		    and cate.weid = #{weid}
+		<if test="name != null and name !='' ">
+			and cate.name = #{name}
+		</if>
+		order BY cate.displayorder desc
+	</select>
+</mapper>
+

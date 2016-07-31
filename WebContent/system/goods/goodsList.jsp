@@ -24,12 +24,12 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
           <h1>
-            	餐桌管理
-            <small>餐桌列表</small>
+            	食谱管理
+            <small>食谱列表</small>
           </h1>
           <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> 餐桌管理</a></li>
-            <li class="active">餐桌列表</li>
+            <li><a href="#"><i class="fa fa-dashboard"></i> 食谱管理</a></li>
+            <li class="active">食谱列表</li>
           </ol>
         </section>
 
@@ -37,7 +37,7 @@
         <section class="content">
           <div class="box box-info">
                 <div class="box-header with-border">
-                  <h3 class="box-title">餐桌列表</h3>
+                  <h3 class="box-title">食谱列表</h3>
                 </div><!-- /.box-header -->
                 <!-- form start -->
                 <form class="form-horizontal">
@@ -58,7 +58,7 @@
 							<option value="3">已预约</option>
 						</select>
                       </div>
-                      <label for="inputEmail3" class="col-sm-1 control-label">包厢：</label>
+                      <label for="inputEmail3" class="col-sm-1 control-label">食谱分类：</label>
                       <div class="col-sm-2">
                         <select class="form-control" id="roomSelect"></select>
                       </div>
@@ -67,25 +67,29 @@
                     	<div class="col-sm-6">
 	                        <button type="button" class="btn btn-info">查询</button>
 	                        <button type="button" class="btn btn-info">重置</button>
-	                        <button type="button" class="btn btn-warning" onclick="javascript:window.location.href='saveTable.jsp?sid='+sid">创建餐桌</button>
-	                        <button type="button" class="btn btn-warning" data-toggle="modal" onclick="showRoom()">创建包厢</button>
+	                        <button type="button" class="btn btn-warning" onclick="javascript:window.location.href='saveTable.jsp?sid='+sid">创建食谱</button>
+	                        <button type="button" class="btn btn-warning" data-toggle="modal" onclick="showGoodsCategory()">创建食谱分类</button>
 	                    </div>
                     </div>
                     <!--/搜索信息 start-->
-                    <!--门店列表start-->
-                    <table class="table table-striped animated flipInX" id="tableList">
+                    <!--食谱列表start-->
+                    <table class="table table-striped animated flipInX" id="goodsList">
                     	<tr>
 	                      <th >#</th>
-	                      <th >所属包厢</th>
-	                      <th >编码</th>
-	                      <th >用餐人数</th>
-	                      <th >最低消费(￥)</th>
-	                      <th >状态</th>
+	                      <th ></th>
+	                      <th >所属分类</th>
+	                      <th >名称</th>
+	                      <th >价格(元)</th>
+	                      <th >计量单位</th>
+	                      <th >是否推荐</th>
+	                      <th >是否特殊</th>
 	                      <th >排序</th>
-	                      <th >二维码</th>
+	                      <th >状态</th>
+	                      <th >口味</th>
+	                      <th >被点次数</th>
 	                      <th >操作</th>
 	                    </tr>
-                  	</table><!--/门店列表-->
+                  	</table><!--/食谱列表-->
                   <!--分页条件-->
                   <nav>
 					  <ul class="pagination" id="pagination" data-option="{'pageSize':20,'loadData':'search()'}">
@@ -95,42 +99,43 @@
                 </form><!--/ form start -->
               </div><!-- /.box -->
         </section><!-- /.content -->
-        <!--modal 创建包厢-->
-        <div class="modal fade" id="createRoom" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" opttype="">
+        <!--modal 创建食谱分类-->
+        <div class="modal fade" id="createGoodsCategory" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" opttype="">
 		  <div class="modal-dialog">
 		    <div class="modal-content">
 		      <div class="modal-header">
 		        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-		        <h4 class="modal-title" id="myModalLabel">包厢管理</h4>
+		        <h4 class="modal-title" id="myModalLabel">食谱分类管理</h4>
 		      </div>
 		      <div class="modal-body">
 			    <div class="row" style="margin-bottom: 10px">
 			      <div class="col-xs-12">
 			      	  <div class="input-group input-group-sm">
-				      	<input type="text" class="form-control" id="rname"  placeholder="名称" value="" >
+				      	<input type="text" class="form-control" id="name"  placeholder="名称" value="" >
+				      	<input type="text" class="form-control" id="displayorder"  placeholder="排序(数字越大越靠前)" value="" >
 				      	<span class="input-group-btn">
-	                      <button class="btn btn-info btn-flat" type="button" onclick="saveRoom()">创建</button>
+	                      <button class="btn btn-info btn-flat" style="height:60px" type="button" onclick="saveGoodsCategory()">创建</button>
 	                    </span>
 				      </div>
 			      </div>
 			    </div>
-				<table id="roomList" class="table table-striped " title="包厢列表">
+				<table id="roomList" class="table table-striped " title="食谱分类列表">
                     <tr>
                       <th>#</th>
                       <th>名称</th>
-                      <th>包含餐桌数</th>
+                      <th>包含食谱数</th>
                       <th>操作</th>
                     </tr>
-                </table><!--/门店列表-->
+                </table><!--/食谱列表-->
 		      </div>
 		    </div><!-- /.modal-content -->
 		  </div><!-- /.modal-dialog -->
-		</div><!-- /<!--modal 创建包厢-->
+		</div><!-- /<!--modal 创建食谱分类-->
 	</body>
 	<!-- jQuery 2.1.4 -->
     <script src="<%=cxtPath%>/plugins/jQuery/jQuery-2.1.4.min.js"></script>
     <script src="<%=cxtPath%>/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-    <script src="tableList.js"></script>
+    <script src="goodsList.js"></script>
     <script src="<%=cxtPath%>/js/common.js"></script>
     <script src="<%=cxtPath%>/plugins/layer/layer.js"></script>
     <script src="<%=cxtPath%>/js/jquery.twbsPagination.min.js"></script>

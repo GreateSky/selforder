@@ -87,7 +87,7 @@
 			and tab.storeid = #{storeid}
 		</if> 
 		<if test="title != null and title !='' ">
-			and tab.title = #{title}
+			and UPPER(tab.title) = UPPER(#{title})
 		</if> 
 		<if test="room_id != null and room_id !='' ">
 			and room.id = #{room_id}
@@ -117,7 +117,7 @@
 			and tab.storeid = #{storeid}
 		</if> 
 		<if test="title != null and title !='' ">
-			and tab.title = #{title}
+			and UPPER(tab.title) = UPPER(#{title})
 		</if> 
 		<if test="user_count != null and user_count !='' ">
 			and tab.user_count &gt;= #{user_count}
@@ -185,6 +185,9 @@
 			</if>
 			<if test="displayorder != null and displayorder !='' ">
 				, displayorder = #{displayorder}
+			</if>
+			<if test=" status == -1 ">
+				, status = 0
 			</if>
 			<if test="status != null and status !='' ">
 				, status = #{status}
@@ -258,5 +261,49 @@
 	<update id="updateTableRoom" parameterType="table">
 		update wx_dish_tables set room_id = '' where room_id = #{room_id}
 	</update>
+	
+	<!--获取所有餐桌列表 -->
+	<select id="getAllTableList"  parameterType="table" resultType="table">
+		SELECT
+		        tab.id,
+		        tab.weid,
+		        tab.storeid,
+		        tab.limit_price,
+		        tab.title,
+		        tab.user_count,
+		        tab.qrcodeid,
+		        room.rname room_name,
+		        tab.displayorder,
+		        tab.dateline,
+		        tab.status,
+		        tab.crter,
+		        tab.crtdate,
+		        tab.opter,
+		        tab.optdate,
+		        tab.deleted
+		FROM
+		    wx_dish_tables tab
+		left join wx_dish_room room on (room.id = tab.room_id and room.deleted = 0)
+		where tab.DELETED = 0
+		<if test="weid != null and weid !='' ">
+			and tab.weid = #{weid}
+		</if> 
+		<if test="storeid != null and storeid !='' ">
+			and tab.storeid = #{storeid}
+		</if> 
+		<if test="title != null and title !='' ">
+			and  UPPER(tab.title) like CONCAT('%',UPPER(#{title}),'%')
+		</if> 
+		<if test="room_id != null and room_id !='' ">
+			and room.id = #{room_id}
+		</if> 
+		<if test="status != null and status !='' ">
+			and tab.status = #{status}
+		</if> 
+		<if test="user_count != null and user_count !='' ">
+			and tab.user_count &gt;= #{user_count}
+		</if>
+		order by tab.displayorder desc
+	</select>
 </mapper>
 

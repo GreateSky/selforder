@@ -46,7 +46,30 @@ public class Employee extends baseBean {
 	private String oeid;//组织架构与人员关联表ID
 	private String oname;//组织架构名称
 	private String isadmin;//是否系统管理员
-	
+	public int getEmpcode() {
+		return empcode;
+	}
+	public int getSex() {
+		return sex;
+	}
+	public int getStatus() {
+		return status;
+	}
+	public int getLoginnum() {
+		return loginnum;
+	}
+	public void setEmpcode(int empcode) {
+		this.empcode = empcode;
+	}
+	public void setSex(int sex) {
+		this.sex = sex;
+	}
+	public void setStatus(int status) {
+		this.status = status;
+	}
+	public void setLoginnum(int loginnum) {
+		this.loginnum = loginnum;
+	}
 	public String getIsadmin() {
 		return isadmin;
 	}
@@ -64,12 +87,6 @@ public class Employee extends baseBean {
 	}
 	public String getEmpname() {
 		return empname;
-	}
-	public int getSex() {
-		return sex;
-	}
-	public int getStatus() {
-		return status;
 	}
 	public String getType() {
 		return type;
@@ -94,9 +111,6 @@ public class Employee extends baseBean {
 	}
 	public String getContactphone() {
 		return contactphone;
-	}
-	public int getLoginnum() {
-		return loginnum;
 	}
 	public Date getLastlogindate() {
 		return lastlogindate;
@@ -135,12 +149,6 @@ public class Employee extends baseBean {
 	public void setEmpname(String empname) {
 		this.empname = empname;
 	}
-	public void setSex(int sex) {
-		this.sex = sex;
-	}
-	public void setStatus(int status) {
-		this.status = status;
-	}
 	public void setType(String type) {
 		this.type = type;
 	}
@@ -164,9 +172,6 @@ public class Employee extends baseBean {
 	}
 	public void setContactphone(String contactphone) {
 		this.contactphone = contactphone;
-	}
-	public void setLoginnum(int loginnum) {
-		this.loginnum = loginnum;
 	}
 	public void setLastlogindate(Date lastlogindate) {
 		this.lastlogindate = lastlogindate;
@@ -212,12 +217,6 @@ public class Employee extends baseBean {
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
-	}
-	public int getEmpcode() {
-		return empcode;
-	}
-	public void setEmpcode(int empcode) {
-		this.empcode = empcode;
 	}
 	public String getNewpassword() {
 		return newpassword;

@@ -60,4 +60,11 @@ public interface TableService {
 	 * @return
 	 */
 	public String roomList(Table table);
+	
+	/**
+	 * 获取所有餐桌
+	 * @param table
+	 * @return
+	 */
+	public String allTableList(Table table);
 }

@@ -2,6 +2,7 @@ package com.selforder.security.context;
 
 import java.beans.IntrospectionException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -13,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import com.google.gson.Gson;
+import com.google.gson.internal.LinkedTreeMap;
 import com.google.gson.reflect.TypeToken;
 import com.selforder.bean.Employee;
 import com.selforder.bean.UserInfo;
@@ -51,11 +53,15 @@ public class MyUserDetailsService implements UserDetailsService  {
 		}
 		//將返回的json字符串转换成对象
 		Gson gson = new Gson();
-		Map map = gson.fromJson(empinfo, new TypeToken<Map>(){}.getType());
-		Map empMap = (Map)map.get("data");
+		HashMap res = gson.fromJson(empinfo, HashMap.class);
+		LinkedTreeMap map = (LinkedTreeMap)res.get("data");
+		//String empStr = empinfo.substring(empinfo.indexOf("data")+6,empinfo.length()-1);
+		//System.out.println(empStr);
+		//Map empMap = (Map)map.get("data");
+		//Employee test  = gson.fromJson(empStr, Employee.class);
 		Employee emp = new Employee();
 		try {
-			emp = (Employee)BeanToMapUtil.convertMap(Employee.class, empMap);
+			emp = (Employee)BeanToMapUtil.convertMap(Employee.class, map);
 		} catch (IntrospectionException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -82,7 +88,6 @@ public class MyUserDetailsService implements UserDetailsService  {
 			if("A".equals(type)){
 				//运营人员
 				empRoleStr = employeeService.getEmployeeRole4Admin(emp);
-				
 			}else if("B".equals(type) || "S".equals(type)){ //B.商户员工	S.门店员工
 				//商户和门店员工
 				empRoleStr = employeeService.getEmployeeRole(emp);//查询商户员工权限
