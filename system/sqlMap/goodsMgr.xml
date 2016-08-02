@@ -98,9 +98,8 @@
 		    goods.deleted
 		FROM
 		    wx_dish_goods goods
-		left join wx_dish_goods_category gc on gc.id = goods.cid
+		left join wx_dish_goods_category gc on (gc.id = goods.cid and gc.deleted = 0)
 		where goods.deleted = 0 
-		and gc.deleted = 0
 		<if test="weid != null and weid !='' ">
 			and goods.weid = #{weid}
 		</if>
@@ -112,6 +111,9 @@
 		</if>
 		<if test="cname != null and cname !='' ">
 			and gc.name = #{cname}
+		</if>
+		<if test="cid != null and cid !='' ">
+			and goods.cid = #{cid}
 		</if>
 		order by gc.displayorder desc,goods.displayorder desc
 		<include refid="limit"></include>   
@@ -122,9 +124,8 @@
 		    count(1)
 		FROM
 		    wx_dish_goods goods
-		left join wx_dish_goods_category gc on gc.id = goods.cid
+		left join wx_dish_goods_category gc on (gc.id = goods.cid and gc.deleted = 0)
 		where goods.deleted = 0 
-		and gc.deleted = 0
 		<if test="weid != null and weid !='' ">
 			and goods.weid = #{weid}
 		</if>
@@ -136,6 +137,9 @@
 		</if>
 		<if test="cname != null and cname !='' ">
 			and gc.name = #{cname}
+		</if>
+		<if test="cid != null and cid !='' ">
+			and goods.cid = #{cid}
 		</if>
 	</select>
 	
@@ -168,9 +172,9 @@
 		    goods.deleted
 		FROM
 		    wx_dish_goods goods
-		left join wx_dish_goods_category gc on gc.id = goods.cid
+		left join wx_dish_goods_category gc on (gc.id = goods.cid AND gc.deleted = 0)
 		where goods.deleted = 0 
-		and gc.deleted = 0
+		and goods.weid = #{weid}
 		<if test="id != null and id !='' ">
 			and goods.id = #{id}
 		</if> 
@@ -184,38 +188,6 @@
 	
 	<!--更新食谱信息 -->
 	<update id="updateGoods" parameterType="goods">
-		UPDATE
-		    wx_dish_tables
-		SET
-			opter = #{opter}
-			, optdate = sysdate()
-			<if test="limit_price != null and limit_price !='' ">
-				, limit_price = #{limit_price}
-			</if>
-			<if test="title != null and title !='' ">
-				, title = #{title}
-			</if>
-			<if test="room_id != null and room_id !='' ">
-				, room_id = #{room_id}
-			</if>
-			<if test="user_count != null and user_count !='' ">
-				, user_count = #{user_count}
-			</if>
-			<if test="displayorder != null and displayorder !='' ">
-				, displayorder = #{displayorder}
-			</if>
-			<if test=" status == -1 ">
-				, status = 0
-			</if>
-			<if test="status != null and status !='' ">
-				, status = #{status}
-			</if>
-			<if test="deleted != null and deleted !='' ">
-				, deleted = #{deleted}
-			</if>
-		WHERE
-		    id = #{id}  
-		    
 		UPDATE
 		    wx_dish_goods
 		SET
@@ -341,6 +313,7 @@
 		    cate.weid,
 		    cate.storeid,
 		    cate.name,
+		    (select count(1) from wx_dish_goods goods where goods.cid = cate.id and goods.deleted = 0 ) goodsnum,
 		    cate.parentid,
 		    cate.displayorder,
 		    cate.enabled,

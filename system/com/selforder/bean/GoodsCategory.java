@@ -22,6 +22,13 @@ public class GoodsCategory extends baseBean {
 	private String opter;
 	private String optdate;
 	private int deleted;
+	private int goodsnum;//包含的食谱数量
+	public int getGoodsnum() {
+		return goodsnum;
+	}
+	public void setGoodsnum(int goodsnum) {
+		this.goodsnum = goodsnum;
+	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}

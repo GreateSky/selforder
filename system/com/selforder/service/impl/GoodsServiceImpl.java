@@ -68,6 +68,8 @@ public class GoodsServiceImpl implements GoodsService {
 	 */
 	public String goodsInfo(Goods goods){
 		String result = "";
+		String bid = new Context().getLoginUserInfo().getBid();
+		goods.setWeid(bid);
 		try{
 			Goods goodsinfo = goodsDao.goodsInfo(goods);
 			if(goodsinfo != null){
@@ -186,6 +188,11 @@ public class GoodsServiceImpl implements GoodsService {
 	 */
 	public String goodsCategoryList(GoodsCategory goodsCategory){
 		String result = "";
+		String bid = new Context().getLoginUserInfo().getBid();
+		if(null == goodsCategory){
+			goodsCategory = new GoodsCategory();
+		}
+		goodsCategory.setWeid(bid);
 		try{
 			List<GoodsCategory> goodsCategoryList = goodsDao.goodsCategoryList(goodsCategory);
 			if(null != goodsCategoryList && goodsCategoryList.size()> 0){

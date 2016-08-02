@@ -48,29 +48,18 @@
                       <div class="col-sm-2">
                         <input type="text" class="form-control" id="title_search" placeholder="编码"  value="">
                       </div>
-                      <label for="inputEmail3" class="col-sm-1 control-label">状态：</label>
-                      <div class="col-sm-2">
-                        <select class="form-control" id="status_search">
-							<option value="">全部</option>
-							<option value="0">空闲</option>
-							<option value="1">已下单</option>
-							<option value="2">已开台</option>
-							<option value="3">已预约</option>
-						</select>
-                      </div>
                       <label for="inputEmail3" class="col-sm-1 control-label">食谱分类：</label>
                       <div class="col-sm-2">
-                        <select class="form-control" id="roomSelect"></select>
+                        <select class="form-control" id="goodsCategoryCommbox">  </select>
                       </div>
-                    </div>
-                    <div class="form-group has-warning">
-                    	<div class="col-sm-6">
-	                        <button type="button" class="btn btn-info">查询</button>
-	                        <button type="button" class="btn btn-info">重置</button>
-	                        <button type="button" class="btn btn-warning" onclick="javascript:window.location.href='saveTable.jsp?sid='+sid">创建食谱</button>
+                      <div class="col-sm-6">
+	                        <button type="button" class="btn btn-info" onclick="search()">查询</button>
+	                        <button type="button" class="btn btn-info" onclick="clearParam()">重置</button>
+	                        <button type="button" class="btn btn-warning" onclick="javascript:window.location.href='saveGoods.jsp'">创建食谱</button>
 	                        <button type="button" class="btn btn-warning" data-toggle="modal" onclick="showGoodsCategory()">创建食谱分类</button>
 	                    </div>
                     </div>
+                    
                     <!--/搜索信息 start-->
                     <!--食谱列表start-->
                     <table class="table table-striped animated flipInX" id="goodsList">
@@ -119,11 +108,12 @@
 				      </div>
 			      </div>
 			    </div>
-				<table id="roomList" class="table table-striped " title="食谱分类列表">
+				<table id="goodsCategoryList" class="table table-striped " title="食谱分类列表">
                     <tr>
                       <th>#</th>
                       <th>名称</th>
                       <th>包含食谱数</th>
+                      <th>排序</th>
                       <th>操作</th>
                     </tr>
                 </table><!--/食谱列表-->

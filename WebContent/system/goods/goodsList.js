@@ -3,10 +3,10 @@ var pageSize = 20; //默认每页20条数据
 var pageStart = 0;
 var first = true;//是否第一次加载
 $(function(){
-	//加载餐桌列表
+	//加载食谱列表
 	loadGoodsList("init",null);
 	keyEvent();
-	//loadGoodsCategoryCommbox();
+	loadGoodsCategoryCommbox();
 });
 
 /**
@@ -42,7 +42,7 @@ function pageOption(paginationid,totalpage){
     });
 }
 /**
- * 加载门店列表
+ * 加载食谱列表
  * @param type 查询类型  init:初始化查询   pageQuery:分页查询
  * @param param 
  */
@@ -115,7 +115,7 @@ function loadGoodsList(type,param){
 						}
 						tr +='<tr tag="appendGoodsTr" id="'+id+'" class="animated flipInX">                                     ';
 						tr +='	<td>'+(i+1)+'</td>                             ';
-						tr +='	<td></td>                             ';
+						tr +='	<td><img src="'+imgsrc+'" width="60px" height="60px"></img></td>';
 						tr +='	<td>'+cname+'</td>    ';
 						tr +='	<td>'+title+'</td>    ';
 						tr +='	<td>'+marketprice+'</td>                        ';
@@ -126,8 +126,7 @@ function loadGoodsList(type,param){
 						tr +='	<td>'+statusStr+'</td>';
 						tr +='	<td>'+taste+'</td>';
 						tr +='	<td>'+subcount+'</td>';
-						//tr +='	<td><img src="'+imgsrc+'" width="60px" height="60px"></img></td>';
-						tr +='	<td><button type="button" class="btn btn-warning" onclick="updateTable(\''+id+'\')">编辑</button>&nbsp;<button type="button" class="btn btn-danger" onclick="delTable(\''+id+'\')">删除</button></td>                    ';
+						tr +='	<td><button type="button" class="btn btn-warning" onclick="updateGoods(\''+id+'\')">编辑</button>&nbsp;<button type="button" class="btn btn-danger" onclick="delGoods(\''+id+'\')">删除</button></td>                    ';
 						tr +='</tr>                                    ';
 						$("#goodsList").append(tr);
 					}
@@ -143,12 +142,10 @@ function loadGoodsList(type,param){
  */
 function search(){
 	var title = $("#title_search").val();
-	var status = $("#status_search").val();
-	var GoodsCategory_id = $("#GoodsCategorySelect").val();
+	var cid = $("#goodsCategoryCommbox").val();
 	var param = {};
-	param["table.title"] = title;
-	param["table.status"] = tel;
-	param["table.GoodsCategory_id"] = address;
+	param["goods.title"] = title;
+	param["goods.cid"] = cid;
 	first = true;
 	loadGoodsList("init",param);
 }
@@ -180,17 +177,17 @@ function keyEvent(){
 }
 
 /**
- * 删除门店
+ * 删除食谱
  * @param sid
  */
-function delTable(id){
-	layer.confirm("确定要删除该餐桌吗?",
+function delGoods(id){
+	layer.confirm("确定要删除该食谱吗?",
 			{btn:["确定","取消"]},
 			function(){//确定
 				$.ajax({
 					type:"POST",
-					url:"/selforder/api/table/updateTable.action",
-					data:{"table.id":id,"table.deleted":1},
+					url:"/selforder/api/goods/updateGoods.action",
+					data:{"goods.id":id,"goods.deleted":1},
 					dataType:"json",
 					success:function(res){
 						var retCode = res.retCode;
@@ -232,7 +229,9 @@ function saveGoodsCategory(){
 			}else{
 				layer.msg(message,{icon:6});
 			}
-			//loadGoodsCategoryList();
+			$("#name").val("");
+			$("#displayorder").val("");
+			loadGoodsCategoryList();
 		}
 	});
 }
@@ -244,8 +243,7 @@ function loadGoodsCategoryList(){
 	$("tr[tag='appendGoodsCategoryTr']").remove();
 	$.ajax({
 		type:"POST",
-		url:"/selforder/api/table/GoodsCategoryList.action",
-		data:{"table.storeid":sid},
+		url:"/selforder/api/goods/goodsCategoryList.action",
 		dataType:"json",
 		success:function(res){
 			var retCode = res.retCode;
@@ -257,17 +255,19 @@ function loadGoodsCategoryList(){
 				if(rows.length > 0){
 					for(var i=0;i<rows.length;i++){
 						var tr = "";
-						var row = rows[i];
-						var GoodsCategory_id = row.GoodsCategory_id;
-						var GoodsCategory_name = row.GoodsCategory_name;
-						var tabnum = row.tabnum;
-						tr +='<tr tag="appendGoodsCategoryTr" GoodsCategory_id="'+GoodsCategory_id+'" class="animated flipInX">                                     ';
+						var row = rows[i];	
+						var id = row.id;
+						var name = row.name;
+						var goodsnum = row.goodsnum;
+						var displayorder = row.displayorder;
+						tr +='<tr tag="appendGoodsCategoryTr" id="'+id+'" class="animated flipInX">                                     ';
 						tr +='	<td>'+(i+1)+'</td>                             ';
-						tr +='	<td>'+GoodsCategory_name+'</td>    ';
-						tr +='	<td>'+tabnum+'</td>    ';
-						tr +='	<td><button type="button" class="btn btn-danger" onclick="delGoodsCategory(\''+GoodsCategory_id+'\')">删除</button></td>                    ';
+						tr +='	<td>'+name+'</td>    ';
+						tr +='	<td>'+goodsnum+'</td>    ';
+						tr +='	<td>'+displayorder+'</td>    ';
+						tr +='	<td><button type="button" class="btn btn-danger" onclick="delGoodsCategory(\''+id+'\')">删除</button></td>                    ';
 						tr +='</tr>                                    ';
-						$("#GoodsCategoryList").append(tr);
+						$("#goodsCategoryList").append(tr);
 					}
 				}
 			}
@@ -279,22 +279,24 @@ function loadGoodsCategoryList(){
  * 显示已创建食谱分类
  */
 function showGoodsCategory(){
-	//loadGoodsCategoryList();
+	$("#name").val("");
+	$("#displayorder").val("");
+	loadGoodsCategoryList();
 	$("#createGoodsCategory").modal("show");
 }
 
 /**
  * 删除食谱分类
- * @param GoodsCategory_id
+ * @param id
  */
-function delGoodsCategory(GoodsCategory_id){
-	layer.confirm("确定要删除该食谱分类吗？食谱分类中的餐桌将取消于该食谱分类的关系。",
+function delGoodsCategory(id){
+	layer.confirm("确定要删除该食谱分类吗？食谱分类中的食谱将取消于该食谱分类的关系。",
 			{btn: ['确定','取消']},
 			function(){
 				$.ajax({
 					type:"POST",
-					url:"/selforder/api/table/updateGoodsCategory.action",
-					data:{"table.GoodsCategory_id":GoodsCategory_id,"table.storeid":sid,"table.deleted":1},
+					url:"/selforder/api/goods/updateGoodsCategory.action",
+					data:{"goodsCategory.id":id,"goodsCategory.deleted":1},
 					dataType:"json",
 					success:function(res){
 						var retCode = res.retCode;
@@ -314,22 +316,21 @@ function delGoodsCategory(GoodsCategory_id){
 }
 
 /**
- * 更新餐桌信息
- * @param id 餐桌ID
+ * 更新食谱信息
+ * @param id 食谱ID
  */
-function updateTable(id){
-	window.location.href = "saveTable.jsp?sid="+sid+"&opt=update&id="+id;
+function updateGoods(id){
+	window.location.href = "saveGoods.jsp?opt=update&id="+id;
 }
 
 /**
  * 加载食谱分类
  */
 function loadGoodsCategoryCommbox(){
-	$("#GoodsCategorySelect option").remove();
+	$("#goodsCategoryCommbox option").remove();
 	$.ajax({
 		type:"POST",
-		url:"/selforder/api/table/GoodsCategoryList.action",
-		data:{"table.storeid":sid},
+		url:"/selforder/api/goods/goodsCategoryList.action",
 		dataType:"json",
 		async:false,
 		success:function(res){
@@ -339,14 +340,15 @@ function loadGoodsCategoryCommbox(){
 				layer.msg(message,{icon:5});
 			}else{
 				var rows = res.data;
+				$("#goodsCategoryCommbox").append('<option value="" selected="selected">全部</option>');
 				if(rows.length > 0){
 					for(var i=0;i<rows.length;i++){
-						var row = rows[i];
-						var GoodsCategory_id = row.GoodsCategory_id;
-						var GoodsCategory_name = row.GoodsCategory_name;
+						var row = rows[i];	
+						var id = row.id;
+						var name = row.name;
 						var option= "";
-						option = "<option value='"+GoodsCategory_id+"'>"+GoodsCategory_name+"</option>";
-						$("#GoodsCategorySelect").append(option);
+						option = "<option value='"+id+"'>"+name+"</option>";
+						$("#goodsCategoryCommbox").append(option);
 					}
 				}
 			}
