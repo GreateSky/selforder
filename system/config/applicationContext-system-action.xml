@@ -47,4 +47,12 @@
 	<bean name="goodsAction" class="com.selforder.action.GoodsAction" scope="prototype">
 		<property name="goodsService" ref="goodsService"></property>
 	</bean>
+	<!--餐桌管理-->
+	<bean name="orderAction" class="com.selforder.action.OrderAction" scope="prototype">
+		<property name="orderService" ref="orderService"></property>
+	</bean>
+	<!--队列管理-->
+	<bean name="queueAction" class="com.selforder.action.QueueAction" scope="prototype">
+		<property name="queueService" ref="queueService"></property>
+	</bean>
 </beans>

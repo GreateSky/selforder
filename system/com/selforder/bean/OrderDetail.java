@@ -10,6 +10,7 @@ public class OrderDetail extends baseBean {
 	private String oid;
 	private int dno;
 	private String goods_id;
+	private String goods_name;
 	private int num;
 	private double price;
 	private double cost;
@@ -92,5 +93,11 @@ public class OrderDetail extends baseBean {
 	}
 	public void setDeleted(int deleted) {
 		this.deleted = deleted;
+	}
+	public String getGoods_name() {
+		return goods_name;
+	}
+	public void setGoods_name(String goods_name) {
+		this.goods_name = goods_name;
 	}
 }

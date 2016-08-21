@@ -53,6 +53,16 @@
 	<bean name="goodsService" class="com.selforder.service.impl.GoodsServiceImpl" scope="prototype">
 		<property name="goodsDao" ref="goodsDao"></property>
 	</bean>
+	<!--订单管理-->
+	<bean name="orderService" class="com.selforder.service.impl.OrderServiceImpl" scope="prototype">
+		<property name="orderDao" ref="orderDao"></property>
+		<property name="tableDao" ref="tableDao"></property>
+	</bean>
+	<!--队列管理-->
+	<bean name="queueService" class="com.selforder.service.impl.QueueServiceImpl" scope="prototype">
+		<property name="queueDao" ref="queueDao"></property>
+	</bean>
+	
 	
 	<!-- *************************Dao注册*********************************-->
 	<bean name="bizDictDao" class="com.automobile.dao.impl.BizDictDaoImpl" scope="prototype" >
@@ -88,6 +98,14 @@
 	</bean>
 	<!--食谱管理-->
 	<bean name="goodsDao" class="com.selforder.dao.impl.GoodsDaoImpl" scope="prototype">
+		<property name="sqlSessionTemplate" ref="sqlSessionTemplate"></property>
+	</bean>
+	<!--订单管理-->
+	<bean name="orderDao" class="com.selforder.dao.impl.OrderDaoImpl" scope="prototype">
+		<property name="sqlSessionTemplate" ref="sqlSessionTemplate"></property>
+	</bean>
+	<!--订单管理-->
+	<bean name="queueDao" class="com.selforder.dao.impl.QueueDaoImpl" scope="prototype">
 		<property name="sqlSessionTemplate" ref="sqlSessionTemplate"></property>
 	</bean>
 </beans>

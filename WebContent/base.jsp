@@ -1,6 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <% String cxtPath = request.getContextPath();%>
+<%@page import="com.selforder.util.Context" %>
+<%@page import="com.selforder.bean.UserInfo" %> 
+<%
+	UserInfo userinfo = new Context().getLoginUserInfo();
+	String empname = userinfo.getName();
+	String empcode = userinfo.getCode();
+	String weid = userinfo.getBid();
+	String storeid = userinfo.getSid();
+%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -15,4 +24,6 @@
 </html>
 <script>
 	var cxtPath = '<%=cxtPath %>';
+	var weid = '<%=weid%>';
+	var storeid = '<%=storeid%>';
 </script>

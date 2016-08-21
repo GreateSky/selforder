@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<!--订单管理-->
+	<package name="order" extends="struts-default,json-default" namespace="/api/order">
+		<!--保存订单信息-->
+		<action name = "insertOrder" class="orderAction" method="insertOrder">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+		<!--获取订单列表-->
+		<action name = "getOrderList" class="orderAction" method="getOrderList">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+		<!--获取订单详情-->
+		<action name = "getOrderInfo" class="orderAction" method="getOrderInfo">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+		<!--更新订单详情-->
+		<action name = "updateOrder" class="orderAction" method="updateOrder">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+		<!--更订单状态-->
+		<action name = "updateOrderStatus" class="orderAction" method="updateOrderStatus">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+		<!--更订单明细-->
+		<action name = "updateOrderDetail" class="orderAction" method="updateOrderDetail">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+	</package>
+	
+</struts>

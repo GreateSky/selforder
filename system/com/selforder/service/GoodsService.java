@@ -62,5 +62,11 @@ public interface GoodsService {
 	 * @return
 	 * @
 	 */
-	public String goodsCategoryList(GoodsCategory goodsCategory); 
+	public String goodsCategoryList(GoodsCategory goodsCategory);
+	
+	/**
+	 * 加载是食谱列表（按订单id过滤掉订单中已包含的食谱）
+	 * @return
+	 */
+	public String getGoodsListIgnoreOrderId(Goods goods);
 }

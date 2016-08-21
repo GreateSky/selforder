@@ -11,6 +11,7 @@ import com.automobile.bean.baseBean;
 public class Goods extends baseBean {
 	private static final long serialVersionUID = 6765206105656911021L;
 	private String id;
+	private int pageSize;
 	private String weid;
 	private String storeid;
 	private int pcate;
@@ -34,6 +35,7 @@ public class Goods extends baseBean {
 	private String opter;
 	private String optdate;
 	private int deleted;
+	private String oid;//食谱所属订单ID
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
@@ -180,5 +182,17 @@ public class Goods extends baseBean {
 	}
 	public void setCname(String cname) {
 		this.cname = cname;
+	}
+	public int getPageSize() {
+		return pageSize;
+	}
+	public String getOid() {
+		return oid;
+	}
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
+	}
+	public void setOid(String oid) {
+		this.oid = oid;
 	}
 }

@@ -205,6 +205,26 @@ public class GoodsServiceImpl implements GoodsService {
 			return JsonResultUtil.getJsonResult(-1, "fail", "操作异常!");
 		}
 		return result;
-	} 
+	}
 	
+	/**
+	 * 加载是食谱列表（按订单id过滤掉订单中已包含的食谱）
+	 * @param oid 订单ID
+	 * @return
+	 */
+	public String getGoodsListIgnoreOrderId(Goods goods){
+		String result = "";
+		try{
+			List<Goods> goodsList = goodsDao.getGoodsListIgnoreOrderId(goods);
+			if(null != goodsList && goodsList.size()> 0){
+				result = JsonResultUtil.getJsonResult(0, "success", "查询数据成功!", goodsList);
+			}else{
+				result = JsonResultUtil.getJsonResult(-1, "fail", "查询数据为空!");
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			return JsonResultUtil.getJsonResult(-1, "fail", "操作异常!");
+		}
+		return result;
+	}
 }

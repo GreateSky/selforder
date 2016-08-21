@@ -81,7 +81,7 @@ function getDateByTime(time,format){
  * 验证值
  * @param value 待验证的值
  * @param remark 验证失败后的提示
- * @returns 0 验证成功   -1 验证失败
+ * @returns 0 验证成功   -1 验证失败  checkValueWithInfo
  */
 function checkValueWithInfo(value,remark){
 	//默认提示
@@ -120,4 +120,23 @@ function showResult(retCode,message){
 	}else{
 		layer.msg(message,{icon:6});
 	}
+}
+
+/**
+ * json日期对象转javascript标准日期对象
+ * @param jsonData
+ * @returns {String}
+ * eg：json日期对象：{"date":30,"day":3,"hours":0,"minutes":0,"month" :0,"seconds":0,"time":1201622400000,"timezoneOffset":-480,"year":108}
+ * 根据time值转换为标准格式日期：var date = new Date( parseInt( time )); = 2015-3-5 12:12:23
+ */
+function formatDate(jsonData){
+	var time = jsonData.time;
+    var date = new Date(time);
+    var str = date.getFullYear() + "-";
+    str += ((date.getMonth()+1)<10?("0"+(date.getMonth()+1)):(date.getMonth()+1)) +"-" ;
+    str += (date.getDate()<10?("0"+ date.getDate()): date.getDate()) +" ";
+    str += (date.getHours()<10?("0"+date.getHours()):date.getHours()) + ":";
+    str += (date.getMinutes()<10?("0"+date.getMinutes()):date.getMinutes()) + ":";
+    str += date.getSeconds()<10?("0"+date.getSeconds()):date.getSeconds();
+    return str;
 }

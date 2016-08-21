@@ -1,64 +1,93 @@
 package com.selforder.action;
 import java.io.Writer;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.ServletActionContext;
 
 import com.greatesky.action.GreateSkyActionSupport;
-import com.selforder.bean.Goods;
-import com.selforder.bean.GoodsCategory;
-import com.selforder.service.GoodsService;
+import com.selforder.bean.Order;
+import com.selforder.bean.OrderDetail;
+import com.selforder.service.OrderService;
 
 /**
- * 食谱管理action
+ * 订单管理action
  * @author xingwanzhao
  *
  * 2016-5-16
  */
-public class GoodsAction extends GreateSkyActionSupport {
-	private Goods goods;
-	private GoodsCategory goodsCategory;
-	private GoodsService goodsService;
-	private String oid;//订单ID
-
-	public String getOid() {
-		return oid;
+public class OrderAction extends GreateSkyActionSupport {
+	private Order order;
+	private OrderDetail orderDetail;
+	private OrderService orderService;
+	private List<OrderDetail> orderDetailList;
+	private List<OrderDetail> addDetailList;//新增订单明细集合
+	private List<OrderDetail> updateDetailList;//修改订单明细集合
+	public List<OrderDetail> getAddDetailList() {
+		return addDetailList;
 	}
 
-	public void setOid(String oid) {
-		this.oid = oid;
+	public List<OrderDetail> getUpdateDetailList() {
+		return updateDetailList;
 	}
 
-	public Goods getGoods() {
-		return goods;
+	public List<OrderDetail> getDelOrdList() {
+		return delOrdList;
 	}
 
-	public GoodsCategory getGoodsCategory() {
-		return goodsCategory;
+	public void setAddDetailList(List<OrderDetail> addDetailList) {
+		this.addDetailList = addDetailList;
 	}
 
-	public GoodsService getGoodsService() {
-		return goodsService;
+	public void setUpdateDetailList(List<OrderDetail> updateDetailList) {
+		this.updateDetailList = updateDetailList;
 	}
 
-	public void setGoods(Goods goods) {
-		this.goods = goods;
+	public void setDelOrdList(List<OrderDetail> delOrdList) {
+		this.delOrdList = delOrdList;
 	}
 
-	public void setGoodsCategory(GoodsCategory goodsCategory) {
-		this.goodsCategory = goodsCategory;
+	private List<OrderDetail> delOrdList;//删除订单明细集合
+	public List<OrderDetail> getOrderDetailList() {
+		return orderDetailList;
 	}
 
-	public void setGoodsService(GoodsService goodsService) {
-		this.goodsService = goodsService;
+	public void setOrderDetailList(List<OrderDetail> orderDetailList) {
+		this.orderDetailList = orderDetailList;
+	}
+
+	public Order getOrder() {
+		return order;
+	}
+
+	public OrderDetail getOrderDetail() {
+		return orderDetail;
+	}
+
+	public OrderService getOrderService() {
+		return orderService;
+	}
+
+	public void setOrder(Order order) {
+		this.order = order;
+	}
+
+	public void setOrderDetail(OrderDetail orderDetail) {
+		this.orderDetail = orderDetail;
+	}
+
+	public void setOrderService(OrderService orderService) {
+		this.orderService = orderService;
 	}
 
 	/**
-	 * 保存食谱信息
+	 * 保存订单信息
 	 * @return
 	 */
-	public String insertGoods(){
+	public String insertOrder(){
 		HttpServletResponse response=ServletActionContext.getResponse();
 		/*
 		 * 在调用getWriter之前未设置编码(既调用setContentType或者setCharacterEncoding方法设置编码),
@@ -70,8 +99,8 @@ public class GoodsAction extends GreateSkyActionSupport {
 		String result;
 		try{
 			out = response.getWriter();
-			result = goodsService.insertGoods(goods);
-			System.out.println("保存食谱结果==================："+result);
+			result = orderService.insertOrder(order, addDetailList);
+			System.out.println("保存订单结果==================："+result);
 			out.write(result);
 			out.flush();
 			out.close();
@@ -83,10 +112,10 @@ public class GoodsAction extends GreateSkyActionSupport {
 	}
 	
 	/**
-	 * 获取食谱列表
+	 * 获取订单列表
 	 * @return
 	 */
-	public String getGoodsList(){
+	public String getOrderList(){
 		HttpServletResponse response=ServletActionContext.getResponse();
 		/*
 		 * 在调用getWriter之前未设置编码(既调用setContentType或者setCharacterEncoding方法设置编码),
@@ -98,13 +127,13 @@ public class GoodsAction extends GreateSkyActionSupport {
 		String result;
 		try{
 			out = response.getWriter();
-			if(null == goods){
-				goods = new Goods();
+			if(null == order){
+				order = new Order();
 			}
-			goods.setPageSize(super.limit);
-			goods.setPageStart(super.page);
-			result = goodsService.goodsList(goods);
-			System.out.println("获取食谱列表========"+result);
+			order.setPageSize(super.limit);
+			order.setPageStart(super.page);
+			result = orderService.orderList(order);
+			System.out.println("获取订单列表========"+result);
 			out.write(result);
 			out.flush();
 			out.close();
@@ -116,10 +145,10 @@ public class GoodsAction extends GreateSkyActionSupport {
 	}	
 	
 	/**
-	 * 获取食谱详情
+	 * 获取订单详情
 	 * @return
 	 */
-	public String getGoodsInfo(){
+	public String getOrderInfo(){
 		HttpServletResponse response=ServletActionContext.getResponse();
 		/*
 		 * 在调用getWriter之前未设置编码(既调用setContentType或者setCharacterEncoding方法设置编码),
@@ -131,8 +160,8 @@ public class GoodsAction extends GreateSkyActionSupport {
 		String result;
 		try{
 			out = response.getWriter();
-			result = goodsService.goodsInfo(goods);
-			System.out.println("获取食谱详情========"+result);
+			result = orderService.orderInfo(order);
+			System.out.println("获取订单详情========"+result);
 			out.write(result);
 			out.flush();
 			out.close();
@@ -144,10 +173,11 @@ public class GoodsAction extends GreateSkyActionSupport {
 	}
 	
 	/**
-	 * 更新食谱详情
+	 * 更订单店详情
+	 * @param Shop
 	 * @return
 	 */
-	public String updateGoods(){
+	public String updateOrder(){
 		HttpServletResponse response=ServletActionContext.getResponse();
 		/*
 		 * 在调用getWriter之前未设置编码(既调用setContentType或者setCharacterEncoding方法设置编码),
@@ -159,8 +189,11 @@ public class GoodsAction extends GreateSkyActionSupport {
 		String result;
 		try{
 			out = response.getWriter();
-			result = goodsService.updateGoods(goods);
-			System.out.println("更新食谱详情========"+result);
+			Map<String,List<OrderDetail>> ordDetailMap = new HashMap<String,List<OrderDetail>>();
+			ordDetailMap.put("addDetailList", addDetailList);
+			ordDetailMap.put("updateDetailList", updateDetailList);
+			result = orderService.updateOrder(order, ordDetailMap);
+			System.out.println("更新订单详情========"+result);
 			out.write(result);
 			out.flush();
 			out.close();
@@ -172,10 +205,11 @@ public class GoodsAction extends GreateSkyActionSupport {
 	}
 	
 	/**
-	 * 新增食谱分类
+	 * 更订单状态
+	 * @param Shop
 	 * @return
 	 */
-	public String insertGoodsCategory(){
+	public String updateOrderStatus(){
 		HttpServletResponse response=ServletActionContext.getResponse();
 		/*
 		 * 在调用getWriter之前未设置编码(既调用setContentType或者setCharacterEncoding方法设置编码),
@@ -187,8 +221,8 @@ public class GoodsAction extends GreateSkyActionSupport {
 		String result;
 		try{
 			out = response.getWriter();
-			result = goodsService.insertGoodsCategory(goodsCategory);
-			System.out.println("新增食谱分类========"+result);
+			result = orderService.updateOrderStatus(order);
+			System.out.println("更订单状态========"+result);
 			out.write(result);
 			out.flush();
 			out.close();
@@ -200,10 +234,11 @@ public class GoodsAction extends GreateSkyActionSupport {
 	}
 	
 	/**
-	 * 更新食谱分类
+	 * 更订单明细
+	 * @param Shop
 	 * @return
 	 */
-	public String updateGoodsCategory(){
+	public String updateOrderDetail(){
 		HttpServletResponse response=ServletActionContext.getResponse();
 		/*
 		 * 在调用getWriter之前未设置编码(既调用setContentType或者setCharacterEncoding方法设置编码),
@@ -215,8 +250,8 @@ public class GoodsAction extends GreateSkyActionSupport {
 		String result;
 		try{
 			out = response.getWriter();
-			result = goodsService.updateGoodsCategory(goodsCategory);
-			System.out.println("更新食谱分类========"+result);
+			result = orderService.updateOrderDetail(orderDetail);
+			System.out.println("更订单明细========"+result);
 			out.write(result);
 			out.flush();
 			out.close();
@@ -227,59 +262,4 @@ public class GoodsAction extends GreateSkyActionSupport {
 		return this.SUCCESS;
 	}
 	
-	/**
-	 * 食谱分类列表
-	 * @return
-	 */
-	public String goodsCategoryList(){
-		HttpServletResponse response=ServletActionContext.getResponse();
-		/*
-		 * 在调用getWriter之前未设置编码(既调用setContentType或者setCharacterEncoding方法设置编码),
-		 * HttpServletResponse则会返回一个用默认的编码(既ISO-8859-1)编码的PrintWriter实例。这样就会
-		 * 造成中文乱码。而且设置编码时必须在调用getWriter之前设置,不然是无效的。
-		 * */
-		response.setContentType("text/html;charset=utf-8");
-		Writer out;
-		String result;
-		try{
-			out = response.getWriter();
-			result = goodsService.goodsCategoryList(goodsCategory);
-			System.out.println("食谱分类列表========"+result);
-			out.write(result);
-			out.flush();
-			out.close();
-		}catch(Exception e){
-			e.printStackTrace();
-			return this.ERROR;
-		}
-		return this.SUCCESS;
-	}
-	
-	/**
-	 * 加载是食谱列表（按订单id过滤掉订单中已包含的食谱）
-	 * @return
-	 */
-	public String getGoodsListIgnoreOrderId(){
-		HttpServletResponse response=ServletActionContext.getResponse();
-		/*
-		 * 在调用getWriter之前未设置编码(既调用setContentType或者setCharacterEncoding方法设置编码),
-		 * HttpServletResponse则会返回一个用默认的编码(既ISO-8859-1)编码的PrintWriter实例。这样就会
-		 * 造成中文乱码。而且设置编码时必须在调用getWriter之前设置,不然是无效的。
-		 * */
-		response.setContentType("text/html;charset=utf-8");
-		Writer out;
-		String result;
-		try{
-			out = response.getWriter();
-			result = goodsService.getGoodsListIgnoreOrderId(goods);
-			System.out.println("加载是食谱列表（按订单id过滤掉订单中已包含的食谱）========"+result);
-			out.write(result);
-			out.flush();
-			out.close();
-		}catch(Exception e){
-			e.printStackTrace();
-			return this.ERROR;
-		}
-		return this.SUCCESS;
-	}
 }

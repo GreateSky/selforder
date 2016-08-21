@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.selforder.queue" >
+	<cache eviction="LRU" flushInterval="1000" size="1024" readOnly="false" />
+	<sql id="limit">
+		<choose>
+			<when test="pageStart != null and pageSize != null">
+				limit ${pageStart},${pageSize}
+			</when>
+			<otherwise>
+				limit 0,20
+			</otherwise>
+		</choose>
+	</sql>
+	<!--新增队列设置信息 -->
+	<insert id="insertQueueSetting" parameterType="queueSetting">
+		INSERT
+        INTO
+            wx_dish_queue_setting
+            (
+                id,
+                weid,
+                storeid,
+                title,
+                limit_num,
+                prefix,
+                starttime,
+                endtime,
+                notify_number,
+                displayorder,
+                dateline,
+                status,
+                crter,
+                crtdate,
+                opter,
+                optdate,
+                deleted
+            )
+            VALUES
+            (
+                replace(uuid(),'-',''),
+				#{weid},
+				#{storeid},
+				#{title},
+				#{limit_num},
+				#{prefix},
+				#{starttime},
+				#{endtime},
+				#{notify_number},
+				#{displayorder},
+				sysdate(),
+				#{status},
+				#{crter},
+				sysdate(),
+				#{opter},
+				sysdate(),
+				0
+            )	    		    
+	</insert>
+	
+	<!--更新队列设置 -->
+	<update id="updateQueueSetting">
+		UPDATE
+		    wx_dish_queue_setting
+		SET
+			opter = #{opter}
+			, optdate = sysdate()
+			<if test="title != null and title !='' ">
+				, title = #{title}
+			</if>
+			<if test="limit_num != null and limit_num !='' ">
+				, limit_num = #{limit_num}
+			</if>
+			<if test="prefix != null and prefix !='' ">
+				, prefix = #{prefix}
+			</if>
+			<if test="starttime != null and starttime !='' ">
+				, starttime = #{starttime}
+			</if>
+			<if test="endtime != null and endtime !='' ">
+				, endtime = #{endtime}
+			</if>
+			<if test="notify_number != null and notify_number !='' ">
+				, notify_number = #{notify_number}
+			</if>
+			<if test="displayorder != null and displayorder !='' ">
+				, displayorder = #{displayorder}
+			</if>
+			<if test="status != null and status !='' ">
+				, status = #{status}
+			</if>
+			<if test="deleted != null and deleted !='' ">
+				, deleted = #{deleted}
+			</if>
+		WHERE
+		    id = #{id}
+	</update>
+	
+	<!-- 获取队列详情 -->
+	<select id="getQueueSettingInfo" parameterType="queueSetting" resultType="queueSetting">
+		SELECT
+		       qs.id,
+		        qs.weid,
+		        qs.storeid,
+		        qs.title,
+		        qs.limit_num,
+		        qs.prefix,
+		        qs.starttime,
+		        qs.endtime,
+		        qs.notify_number,
+		        qs.displayorder,
+		        qs.dateline,
+		        qs.status,
+		        qs.crter,
+		        qs.crtdate,
+		        qs.opter,
+		        qs.optdate,
+		        qs.deleted
+		FROM
+		    wx_dish_queue_setting qs
+		 where qs.deleted = 0
+		 <if test="id != null and id !='' ">
+			and qs.id = #{id}
+		 </if>
+	</select>
+	
+	<!--查询队列列表 -->
+	<select id="getQueueSettingList" parameterType="queueSetting" resultType="queueSetting">
+		select qs.id,
+				 qs.weid,
+				 qs.storeid,
+				 qs.title,
+				 qs.limit_num,
+				 qs.prefix,
+				 qs.`status`,
+				 qs.notify_number,
+				 wc.waitCount,
+				 wc.nextNum
+		from wx_dish_queue_setting qs 
+		left join (
+			select count(1) waitCount,
+					 qu.queueid,
+					 min(qu.currnum) nextNum
+			from wx_dish_queue qu 
+			where qu.deleted = 0 
+			and qu.status = 0
+			and DATE_FORMAT(qu.crtdate,'%y-%m-%d') = DATE_FORMAT(sysdate(),'%y-%m-%d')
+			group by qu.queueid
+		) wc on wc.queueid = qs.id
+		where qs.deleted = 0 
+		and qs.storeid = #{storeid}
+		order by qs.displayorder desc
+	</select>
+	
+	<!-- 申请排队 -->
+	<select id="applyQueueNum" parameterType="queue" resultType="java.util.Map">
+		call proGetNextQueueNum(#{queueid},#{from_user});
+	</select>
+	
+	<!-- 叫号 -->
+	<select id="callNextQueueNum" parameterType="queue" resultType="java.util.Map">
+		select  min(qu.currnum) as currnNum,
+			    qs.title,
+			    qs.prefix,
+			    qu.id,
+			    case 
+			    	when qu.from_user = 'system' then '系统自动'
+			    else '手机端申请' end applyType
+		from wx_dish_queue qu 
+		left join wx_dish_queue_setting qs on qs.id = qu.queueid
+		where qu.deleted = 0 
+		and qs.deleted = 0
+		and qu.status = 0 
+		and DATE_FORMAT(qu.crtdate,'%y-%m-%d') = DATE_FORMAT(sysdate(),'%y-%m-%d')
+		and qu.queueid = #{queueid}
+	</select>
+	
+	<!-- 修改队列-->
+	<update id="updateQueue" parameterType="queue">
+		UPDATE
+		    wx_dish_queue
+		SET
+			opter = #{opter}
+			, optdate = sysdate()
+			<if test="status != null and status !='' ">
+				, status = #{status}
+			</if>
+			<if test="deleted != null and deleted !='' ">
+				, deleted = #{deleted}
+			</if>
+		WHERE
+		    id = #{id}
+	</update>
+	
+</mapper>
+

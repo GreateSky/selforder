@@ -6,6 +6,7 @@ $(function(){
 	if("update"== opt){
 		getRoleInfo();
 	}
+	enterEvent();
 });
 
 //获取角色基本信息
@@ -339,7 +340,17 @@ function delResourceOne(e){
 	}
 }
 
-function resourceSearch(){
-	
+/**
+ * 回车键注册
+ */
+function enterEvent(){
+	$("#keyword").each(function(i){
+		$(this).keydown(function (event){
+			var keyCode=event.keyCode ? event.keyCode:event.which?event.which:event.charCode;//解决浏览器之间的差异问题 
+			if(keyCode==13){ 
+				loadResourceList('init',null);
+			} 
+		});
+	});
 }
 

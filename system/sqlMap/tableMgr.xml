@@ -47,7 +47,7 @@
 					#{user_count},
 					#{qrcodeid},
 					#{displayorder},
-					#{dateline},
+					UNIX_TIMESTAMP(sysdate()),
 					#{status},
 					#{crter},
 					sysdate(),

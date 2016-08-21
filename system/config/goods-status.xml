@@ -48,6 +48,12 @@
 				<param name="root">resultJson</param>
 			</result> 
 		</action>
+		<!--加载是食谱列表（按订单id过滤掉订单中已包含的食谱）-->
+		<action name = "getGoodsListIgnoreOrderId" class="goodsAction" method="getGoodsListIgnoreOrderId">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
 	</package>
 	
 </struts>

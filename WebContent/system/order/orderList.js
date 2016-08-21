@@ -1,0 +1,227 @@
+var total = 0;
+var pageSize = 20; //默认每页20条数据
+var pageStart = 0;
+var first = true;//是否第一次加载
+$(function(){
+	//加载商户列表
+	loadOrderList("init",null);
+	keyEvent();
+});
+
+/**
+ * 分页公共插件
+ * @returns
+ */
+function pageOption(paginationid,totalpage){
+	$("#"+paginationid).twbsPagination("destroy");
+	$('#'+paginationid).twbsPagination({
+        totalPages: totalpage,
+        visiblePages: 10,
+        first:"首页",
+        prev:"上一页",
+        next:"下一页",
+        last:"尾页",
+        onPageClick: function (event, page) {
+            var tag = event.target;
+            var data_optionStr = $(tag).attr("data-option");
+            data_optionStr = "("+data_optionStr+")";
+            data_option = eval(data_optionStr);
+            pageStart = page;
+            var temp_pageSize = data_option.pageSize;
+            if(checkValue(temp_pageSize)){
+            	pageSize = temp_pageSize;
+            }else{
+            	pageSize = 20;
+            }
+        	var param = {};
+        	if(!first){
+        		loadOrderList("pageQuery",param);
+        	}
+        }
+    });
+}
+/**
+ * 加载门店列表
+ * @param type 查询类型  init:初始化查询   pageQuery:分页查询
+ * @param param 
+ */
+function loadOrderList(type,param){
+	var load = layer.load(2, {shade: [1, 'rgba(0,0,0,.5)']});
+	if(typeof(param) == "undefined" || param == null || param == ""){
+		param = {};
+		param["page"] = pageStart;
+		param["limit"] = pageSize;
+	}else{
+		param["page"] = pageStart;
+		param["limit"] = pageSize;
+	}
+	//清除历史数据
+	$("tr[tag='appendOrderTr']").remove();
+	$.ajax({
+		type:"POST",
+		url:"/selforder/api/order/getOrderList.action",
+		data:param,
+		dataType:'json',
+		success:function(data){
+			layer.close(load);
+			if(typeof(data) == "undefined" || data == ""){
+				return;
+			}else{
+				total = data.total;
+				var totalpage = Math.ceil(total/pageSize);
+				if("init" == type){
+					pageOption("pagination",totalpage);
+				}
+				var rows = data.rows;
+				if(rows.length > 0){
+					for(var i=0;i<rows.length;i++){
+						var row = rows[i];
+						var id = row.id;
+						var ordersn = row.ordersn;
+						var weid = row.weid;
+						var storeid = row.storeid;
+						var from_user = row.from_user;
+						var totalprice = row.totalprice;
+						var tableid = row.tableid;
+						var tablecode = row.tablecode;
+						var status = row.status;
+						var statusStr = "";
+						if(status == -1){
+							statusStr = "已取消";
+						}else if(status == 0){
+							statusStr = "已下单";
+						}else if(status == 1){
+							statusStr = "已确认";
+						}else if(status == 2){
+							statusStr = "已付款";
+						}else if(status == 3){
+							statusStr = "配送中";
+						}else if(status == 4){
+							statusStr = "交易完成";
+						}
+						var taste = row.taste;
+						var remark = row.remark;
+						var crtdate = row.crtdate;
+						var crtdateStr = formatDate(crtdate);
+						var realprice = row.realprice;
+						var tablecode = row.tablecode;
+						var appendTr = "";
+						appendTr += '<tr tag="appendOrderTr" id="'+id+'" class="animated flipInX">                                                  ';
+						appendTr += '	<td>'+(i+1)+'</td>                                           ';
+						appendTr += '	<td>'+ordersn+'</td>                          ';
+						appendTr += '	<td>'+crtdateStr+'</td>                         ';
+						appendTr += '	<td>'+tablecode+'</td>                                       ';
+						appendTr += '	<td>'+from_user+'</td>                                            ';
+						appendTr += '	<td></td>                                            ';
+						appendTr += '	<td>                                                 ';
+						appendTr += '		<label class="label label-primary">￥'+totalprice+'</label>';
+						appendTr += '	</td>                                                ';
+						appendTr += '	<td>                                                 ';
+						appendTr += '		<label class="label label-danger">￥'+realprice+'</label>   ';
+						appendTr += '	</td>                                                ';
+						appendTr += '	<td>                                                 ';
+						appendTr += '		<label class="label label-warning">'+statusStr+'</label>  ';
+						appendTr += '	</td>                                                ';
+						appendTr += '	<td>'+taste+'</td>                                        ';
+						appendTr += '	<td>'+remark+'</td>                            ';
+						appendTr += '	<td>                                                 ';
+						appendTr += '		<button type="button" class="btn btn-info" onclick="javascript:window.location.href=\'orderDetail.jsp?opt=update&oid='+id+'\'">详情</button>         ';
+						appendTr += '		<button type="button" class="btn btn-warning">付款</button>      ';
+						appendTr += '		<button type="button" class="btn btn-danger" onclick="cancleOrder(\''+id+'\')">取消</button>       ';
+						appendTr += '	</td>                                                ';
+						appendTr += '</tr>                                                 ';
+						$("#orderList").append(appendTr);
+					}
+				}
+			}
+		},
+		error:function(){
+			layer.close(load);
+		}
+	});
+}
+
+/**
+ * 根据sid修改门店信息
+ * @param sid
+ */
+function updateShop(sid){
+	if(typeof(sid) == "undefined" || sid == ""){
+		return;
+	}else{
+		window.location.href="saveShop.jsp?opt=update&sid="+sid;
+	}
+}
+
+/**
+ * 搜索
+ */
+function search(){
+	var title = $("#title_search").val();
+	var tel = $("#tel_search").val();
+	var address = $("#address_search").val();
+	var param = {};
+	param["shop.title"] = title;
+	param["shop.tel"] = tel;
+	param["shop.address"] = address;
+	first = true;
+	loadOrderList("init",param);
+}
+
+/**
+ * 重置查询条件
+ * @returns
+ */
+function clearParam(){
+	$("#title_search").val("");
+	$("#tel_search").val("");
+	$("#address_search").val("");
+	first = true;
+	loadOrderList("init",null);
+}
+
+/**
+ * 注册回车事件
+ */
+function keyEvent(){
+	$("*[id *= '_search']").each(function(i){
+		$(this).keydown(function (event){
+			var keyCode=event.keyCode ? event.keyCode:event.which?event.which:event.charCode;//解决浏览器之间的差异问题 
+			if(keyCode==13){ 
+				search(); 
+			} 
+		});
+	});
+}
+
+/**
+ * 取消订单
+ * @param id 订单ID
+ */
+function cancleOrder(id){
+	layer.confirm("确定要取消该订单吗？",
+			{btn:["确定","取消"]},
+			function(){
+				layer.closeAll();
+				$.ajax({
+					type:"POST",
+					url:"/selforder/api/order/updateOrderStatus.action",
+					data:{"order.id":id,"order.status":-1},
+					dataType:"json",
+					success:function(res){
+						var retCode = res.retCode;
+						var message = res.message;
+						if(retCode < 0 ){
+							layer.msg(message,{icon:5});
+						}else{
+							layer.msg(message,{icon:6});
+						}
+						loadOrderList("init",null);
+					}
+				});
+			},
+			function(){
+				layer.closeAll();
+			}
+			);
+}

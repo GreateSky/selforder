@@ -67,4 +67,6 @@
 	<include file="config/organization-status.xml"></include>
 	<include file="config/table-status.xml"></include>
 	<include file="config/goods-status.xml"></include>
+	<include file="config/order-status.xml"></include>
+	<include file="config/queue-status.xml"></include>
 </struts>

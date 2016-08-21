@@ -331,5 +331,23 @@
 		</if>
 		order BY cate.displayorder desc
 	</select>
+	
+	<!--加载是食谱列表（按订单id过滤掉订单中已包含的食谱）-->
+	<select id="getGoodsListIgnoreOrderId" parameterType="java.lang.String" resultType="goods">
+		select goods.id,
+			goods.marketprice,
+			goods.title
+		from wx_dish_goods goods 
+		where goods.deleted = 0 
+		and goods.id not in (
+			select od.goods_id
+			from wx_dish_order_detail od 
+			where od.deleted = 0 
+			and od.oid = #{oid}
+		)
+		<if test="title != null and title !='' ">
+			and goods.title like CONCAT('%',#{title},'%')
+		</if>
+	</select>
 </mapper>
 

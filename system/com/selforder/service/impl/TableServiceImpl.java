@@ -41,11 +41,13 @@ public class TableServiceImpl implements TableService {
 	 * @return
 	 */
 	@Override
-	public String tableList(Table table) {
+	public String tableList(Table table){
 		String result = "";
 		Map resultMap = new HashMap();
 		String bid = new Context().getLoginUserInfo().getBid();
+		String sid = new Context().getLoginUserInfo().getSid();
 		table.setWeid(bid);
+		table.setStoreid(sid);
 		try{
 			//查询门店列表
 			List<Table> tableList = tableDao.tableList(table);

@@ -17,8 +17,9 @@ public class Order extends baseBean {
 	private String weid;
 	private String storeid;
 	private String from_user;
-	private double totalprice;
 	private String ordersn;
+	private String ordercode;
+	private double totalprice;
 	private int status;
 	private int ispay;
 	private int paytype;
@@ -44,6 +45,7 @@ public class Order extends baseBean {
 	private String opter;
 	private Date optdate;
 	private int deleted;
+	private String tablecode;//餐桌号
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
@@ -61,9 +63,6 @@ public class Order extends baseBean {
 	}
 	public double getTotalprice() {
 		return totalprice;
-	}
-	public String getOrdersn() {
-		return ordersn;
 	}
 	public int getStatus() {
 		return status;
@@ -155,9 +154,6 @@ public class Order extends baseBean {
 	public void setTotalprice(double totalprice) {
 		this.totalprice = totalprice;
 	}
-	public void setOrdersn(String ordersn) {
-		this.ordersn = ordersn;
-	}
 	public void setStatus(int status) {
 		this.status = status;
 	}
@@ -232,5 +228,23 @@ public class Order extends baseBean {
 	}
 	public void setDeleted(int deleted) {
 		this.deleted = deleted;
+	}
+	public String getOrdersn() {
+		return ordersn;
+	}
+	public void setOrdersn(String ordersn) {
+		this.ordersn = ordersn;
+	}
+	public String getOrdercode() {
+		return ordercode;
+	}
+	public String getTablecode() {
+		return tablecode;
+	}
+	public void setTablecode(String tablecode) {
+		this.tablecode = tablecode;
+	}
+	public void setOrdercode(String ordercode) {
+		this.ordercode = ordercode;
 	}
 }

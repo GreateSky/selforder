@@ -71,4 +71,12 @@ public interface GoodsDao {
 	 * @throws SQLException
 	 */
 	public List<GoodsCategory> goodsCategoryList(GoodsCategory goodsCategory)throws SQLException; 
+	
+	/**
+	 * 加载是食谱列表（按订单id过滤掉订单中已包含的食谱）
+	 * @param oid 订单ID
+	 * @return
+	 * @throws SQLException
+	 */
+	public List<Goods> getGoodsListIgnoreOrderId(Goods goods) throws SQLException;
 }

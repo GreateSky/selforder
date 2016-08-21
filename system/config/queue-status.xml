@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<!--队列管理-->
+	<package name="queue" extends="struts-default,json-default" namespace="/api/queue">
+		<!--保存队列信息-->
+		<action name = "insertQueueSetting" class="queueAction" method="insertQueueSetting">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+		<!--更新队列信息-->
+		<action name = "updateQueueSetting" class="queueAction" method="updateQueueSetting">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+		<!--获取队列详情-->
+		<action name = "getQueueSettingInfo" class="queueAction" method="getQueueSettingInfo">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+		<!--获取队列列表-->
+		<action name = "getQueueSettingList" class="queueAction" method="getQueueSettingList">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+		<!--申请排号-->
+		<action name = "applyQueueNum" class="queueAction" method="applyQueueNum">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+		<!--获取下一个排号-->
+		<action name = "callNextQueueNum" class="queueAction" method="callNextQueueNum">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+		<!--更新排号-->
+		<action name = "updateQueue" class="queueAction" method="updateQueue">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+	</package>
+</struts>
