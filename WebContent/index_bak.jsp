@@ -227,8 +227,8 @@
 	                <i class="fa fa-angle-left pull-right"></i>
 	              </a>
 	              <ul class="treeview-menu">
-	                <li><a href="javascript:viod(0);" onclick="linkMainTab('system/business/businessList.jsp','businesslist','商户列表')"><i class="fa fa-circle-o"></i> 商户列表</a></li>
-	                <li><a href="javascript:viod(0);" onclick="linkMainTab('system/business/saveBusiness.jsp','savebusiness','商户维护')"><i class="fa fa-circle-o"></i> 商户维护</a></li>
+	                <li><a href="javascript:viod(0);" onclick="linkMainFrame('system/business/businessList.jsp')"><i class="fa fa-circle-o"></i> 商户列表</a></li>
+	                <li><a href="javascript:viod(0);" onclick="linkMainFrame('system/business/saveBusiness.jsp')"><i class="fa fa-circle-o"></i> 商户维护</a></li>
 	              </ul>
 	            </li>
             </sec:authorize >
@@ -237,7 +237,7 @@
                 <i class="fa  fa-folder"></i> <span>门店管理</span> <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li class="active"><a href="javascript:viod(0);" onclick="linkMainTab('system/shop/shopList.jsp','shoplist','门店列表')"><i class="fa fa-circle-o"></i> 门店列表</a></li>
+                <li class="active"><a href="javascript:viod(0);" onclick="linkMainFrame('system/shop/shopList.jsp')"><i class="fa fa-circle-o"></i> 门店列表</a></li>
               </ul>
             </li>
              <li class="treeview">
@@ -245,7 +245,7 @@
                 <i class="fa  fa-folder"></i> <span>食谱管理</span> <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li class="active"><a href="javascript:viod(0);" onclick="linkMainTab('system/goods/goodsList.jsp','goodsmgr','食谱列表')"><i class="fa fa-circle-o"></i> 食谱列表</a></li>
+                <li class="active"><a href="javascript:viod(0);" onclick="linkMainFrame('system/goods/goodsList.jsp')"><i class="fa fa-circle-o"></i> 食谱列表</a></li>
               </ul>
             </li>
             <li class="treeview">
@@ -255,8 +255,8 @@
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="javascript:viod(0);" onclick="linkMainTab('system/order/orderList.html','orderlist','订单列表')"><i class="fa fa-circle-o"></i> 订单列表</a></li>
-                <li><a href="javascript:viod(0);" onclick="linkMainTab('system/order/orderDetail.html','orderinfo','订单详情')"><i class="fa fa-circle-o"></i> 订单详情</a></li>
+                <li><a href="javascript:viod(0);" onclick="linkMainFrame('system/order/orderList.html')"><i class="fa fa-circle-o"></i> 订单列表</a></li>
+                <li><a href="javascript:viod(0);" onclick="linkMainFrame('system/order/orderDetail.html')"><i class="fa fa-circle-o"></i> 订单详情</a></li>
               </ul>
             </li>
             <li class="treeview">
@@ -358,17 +358,8 @@
 
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
-        <!-- Custom Tabs -->
-        <div class="nav-tabs-custom">
-          <ul class="nav nav-tabs" id="mainTabs">
-            <li class="active"><a href="#home_tab" data-toggle="tab" id="home">首页</a></li>
-          </ul>
-          <div class="tab-content" id="tabcontent">
-            <div class="tab-pane active" id="home_tab">
-              <iframe src="home.html" style="margin: 0; padding: 0; border: 0px;" width="100%" height="900px" ></iframe>
-            </div><!-- /.tab-pane -->
-          </div><!-- /.tab-content -->
-        </div><!-- nav-tabs-custom -->
+        <iframe id="mainframe" name="mainss" src="home.html" style="margin: 0; padding: 0; border: 0px;" width="100%" height="1000px" scrolling="no" onload = "height = document.frames(this.name).document.body.scrollHeight + 30"
+        ></iframe>
       </div><!-- /.content-wrapper -->
       <footer class="main-footer">
         <div class="pull-right hidden-xs">
@@ -487,30 +478,6 @@
 			function linkMainFrame(url){
 				$("#mainframe").attr('src',url);
 				dyniframesize();
-			}
-			 
-			 //Tab页初始化
-			function linkMainTab(url,tabcode,title){
-				//首先查找tabcode的tab是否存在
-				var tab = $("#"+tabcode).length;
-				//如果找到了激活该tab
-				if(tab> 0){
-					$("#mainTabs li").removeClass("active");//取消当前已激活的tab卡选项
-					$("#tabcontent div").removeClass("active");//取消当前已激活的tab卡内容
-					$("#"+tabcode).parent().addClass("active");//将当前选项卡选项设置为激活状态
-					$("#"+tabcode+"_tab").addClass("active");//将当前选项卡内容设置为激活状态
-				}else{
-				//未找到该选项卡则创建该选项卡并将该选项卡激活
-					$("#mainTabs li").removeClass("active");//取消当前已激活的tab卡选项
-					$("#tabcontent div").removeClass("active");//取消当前已激活的tab卡内容
-					var tabli = '<li class="active"><a href="#'+tabcode+'_tab" data-toggle="tab" id="'+tabcode+'">'+title+'</a></li>';//创建tab卡li 并设置为激活状态
-					var tabcontentdiv = '';
-					tabcontentdiv += '<div class="tab-pane active" id="'+tabcode+'_tab">                                                                 ';
-					tabcontentdiv += '  <iframe src="'+url+'" style="margin: 0; padding: 0; border: 0px;" width="100%" height="900px" ></iframe>';
-					tabcontentdiv += '</div>                                                                                                      ';
-					$("#mainTabs").append(tabli);
-					$("#tabcontent").append(tabcontentdiv);
-				}
 			}
 		</script>
   </body>

@@ -69,4 +69,5 @@
 	<include file="config/goods-status.xml"></include>
 	<include file="config/order-status.xml"></include>
 	<include file="config/queue-status.xml"></include>
+	<include file="config/activity-status.xml"></include>
 </struts>

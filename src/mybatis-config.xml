@@ -27,6 +27,7 @@
         <typeAlias alias="orderDetail" type="com.selforder.bean.OrderDetail"/>
         <typeAlias alias="queueSetting" type="com.selforder.bean.QueueSetting"/>
         <typeAlias alias="queue" type="com.selforder.bean.Queue"/>
+        <typeAlias alias="activity" type="com.selforder.bean.Activity"/>
     </typeAliases>  
     
     <mappers>
@@ -42,5 +43,6 @@
     	<mapper resource="sqlMap/goodsMgr.xml"/>
     	<mapper resource="sqlMap/orderMgr.xml"/>
     	<mapper resource="sqlMap/queueMgr.xml"/>
+    	<mapper resource="sqlMap/activityMgr.xml"/>
     </mappers>
 </configuration> 

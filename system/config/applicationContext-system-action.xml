@@ -55,4 +55,8 @@
 	<bean name="queueAction" class="com.selforder.action.QueueAction" scope="prototype">
 		<property name="queueService" ref="queueService"></property>
 	</bean>
+	<!--活动管理-->
+	<bean name="activityAction" class="com.selforder.action.ActivityAction" scope="activityAction">
+		<property name="activityService" ref="activityService"></property>
+	</bean>
 </beans>

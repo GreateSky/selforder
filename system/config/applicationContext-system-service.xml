@@ -62,6 +62,10 @@
 	<bean name="queueService" class="com.selforder.service.impl.QueueServiceImpl" scope="prototype">
 		<property name="queueDao" ref="queueDao"></property>
 	</bean>
+	<!--活动管理-->
+	<bean name="activityService" class="com.selforder.service.impl.ActivityServiceImpl" scope="prototype">
+		<property name="activityDao" ref="activityDao"></property>
+	</bean>
 	
 	
 	<!-- *************************Dao注册*********************************-->
@@ -104,8 +108,12 @@
 	<bean name="orderDao" class="com.selforder.dao.impl.OrderDaoImpl" scope="prototype">
 		<property name="sqlSessionTemplate" ref="sqlSessionTemplate"></property>
 	</bean>
-	<!--订单管理-->
+	<!--队列管理-->
 	<bean name="queueDao" class="com.selforder.dao.impl.QueueDaoImpl" scope="prototype">
+		<property name="sqlSessionTemplate" ref="sqlSessionTemplate"></property>
+	</bean>
+	<!--活动管理-->
+	<bean name="activityDao" class="com.selforder.dao.impl.ActivityDaoImpl" scope="prototype">
 		<property name="sqlSessionTemplate" ref="sqlSessionTemplate"></property>
 	</bean>
 </beans>

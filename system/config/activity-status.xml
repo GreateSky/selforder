@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<!--活动管理-->
+	<package name="activity" extends="struts-default,json-default" namespace="/api/activity">
+		<!--保存活动信息-->
+		<action name = "insertActivity" class="activityAction" method="insertActivity">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+		<!--获取活动列表-->
+		<action name = "getActivityList" class="activityAction" method="getActivityList">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+		<!--获取活动详情-->
+		<action name = "getActivityInfo" class="activityAction" method="getActivityInfo">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+		<!--更新活动详情-->
+		<action name = "updateActivity" class="activityAction" method="updateActivity">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+	</package>
+</struts>

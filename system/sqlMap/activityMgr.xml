@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.selforder.activity" >
+	<cache eviction="LRU" flushInterval="1000" size="1024" readOnly="false" />
+	<sql id="limit">
+		<choose>
+			<when test="pageStart != null and pageSize != null">
+				limit ${pageStart},${pageSize}
+			</when>
+			<otherwise>
+				limit 0,20
+			</otherwise>
+		</choose>
+	</sql>
+	<!--新增活动信息 -->
+	<insert id="insertActivity" parameterType="activity">
+		INSERT
+			INTO
+			    wx_dish_activity
+			    (
+			        replace(uuid(),'-',''),
+			        weid,
+			        storeid,
+			        title,
+			        url,
+			        status,
+			        begindate,
+			        enddate,
+			        crter,
+			        crtdate,
+			        opter,
+			        optdate
+			    )
+			    VALUES
+			    (
+			        #{id},
+					#{weid},
+					#{storeid},
+					#{title},
+					#{url},
+					#{status},
+					#{begindate},
+					#{enddate},
+					#{crter},
+					sysdate(),
+					#{opter},
+					sysdate()
+			    )    		    
+	</insert>
+	<!--获取活动列表 -->
+	<select id="getActivityList"  parameterType="activity" resultType="activity">
+		SELECT
+		        ac.id,
+		        ac.weid,
+		        ac.storeid,
+		        ac.title,
+		        ac.url,
+		        ac.status,
+		        ac.begindate,
+		        ac.enddate,
+		        ac.crter,
+		        ac.crtdate,
+		        ac.opter,
+		        ac.optdate,
+		        ac.deleted
+		FROM
+		    wx_dish_activity ac 
+		where ac.deleted = 0 
+		<if test="weid != null and weid !='' ">
+			and ac.weid = #{weid}
+		</if> 
+		<if test="storeid != null and storeid !='' ">
+			and ac.storeid = #{storeid}
+		</if>
+		<if test="title != null and title !='' ">
+			and ac.title like concat('%',#{title},'%')
+		</if>
+		<if test="status != null and status !='' ">
+			and ac.status = #{status}
+		</if>
+		 order by ac.begindate desc
+		<include refid="limit"></include>   
+	</select>
+	<!--查询门店列表统计数  用于列表分页 -->
+	<select id="getTableListCount" parameterType="activity" resultType="int">
+		SELECT count(1)
+		FROM
+		    wx_dish_activity ac 
+		where ac.deleted = 0 
+		<if test="weid != null and weid !='' ">
+			and ac.weid = #{weid}
+		</if> 
+		<if test="storeid != null and storeid !='' ">
+			and ac.storeid = #{storeid}
+		</if>
+		<if test="title != null and title !='' ">
+			and ac.title like concat('%',#{title},'%')
+		</if>
+		<if test="status != null and status !='' ">
+			and ac.status = #{status}
+		</if>
+	</select>
+	
+	<!--获取活动详情 -->
+	<select id="getActivityInfo"  parameterType="activity" resultType="activity">
+		SELECT
+		        ac.id,
+		        ac.weid,
+		        ac.storeid,
+		        ac.title,
+		        ac.url,
+		        ac.status,
+		        ac.begindate,
+		        ac.enddate,
+		        ac.crter,
+		        ac.crtdate,
+		        ac.opter,
+		        ac.optdate,
+		        ac.deleted
+		FROM
+		    wx_dish_activity ac 
+		where ac.deleted = 0 
+		<if test="weid != null and weid !='' ">
+			and ac.weid = #{weid}
+		</if> 
+		<if test="storeid != null and storeid !='' ">
+			and ac.storeid = #{storeid}
+		</if>
+		<if test="title != null and title !='' ">
+			and ac.title like concat('%',#{title},'%')
+		</if>
+		<if test="status != null and status !='' ">
+			and ac.status = #{status}
+		</if>
+	</select>
+	
+	<!--更新活动信息 -->
+	<update id="updateActivity" parameterType="activity">
+		UPDATE
+		    wx_dish_activity
+		SET
+			opter = #{opter}
+			, optdate = sysdate()
+			<if test="title != null and title !='' ">
+				, title = #{title}
+			</if>
+			<if test="url != null and url !='' ">
+				, url = #{url}
+			</if>
+			<if test="status != null and status !='' ">
+				, status = #{status}
+			</if>
+			<if test="begindate != null and begindate !='' ">
+				, begindate = #{begindate}
+			</if>
+			<if test="enddate != null and enddate !='' ">
+				, enddate = #{enddate}
+			</if>
+			<if test="deleted != null and deleted !='' ">
+				, deleted = #{deleted}
+			</if>
+		WHERE
+		    id = #{id}
+	</update>
+</mapper>
+
