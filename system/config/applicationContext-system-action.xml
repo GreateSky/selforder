@@ -56,7 +56,7 @@
 		<property name="queueService" ref="queueService"></property>
 	</bean>
 	<!--活动管理-->
-	<bean name="activityAction" class="com.selforder.action.ActivityAction" scope="activityAction">
+	<bean name="activityAction" class="com.selforder.action.ActivityAction" scope="prototype">
 		<property name="activityService" ref="activityService"></property>
 	</bean>
 </beans>

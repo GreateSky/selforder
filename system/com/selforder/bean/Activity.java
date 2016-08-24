@@ -1,5 +1,7 @@
 package com.selforder.bean;
 
+import java.util.Date;
+
 public class Activity extends baseBean {
 	private static final long serialVersionUID = 7515614870808465411L;
 	private String id;
@@ -8,13 +10,16 @@ public class Activity extends baseBean {
 	private String title;
 	private String url;
 	private String status;
-	private String begindate;
-	private String enddate;
+	private Date begindate;
+	private Date enddate;
+	private double discount;
+	private double leastcost;
 	private String crter;
-	private String crtdate;
+	private Date crtdate;
 	private String opter;
-	private String optdate;
-	private String deleted;
+	private Date optdate;
+	private int deleted;
+	private String type;
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
@@ -36,26 +41,11 @@ public class Activity extends baseBean {
 	public String getStatus() {
 		return status;
 	}
-	public String getBegindate() {
-		return begindate;
-	}
-	public String getEnddate() {
-		return enddate;
-	}
 	public String getCrter() {
 		return crter;
 	}
-	public String getCrtdate() {
-		return crtdate;
-	}
 	public String getOpter() {
 		return opter;
-	}
-	public String getOptdate() {
-		return optdate;
-	}
-	public String getDeleted() {
-		return deleted;
 	}
 	public void setId(String id) {
 		this.id = id;
@@ -75,26 +65,59 @@ public class Activity extends baseBean {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public void setBegindate(String begindate) {
-		this.begindate = begindate;
-	}
-	public void setEnddate(String enddate) {
-		this.enddate = enddate;
-	}
 	public void setCrter(String crter) {
 		this.crter = crter;
-	}
-	public void setCrtdate(String crtdate) {
-		this.crtdate = crtdate;
 	}
 	public void setOpter(String opter) {
 		this.opter = opter;
 	}
-	public void setOptdate(String optdate) {
+	public Date getBegindate() {
+		return begindate;
+	}
+	public Date getEnddate() {
+		return enddate;
+	}
+	public Date getCrtdate() {
+		return crtdate;
+	}
+	public Date getOptdate() {
+		return optdate;
+	}
+	public int getDeleted() {
+		return deleted;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setBegindate(Date begindate) {
+		this.begindate = begindate;
+	}
+	public void setEnddate(Date enddate) {
+		this.enddate = enddate;
+	}
+	public void setCrtdate(Date crtdate) {
+		this.crtdate = crtdate;
+	}
+	public void setOptdate(Date optdate) {
 		this.optdate = optdate;
 	}
-	public void setDeleted(String deleted) {
+	public void setDeleted(int deleted) {
 		this.deleted = deleted;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
+	public double getDiscount() {
+		return discount;
+	}
+	public double getLeastcost() {
+		return leastcost;
+	}
+	public void setDiscount(double discount) {
+		this.discount = discount;
+	}
+	public void setLeastcost(double leastcost) {
+		this.leastcost = leastcost;
 	}
 
 }

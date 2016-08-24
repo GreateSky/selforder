@@ -19,14 +19,17 @@
 			INTO
 			    wx_dish_activity
 			    (
-			        replace(uuid(),'-',''),
+			        id,
 			        weid,
 			        storeid,
 			        title,
 			        url,
 			        status,
+			        type,
 			        begindate,
 			        enddate,
+			        discount,
+			        leastcost,
 			        crter,
 			        crtdate,
 			        opter,
@@ -34,14 +37,17 @@
 			    )
 			    VALUES
 			    (
-			        #{id},
+			        replace(uuid(),'-',''),
 					#{weid},
 					#{storeid},
 					#{title},
 					#{url},
 					#{status},
+					#{type},
 					#{begindate},
 					#{enddate},
+					#{discount},
+					#{leastcost},
 					#{crter},
 					sysdate(),
 					#{opter},
@@ -57,8 +63,11 @@
 		        ac.title,
 		        ac.url,
 		        ac.status,
+		        ac.type,
 		        ac.begindate,
 		        ac.enddate,
+		        ac.discount,
+			    ac.leastcost,
 		        ac.crter,
 		        ac.crtdate,
 		        ac.opter,
@@ -78,6 +87,9 @@
 		</if>
 		<if test="status != null and status !='' ">
 			and ac.status = #{status}
+		</if>
+		<if test="type != null and type !='' ">
+			and ac.type = #{type}
 		</if>
 		 order by ac.begindate desc
 		<include refid="limit"></include>   
@@ -111,8 +123,11 @@
 		        ac.title,
 		        ac.url,
 		        ac.status,
+		        ac.type,
 		        ac.begindate,
 		        ac.enddate,
+		        ac.discount,
+			    ac.leastcost,
 		        ac.crter,
 		        ac.crtdate,
 		        ac.opter,
@@ -121,6 +136,9 @@
 		FROM
 		    wx_dish_activity ac 
 		where ac.deleted = 0 
+		<if test="id != null and id !='' ">
+			and ac.id = #{id}
+		</if> 
 		<if test="weid != null and weid !='' ">
 			and ac.weid = #{weid}
 		</if> 
@@ -151,11 +169,20 @@
 			<if test="status != null and status !='' ">
 				, status = #{status}
 			</if>
+			<if test="type != null and type !='' ">
+				, type = #{type}
+			</if>
 			<if test="begindate != null and begindate !='' ">
 				, begindate = #{begindate}
 			</if>
 			<if test="enddate != null and enddate !='' ">
 				, enddate = #{enddate}
+			</if>
+			<if test="discount != null and discount !='' ">
+				, discount = #{discount}
+			</if>
+			<if test="leastcost != null and leastcost !='' ">
+				, leastcost = #{leastcost}
 			</if>
 			<if test="deleted != null and deleted !='' ">
 				, deleted = #{deleted}
