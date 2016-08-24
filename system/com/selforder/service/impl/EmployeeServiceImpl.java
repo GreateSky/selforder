@@ -7,10 +7,12 @@ import java.util.Map;
 import com.selforder.bean.Business;
 import com.selforder.bean.Employee;
 import com.selforder.bean.Role;
+import com.selforder.bean.Shop;
 import com.selforder.bean.UserInfo;
 import com.selforder.dao.EmployeeDao;
 import com.selforder.dao.PowerDao;
 import com.selforder.service.EmployeeService;
+import com.selforder.service.ShopService;
 import com.selforder.util.Context;
 import com.selforder.util.JsonResultUtil;
 import com.selforder.util.Tools;
@@ -19,6 +21,14 @@ public class EmployeeServiceImpl implements EmployeeService {
 	
 	private EmployeeDao employeeDao;
 	private PowerDao powerDao;
+	private ShopService shopService;
+	public ShopService getShopService() {
+		return shopService;
+	}
+
+	public void setShopService(ShopService shopService) {
+		this.shopService = shopService;
+	}
 
 	public PowerDao getPowerDao() {
 		return powerDao;
@@ -294,5 +304,4 @@ public class EmployeeServiceImpl implements EmployeeService {
 		}
 		return result;
 	}
-
 }

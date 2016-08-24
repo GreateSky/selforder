@@ -24,7 +24,7 @@ public class ShopDaoImpl extends SqlSessionDaoSupport implements ShopDao {
 	 * @return
 	 */
 	@Override
-	public String saveShop(Shop shop) {
+	public String saveShop(Shop shop) throws Exception{
 		String result = "";
 		try{
 			int temp = getSqlSession().insert("com.selforder.shop.insertShop", shop);
@@ -46,7 +46,7 @@ public class ShopDaoImpl extends SqlSessionDaoSupport implements ShopDao {
 	 * @return
 	 */
 	@Override
-	public List<Shop> ShopList(Shop shop) {
+	public List<Shop> ShopList(Shop shop)throws Exception {
 		List<Shop> shoplist = new ArrayList<Shop>();
 		try{
 			shoplist = getSqlSession().selectList("com.selforder.shop.getShopList", shop);
@@ -62,7 +62,7 @@ public class ShopDaoImpl extends SqlSessionDaoSupport implements ShopDao {
 	 * @return
 	 */
 	@Override
-	public int getShopCount(Shop shop) {
+	public int getShopCount(Shop shop)throws Exception {
 		int count = 0;
 		try{
 			count = (Integer)getSqlSession().selectOne("com.selforder.shop.getShopCount", shop);
@@ -78,7 +78,7 @@ public class ShopDaoImpl extends SqlSessionDaoSupport implements ShopDao {
 	 * @return
 	 */
 	@Override
-	public Shop ShopInfo(Shop shop) {
+	public Shop ShopInfo(Shop shop)throws Exception {
 		Shop shopinfo = new Shop();
 		try{
 			if(shopinfo != null){
@@ -96,7 +96,7 @@ public class ShopDaoImpl extends SqlSessionDaoSupport implements ShopDao {
 	 * @return
 	 */
 	@Override
-	public int updateShop(Shop shop) {
+	public int updateShop(Shop shop)throws Exception {
 		int result = -1;
 		try{
 			result = getSqlSession().update("com.selforder.shop.updateShop", shop);
@@ -113,6 +113,15 @@ public class ShopDaoImpl extends SqlSessionDaoSupport implements ShopDao {
 	 */
 	public int delShop(Shop shop) throws Exception{
 		return getSqlSession().delete("com.selforder.shop.delShop", shop);
+	}
+	
+	/**
+	 * 获取门店列表（不含分页）
+	 * @param shop
+	 * @return
+	 */
+	public List<Shop> getShopListNoPage(Shop shop)throws Exception{
+		return getSqlSession().selectList("com.selforder.shop.getShopListNoPage", shop);
 	}
 
 }

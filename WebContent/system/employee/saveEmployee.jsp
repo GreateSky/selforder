@@ -141,6 +141,9 @@
 							<option value="A">管理</option>
 						</select>
 					  </div>
+					  <div class="col-sm-2">
+						<button class="btn btn-default">选择</button>
+					  </div>
 					</div>
 					<!-- /门店维护 start-->
                   </div><!-- /.box-body -->
@@ -152,6 +155,33 @@
               </div><!-- /.box -->
         </section><!-- /.content -->
         <img id="headimgurl" src="" width="150px" height="150px" style="position:absolute;top: 120px; left: 550px; border-radius: 5px;"></img>
+        <!--modal 百度地图-->
+        <div class="modal fade" id="employeeWin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		        <h4 class="modal-title" id="myModalLabel">地图定位</h4>
+		      </div>
+		      <div class="modal-body">
+		      	<div class="input-group " style="width: 97%;margin: 10px">
+			      	<input type="text" class="form-control" id="point_address"  placeholder="请输入名称进行搜索" value="" >
+			      	<span class="input-group-btn">
+	                    <button class="btn btn-info btn-flat" type="button" onclick="poindByAddress();">Go!</button>
+	                </span>
+			    </div>
+				<table class="table table-striped animated flipInX" id="storeList">
+			          <tr>
+	                     <th>#</th>
+	                     <th>名称</th>
+	                     <th>电话</th>
+	                     <th>操作</th>
+			          </tr>
+			    </table>
+		      </div>
+		    </div><!-- /.modal-content -->
+		  </div><!-- /.modal-dialog -->
+		</div><!-- /<!--modal 百度地图-->
 	</body>
 	<!-- jQuery 2.1.4 -->
     <script src="<%=cxtPath%>/js/jQuery-2.1.4.min.js"></script>

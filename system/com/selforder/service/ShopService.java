@@ -44,4 +44,11 @@ public interface ShopService {
 	 * @return
 	 */
 	public String delShop(Shop shop);
+	
+	/**
+	 * 获取门店列表（不含分页）
+	 * @param shop
+	 * @return
+	 */
+	public String getShopListNoPage(Shop shop);
 }

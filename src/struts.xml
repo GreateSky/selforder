@@ -60,14 +60,14 @@
 	</package>
 	<!-- /JSON数据返回-->
 	<include file="config/status-system.xml"></include>
-	<include file="config/business-status.xml"></include>
-	<include file="config/shop-status.xml"></include>
-	<include file="config/employee-status.xml"></include>
-	<include file="config/power-status.xml"></include>
-	<include file="config/organization-status.xml"></include>
-	<include file="config/table-status.xml"></include>
-	<include file="config/goods-status.xml"></include>
-	<include file="config/order-status.xml"></include>
-	<include file="config/queue-status.xml"></include>
-	<include file="config/activity-status.xml"></include>
+	<include file="config/status-business.xml"></include>
+	<include file="config/status-shop.xml"></include>
+	<include file="config/status-employee.xml"></include>
+	<include file="config/status-power.xml"></include>
+	<include file="config/status-organization.xml"></include>
+	<include file="config/status-table.xml"></include>
+	<include file="config/status-goods.xml"></include>
+	<include file="config/status-order.xml"></include>
+	<include file="config/status-queue.xml"></include>
+	<include file="config/status-activity.xml"></include>
 </struts>

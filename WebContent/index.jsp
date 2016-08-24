@@ -320,6 +320,19 @@
 	              </ul>
 	            </li>
             </sec:authorize >
+            <sec:authorize ifAnyGranted ="ROLE_ACTIVITY_MGR">
+            	<li class="treeview">
+	              <a href="#">
+	                <i class="fa fa-folder"></i>
+	                <span>活动管理</span>
+	                <i class="fa fa-angle-left pull-right"></i>
+	              </a>
+	              <ul class="treeview-menu">
+	              	<li><a href="javascript:viod(0);" onclick="linkMainTab('system/activity/activityList.jsp','activitylist','活动列表')"><i class="fa fa-circle-o"></i> 评论列表</a></li>
+	              	<li><a href="javascript:viod(0);" onclick="linkMainTab('system/activity/saveActivity.jsp','activityedit','活动维护')"><i class="fa fa-circle-o"></i> 审核/回复表</a></li>
+	              </ul>
+	            </li>
+            </sec:authorize >
             <sec:authorize ifAnyGranted ="">
             	<li class="treeview">
 	              <a href="#">

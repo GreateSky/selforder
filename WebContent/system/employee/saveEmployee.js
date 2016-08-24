@@ -183,5 +183,12 @@ function checkParam(){
 			return -1;
 		}
 	}
-	return 0
+	return 0;
+}
+
+/**
+ * 加载门店信息
+ */
+function storeList(){
+	
 }
