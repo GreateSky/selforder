@@ -186,19 +186,19 @@ function keyEvent(){
  * 显示选择人员列表
  */
 function showEmployeeWin(){
-	loadEmployeeList("");
+	loadEmployeeList();
 	$("#employeeListWin").modal("show");
 }
 
 /**
  * 加载当前组织架构中未包含的员工列表
  */
-function loadEmployeeList(param){
+function loadEmployeeList(){
 	var noemporg_load = layer.load(2, {shade: [1, 'rgba(0,0,0,.5)']});
-	if(!param){
-		param = {};
-	}
+	var keyword = $("#employuee_keyword").val();
+	var param = {};
 	param["employee.oid"] = curr_oid;
+	param["employee.keyword"]= keyword;
 	$.ajax({
 		type:"POST",
 		url:"/selforder/api/organization/getNoEmpOrgList.action",
@@ -269,6 +269,7 @@ function saveEmpOrg(){
 						}else{
 							layer.msg(message,{icon:1});
 						}
+						loadOrganizationList("init",null);
 					}
 				});
 			}, function(){

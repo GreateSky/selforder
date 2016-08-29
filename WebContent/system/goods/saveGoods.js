@@ -32,6 +32,7 @@ function getGoodsInfo(){
 				var isspecial = row.isspecial;
 				var taste = row.taste;
 				var thumb = row.thumb;
+				var status = row.status;
 				var description = row.description;
 				var imgsrc = "/selforder/api/fileutil?method=download&fileid="+thumb;
 				$("#title").val(title);
@@ -43,6 +44,7 @@ function getGoodsInfo(){
 				$("input[name='recommend'][value="+recommend+"]").attr("checked","checked");
 				$("input[name='isspecial'][value="+isspecial+"]").attr("checked","checked");
 				$("#taste").val(taste);
+				$("#status").val(status);
 				$("#description").val(description);
 				$("#goodsImg").attr("src",imgsrc);
 			}
@@ -113,6 +115,7 @@ function addGoods(){
 	var recommend = $("input[type='radio'][name='recommend']:checked").val();
 	var isspecial = $("input[type='radio'][name='isspecial']:checked").val();
 	var taste = $("#taste").val();
+	var status = $("#status").val();
 	var description = $("#description").val();
 	var displayorder = $("#displayorder").val();
 	if(!checkValueWithInfo(title,"食谱名称不能为空!")){
@@ -147,6 +150,7 @@ function addGoods(){
 	param["goods.taste"] = taste;
 	param["goods.description"] = description;
 	param["goods.thumb"] = thumb;
+	param["goods.status"] = status;
 	$.ajax({
 		type:"POST",
 		url:"/selforder/api/goods/insertGoods.action",
@@ -174,6 +178,7 @@ function updateGoods(){
 	var recommend = $("input[type='radio'][name='recommend']:checked").val();
 	var isspecial = $("input[type='radio'][name='isspecial']:checked").val();
 	var taste = $("#taste").val();
+	var status = $("#status").val();
 	var description = $("#description").val();
 	var displayorder = $("#displayorder").val();
 	if(!checkValueWithInfo(title,"食谱名称不能为空!")){
@@ -209,6 +214,7 @@ function updateGoods(){
 	param["goods.description"] = description;
 	param["goods.thumb"] = thumb;
 	param["goods.id"] = id;
+	param["goods.status"] = status;
 	$.ajax({
 		type:"POST",
 		url:"/selforder/api/goods/updateGoods.action",

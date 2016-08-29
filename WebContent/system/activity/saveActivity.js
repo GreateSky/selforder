@@ -1,3 +1,4 @@
+var imgid = "";//活动图片ID
 $(function(){
 	if(opt == "update"){
 		getActivityInfo();
@@ -27,6 +28,8 @@ function getActivityInfo(){
 				begindate = begindate.substring(0,10);
 				var enddate = formatDate(row.enddate);
 				enddate = enddate.substring(0, 10);
+				var url = row.url;
+				var imgid = row.imgid;
 				$("#title").val(row.title);
 				$("#type").val(row.type);
 				$("#discount").val(row.discount);
@@ -34,15 +37,27 @@ function getActivityInfo(){
 				$("#begindate").val(begindate);
 				$("#enddate").val(enddate);
 				$("#status").val(row.status);
+				$("#url").val(url);
+				$("#remark").val(row.remark);
+				var imgsrc = "/selforder/api/fileutil?method=download&fileid="+imgid;
+				$("#imgid").attr("src",imgsrc);
 			}
 		}
 	});
 }
 
+//上传附件
+function uploadFile(){
+	ajaxFileUpload("saveActivity");
+}
+
 /**
  * 保存活动
  */
-function saveActivity(){
+function saveActivity(args){
+	if(typeof(args) != "undefined" && args != ""){ 
+		imgid = args[0].fileid;
+	}
 	if(opt == "update"){
 		updateActivity();
 	}else{
@@ -63,6 +78,7 @@ function addActivity(){
 	var begindate = $("#begindate").val();
 	var enddate = $("#enddate").val();
 	var status = $("#status").val();
+	var remark = $("#remark").val();
 	if(!checkValueWithInfo(title,"活动名称不能为空！"))return;
 	if(!checkValueWithInfo(type,"活动类型不能为空！"))return;
 	if(!checkValueWithInfo(discount,"优惠/折扣金额不能为空！"))return;
@@ -80,7 +96,8 @@ function addActivity(){
 	param["activity.begindate"] = begindate;
 	param["activity.enddate"] = enddate;
 	param["activity.status"] = status;
-	
+	param["activity.imgid"] = imgid;
+	param["activity.remark"] = remark;
 	$.ajax({
 		type:"POST",
 		url:"/selforder/api/activity/insertActivity.action",
@@ -112,6 +129,7 @@ function updateActivity(){
 	var begindate = $("#begindate").val();
 	var enddate = $("#enddate").val();
 	var status = $("#status").val();
+	var remark = $("#remark").val();
 	if(!checkValueWithInfo(title,"活动名称不能为空！"))return;
 	if(!checkValueWithInfo(type,"活动类型不能为空！"))return;
 	if(!checkValueWithInfo(discount,"优惠/折扣金额不能为空！"))return;
@@ -129,7 +147,9 @@ function updateActivity(){
 	param["activity.begindate"] = begindate;
 	param["activity.enddate"] = enddate;
 	param["activity.status"] = status;
+	param["activity.remark"] = remark;
 	param["activity.id"] = id;
+	param["activity.imgid"] = imgid;
 	var load = layer.load(2, {shade: [1, 'rgba(0,0,0,.5)']});
 	$.ajax({
 		type:"POST",

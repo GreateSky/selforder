@@ -75,7 +75,12 @@ public class TableServiceImpl implements TableService {
 	@Override
 	public String tableInfo(Table table) {
 		String result = "";
+		String sid = new Context().getLoginUserInfo().getSid();
 		try{
+			if(table == null ){
+				table = new Table();
+			}
+			table.setStoreid(sid);
 			Table tableInfo = tableDao.tableInfo(table);
 			if(tableInfo != null){
 				result = JsonResultUtil.getJsonResult(0, "success", "", tableInfo);
@@ -100,8 +105,10 @@ public class TableServiceImpl implements TableService {
 		try{
 			String crter = new Context().getLoginUserInfo().getCode();
 			String bid = new Context().getLoginUserInfo().getBid();
+			String sid = new Context().getLoginUserInfo().getSid();
 			table.setCrter(crter);
 			table.setWeid(bid);
+			table.setStoreid(sid);
 			//根据餐桌信息生成二维码
 			String content = "";//二维码内容
 			String domain_selforder = SystemConfig.get("domain_selforder");//获取基本URL地址
@@ -169,7 +176,9 @@ public class TableServiceImpl implements TableService {
 	 */
 	public String insertRoom (Table table){
 		String result = "";
+		String sid = new Context().getLoginUserInfo().getSid();
 		try{
+			table.setStoreid(sid);
 			String crter = new Context().getLoginUserInfo().getCode();
 			table.setCrter(crter);
 			int temp = tableDao.insertRoom(table);
@@ -221,7 +230,12 @@ public class TableServiceImpl implements TableService {
 	 */
 	public String roomList(Table table){
 		String result = "";
+		String sid = new Context().getLoginUserInfo().getSid();
 		try{
+			if(table == null){
+				table = new Table();
+			}
+			table.setStoreid(sid);
 			List<Table> tablelist = tableDao.roomList(table);
 			if(null != tablelist && tablelist.size()> 0){
 				result = JsonResultUtil.getJsonResult(0, "success", "查询数据成功!", tablelist);

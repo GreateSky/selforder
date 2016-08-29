@@ -20,7 +20,7 @@ public class Order extends baseBean {
 	private String ordersn;
 	private String ordercode;
 	private double totalprice;
-	private int status;
+	private String status;
 	private int ispay;
 	private int paytype;
 	private String transid;
@@ -45,6 +45,10 @@ public class Order extends baseBean {
 	private String opter;
 	private Date optdate;
 	private int deleted;
+	private Date begindate;
+	private Date enddate;
+	private long begindateLine;
+	private long enddateLine;
 	private String tablecode;//餐桌号
 	public static long getSerialversionuid() {
 		return serialVersionUID;
@@ -63,9 +67,6 @@ public class Order extends baseBean {
 	}
 	public double getTotalprice() {
 		return totalprice;
-	}
-	public int getStatus() {
-		return status;
 	}
 	public int getIspay() {
 		return ispay;
@@ -153,9 +154,6 @@ public class Order extends baseBean {
 	}
 	public void setTotalprice(double totalprice) {
 		this.totalprice = totalprice;
-	}
-	public void setStatus(int status) {
-		this.status = status;
 	}
 	public void setIspay(int ispay) {
 		this.ispay = ispay;
@@ -246,5 +244,41 @@ public class Order extends baseBean {
 	}
 	public void setOrdercode(String ordercode) {
 		this.ordercode = ordercode;
+	}
+	public Date getBegindate() {
+		return begindate;
+	}
+	public Date getEnddate() {
+		return enddate;
+	}
+	public void setBegindate(Date begindate) {
+		this.begindate = begindate;
+		if(begindate != null){
+			this.setBegindateLine(begindate.getTime()/1000);
+		}
+	}
+	public void setEnddate(Date enddate) {
+		this.enddate = enddate;
+		if(enddate != null){
+			this.setEnddateLine(enddate.getTime()/1000);
+		}
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public long getBegindateLine() {
+		return begindateLine;
+	}
+	public long getEnddateLine() {
+		return enddateLine;
+	}
+	public void setBegindateLine(long begindateLine) {
+		this.begindateLine = begindateLine;
+	}
+	public void setEnddateLine(long enddateLine) {
+		this.enddateLine = enddateLine;
 	}
 }

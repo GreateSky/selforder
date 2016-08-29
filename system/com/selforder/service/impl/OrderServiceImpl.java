@@ -137,7 +137,7 @@ public class OrderServiceImpl implements OrderService {
 			if(!"".equals(tablieid)){
 				Table table = new Table();
 				table.setId(tablieid);
-				table.setStatus(1);
+				table.setStatus("1");
 				int uptable = tableDao.updateTable(table);
 			}
 			if(temp > 0){//保存订单明细
@@ -190,7 +190,7 @@ public class OrderServiceImpl implements OrderService {
 			if(!"".equals(tablieid)){
 				Table table = new Table();
 				table.setId(tablieid);
-				table.setStatus(1);
+				table.setStatus("1");
 				int uptable = tableDao.updateTable(table);
 			}
 			result = JsonResultUtil.getJsonResult(0, "success", "更新订单成功!");

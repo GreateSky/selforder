@@ -81,6 +81,12 @@
 					  </div>
 					</div>
 					<div class="form-group has-warning">
+					  <label for="inputEmail3" class="col-sm-1 control-label">宣传图片：</label>
+					  <div class="col-sm-2">
+						<input type="file" id="fileid" name="fileid" class="form-control" />
+					  </div>
+					</div>
+					<div class="form-group has-warning">
 					  <label for="inputEmail3" class="col-sm-1 control-label">折扣/优惠金额：</label>
 					  <div class="col-sm-2">
 						<input type="number" class="form-control" id="discount" placeholder="折扣/优惠金额" value="">
@@ -115,14 +121,21 @@
 						</select>
 					  </div>
 					</div>
+					<div class="form-group has-warning">
+					  <label for="inputEmail3" class="col-sm-1 control-label">描述：</label>
+					  <div class="col-sm-2">
+						<textarea class="form-control" rows="3" id="remark"></textarea>
+					  </div>
+					</div>
 					<!-- /门店维护 start-->
                   </div><!-- /.box-body -->
                   <div class="box-footer">
                   	<button type="submit" class="btn btn-default">取消</button>
-                    <button type="button" class="btn btn-info pull-right" onclick="saveActivity()">保存</button>
+                    <button type="button" class="btn btn-info pull-right" onclick="uploadFile()">保存</button>
                   </div><!-- /.box-footer -->
                 </form><!--/form end-->
               </div><!-- /.box -->
+              <img id="imgid" src="" width="150px" height="150px" style="position:absolute;top: 110px; left: 600px; border-radius: 8px;"></img>
         </section><!-- /.content -->
 	</body>
 	<!-- jQuery 2.1.4 -->

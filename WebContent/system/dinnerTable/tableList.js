@@ -128,8 +128,8 @@ function search(){
 	var room_id = $("#roomSelect").val();
 	var param = {};
 	param["table.title"] = title;
-	param["table.status"] = tel;
-	param["table.room_id"] = address;
+	param["table.status"] = status;
+	param["table.room_id"] = room_id;
 	first = true;
 	loadTableList("init",param);
 }
@@ -140,8 +140,8 @@ function search(){
  */
 function clearParam(){
 	$("#title_search").val("");
-	$("#tel_search").val("");
-	$("#address_search").val("");
+	$("#status_search").val("");
+	$("#roomSelect").val("");
 	first = true;
 	loadTableList("init",null);
 }
@@ -335,6 +335,8 @@ function loadRoomCommbox(){
 			if(retCode < 0 ){
 				layer.msg(message,{icon:5});
 			}else{
+				var all = 'option = "<option value="">全部</option>"';
+				$("#roomSelect").append(all);
 				var rows = res.data;
 				if(rows.length > 0){
 					for(var i=0;i<rows.length;i++){

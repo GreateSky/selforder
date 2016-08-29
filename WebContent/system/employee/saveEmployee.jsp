@@ -140,9 +140,10 @@
 							<option value="S">门店</option>
 							<option value="A">管理</option>
 						</select>
+						<input type="hidden" value="" id="sid" name="employee.sid"></input>
 					  </div>
 					  <div class="col-sm-2">
-						<button class="btn btn-default">选择</button>
+						<button type="button" class="btn btn-default" onclick="storeList()">选择</button>
 					  </div>
 					</div>
 					<!-- /门店维护 start-->

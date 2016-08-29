@@ -26,6 +26,8 @@
 			        url,
 			        status,
 			        type,
+			        remark,
+			        imgid,
 			        begindate,
 			        enddate,
 			        discount,
@@ -44,6 +46,8 @@
 					#{url},
 					#{status},
 					#{type},
+					#{remark},
+					#{imgid},
 					#{begindate},
 					#{enddate},
 					#{discount},
@@ -64,6 +68,8 @@
 		        ac.url,
 		        ac.status,
 		        ac.type,
+		        ac.remark,
+		        ac.imgid,
 		        ac.begindate,
 		        ac.enddate,
 		        ac.discount,
@@ -124,6 +130,8 @@
 		        ac.url,
 		        ac.status,
 		        ac.type,
+		        ac.remark,
+		        ac.imgid,
 		        ac.begindate,
 		        ac.enddate,
 		        ac.discount,
@@ -171,6 +179,12 @@
 			</if>
 			<if test="type != null and type !='' ">
 				, type = #{type}
+			</if>
+			<if test="remark != null and remark !='' ">
+				, remark = #{remark}
+			</if>
+			<if test="imgid != null and imgid !='' ">
+				, imgid = #{imgid}
 			</if>
 			<if test="begindate != null and begindate !='' ">
 				, begindate = #{begindate}

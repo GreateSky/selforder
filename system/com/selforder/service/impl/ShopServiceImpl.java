@@ -149,7 +149,8 @@ public class ShopServiceImpl implements ShopService {
 		String result = "";
 		try{
 			String bid = new Context().getLoginUserInfo().getBid();
-			shop.setBid(bid);
+			if(shop == null) shop = new Shop();
+			shop.setWeid(bid);
 			//查询门店列表
 			List<Shop> shoplist = shopDao.getShopListNoPage(shop);
 			if(null != shoplist && shoplist.size() >0){

@@ -155,7 +155,7 @@
 	
 	<!-- 申请排队 -->
 	<select id="applyQueueNum" parameterType="queue" resultType="java.util.Map">
-		call proGetNextQueueNum(#{queueid},#{from_user});
+		call proGetNextQueueNum(#{queueid},#{from_user},0,'');
 	</select>
 	
 	<!-- 叫号 -->

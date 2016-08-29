@@ -107,7 +107,7 @@
 			and goods.id = #{id}
 		</if> 
 		<if test="title != null and title !='' ">
-			and goods.title = #{title}
+			and goods.title like concat('%',#{title},'%')
 		</if>
 		<if test="cname != null and cname !='' ">
 			and gc.name = #{cname}
@@ -133,7 +133,7 @@
 			and goods.id = #{id}
 		</if> 
 		<if test="title != null and title !='' ">
-			and goods.title = #{title}
+			and goods.title like concat('%',#{title},'%')
 		</if>
 		<if test="cname != null and cname !='' ">
 			and gc.name = #{cname}
@@ -349,5 +349,17 @@
 			and goods.title like CONCAT('%',#{title},'%')
 		</if>
 	</select>
+	
+	<!-- 更新食谱被点次数 -->
+	<update id="updateGoodsSubcount" parameterType="goods"  >
+		UPDATE wx_dish_goods tg SET tg.subcount = (
+			select t.countnum 
+			from (
+				SELECT IFNULL(goods.subcount,0)+1 as countnum
+				FROM wx_dish_goods goods
+				WHERE goods.id=#{id}) t
+		) 
+		WHERE tg.id = #{id}
+	</update>
 </mapper>
 

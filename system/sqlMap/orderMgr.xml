@@ -136,10 +136,16 @@
 			and ord.storeid = #{storeid}
 		</if>
 		<if test="ordersn != null and ordersn !='' ">
-			and ord.ordersn = #{ordersn}
+			and ord.ordersn like concat('%',#{ordersn},'%')
 		</if>
 		<if test="from_user != null and from_user !='' ">
 			and ord.from_user = #{from_user}
+		</if>
+		<if test="begindateLine != null and begindateLine !='' ">
+			and ord.dateline &gt;= ${begindateLine}
+		</if>
+		<if test="enddateLine != null and enddateLine !='' ">
+			and ord.dateline &lt;= ${enddateLine}
 		</if>
 		order by ord.optdate desc
 		<include refid="limit"></include>   
@@ -160,10 +166,16 @@
 			and ord.storeid = #{storeid}
 		</if>
 		<if test="ordersn != null and ordersn !='' ">
-			and ord.ordersn = #{ordersn}
+			and ord.ordersn like concat('%',#{ordersn},'%')
 		</if>
 		<if test="from_user != null and from_user !='' ">
 			and ord.from_user = #{from_user}
+		</if>
+		<if test="begindateLine != null and begindateLine !='' ">
+			and ord.dateline &gt;= ${begindateLine}
+		</if>
+		<if test="enddateLine != null and enddateLine !='' ">
+			and ord.dateline &lt;= ${enddateLine}
 		</if>
 	</select>
 	

@@ -46,6 +46,13 @@ public class Employee extends baseBean {
 	private String oeid;//组织架构与人员关联表ID
 	private String oname;//组织架构名称
 	private String isadmin;//是否系统管理员
+	private String keyword;//搜索关键字
+	public String getKeyword() {
+		return keyword;
+	}
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
 	public int getEmpcode() {
 		return empcode;
 	}

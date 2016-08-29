@@ -13,10 +13,11 @@ public class baseBean implements Serializable {
 	private int pageStart = 0;
 	private int pageSize = 0;
 	private String opttype = "";
+	private String keyword = "";
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	private String keyword = "";
+	
 	
 	public String getKeyword() {
 		return keyword;

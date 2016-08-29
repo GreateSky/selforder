@@ -44,9 +44,9 @@
                   <div class="box-body">
                   	<!--搜索信息 start-->
                     <div class="form-group has-warning">
-                      <label for="inputEmail3" class="col-sm-1 control-label">编码：</label>
+                      <label for="inputEmail3" class="col-sm-1 control-label">名称：</label>
                       <div class="col-sm-2">
-                        <input type="text" class="form-control" id="title_search" placeholder="编码"  value="">
+                        <input type="text" class="form-control" id="title_search" placeholder="名称"  value="">
                       </div>
                       <label for="inputEmail3" class="col-sm-1 control-label">食谱分类：</label>
                       <div class="col-sm-2">

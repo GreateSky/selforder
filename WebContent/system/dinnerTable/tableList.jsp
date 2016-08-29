@@ -65,8 +65,8 @@
                     </div>
                     <div class="form-group has-warning">
                     	<div class="col-sm-6">
-	                        <button type="button" class="btn btn-info">查询</button>
-	                        <button type="button" class="btn btn-info">重置</button>
+	                        <button type="button" class="btn btn-info" onclick="search()">查询</button>
+	                        <button type="button" class="btn btn-info" onclick="clearParam()">重置</button>
 	                        <button type="button" class="btn btn-warning" onclick="javascript:window.location.href='saveTable.jsp?sid='+sid">创建餐桌</button>
 	                        <button type="button" class="btn btn-warning" data-toggle="modal" onclick="showRoom()">创建包厢</button>
 	                    </div>

@@ -95,7 +95,7 @@ function loadBusinessRoleList(type,param){
 						tr +='	<td>'+bname+'</td>                        ';
 						tr +='	<td>'+bcode+'</td>    ';
 						tr +='	<td>'+rname+'</td>                  ';
-						tr +='	<td><button type="button" class="btn btn-warning" onclick="viewBusiness(\''+bid+'\')">查看</button></td>                    ';
+						tr +='	<td><button type="button" class="btn btn-warning" onclick="viewBusiness(\''+bid+'\')">编辑</button></td>                    ';
 						tr +='</tr>                                    ';
 						$("#businessRoleList").append(tr);
 					}

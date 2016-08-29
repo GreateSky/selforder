@@ -41,8 +41,13 @@ function loadQueueList(param){
 						tr += '	<td>'+waitCount+'</td>                                                 ';
 						tr += '	<td>'+nextNum+'</td>                                             ';
 						tr += '	<td>                                                        ';
-						tr += '		<button type="button" class="btn btn-danger" onclick="callNextQueueNum(\''+id+'\')">叫号</button>';
-						tr += '		<button type="button" class="btn btn-info" onclick="applyQueueNum(\''+id+'\')">排队</button>  ';
+						//只有启用状态的队列开启排队和叫号功能
+						if(status ==1){
+							tr += '		<button type="button" class="btn btn-warning" onclick="callNextQueueNum(\''+id+'\',\''+waitCount+'\')">叫号</button>';
+							tr += '		<button type="button" class="btn btn-info" onclick="applyQueueNum(\''+id+'\')">排队</button>  ';
+						}
+						tr += '		<button type="button" class="btn btn-info" onclick="editQueueSetting(\''+id+'\')">编辑</button>  ';
+						tr += '		<button type="button" class="btn btn-danger" onclick="delQueue(\''+id+'\')">删除</button>  ';
 						tr += '	</td>                                                       ';
 						tr += '</tr>                                                        ';
 						$("#queueList").append(tr);
@@ -53,6 +58,13 @@ function loadQueueList(param){
 	});
 }
 
+/**
+ * 更新队列设置
+ * @param id 队列ID
+ */
+function editQueueSetting(id){
+	window.location.href = 'saveQueueSetting.jsp?opt=update&id='+id;
+}
 /**
  * 申请排号
  * @param queueid  队列id
@@ -86,9 +98,14 @@ function applyQueueNum(queueid){
 
 /**
  * 叫号
- * @param queueid
+ * @param queueid 队列ID
+ * @param waitCount 当前排队人数
  */
-function callNextQueueNum(queueid){
+function callNextQueueNum(queueid,waitCount){
+	if(waitCount <=0){
+		layer.msg("当前无排队人员，无需叫号！",{icon:6});
+		return;
+	}
 	var load = layer.load(2, {shade: [1, 'rgba(0,0,0,.5)']});
 	$.ajax({
 		type:"POST",
@@ -149,4 +166,35 @@ function updateStatus(status){
 				layer.closeAll();
 			}
 	);
+}
+
+/**
+ * 删除队列
+ * @param id 队列ID
+ */
+function delQueue(id){
+	layer.confirm("确定要删除该队列吗？删除后该队列下的排号将被取消",
+			{btn:["确定","取消"]},
+			function(){
+				layer.closeAll();
+				$.ajax({
+					type:"POST",
+					url:"/selforder/api/queue/updateQueueSetting.action",
+					data:{"queueSetting.id":id,"queueSetting.deleted":1},
+					dataType:"json",
+					success:function(res){
+						var retCode = res.retCode;
+						var message = res.message;
+						if(retCode < 0){
+							layer.msg(message,{icon:5});
+						}else{
+							layer.msg(message,{icon:6});
+						}
+						loadQueueList(null);
+					}
+				});
+			},
+			function(){
+				layer.closeAll();
+			});
 }

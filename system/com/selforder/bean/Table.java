@@ -16,7 +16,7 @@ public class Table extends baseBean {
 	private int user_count;
 	private int displayorder;
 	private String dateline;
-	private int status;
+	private String status;
 	private String crter;
 	private String crtdate;
 	private String opter;
@@ -135,10 +135,10 @@ public class Table extends baseBean {
 	public void setDisplayorder(int displayorder) {
 		this.displayorder = displayorder;
 	}
-	public int getStatus() {
+	public String getStatus() {
 		return status;
 	}
-	public void setStatus(int status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 	

@@ -74,7 +74,9 @@ function loadOrgNoRoleList(param){
 		layer.msg("请选择部门!",{icon:5});
 		return;
 	}
+	var keyword = $("#role_keyword").val();
 	param["role.oid"] = curr_oid;
+	param["role.keyword"] = keyword;
 	$.ajax({
 		type:"POST",
 		url:"/selforder/api/organization/getOrgNoRoleList.action",

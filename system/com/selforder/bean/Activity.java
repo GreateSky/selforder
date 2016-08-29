@@ -20,6 +20,8 @@ public class Activity extends baseBean {
 	private Date optdate;
 	private int deleted;
 	private String type;
+	private String remark;
+	private String imgid;
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
@@ -118,6 +120,18 @@ public class Activity extends baseBean {
 	}
 	public void setLeastcost(double leastcost) {
 		this.leastcost = leastcost;
+	}
+	public String getRemark() {
+		return remark;
+	}
+	public String getImgid() {
+		return imgid;
+	}
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+	public void setImgid(String imgid) {
+		this.imgid = imgid;
 	}
 
 }

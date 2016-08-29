@@ -231,11 +231,8 @@
 			</if>
 		)
 		and emp.BID = #{bid}
-		<if test="empname != null and empname !='' ">
-			and emp.EMPNAME like CONCAT('%',#{empname},'%')
-		</if>
-		<if test="empcode != null and empcode !='' ">
-			and emp.EMPCODE = #{empcode}
+		<if test="keyword != null and keyword !='' ">
+			and UPPER(concat(emp.EMPNAME,emp.EMPCODE))like UPPER(CONCAT('%',#{keyword},'%'))
 		</if>
 	</select>
 	
@@ -344,6 +341,9 @@
 			and orr.OID = #{oid}
 		)
 		and rb.bid = #{bid}
+		<if test="keyword != null and keyword !='' ">
+			and UPPER(concat(role.RCODE,role.RNAME))like UPPER(CONCAT('%',#{keyword},'%'))
+		</if>
 	</select>
 			
 </mapper>

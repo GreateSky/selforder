@@ -85,6 +85,16 @@
 					  </div>
 					</div>
 					<div class="form-group has-warning">
+					  <label for="inputEmail3" class="col-sm-1 control-label">状态:</label>
+					  <div class="col-sm-2">
+						<select class="form-control" id="status">
+							<option value="0">上架</option>
+							<option value="1">下架</option>
+							<option value="2">暂售</option>
+						</select>
+					  </div>
+					</div>
+					<div class="form-group has-warning">
 					  <label for="inputEmail3" class="col-sm-1 control-label">是否推荐:</label>
 					  <div class="col-sm-4">
 						<div class="radio">

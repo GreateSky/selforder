@@ -54,6 +54,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public String saveEmployeeInfo(Employee employee) {
 		// TODO Auto-generated method stub
+		String bid = new Context().getLoginUserInfo().getBid();
+		employee.setBid(bid);
 		employee.setCrter(new Context().getLoginUserInfo().getCode());
 		employee.setPassword(Tools.MD5(employee.getPassword()+"{"+employee.getLoginname()+"}"));
 		return employeeDao.saveEmployeeInfo(employee);

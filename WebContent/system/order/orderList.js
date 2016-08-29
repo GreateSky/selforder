@@ -2,9 +2,12 @@ var total = 0;
 var pageSize = 20; //默认每页20条数据
 var pageStart = 0;
 var first = true;//是否第一次加载
+var currdate = (new Date()).Format("yyyy-MM")+"-01";//初始化时间
+$("#begindate").val(currdate);
 $(function(){
+	var param = {"order.begindate":currdate};
 	//加载商户列表
-	loadOrderList("init",null);
+	loadOrderList("init",param);
 	keyEvent();
 });
 
@@ -84,6 +87,10 @@ function loadOrderList(type,param){
 						var totalprice = row.totalprice;
 						var tableid = row.tableid;
 						var tablecode = row.tablecode;
+						var dining_mode = row.dining_mode;
+						var username = row.username;
+						var address = row.address;
+						var tel = row.tel;
 						var status = row.status;
 						var statusStr = "";
 						if(status == -1){
@@ -99,6 +106,15 @@ function loadOrderList(type,param){
 						}else if(status == 4){
 							statusStr = "交易完成";
 						}
+						
+						var dining_modeStr = "";
+						if(dining_mode == 1){
+							dining_modeStr = "到店";
+						}else if(dining_mode == 2){
+							dining_modeStr = "外卖";
+						}else if(dining_mode == 3){
+							dining_modeStr = "预约";
+						}
 						var taste = row.taste;
 						var remark = row.remark;
 						var crtdate = row.crtdate;
@@ -110,9 +126,10 @@ function loadOrderList(type,param){
 						appendTr += '	<td>'+(i+1)+'</td>                                           ';
 						appendTr += '	<td>'+ordersn+'</td>                          ';
 						appendTr += '	<td>'+crtdateStr+'</td>                         ';
+						appendTr += '	<td>'+dining_modeStr+'</td>                         ';
 						appendTr += '	<td>'+tablecode+'</td>                                       ';
-						appendTr += '	<td>'+from_user+'</td>                                            ';
-						appendTr += '	<td></td>                                            ';
+						appendTr += '	<td>'+username+'</td>                                            ';
+						appendTr += '	<td>'+tel+'</td>                                            ';
 						appendTr += '	<td>                                                 ';
 						appendTr += '		<label class="label label-primary">￥'+totalprice+'</label>';
 						appendTr += '	</td>                                                ';
@@ -125,7 +142,7 @@ function loadOrderList(type,param){
 						appendTr += '	<td>'+taste+'</td>                                        ';
 						appendTr += '	<td>'+remark+'</td>                            ';
 						appendTr += '	<td>                                                 ';
-						appendTr += '		<button type="button" class="btn btn-info" onclick="javascript:window.location.href=\'orderDetail.jsp?opt=update&oid='+id+'\'">详情</button>         ';
+						appendTr += '		<button type="button" class="btn btn-info" onclick="goDetail(\''+id+'\')">详情</button>         ';
 						appendTr += '		<button type="button" class="btn btn-warning">付款</button>      ';
 						appendTr += '		<button type="button" class="btn btn-danger" onclick="cancleOrder(\''+id+'\')">取消</button>       ';
 						appendTr += '	</td>                                                ';
@@ -139,6 +156,14 @@ function loadOrderList(type,param){
 			layer.close(load);
 		}
 	});
+}
+
+/**
+ * 查看订单详情
+ * @param id
+ */
+function goDetail(id){
+	window.location.href = 'orderDetail.jsp?opt=update&oid='+id;
 }
 
 /**
@@ -157,13 +182,15 @@ function updateShop(sid){
  * 搜索
  */
 function search(){
-	var title = $("#title_search").val();
-	var tel = $("#tel_search").val();
-	var address = $("#address_search").val();
+	var ordersn = $("#ordersn").val();
+	var status = $("#status").val();
+	var begindate = $("#begindate").val();
+	var enddate = $("#enddate").val();
 	var param = {};
-	param["shop.title"] = title;
-	param["shop.tel"] = tel;
-	param["shop.address"] = address;
+	param["order.ordersn"] = ordersn;
+	param["order.status"] = status;
+	param["order.begindate"] = begindate;
+	param["order.enddate"] = enddate;
 	first = true;
 	loadOrderList("init",param);
 }
@@ -173,9 +200,10 @@ function search(){
  * @returns
  */
 function clearParam(){
-	$("#title_search").val("");
-	$("#tel_search").val("");
-	$("#address_search").val("");
+	$("#ordersn").val("");
+	$("#status").val("");
+	$("#begindate").val("");
+	$("#enddate").val("");
 	first = true;
 	loadOrderList("init",null);
 }

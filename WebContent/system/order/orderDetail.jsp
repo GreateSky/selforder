@@ -114,8 +114,7 @@
                   					</table>
                   					<div class="row">
                   						<div class="col-md-12">
-                  							<button type="button" class="btn btn-warning pull-left" onclick="showGoodsWin()">新增</button>
-                  							<button type="button" class="btn btn-danger pull-right" onclick="saveOrderDetail()">保存</button>
+                  							<button tag="actionBtn_add" type="button" class="btn btn-warning pull-right" onclick="showGoodsWin()">新增</button>
                   						</div>
                   					</div>
                   				</div>
@@ -146,7 +145,7 @@
 											<input type="text" class="form-control" id="tablecode" placeholder="餐桌号" value="" readonly="readonly" >
 										  </div>
 										  <div class="col-sm-1">
-											<button type="button" class="btn btn-warning" onclick="showTableWin()">选择</button>
+											<button tag="actionBtn_select" type="button" class="btn btn-warning" onclick="showTableWin()">选择</button>
 										  </div>
 										</div>
 										<div class="form-group has-warning">
@@ -218,9 +217,10 @@
 										</div>
 										<div class="form-group has-warning">
 										  <label for="inputEmail3" class="col-sm-1 control-label" ></label>
-										  <div class="col-sm-3">
-										  	<button type="button" class="btn btn-warning" onclick="affirmOrder()" id="affirmBtn">确认订单</button>
-											<button type="submit" class="btn btn-danger">结算</button>
+										  <div class="col-sm-4">
+										  	<button tag="actionBtn_save" type="button" class="btn  btn-info" onclick="saveOrderDetail()">保存</button>
+										  	<button tag="acrtionBtn_confirm" type="button" class="btn  btn-warning" onclick="affirmOrder()" id="affirmBtn">确认订单</button>
+											<button tag="actionBtn_balance" type="button" class="btn  btn-danger" onclick="balanceOrder()">结算</button>
 										  </div>
 										</div>
                   					</form>

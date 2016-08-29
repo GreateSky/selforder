@@ -239,7 +239,7 @@
 	              </a>
 	              <ul class="treeview-menu">
 	                <li class="active"><a href="javascript:viod(0);" onclick="linkMainTab('system/shop/shopList.jsp','shoplist','门店列表')"><i class="fa fa-circle-o"></i> 门店列表</a></li>
-	                <li class="active"><a href="javascript:viod(0);" onclick="linkMainTab('system/shop/saveShop.jsp','shopedit','门店维护')"><i class="fa fa-circle-o"></i> 门店列表</a></li>
+	                <li class="active"><a href="javascript:viod(0);" onclick="linkMainTab('system/shop/saveShop.jsp','shopedit','门店维护')"><i class="fa fa-circle-o"></i> 门店维护</a></li>
 	              </ul>
 	            </li>
             </sec:authorize >
@@ -250,7 +250,7 @@
 	              </a>
 	              <ul class="treeview-menu">
 	                <li class="active"><a href="javascript:viod(0);" onclick="linkMainTab('system/goods/goodsList.jsp','goodsmgr','食谱列表')"><i class="fa fa-circle-o"></i> 食谱列表</a></li>
-	                <li class="active"><a href="javascript:viod(0);" onclick="linkMainTab('system/goods/saveGoods.jsp','goodsedit','食谱列表')"><i class="fa fa-circle-o"></i> 食谱列表</a></li>
+	                <li class="active"><a href="javascript:viod(0);" onclick="linkMainTab('system/goods/saveGoods.jsp','goodsedit','食谱维护')"><i class="fa fa-circle-o"></i> 食谱维护</a></li>
 	              </ul>
 	            </li>
             </sec:authorize >
@@ -262,8 +262,8 @@
 	                <i class="fa fa-angle-left pull-right"></i>
 	              </a>
 	              <ul class="treeview-menu">
-	                <li><a href="javascript:viod(0);" onclick="linkMainTab('system/order/orderList.html','orderlist','订单列表')"><i class="fa fa-circle-o"></i> 订单列表</a></li>
-	                <li><a href="javascript:viod(0);" onclick="linkMainTab('system/order/orderDetail.html','orderinfo','订单详情')"><i class="fa fa-circle-o"></i> 订单详情</a></li>
+	                <li><a href="javascript:viod(0);" onclick="linkMainTab('system/order/orderList.jsp','orderlist','订单列表')"><i class="fa fa-circle-o"></i> 订单列表</a></li>
+	                <li><a href="javascript:viod(0);" onclick="linkMainTab('system/order/orderDetail.jsp','orderinfo','订单详情')"><i class="fa fa-circle-o"></i> 订单详情</a></li>
 	              </ul>
 	            </li>
             </sec:authorize >
@@ -301,22 +301,9 @@
 	                <i class="fa fa-angle-left pull-right"></i>
 	              </a>
 	              <ul class="treeview-menu">
-	                <li><a href="javascript:viod(0);" onclick="linkMainTab('system/dinnerTable/tableList.jsp','tablelist','餐桌列表')"><i class="fa fa-circle-o"></i> 餐桌运营</a></li>
-	                <li><a href="javascript:viod(0);" onclick="linkMainTab('system/dinnerTable/saveTable.jsp','saveTable','餐桌维护')"><i class="fa fa-circle-o"></i> 餐桌列表</a></li>
-	                <li><a href="javascript:viod(0);" onclick="linkMainTab('system/dinnerTable/tableView.jsp','tableView','餐桌运营')"><i class="fa fa-circle-o"></i> 餐桌运营</a></li>
-	              </ul>
-	            </li>
-            </sec:authorize >
-            <sec:authorize ifAnyGranted ="ROLE_GOODS_MGR">
-            	<li class="treeview">
-	              <a href="#">
-	                <i class="fa fa-folder"></i>
-	                <span>菜谱管理</span>
-	                <i class="fa fa-angle-left pull-right"></i>
-	              </a>
-	              <ul class="treeview-menu">
-	                <li><a href="javascript:viod(0);" onclick="linkMainTab('system/goods/goodsList.jsp','goodslist','食谱列表')"><i class="fa fa-circle-o"></i> 食谱列表</a></li>
-	                <li><a href="javascript:viod(0);" onclick="linkMainTab('system/goods/saveGoods.jsp','goodsedit','食谱维护')"><i class="fa fa-circle-o"></i> 食谱维护</a></li>
+	                <li><a href="javascript:viod(0);" onclick="linkMainTab('system/dinnerTable/tableList.jsp','tablelist','餐桌列表')"><i class="fa fa-circle-o"></i> 餐桌列表</a></li>
+	                <li><a href="javascript:viod(0);" onclick="linkMainTab('system/dinnerTable/saveTable.jsp','saveTable','餐桌维护')"><i class="fa fa-circle-o"></i> 餐桌维护</a></li>
+	                <!-- <li><a href="javascript:viod(0);" onclick="linkMainTab('system/dinnerTable/tableView.jsp','tableView','餐桌运营')"><i class="fa fa-circle-o"></i> 餐桌运营</a></li> -->
 	              </ul>
 	            </li>
             </sec:authorize >
@@ -328,8 +315,8 @@
 	                <i class="fa fa-angle-left pull-right"></i>
 	              </a>
 	              <ul class="treeview-menu">
-	              	<li><a href="javascript:viod(0);" onclick="linkMainTab('system/activity/activityList.jsp','activitylist','活动列表')"><i class="fa fa-circle-o"></i> 评论列表</a></li>
-	              	<li><a href="javascript:viod(0);" onclick="linkMainTab('system/activity/saveActivity.jsp','activityedit','活动维护')"><i class="fa fa-circle-o"></i> 审核/回复表</a></li>
+	              	<li><a href="javascript:viod(0);" onclick="linkMainTab('system/activity/activityList.jsp','activitylist','活动列表')"><i class="fa fa-circle-o"></i> 活动列表</a></li>
+	              	<li><a href="javascript:viod(0);" onclick="linkMainTab('system/activity/saveActivity.jsp','activityedit','活动维护')"><i class="fa fa-circle-o"></i> 活动维护</a></li>
 	              </ul>
 	            </li>
             </sec:authorize >
@@ -532,6 +519,7 @@
 					$("#tabcontent div").removeClass("active");//取消当前已激活的tab卡内容
 					$("#"+tabcode).parent().addClass("active");//将当前选项卡选项设置为激活状态
 					$("#"+tabcode+"_tab").addClass("active");//将当前选项卡内容设置为激活状态
+					$("#"+tabcode+'_tab').children().attr("src",url);
 				}else{
 				//未找到该选项卡则创建该选项卡并将该选项卡激活
 					$("#mainTabs li").removeClass("active");//取消当前已激活的tab卡选项

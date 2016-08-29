@@ -145,12 +145,12 @@
 				        <h4 class="modal-title" id="myModalLabel">员工选择</h4>
 				      </div>
 				      <div class="modal-body">
-					    <div class="form-group has-warning" >
-					      <label for="wcode">名称</label>
-					      <input type="text" class="form-control" id="rname" name="resource.rname" placeholder="名称" value="" >
-					      <label for="wcode">URL</label>
-					      <input type="text" class="form-control" id="rurl" name="resource.rurl" placeholder="URL" value="" >
-						</div>
+					    <div class="input-group " style="width: 97%;margin: 10px">
+					      	<input type="text" class="form-control" id="employuee_keyword"  placeholder="请输入名称/编码进行搜索" value="" >
+					      	<span class="input-group-btn">
+			                    <button class="btn btn-info btn-flat" type="button" onclick="loadEmployeeList('');">Go!</button>
+			                </span>
+					    </div>
 						<table id="noEmpOrglist" class="table table-striped ">
 		                    <tr>
 		                      <th></th>
@@ -202,10 +202,6 @@
 				      </div>
 				      <div class="modal-body has-warning">
 				      	<div class="form-group">
-	                      	名称：<input type="text"  id="oname_search" placeholder="名称">
-	                      	编码：<input type="text"  id="ocode_search" placeholder="编码">
-	                      	<button class="btn btn-info"><i class="fa fa-search"></i>&nbsp;查询</button>
-	                      	<button class="btn btn-info"><i class="fa fa-refresh"></i>&nbsp;重置</button>
 	                      	<button class="btn btn-warning" onclick="showAddRole()"><i class="fa fa-plus"></i>&nbsp;添加权限</button>
 	                    </div>
 						<table id="orgRoleList" class="table table-striped ">
@@ -234,12 +230,12 @@
 				        <h4 class="modal-title" id="myModalLabel">权限选择</h4>
 				      </div>
 				      <div class="modal-body">
-					    <div class="form-group has-warning" >
-					      <label for="wcode">名称</label>
-					      <input type="text" class="form-control" id="rname" name="resource.rname" placeholder="名称" value="" >
-					      <label for="wcode">编码</label>
-					      <input type="text" class="form-control" id="rurl" name="resource.rurl" placeholder="编码" value="" >
-						</div>
+					    <div class="input-group " style="width: 97%;margin: 10px">
+					      	<input type="text" class="form-control" id="role_keyword"  placeholder="请输入名称/编码进行搜索" value="" >
+					      	<span class="input-group-btn">
+			                    <button class="btn btn-info btn-flat" type="button" onclick="loadOrgNoRoleList('');">Go!</button>
+			                </span>
+					    </div>
 						<table id="orgNoRoleList" class="table table-striped ">
 		                    <tr>
 		                      <th></th>

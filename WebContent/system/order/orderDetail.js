@@ -1,3 +1,5 @@
+var orderStatus = 0;//订单状态
+var tableid = "";//餐桌ID
 $(function() {
 	setTimeout("changeDivStyle();", 100); // 0.1秒后展示结果，因为HTML加载顺序，先加载脚本+样式，再加载body内容。所以加个延时
 	if(opt == "update"){
@@ -34,6 +36,7 @@ function loadOrder(){
 			//初始化订单信息
 			var ordersn = orderInfo.ordersn;
 			var status = orderInfo.status;
+			orderStatus = status;
 			var dining_mode = orderInfo.dining_mode;
 			var crtdate = orderInfo.crtdate;
 			var username = orderInfo.username;
@@ -41,7 +44,7 @@ function loadOrder(){
 			var taste = orderInfo.taste;
 			var remark = orderInfo.remark;
 			var tablecode = orderInfo.tablecode;
-			var tableid = orderInfo.tableid;
+			tableid = orderInfo.tableid;
 			var totalprice = parseFloat(orderInfo.totalprice).toFixed(2);
 			var realprice = parseFloat(orderInfo.realprice).toFixed(2);
 			var dining_modeStr = "";
@@ -64,6 +67,11 @@ function loadOrder(){
 			$("#tableid").val(tableid);
 			$("#username").val(username);
 			$("#tel").val(tel);
+			//已交易完成的订单取消操作功能
+			if(status == 4){
+				$("button[tag *='actionBtn']").attr("disabled","disabled");
+				$("input").attr("readonly","readonly");
+			}
 			changeDivStyle(status);//根据状态值显示
 			//订单非0和-1状态禁用确认订单按钮
 			if(status !=0 && status != -1){
@@ -88,9 +96,11 @@ function loadOrder(){
 					tr += '	<td>'+goods_name+'</td>                                               ';
 					tr += '	<td>'+price+'</td>                                              ';
 					tr += '	<td><input tag="goodsnum" type="number" min="1" max="10" tag="num" value="'+num+'" onchange="editCost(this)"></input></td>';
-					tr += '	<td>                                                            ';
-					tr += '		<button type="button" class="btn btn-warning" onclick="delGoods(\''+did+'\',\''+oid+'\')">取消</button>   ';
-					tr += '	</td>                                                           ';
+					if(orderStatus != 4){
+						tr += '	<td>                                                            ';
+						tr += '		<button type="button" class="btn btn-warning" onclick="delGoods(\''+did+'\',\''+oid+'\')">取消</button>   ';
+						tr += '	</td>                                                           ';
+					}
 					tr += '</tr>                                                            ';
 					$("#orderDetailList").append(tr);
 				}
@@ -423,6 +433,50 @@ function addGoods(id,title,price,e){
 	total += '</tr>                                                                ';
 	$("#orderDetailList").append(total);
 	$(e).parent().parent().remove();//清除改行菜谱
+}
+
+/**
+ * 结算订单
+ */
+function balanceOrder(){
+	var totalprice = $("#totalprice").val();
+	var realprice = $("#realprice").val();
+	if(!checkValueWithInfo(totalprice,"应付金额不能为空！")) return;
+	if(!checkValueWithInfo(realprice,"实付金额不能为空！")) return;
+	layer.confirm("本单应付金额为：【"+totalprice+"】,实付金额为【"+realprice+"】,确定已结算成功吗？",
+			{btn:["确定","取消"]},
+			function(){
+				layer.closeAll();
+				$.ajax({
+					type:"POST",
+					url:"/selforder/api/order/updateOrderStatus.action",
+					data:{"order.status":1,"order.id":oid},
+					data:{"order.id":oid,"order.realprice":realprice,"order.status":4},
+					dataType:"json",
+					success:function(res){
+						var retCode = res.retCode;
+						var message = res.message;
+						if(retCode < 0){
+							layer.msg(message,{icon:5});
+						}else{
+							//更新餐桌状态为空闲
+							$.ajax({
+								type:"POST",
+								url:"/selforder/api/table/updateTable.action",
+								data:{"table.id":tableid,"table.status":0},
+								dataType:"json",
+								success:function(res){
+									
+								}
+							});
+						}
+						window.location.href = 'orderList.jsp';
+					}
+				});
+			},
+			function(){
+				layer.closeAll();
+			});
 }
 //****************************************************食谱选择操作end*************************************
 

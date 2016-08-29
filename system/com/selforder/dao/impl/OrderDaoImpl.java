@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 
+import com.selforder.bean.Goods;
 import com.selforder.bean.Order;
 import com.selforder.bean.OrderDetail;
 import com.selforder.dao.OrderDao;
@@ -62,6 +63,14 @@ public class OrderDaoImpl extends SqlSessionDaoSupport implements OrderDao {
 	 * @return
 	 */
 	public int insertOrderDetail4Bach (List<OrderDetail> orderDetailList)throws SQLException{
+		//更新食谱被点击次数
+		if(null != orderDetailList && orderDetailList.size()>0){
+			for(int i=0;i<orderDetailList.size();i++){
+				Goods goods = new Goods();
+				goods.setId(orderDetailList.get(i).getGoods_id());
+				getSqlSession().update("com.selforder.goods.updateGoodsSubcount",goods);
+			}
+		}
 		return getSqlSession().insert("com.selforder.order.insertOrderDetail4Bach",orderDetailList);
 	}
 	
@@ -71,6 +80,10 @@ public class OrderDaoImpl extends SqlSessionDaoSupport implements OrderDao {
 	 * @return
 	 */
 	public int insertOrderDetail (OrderDetail orderDetail)throws SQLException{
+		//更新食谱被点击次数
+		Goods goods = new Goods();
+		goods.setId(orderDetail.getGoods_id());
+		getSqlSession().update("com.selforder.goods.updateGoodsSubcount",goods);
 		return getSqlSession().insert("com.selforder.order.insertOrderDetail",orderDetail);
 	}
 	

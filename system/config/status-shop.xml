@@ -4,34 +4,40 @@
     "http://struts.apache.org/dtds/struts-2.0.dtd">
 
 <struts>
-	<!--商户管理-->
+	<!--门店管理-->
 	<package name="shop" extends="struts-default,json-default" namespace="/api/shop">
-		<!--保存商户信息-->
+		<!--保存门店信息-->
 		<action name = "saveShop" class="shopAction" method="saveShop">
 			<result type="json">
 				<param name="root">resultJson</param>
 			</result> 
 		</action>
-		<!--获取商户列表-->
+		<!--获取门店列表-->
 		<action name = "getShopList" class="shopAction" method="getShopList">
 			<result type="json">
 				<param name="root">resultJson</param>
 			</result> 
 		</action>
-		<!--获取商户详情-->
+		<!--获取门店详情-->
 		<action name = "getShopInfo" class="shopAction" method="getShopInfo">
 			<result type="json">
 				<param name="root">resultJson</param>
 			</result> 
 		</action>
-		<!--更新商户详情-->
+		<!--更新门店详情-->
 		<action name = "updateShop" class="shopAction" method="updateShop">
 			<result type="json">
 				<param name="root">resultJson</param>
 			</result> 
 		</action>
-		<!--删除商户-->
+		<!--删除门店-->
 		<action name = "delShop" class="shopAction" method="delShop">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+		<!--获取门店列表（不含分页）-->
+		<action name = "getShopListNoPage" class="shopAction" method="getShopListNoPage">
 			<result type="json">
 				<param name="root">resultJson</param>
 			</result> 

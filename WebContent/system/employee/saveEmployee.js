@@ -29,6 +29,7 @@ function getEmployeeInfo(){
 					$("#contactphone").val(emp.contactphone);
 					$("#wechatid").val(emp.wechatid);
 					$("#status").val(emp.status);
+					$("#sid").val(emp.sid);
 					$("#headimgurl").attr("src","/selforder/api/fileutil?method=download&fileid="+emp.headimgurl);
 				}
 			}
@@ -150,6 +151,14 @@ function checkParam(){
 	var loginname = $("#loginname").val();
 	var password = $("#password").val();
 	var password_again = $("#password_again").val();
+	var type = $("#type").val();
+	if(type == "S"){
+		var sid = $("#sid").val();
+		if(typeof(sid) == "undefined" || sid == ""){
+			layer.msg("请选择门店！",{icon:5});
+			return -1;
+		}
+	}
 	if(checkValue(empname,"用户名不能为空！")<0){
 		return -1;
 	}
@@ -190,5 +199,45 @@ function checkParam(){
  * 加载门店信息
  */
 function storeList(){
-	
+	$("tr[tag='appendStoreList']").remove();
+	$.ajax({
+		type:"POST",
+		url:"/selforder/api/shop/getShopListNoPage.action",
+		data:"",
+		dataType:"json",
+		success:function(res){
+			var retCode = res.retCode;
+			var message = res.message;
+			if(retCode < 0 ){
+				layer.msg(message,{icon:5});
+				return;
+			}else{
+				var rows = res.data;
+				if(rows != null && rows.length>0){
+					for(var i = 0 ;i<rows.length;i++){
+						var row = rows[i];
+						var tr = "";
+						tr += '<tr tag="appendStoreList">               ';
+						tr += '     <td>'+(i+1)+'</td>    ';
+						tr += '     <td>'+row.title+'</td> ';
+						tr += '     <td>'+row.tel+'</td> ';
+						tr += '     <td><button type="button" class="btn btn-warning" onclick="selectShop(\''+row.id+'\')">选择</button></td> ';
+						tr += '</tr>              ';
+						$("#storeList").append(tr);
+					}
+				}
+				$("#employeeWin").modal('show');
+				
+			}
+		}
+	});
+}
+
+/**
+ * 
+ * @param id
+ */
+function selectShop(id){
+	$("#sid").val(id);
+	$("#employeeWin").modal('hide');
 }
