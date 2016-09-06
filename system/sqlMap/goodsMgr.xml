@@ -339,6 +339,7 @@
 			goods.title
 		from wx_dish_goods goods 
 		where goods.deleted = 0 
+		and goods.weid = #{weid}
 		and goods.id not in (
 			select od.goods_id
 			from wx_dish_order_detail od 

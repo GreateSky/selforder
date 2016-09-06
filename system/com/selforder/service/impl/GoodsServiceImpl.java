@@ -214,6 +214,8 @@ public class GoodsServiceImpl implements GoodsService {
 	 */
 	public String getGoodsListIgnoreOrderId(Goods goods){
 		String result = "";
+		String bid = new Context().getLoginUserInfo().getBid();
+		goods.setWeid(bid);
 		try{
 			List<Goods> goodsList = goodsDao.getGoodsListIgnoreOrderId(goods);
 			if(null != goodsList && goodsList.size()> 0){

@@ -26,7 +26,7 @@ public class Context {
 	}
 	
 	public static void main(String[] args) {
-		
-		System.out.println(Integer.parseInt("f"));
+		double t = 3.00/2.00;
+		System.out.println(t);
 	}
 }
