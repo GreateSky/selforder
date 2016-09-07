@@ -66,6 +66,11 @@
 	<bean name="activityService" class="com.selforder.service.impl.ActivityServiceImpl" scope="prototype">
 		<property name="activityDao" ref="activityDao"></property>
 	</bean>
+	<!--微信API-->
+	<bean name="weixinApiService" class="com.selforder.service.impl.WeixinApiServiceImpl" scope="prototype">
+		<property name="weixinApiDao" ref="weixinApiDao"></property>
+		<property name="businessDao" ref="businessDao"></property>
+	</bean>
 	
 	
 	<!-- *************************Dao注册*********************************-->
@@ -114,6 +119,10 @@
 	</bean>
 	<!--活动管理-->
 	<bean name="activityDao" class="com.selforder.dao.impl.ActivityDaoImpl" scope="prototype">
+		<property name="sqlSessionTemplate" ref="sqlSessionTemplate"></property>
+	</bean>
+	<!--微信API-->
+	<bean name="weixinApiDao" class="com.selforder.dao.impl.WeixinApiDaoImpl" scope="prototype">
 		<property name="sqlSessionTemplate" ref="sqlSessionTemplate"></property>
 	</bean>
 </beans>

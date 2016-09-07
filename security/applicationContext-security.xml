@@ -12,6 +12,7 @@
      <http pattern="/assets/**" security="none" /> 
      <http pattern="/js/**" security="none" />
      <http pattern="/css/**" security="none" />
+     <http pattern="/api/weixin/**" security="none" />
              
    	 <!--设置拦截-->  
 	 <http auto-config='true' access-denied-page="/403.jsp">  

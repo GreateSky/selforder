@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.selforder.weixin" >
+	<cache eviction="LRU" flushInterval="1000" size="1024" readOnly="false" />
+	<sql id="limit">
+		<choose>
+			<when test="pageStart != null and pageSize != null">
+				limit ${pageStart},${pageSize}
+			</when>
+			<otherwise>
+				limit 0,20
+			</otherwise>
+		</choose>
+	</sql>
+	<!--新增微信accesstoken信息 -->
+	<insert id="insertAccessToken" parameterType="accesstoken">
+		INSERT
+			INTO
+			    wx_dish_access_token
+			    (
+			        id,
+			        weid,
+			        cropid,
+			        secret,
+			        accesstoken,
+			        expirydate,
+			        isvalid,
+			        crter,
+			        crtdate,
+			        opter,
+			        optdate,
+			        deleted
+			    )
+			    VALUES
+			    (
+			        replace(uuid(),'-',''),
+					#{weid},
+					#{cropid},
+					#{secret},
+					#{accesstoken},
+					#{expirydate},
+					1,
+					#{crter},
+					sysdate(),
+					#{opter},
+					sysdate(),
+					0
+			    )		        		    
+	</insert>
+	<!--获取微信accesstoken -->
+	<select id="getAccesstoken"  parameterType="java.lang.String" resultType="accesstoken">
+		SELECT
+		        token.id,
+		        token.weid,
+		        token.cropid,
+		        token.secret,
+		        token.accesstoken,
+		        token.expirydate,
+		        token.isvalid,
+		        token.crter,
+		        token.crtdate,
+		        token.opter,
+		        token.optdate,
+		        token.deleted
+		FROM
+		    wx_dish_access_token token
+		where token.deleted = 0 
+		and token.isvalid = 1
+		and token.expirydate &lt; date_add(sysdate(),INTERVAL  7200 SECOND)
+		and token.weid = #{weid}
+	</select>
+	
+	<!-- 失效token -->
+	<update id="updateToken" parameterType="java.lang.String">
+		update wx_dish_access_token set isvalid = 0 where weid = #{weid}
+	</update>
+</mapper>
+

@@ -99,4 +99,16 @@
     <servlet-name>FileUtilsServlet</servlet-name>
     <url-pattern>/api/fileutil</url-pattern>
   </servlet-mapping><!-- /附件上传下载servlet -->
+  
+  <!--微信公众号服务api -->
+  <servlet>
+    <description></description>
+    <display-name>WeixinApiServlet</display-name>
+    <servlet-name>WeixinApiServlet</servlet-name>
+    <servlet-class>com.automobile.servlet.WeixinApiServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>WeixinApiServlet</servlet-name>
+    <url-pattern>/api/weixin</url-pattern>
+  </servlet-mapping><!-- /微信公众号服务api -->
 </web-app>
