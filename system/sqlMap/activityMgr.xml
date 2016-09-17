@@ -39,7 +39,7 @@
 			    )
 			    VALUES
 			    (
-			        replace(uuid(),'-',''),
+			        #{id},
 					#{weid},
 					#{storeid},
 					#{title},
@@ -204,5 +204,76 @@
 		WHERE
 		    id = #{id}
 	</update>
+	
+	<!--获取活动关联的食谱 -->
+	<select id="getActivityGoods"  parameterType="activityGoods" resultType="activityGoods">
+		SELECT
+		        ag.id,
+		        ag.activityid,
+		        ag.goodsid,
+		        goods.title,
+        		goods.marketprice,
+		        ag.crter,
+		        ag.crtdate,
+		        ag.opter,
+		        ag.optdate,
+		        ag.deleted
+		FROM
+		    wx_dish_activity_goods ag
+		left join wx_dish_goods goods on goods.id = ag.goodsid    
+		where ag.deleted = 0 
+		 and goods.deleted = 0 
+ 		 and goods.`status` = 0
+		<if test="activityid != null and activityid !='' ">
+			and ag.activityid = #{activityid}
+		</if> 
+	</select>
+	
+	<!--批量关联食谱 -->
+	<insert id="insertAcrivcityGoods4Bach" parameterType="java.util.List">
+		INSERT
+			INTO
+	            wx_dish_activity_goods
+	            (
+	                id,
+	                activityid,
+	                goodsid,
+	                crter,
+	                crtdate,
+	                opter,
+	                optdate,
+	                deleted
+	            )
+			    VALUES
+			    <foreach collection="list" item="item" index="index" separator="," >  
+			        (replace(uuid(),'-',''),#{item.activityid},#{item.goodsid},#{item.crter},sysdate(),#{item.opter},sysdate(),0)  
+			    </foreach>		    
+	</insert>
+	
+	<!-- 删除食谱 -->
+	<update id="updateActivityGoods" parameterType="activityGoods"> 
+		update wx_dish_activity_goods set deleted = 1,opter=#{opter},optdate=sysdate() where id = #{id}
+	</update>
+	
+	<!--获取活动未关联的食谱 -->
+	<select id="getNotInActivityGoods"  parameterType="goods" resultType="goods">
+		select 	 goods.id,
+				 goods.title,
+				 goods.marketprice
+		from wx_dish_goods goods
+		where goods.deleted = 0 
+		and goods.`status` = 0
+		and goods.id not in (
+			select ag.goodsid
+			from wx_dish_activity_goods ag
+			left join wx_dish_activity ac on ac.id = ag.activityid
+			where ag.deleted = 0
+			and ac.deleted = 0 
+			and ac.`status` = 1
+			and ac.storeid = #{storeid}
+		)
+		and goods.storeid = #{storeid}
+		order by goods.displayorder desc
+	</select>	
 </mapper>
 

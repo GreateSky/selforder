@@ -2,6 +2,7 @@ var imgid = "";//活动图片ID
 $(function(){
 	if(opt == "update"){
 		getActivityInfo();
+		getActivityGoodsList();
 	}
 });
 
@@ -86,7 +87,7 @@ function addActivity(){
 	if(!checkValueWithInfo(begindate,"活动开始时间不能为空！"))return;
 	if(!checkValueWithInfo(enddate,"活动结束时间不能为空！"))return;
 	if(!checkValueWithInfo(status,"活动状态不能为空！"))return;
-	
+	var goods = getAddGoods();
 	var param = {};
 	param["activity.title"] = title;
 	param["activity.type"] = type;
@@ -98,6 +99,7 @@ function addActivity(){
 	param["activity.status"] = status;
 	param["activity.imgid"] = imgid;
 	param["activity.remark"] = remark;
+	param["activity.goods"] = goods;
 	$.ajax({
 		type:"POST",
 		url:"/selforder/api/activity/insertActivity.action",
@@ -137,7 +139,7 @@ function updateActivity(){
 	if(!checkValueWithInfo(begindate,"活动开始时间不能为空！"))return;
 	if(!checkValueWithInfo(enddate,"活动结束时间不能为空！"))return;
 	if(!checkValueWithInfo(status,"活动状态不能为空！"))return;
-	
+	var goods = getAddGoods();
 	var param = {};
 	param["activity.title"] = title;
 	param["activity.type"] = type;
@@ -150,6 +152,7 @@ function updateActivity(){
 	param["activity.remark"] = remark;
 	param["activity.id"] = id;
 	param["activity.imgid"] = imgid;
+	param["activity.goods"] = goods;
 	var load = layer.load(2, {shade: [1, 'rgba(0,0,0,.5)']});
 	$.ajax({
 		type:"POST",
@@ -169,3 +172,159 @@ function updateActivity(){
 		}
 	});
 }
+
+//********************************活动食谱操作start**************************
+/**
+ * 获取活动已关联食谱
+ */
+function getActivityGoodsList(){
+	if(typeof(id) == "undefined" || id == ""){
+		return;
+	}
+	//清除历史数据
+	$("tr[tag='appendActivityGoodsTr']").remove();
+	$.ajax({
+		type:"POST",
+		url:"/selforder/api/activity/getActivityInCouldGoods.action",
+		data:{"activityGoods.activityid":id},
+		dataType:"json",
+		success:function(res){
+			var retCode = res.retCode;
+			var message = res.message;
+			if(retCode < 0 ){
+				layer.msg(message,{"icon":5});
+				return;
+			}else{
+				var rows = res.data;
+				if(null != rows && rows.length>0){
+					for(var i=0;i<rows.length;i++){
+						var row = rows[i];
+						var tr = "";
+						tr +='<tr tag="appendActivityGoodsTr" id="'+row.id+'" class="animated flipInX">                                     ';
+						tr +='	<td>'+(i+1)+'</td>                             ';
+						tr +='	<td>'+row.title+'</td>    ';
+						tr +='	<td>'+row.marketprice+'</td>                        ';
+						tr +='	<td><button type="button" class="btn btn-danger" onclick="delActivityGoods('+1+',\''+row.id+'\')">删除</button></td>                    ';
+						tr +='</tr>                                    ';
+						$("#activityGoodsList").append(tr);
+					}
+				}
+			}
+		}
+		
+	});
+}
+
+/**
+ * 删除已关联食谱
+ * @param type 删除类型：1、已关联的食谱需调用后台逻辑删除   2、新增类型的食谱删除只需删除DOM元素即可
+ * @param id
+ */
+function delActivityGoods(type,id){
+	layer.confirm("确定要移除该商品吗？",
+				{"btn":["确定","取消"]},
+				function(){
+					layer.closeAll();
+					if(type == "2"){
+						$("tr[tag='appendActivityGoodsTr'][goodsid='"+id+"']").remove();
+					}else{
+						$.ajax({
+							type:"POST",
+							url:"/selforder/api/activity/updateActivityGoods.action",
+							data:{"activityGoods.id":id},
+							dataType:"json",
+							success:function(res){
+								var retCode = res.retCode;
+								var message = res.message;
+								if(retCode <0){
+									layer.msg(message,{"icon":5});
+								}else{
+									layer.msg(message,{"icon":6});
+								}
+								getActivityGoodsList();
+							}
+						});
+					}
+				},
+				function(){
+					layer.closeAll();
+				}
+	);
+}
+
+/**
+ * 显示未选择物料
+ */
+function showGoodsWin(){
+	loadNoSelectGoods();
+	$("#selectGoodsWin").modal('show');
+}
+
+/**
+ * 加载未关联物料
+ */
+function loadNoSelectGoods(){
+	$("tr[tag='appendNoSelectGoodsTr']").remove();
+	$.ajax({
+		type:"POST",
+		url:"/selforder/api/activity/getNotInActivityGoods.action",
+		data:"",
+		dataType:"json",
+		success:function(res){
+			var retCode = res.retCode;
+			var message = res.message;
+			if(retCode < 0){
+				layer.msg(message,{"icon":5});
+			}else{
+				var rows = res.data;
+				if(null != rows && rows.length>0){
+					for(var i = 0; i < rows.length;i++){
+						var row = rows[i];
+						var tr = "";
+						tr +='<tr tag="appendNoSelectGoodsTr" id="'+row.id+'" class="animated flipInX">                                     ';
+						tr +='	<td>'+row.title+'</td>    ';
+						tr +='	<td>'+row.marketprice+'</td>                        ';
+						tr +='	<td><button type="button" class="btn btn-danger" onclick="selectGoods(\''+row.id+'\',\''+row.title+'\',\''+row.marketprice+'\')">选择</button></td>                    ';
+						tr +='</tr>                                    ';
+						$("#noSelectGoods").append(tr);
+					}
+				}
+			}
+		}
+	});
+}
+
+/**
+ * 添加选择的物料
+ * @param goodsid  物料ID
+ * @param title    名称
+ * @param marketprice	价格
+ */
+function selectGoods(goodsid,title,marketprice){
+	var length = $("tr[tag='appendActivityGoodsTr']").length;//获取当前已关联食谱个数
+	$("#"+goodsid).remove();//删除已选中的食谱
+	//向已关联食谱列表中添加选择物料
+	var tr = "";
+	tr +='<tr tag="appendActivityGoodsTr" id="" goodsid="'+goodsid+'" opt="add" class="animated flipInX">                                     ';
+	tr +='	<td>'+(length+1)+'</td>                             ';
+	tr +='	<td>'+title+'</td>    ';
+	tr +='	<td>'+marketprice+'</td>                        ';
+	tr +='	<td><button type="button" class="btn btn-danger" onclick="delActivityGoods('+2+',\''+goodsid+'\')">删除</button></td>                    ';
+	tr +='</tr>                                    ';
+	$("#activityGoodsList").append(tr);
+}
+
+/**
+ * 获新添加的食谱
+ * @returns {String}	返回新添加的食谱字符串以逗号隔开
+ */
+function getAddGoods(){
+	var  goodsList = '';
+	$("tr[opt='add']").each(function(){
+		var goods = $(this).attr("goodsid");
+		goodsList += goods+",";
+	});
+	goodsList = goodsList.substring(0,goodsList.length-1);
+	return goodsList;
+}
+//********************************活动食谱操作end**************************

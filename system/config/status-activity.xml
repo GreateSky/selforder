@@ -30,5 +30,29 @@
 				<param name="root">resultJson</param>
 			</result> 
 		</action>
+		<!--批量新增活动关联的食谱-->
+		<action name = "insertAcrivcityGoods4Bach" class="activityAction" method="insertAcrivcityGoods4Bach">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+		<!--更新活动食谱-->
+		<action name = "updateActivityGoods" class="activityAction" method="updateActivityGoods">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+		<!--获取活动食谱列表-->
+		<action name = "getActivityInCouldGoods" class="activityAction" method="getActivityInCouldGoods">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+		<!--获取活动未关联食谱列表-->
+		<action name = "getNotInActivityGoods" class="activityAction" method="getNotInActivityGoods">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
 	</package>
 </struts>

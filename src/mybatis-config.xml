@@ -28,6 +28,7 @@
         <typeAlias alias="queueSetting" type="com.selforder.bean.QueueSetting"/>
         <typeAlias alias="queue" type="com.selforder.bean.Queue"/>
         <typeAlias alias="activity" type="com.selforder.bean.Activity"/>
+        <typeAlias alias="activityGoods" type="com.selforder.bean.ActivityGoods"/>
         <typeAlias alias="accesstoken" type="com.selforder.bean.AccessToken"/>
     </typeAliases>  
     

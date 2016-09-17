@@ -4,7 +4,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.selforder.bean.Activity;
-import com.selforder.bean.Table;
+import com.selforder.bean.ActivityGoods;
+import com.selforder.bean.Goods;
 
 /**
  * 活动管理持久层
@@ -48,5 +49,36 @@ public interface ActivityDao {
 	 * @return
 	 */
 	public int updateActivity(Activity activity)throws Exception;
+	
+	/**
+	 * 批量新增活动关联的食谱
+	 * @param activityGoods
+	 * @return
+	 * @throws Exception
+	 */
+	public int insertAcrivcityGoods4Bach(List<ActivityGoods> activityGoods) throws Exception;
+	
+	/**
+	 * 更新活动食谱
+	 * @param activityGoods
+	 * @return
+	 */
+	public int updateActivityGoods(ActivityGoods activityGoods)throws Exception;
+	
+	/**
+	 * 获取活动食谱列表
+	 * @param activity
+	 * @return
+	 */
+	public List<ActivityGoods> getActivityGoods(ActivityGoods activityGoods) throws Exception;
+	
+	/**
+	 * 获取活动食谱列表
+	 * @param activity
+	 * @return
+	 */
+	public List<Goods> getNotInActivityGoods(Goods goods) throws Exception;
+	
+	
 	
 }

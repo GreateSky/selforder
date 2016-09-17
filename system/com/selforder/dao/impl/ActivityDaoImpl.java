@@ -6,6 +6,8 @@ import java.util.List;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 
 import com.selforder.bean.Activity;
+import com.selforder.bean.ActivityGoods;
+import com.selforder.bean.Goods;
 import com.selforder.dao.ActivityDao;
 
 public class ActivityDaoImpl extends SqlSessionDaoSupport implements ActivityDao {
@@ -64,6 +66,43 @@ public class ActivityDaoImpl extends SqlSessionDaoSupport implements ActivityDao
 	public int updateActivity(Activity activity) throws Exception {
 		// TODO Auto-generated method stub
 		return getSqlSession().update("com.selforder.activity.updateActivity", activity);
+	}
+	
+	/**
+	 * 批量新增活动关联的食谱
+	 * @param activityGoods
+	 * @return
+	 * @throws Exception
+	 */
+	public int insertAcrivcityGoods4Bach(List<ActivityGoods> activityGoods) throws Exception{
+		return getSqlSession().insert("com.selforder.activity.insertAcrivcityGoods4Bach", activityGoods);
+	}
+	
+	/**
+	 * 更新活动食谱
+	 * @param activityGoods
+	 * @return
+	 */
+	public int updateActivityGoods(ActivityGoods activityGoods)throws Exception{
+		return getSqlSession().update("com.selforder.activity.updateActivityGoods", activityGoods);
+	}
+	
+	/**
+	 * 获取活动食谱列表
+	 * @param activity
+	 * @return
+	 */
+	public List<ActivityGoods> getActivityGoods(ActivityGoods activityGoods) throws Exception{
+		return getSqlSession().selectList("com.selforder.activity.getActivityGoods", activityGoods);
+	}
+	
+	/**
+	 * 获取活动食谱列表
+	 * @param activity
+	 * @return
+	 */
+	public List<Goods> getNotInActivityGoods(Goods goods) throws Exception{
+		return getSqlSession().selectList("com.selforder.activity.getNotInActivityGoods", goods);
 	}
 
 }

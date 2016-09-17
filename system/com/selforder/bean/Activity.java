@@ -22,6 +22,13 @@ public class Activity extends baseBean {
 	private String type;
 	private String remark;
 	private String imgid;
+	private String goods;//已关联食谱（多个食谱之间用逗号隔开）
+	public String getGoods() {
+		return goods;
+	}
+	public void setGoods(String goods) {
+		this.goods = goods;
+	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}

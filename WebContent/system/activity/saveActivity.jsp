@@ -62,13 +62,13 @@
                   	<div class="col-md-4" style="border-right: 1px #cccccc dashed">
                   		<!--活动维护 start-->
 						<div class="form-group has-warning">
-						  <label for="inputEmail3" class="col-sm-2 control-label">活动名称：</label>
+						  <label for="inputEmail3" class="col-sm-3 control-label">活动名称：</label>
 						  <div class="col-sm-4">
 							<input type="text" class="form-control" id="title" placeholder="活动名称" value="" >
 						  </div>
 						</div>
 						<div class="form-group has-warning">
-						  <label for="inputEmail3" class="col-sm-2 control-label">活动类型：</label>
+						  <label for="inputEmail3" class="col-sm-3 control-label">活动类型：</label>
 						  <div class="col-sm-4">
 							<select class="form-control" id="type">
 								<option selected="selected" value="1">折扣</option>
@@ -77,43 +77,43 @@
 						  </div>
 						</div>
 						<div class="form-group has-warning">
-						  <label for="inputEmail3" class="col-sm-2 control-label">活动地址：</label>
+						  <label for="inputEmail3" class="col-sm-3 control-label">活动地址：</label>
 						  <div class="col-sm-4">
 							<input type="text" class="form-control" id="url" placeholder="活动地址" value="" >
 						  </div>
 						</div>
 						<div class="form-group has-warning">
-						  <label for="inputEmail3" class="col-sm-2 control-label">宣传图片：</label>
+						  <label for="inputEmail3" class="col-sm-3 control-label">宣传图片：</label>
 						  <div class="col-sm-4">
 							<input type="file" id="fileid" name="fileid" class="form-control" />
 						  </div>
 						</div>
 						<div class="form-group has-warning">
-						  <label for="inputEmail3" class="col-sm-2 control-label">折扣/优惠金额：</label>
+						  <label for="inputEmail3" class="col-sm-3 control-label">折扣/优惠金额：</label>
 						  <div class="col-sm-4">
 							<input type="number" class="form-control" id="discount" placeholder="折扣/优惠金额" value="">
 						  </div>
 						</div>
 						<div class="form-group has-warning">
-						  <label for="inputEmail3" class="col-sm-2 control-label">使用下限(元)：</label>
+						  <label for="inputEmail3" class="col-sm-3 control-label">使用下限(元)：</label>
 						  <div class="col-sm-4">
 							<input type="number" class="form-control" id="leastcost" placeholder="使用下限(元)" value="">
 						  </div>
 						</div>
 						<div class="form-group has-warning">
-						  <label for="inputEmail3" class="col-sm-2 control-label">开始时间：</label>
+						  <label for="inputEmail3" class="col-sm-3 control-label">开始时间：</label>
 						  <div class="col-sm-4">
 							<input type="date" class="form-control" id="begindate" placeholder="开始时间" value="">
 						  </div>
 						</div>
 						<div class="form-group has-warning">
-						  <label for="inputEmail3" class="col-sm-2 control-label">结束日期：</label>
+						  <label for="inputEmail3" class="col-sm-3 control-label">结束日期：</label>
 						  <div class="col-sm-4">
 							<input type="date" class="form-control" id="enddate" placeholder="结束日期" value="">
 						  </div>
 						</div>
 						<div class="form-group has-warning">
-						  <label for="inputEmail3" class="col-sm-2 control-label">活动状态：</label>
+						  <label for="inputEmail3" class="col-sm-3 control-label">活动状态：</label>
 						  <div class="col-sm-4">
 							<select class="form-control" id="status" >
 								<option selected="selected" value="0">未开启</option>
@@ -124,7 +124,7 @@
 						  </div>
 						</div>
 						<div class="form-group has-warning">
-						  <label for="inputEmail3" class="col-sm-2 control-label">描述：</label>
+						  <label for="inputEmail3" class="col-sm-3 control-label">描述：</label>
 						  <div class="col-sm-4">
 							<textarea class="form-control" rows="3" id="remark"></textarea>
 						  </div>
@@ -138,10 +138,14 @@
 			                      <th>#</th>
 			                      <th>名称</th>
 			                      <th>价格</th>
-			                      <th>数量</th>
 			                      <th>操作</th>
 			                 </tr>
                 		</table>
+                		<div class="row">
+      						<div class="col-md-12">
+      							<button tag="actionBtn_add" type="button" class="btn btn-warning pull-left" onclick="showGoodsWin()">新增</button>
+      						</div>
+      					</div>
                   	</div><!--/end 活动已关联食谱列表 -->
                   </div>
                   </div><!-- /.box-body -->
@@ -153,6 +157,32 @@
               </div><!-- /.box -->
               <img id="imgid" src="" width="150px" height="150px" style="position:absolute;top: 110px; left: 410px; border-radius: 8px;"></img>
         </section><!-- /.content -->
+         <!--modal 未关联食谱选择-->
+        <div class="modal fade" id="selectGoodsWin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		        <h4 class="modal-title" id="myModalLabel">未关联食谱选择</h4>
+		      </div>
+		      <div class="modal-body">
+		      	<div class="input-group " style="width: 97%;margin: 10px">
+			      	<input type="text" class="form-control" id="point_address"  placeholder="请输入名称进行搜索" value="" >
+			      	<span class="input-group-btn">
+	                    <button class="btn btn-info btn-flat" type="button" onclick="poindByAddress();">Go!</button>
+	                </span>
+			    </div>
+				<table class="table table-striped animated flipInX" id="noSelectGoods">
+			          <tr>
+	                     <th>名称</th>
+	                     <th>价格</th>
+	                     <th>操作</th>
+			          </tr>
+			    </table>
+		      </div>
+		    </div><!-- /.modal-content -->
+		  </div><!-- /.modal-dialog -->
+		</div><!-- /<!--modal 未关联食谱选择-->
 	</body>
 	<!-- jQuery 2.1.4 -->
     <script src="<%=cxtPath%>/js/jQuery-2.1.4.min.js"></script>
