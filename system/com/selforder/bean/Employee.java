@@ -14,7 +14,7 @@ import com.selforder.util.Tools;
 public class Employee extends baseBean {
 	private static final long serialVersionUID = 3036068015464838511L;
 	private String empid;
-	private int empcode;
+	private String empcode;
 	private String loginname;
 	private String password;
 	private String empname;
@@ -53,9 +53,7 @@ public class Employee extends baseBean {
 	public void setKeyword(String keyword) {
 		this.keyword = keyword;
 	}
-	public int getEmpcode() {
-		return empcode;
-	}
+	
 	public int getSex() {
 		return sex;
 	}
@@ -64,9 +62,6 @@ public class Employee extends baseBean {
 	}
 	public int getLoginnum() {
 		return loginnum;
-	}
-	public void setEmpcode(int empcode) {
-		this.empcode = empcode;
 	}
 	public void setSex(int sex) {
 		this.sex = sex;
@@ -255,5 +250,11 @@ public class Employee extends baseBean {
 	}
 	public void setOname(String oname) {
 		this.oname = oname;
+	}
+	public String getEmpcode() {
+		return empcode;
+	}
+	public void setEmpcode(String empcode) {
+		this.empcode = empcode;
 	}
 }

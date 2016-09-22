@@ -71,6 +71,10 @@
 		<property name="weixinApiDao" ref="weixinApiDao"></property>
 		<property name="businessDao" ref="businessDao"></property>
 	</bean>
+	<!--评论管理-->
+	<bean name="commentService" class="com.selforder.service.impl.CommentServiceImpl" scope="prototype">
+		<property name="commentDao" ref="commentDao"></property>
+	</bean>
 	
 	
 	<!-- *************************Dao注册*********************************-->
@@ -123,6 +127,10 @@
 	</bean>
 	<!--微信API-->
 	<bean name="weixinApiDao" class="com.selforder.dao.impl.WeixinApiDaoImpl" scope="prototype">
+		<property name="sqlSessionTemplate" ref="sqlSessionTemplate"></property>
+	</bean>
+	<!--微信API-->
+	<bean name="commentDao" class="com.selforder.dao.impl.CommentDaoImpl" scope="prototype">
 		<property name="sqlSessionTemplate" ref="sqlSessionTemplate"></property>
 	</bean>
 </beans>

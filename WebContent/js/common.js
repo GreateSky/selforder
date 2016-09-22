@@ -81,7 +81,7 @@ function getDateByTime(time,format){
  * 验证值
  * @param value 待验证的值
  * @param remark 验证失败后的提示
- * @returns 0 验证成功   -1 验证失败  checkValueWithInfo
+ * @returns true 验证成功   false 验证失败  checkValueWithInfo
  */
 function checkValueWithInfo(value,remark){
 	//默认提示

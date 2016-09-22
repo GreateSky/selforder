@@ -56,6 +56,7 @@ public class WeixinApiServiceImpl implements WeixinApiService {
 			AccessToken token = weixinApiDao.getAccessToken(weid);
 			//当前商户存在有效的token
 			if(null != token){
+				//判断当前token的失效 
 				return "{\"retCode\":0,\"status\":\"success\",\"accesstoken\":\""+token.getAccesstoken()+"\"}";
 			}else{
 			//不存在有效token

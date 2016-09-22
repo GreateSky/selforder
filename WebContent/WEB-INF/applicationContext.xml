@@ -12,7 +12,7 @@
            http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
 
 	<bean id="dataSource"  
-        class="org.springframework.jdbc.datasource.DriverManagerDataSource">  
+        class="com.selforder.util.FixedBasicDataSource" destroy-method="close">  
         <property name="driverClassName">  
             <value>com.mysql.jdbc.Driver</value>  
         </property>  

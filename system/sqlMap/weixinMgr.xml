@@ -67,7 +67,7 @@
 		    wx_dish_access_token token
 		where token.deleted = 0 
 		and token.isvalid = 1
-		and token.expirydate &lt; date_add(sysdate(),INTERVAL  7200 SECOND)
+		and token.expirydate &gt; date_add(sysdate(),INTERVAL  7200 SECOND)
 		and token.weid = #{weid}
 	</select>
 	

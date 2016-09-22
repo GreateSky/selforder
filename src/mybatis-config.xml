@@ -30,6 +30,7 @@
         <typeAlias alias="activity" type="com.selforder.bean.Activity"/>
         <typeAlias alias="activityGoods" type="com.selforder.bean.ActivityGoods"/>
         <typeAlias alias="accesstoken" type="com.selforder.bean.AccessToken"/>
+        <typeAlias alias="comment" type="com.selforder.bean.Comment"/>
     </typeAliases>  
     
     <mappers>
@@ -47,5 +48,6 @@
     	<mapper resource="sqlMap/queueMgr.xml"/>
     	<mapper resource="sqlMap/activityMgr.xml"/>
     	<mapper resource="sqlMap/weixinMgr.xml"/>
+    	<mapper resource="sqlMap/commentMgr.xml"/>
     </mappers>
 </configuration> 

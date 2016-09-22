@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.selforder.comment" >
+	<cache eviction="LRU" flushInterval="1000" size="1024" readOnly="false" />
+	<sql id="limit">
+		<choose>
+			<when test="pageStart != null and pageSize != null">
+				limit ${pageStart},${pageSize}
+			</when>
+			<otherwise>
+				limit 0,20
+			</otherwise>
+		</choose>
+	</sql>
+	
+	<!-- 更新评论信息 -->
+	<update id="updateComment" parameterType="comment" >
+		UPDATE
+		    wx_dish_commet
+		SET
+			opter = #{opter}
+			, optdate = sysdate()
+			<if test="status != null and status !='' ">
+				, status = #{status}
+			</if>
+			<if test="replyer != null and replyer !='' ">
+				, replyer = #{replyer}
+			</if>
+			<if test="reply != null and reply !='' ">
+				, reply = #{reply}
+			</if>
+			<if test="replydate != null and replydate !='' ">
+				, replydate = #{replydate}
+			</if>
+			<if test="deleted != null and deleted !='' ">
+				, deleted = #{deleted}
+			</if>
+			<if test="isread != null and isread !='' ">
+				, isread = #{isread}
+			</if>
+		WHERE
+		    rid =  #{rid}
+	</update>
+	
+	<!-- 获取评价列表 -->
+	<select id="getCommentList" parameterType="comment" resultType="java.util.Map">
+		select comments.from_user,
+				 fans.nickname,
+				 fans.username,
+				 fans.headimgurl,
+				 comments.description,
+				 comments.isread,
+				 comments.crtdate
+		from wx_dish_commet comments
+		left join wx_dish_fans fans on fans.from_user = comments.from_user
+		left join (
+			select comments.from_user,
+					 max(comments.crtdate) crtdate
+			from wx_dish_commet comments
+			where comments.deleted = 0 
+			and comments.`status` != -1
+			and comments.storeid = #{storeid}
+			group by comments.from_user
+		) lastcomment on lastcomment.from_user = comments.from_user
+		where comments.deleted = 0
+		and comments.storeid = #{storeid}
+		and comments.crtdate = lastcomment.crtdate
+		<if test="keyword != null and keyword !='' ">
+			and UPPER(concat(fans.nickname,fans.username)) like concat('%',#{keyword},'%')
+		</if>
+		<if test="begindate != null and begindate !='' ">
+			and comments.crtdate &gt;= #{begindate}
+		</if>
+		<if test="enddate != null and enddate !='' ">
+			and comments.crtdate &lt;= #{enddate}
+		</if>
+		group by comments.from_user,
+				 fans.nickname,
+				 fans.username,
+				 fans.headimgurl,
+				 comments.description,
+				 comments.isread
+		order by comments.isread asc,comments.crtdate desc
+		<include refid="limit"></include>   		 
+	</select>
+	
+	<!-- 获取评价列表 -->
+	<select id="getCommentListCount" parameterType="comment" resultType="int">
+		select count(1) 
+		from (
+			select 1
+			from wx_dish_commet comments
+			left join wx_dish_fans fans on fans.from_user = comments.from_user
+			left join (
+				select comments.from_user,
+						 max(comments.crtdate) crtdate
+				from wx_dish_commet comments
+				where comments.deleted = 0 
+				and comments.`status` != -1
+				and comments.storeid = #{storeid}
+				group by comments.from_user
+			) lastcomment on lastcomment.from_user = comments.from_user
+			where comments.deleted = 0
+			and comments.storeid = #{storeid}
+			and comments.crtdate = lastcomment.crtdate
+			<if test="keyword != null and keyword !='' ">
+				and UPPER(concat(fans.nickname,fans.username)) like concat('%',#{keyword},'%')
+			</if>
+			<if test="begindate != null and begindate !='' ">
+				and comments.crtdate &gt;= #{begindate}
+			</if>
+			<if test="enddate != null and enddate !='' ">
+				and comments.crtdate &lt;= #{enddate}
+			</if>
+			group by comments.from_user,
+					 fans.nickname,
+					 fans.username,
+					 fans.headimgurl,
+					 comments.description,
+					 comments.isread
+		)t
+	</select>
+	
+	<!-- 获取评价详情列表 -->
+	<select id="getCommentDetail" parameterType="comment" resultType="java.util.Map">
+		select comments.rid,
+				 comments.from_user,
+				 fans.nickname,
+				 fans.username,
+				 fans.headimgurl,
+				 comments.description,
+				 comments.crtdate,
+				 comments.replyer,
+				 comments.status,
+				 emp.empname as replyname,
+				 emp.headimgurl as replyheadimg,
+				 comments.reply,
+				 comments.replydate
+		from wx_dish_commet comments
+		left join wx_dish_fans fans on fans.from_user = comments.from_user
+		left join wx_dish_employee emp on emp.empcode = comments.replyer
+		where comments.deleted = 0 
+		and comments.from_user = #{from_user}
+		order by comments.crtdate asc
+		
+	</select>
+	
+	<!-- 更新阅读状态 -->
+	<update id="updateIsRead" parameterType="comment" >
+		UPDATE
+		    wx_dish_commet
+		SET
+			opter = #{opter}
+			, optdate = sysdate()
+			, isread = 1
+		WHERE
+		    from_user =  #{from_user}
+	</update>
+</mapper>
+

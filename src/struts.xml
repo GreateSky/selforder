@@ -70,4 +70,5 @@
 	<include file="config/status-order.xml"></include>
 	<include file="config/status-queue.xml"></include>
 	<include file="config/status-activity.xml"></include>
+	<include file="config/status-comment.xml"></include>
 </struts>

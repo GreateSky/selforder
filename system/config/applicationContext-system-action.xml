@@ -59,4 +59,8 @@
 	<bean name="activityAction" class="com.selforder.action.ActivityAction" scope="prototype">
 		<property name="activityService" ref="activityService"></property>
 	</bean>
+	<!--评论管理-->
+	<bean name="commentAction" class="com.selforder.action.CommentAction" scope="prototype">
+		<property name="commentService" ref="commentService"></property>
+	</bean>
 </beans>

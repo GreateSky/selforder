@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<!--评论管理-->
+	<package name="comment" extends="struts-default,json-default" namespace="/api/comment">
+		<!--获取评论列表-->
+		<action name = "getCommentList" class="commentAction" method="getCommentList">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+		<!--获取评论详情-->
+		<action name = "getCommentDetailList" class="commentAction" method="getCommentDetailList">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+		<!--更新评论信息-->
+		<action name = "updateComment" class="commentAction" method="updateComment">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+		<!--更新阅读状态-->
+		<action name = "updateIsRead" class="commentAction" method="updateIsRead">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
+	</package>
+	
+</struts>
