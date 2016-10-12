@@ -13,6 +13,8 @@
      <http pattern="/js/**" security="none" />
      <http pattern="/css/**" security="none" />
      <http pattern="/api/weixin/**" security="none" />
+     <http pattern="/api/SendMsg/**" security="none" />
+     <http pattern="/api/pushMessage/**" security="none" />
      <http pattern="/api/fileutil/**" security="none" />
              
    	 <!--设置拦截-->  

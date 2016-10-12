@@ -1,8 +1,7 @@
 package com.greatesky.bean;
 
-import java.io.Serializable;
 
-public class UserInfo implements Serializable{
+public class UserInfo {
 	private static final long serialVersionUID = -7630771734072759882L;
 	private String username;
 	private String password;

@@ -12,11 +12,20 @@ import com.selforder.dao.TableDao;
 import com.selforder.service.OrderService;
 import com.selforder.util.Context;
 import com.selforder.util.JsonResultUtil;
+import com.selforder.util.PushMessage;
 import com.selforder.util.Uuid;
 
 public class OrderServiceImpl implements OrderService {
 	private OrderDao orderDao;
 	private TableDao tableDao;
+	private PushMessage pushMessage;
+	public PushMessage getPushMessage() {
+		return pushMessage;
+	}
+
+	public void setPushMessage(PushMessage pushMessage) {
+		this.pushMessage = pushMessage;
+	}
 
 	public TableDao getTableDao() {
 		return tableDao;
@@ -126,6 +135,19 @@ public class OrderServiceImpl implements OrderService {
 				int saveDeatail = orderDao.insertOrderDetail4Bach(orderDetailList);
 				if(saveDeatail >0){
 					result = JsonResultUtil.getJsonResult(0, "success", "新增订单明细成功!");
+					//推送创建订单消息
+					int dining_mode = order.getDining_mode();
+					String messageType = "";
+					if(dining_mode == 1){
+						messageType = "createorder_income";
+					}
+					if(dining_mode == 2){
+						messageType = "createorder_outsell";
+					}
+					if(dining_mode == 3){
+						messageType = "createorder_reserve";
+					}
+					String pushCreateOrderMessage = pushMessage.sendOrderMessgeToUser("createOrder", order.getId());
 				}else{
 					result = JsonResultUtil.getJsonResult(-1, "fail", "新增订单明细失败!");
 				}
@@ -194,7 +216,7 @@ public class OrderServiceImpl implements OrderService {
 				int uptable = tableDao.updateTable(table);
 			}
 			result = JsonResultUtil.getJsonResult(0, "success", "更新订单成功!");
-			
+			String pushCreateOrderMessage = pushMessage.sendOrderMessgeToUser("updateOrder", order.getId());
 		}catch(Exception e){
 			e.printStackTrace();
 			result = JsonResultUtil.getJsonResult(-1, "fail", "更新订单失败!");

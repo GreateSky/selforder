@@ -1,3 +1,29 @@
+var websocket;
+var sound = "messageTip/audio/news.mp3";//提示音
+//Tab页初始化
+function linkMainTab(url,tabcode,title){
+	//首先查找tabcode的tab是否存在
+	var tab = $("#"+tabcode).length;
+	//如果找到了激活该tab
+	if(tab> 0){
+		$("#mainTabs li").removeClass("active");//取消当前已激活的tab卡选项
+		$("#tabcontent div").removeClass("active");//取消当前已激活的tab卡内容
+		$("#"+tabcode).parent().addClass("active");//将当前选项卡选项设置为激活状态
+		$("#"+tabcode+"_tab").addClass("active");//将当前选项卡内容设置为激活状态
+		$("#"+tabcode+'_tab').children().attr("src",url);
+	}else{
+	//未找到该选项卡则创建该选项卡并将d该选项卡激活
+		$("#mainTabs li").removeClass("active");//取消当前已激活的tab卡选项
+		$("#tabcontent div").removeClass("active");//取消当前已激活的tab卡内容
+		var tabli = '<li class="active"><a href="#'+tabcode+'_tab" data-toggle="tab" id="'+tabcode+'">'+title+'</a></li>';//创建tab卡li 并设置为激活状态
+		var tabcontentdiv = '';
+		tabcontentdiv += '<div class="tab-pane active" id="'+tabcode+'_tab">                                                                 ';
+		tabcontentdiv += '  <iframe src="'+url+'" style="margin: 0; padding: 0; border: 0px;" width="100%" height="900px" ></iframe>';
+		tabcontentdiv += '</div>                                                                                                      ';
+		$("#mainTabs").append(tabli);
+		$("#tabcontent").append(tabcontentdiv);
+	}
+}
 /**
  * 修改密码
  */
@@ -63,3 +89,86 @@ function saveBtn(e){
 	});
 	$(e).popover('show');
 }
+
+//******************************webSocket操作start****************************
+function initWebSocket(){
+ 	if(window.WebSocket){
+ 		websocket = new WebSocket(encodeURI('ws://localhost:7080/selforder/api/SendMsg?empid='+empid));
+ 		websocket.onopen = function() {  
+ 		    //连接成功  
+ 		    //$("#content").append("<p>连接成功!  </p>");
+ 		    //alert("连接成功！");
+ 		}; 
+ 		websocket.onerror = function() {  
+ 		    //连接失败  
+ 		    //$("#content").append("<p>连接失败  ！  </p>");
+ 		    //alert("连接失败  ！");
+ 		};  
+ 		websocket.onmessage = function(messageObj) {
+ 			var message = messageObj.data;
+ 			message = JSON.parse(message);
+ 			showPushMessage(message);
+ 		};
+ 	}else{
+ 		alert("浏览器不支持WebSocket,请更新您的浏览器！");
+ 	}
+ }
+ //******************************webSocket操作end****************************
+//退出系统
+function logOut(){
+	 websocket.close();
+	 window.location.href = "/selforder/j_spring_security_logout";
+}
+
+/**
+ * 处理推送的消息
+ * @param message 消息对象
+ */
+function showPushMessage(message){
+	var messageType = message.messageType;//消息类型 createOrder,updateOrder,payOrder,comment
+	if(messageType != "comment"){
+		//处理非评论信息
+		var diningMode = message.diningMode;//订单类型：1、店内点单   2、外卖订单  3、预定订单
+		var ordersn = message.ordersn;//订单编号
+		var message = "";
+		if(diningMode == 1){
+			//处理店内点单消息
+			if(messageType == "createOrder"){
+				message = "订单【"+ordersn+"】已创建,请及时确认！";
+			}else if(messageType == "updateOrder"){
+				message = "订单【"+ordersn+"】已更新,请及时查看！";
+			}else if(messageType == "payOrder"){
+				message = "订单【"+ordersn+"】已付款,请及时查看！";
+			}
+			$("#incomeOrder_a").css({"-webkit-animation":"twinkling 1s infinite ease-in-out"}); //店内点单图标动画
+			$.notifySetup({sound:sound});//播放提示音
+			$('<p>'+message+'</p>').notify();//弹出提示音
+			var appendLi = "";
+			appendLi += '<li>                                                ';
+			appendLi += '  <a href="#">                                      ';
+			appendLi += '    <i class="fa  fa-pencil-square-o text-aqua">'+message+'</i>';
+			appendLi += '  </a>                                              ';
+			appendLi += '</li>                                               ';
+			$("#incomeOrder_menu").prepend(appendLi);//将最新的消息插入第一条
+			var incomeOrder_menu_length = $("#incomeOrder_menu").children().length;//下拉列表中当前的数据行数
+			$("#incomeOrder_num").html(incomeOrder_menu_length);
+			//$("#incomeOrder_head").html(incomeOrder_menu_length+"条订单信息");
+		}else if(diningMode == 2){
+			//处理外卖订单消息
+		}else if(diningMode == 3){
+			//处理预定订单消息
+		}
+		
+	}
+	
+}
+
+/**
+ * 显示推送的订单信息
+ * @param orderType 订单类型
+ */
+function showOrderMessage(orderType){
+	$("#"+orderType+"_a").attr("style","");
+	$("#"+orderType+"_num").html("");
+}
+

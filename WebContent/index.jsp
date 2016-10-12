@@ -8,7 +8,8 @@
 	UserInfo userinfo = new Context().getLoginUserInfo();
 	String empname = userinfo.getName();
 	String empcode = userinfo.getCode();
-%>
+	String empid = userinfo.getEmpid();
+%> 
 <!DOCTYPE html>
 <html>
   <head>
@@ -39,13 +40,30 @@
     <link href="plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
     <!-- bootstrap wysihtml5 - text editor -->
     <link href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css" rel="stylesheet" type="text/css" />
-
+	<!-- 消息提醒 -->
+	<link rel="stylesheet" type="text/css" href="messageTip/css/default.css">
+	<link rel="stylesheet" type="text/css" href="messageTip/css/jquery.notify.css">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <style type="text/css">
+    	@-webkit-keyframes twinkling{    /*透明度由0到1*/
+		    0%{
+		       opacity:0; /*透明度为0*/
+		     }
+		    100%{
+		       opacity:1; /*透明度为1*/
+		    }
+		  }
+    </style>
+    <script type="text/javascript">
+    	var empid = '<%=empid%>';
+    	var empname = "<%=empname%>";
+		var empcode = "<%=empcode%>";
+    </script>
   </head>
   <body class="skin-yellow-light sidebar-mini">
     <div class="wrapper">
@@ -68,7 +86,7 @@
             <ul class="nav navbar-nav">
               <!-- Messages: style can be found in dropdown.less-->
               <li class="dropdown messages-menu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <a id="infos" href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <i class="fa fa-comments"></i>
                   <span class="label label-success">3</span>
                 </a>
@@ -119,26 +137,16 @@
                 </ul>
               </li>
               <!-- Notifications: style can be found in dropdown.less -->
-              <li class="dropdown notifications-menu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <li id="incomeOrder" class="dropdown notifications-menu">
+                <a id="incomeOrder_a" href="javascript:void()" onclick="showOrderMessage('incomeOrder');" class="dropdown-toggle" data-toggle="dropdown">
                   <i class="fa fa-bell-o"></i>
-                  <span class="label label-warning">2</span>
+                  <span id="incomeOrder_num" class="label label-info"></span>
                 </a>
-                <ul class="dropdown-menu">
-                  <li class="header">2条订单信息</li>
+                <ul class="dropdown-menu" style="width: 400px">
                   <li>
                     <!-- inner menu: contains the actual data -->
-                    <ul class="menu">
-                      <li>
-                        <a href="#">
-                          <i class="fa  fa-pencil-square-o text-aqua"></i> 订单ORD-20160429-3321已创建等待确认
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">
-                          <i class="fa fa-pencil-square-o text-yellow"></i> 订单ORD-20160429-3321已完成
-                        </a>
-                      </li>
+                    <ul class="menu" id="incomeOrder_menu">
+                      
                     </ul>
                   </li>
                   <li class="footer"><a href="#">查看所有订单</a></li>
@@ -150,7 +158,7 @@
                   <i class="fa  fa-truck"></i>
                   <span class="label label-danger">2</span>
                 </a>
-                <ul class="dropdown-menu">
+                <ul class="dropdown-menu" style="width: 400px">
                   <li class="header">2条外卖订单信息</li>
                   <li>
                     <!-- inner menu: contains the actual data -->
@@ -191,7 +199,7 @@
                       <a href="javascript:showUpdateWin()" class="btn btn-default btn-flat" >修改密码</a>
                     </div>
                     <div class="pull-right">
-                      <a href="/selforder/j_spring_security_logout" class="btn btn-default btn-flat">退出系统</a>
+                      <a href="javascript:void();" onclick="logOut()" class="btn btn-default btn-flat">退出系统</a>
                     </div>
                   </li>
                 </ul>
@@ -431,12 +439,12 @@
     <!-- jQuery 2.1.4 -->
     <script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>
     <!-- jQuery UI 1.11.4 -->
-    <script src="plugins/jQuery/jquery1.11.4-ui.min.js" type="text/javascript"></script>
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js" type="text/javascript"></script>
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
     <!-- Bootstrap 3.3.2 JS -->
     <script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
     <!-- Morris.js charts -->
-    <script src="plugins/raphael/raphael-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
     <script src="plugins/morris/morris.min.js" type="text/javascript"></script>
     <!-- Sparkline -->
     <script src="plugins/sparkline/jquery.sparkline.min.js" type="text/javascript"></script>
@@ -446,7 +454,7 @@
     <!-- jQuery Knob Chart -->
     <script src="plugins/knob/jquery.knob.js" type="text/javascript"></script>
     <!-- daterangepicker -->
-    <script src="plugins/moment/moment2.10.2.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js" type="text/javascript"></script>
     <script src="plugins/daterangepicker/daterangepicker.js" type="text/javascript"></script>
     <!-- datepicker -->
     <script src="plugins/datepicker/bootstrap-datepicker.js" type="text/javascript"></script>
@@ -462,78 +470,16 @@
     <script src="dist/js/pages/dashboard.js" type="text/javascript"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="dist/js/demo.js" type="text/javascript"></script>
-    <script type="text/javascript" src="index.js"></script>
     <script type="text/javascript" src="js/common.js"></script>
     <script src="plugins/layer/layer.js"></script>
+    <script type="text/javascript" src="messageTip/js/jquery.notify.js"></script>
+    <script type="text/javascript" src="index.js"></script>
     <script type="text/javascript" language="javascript"> 
-		    var empname = "<%=empname%>";
-			var empcode = "<%=empcode%>";
 			$("#empname").html("您好，"+empname);
 			$("#empcode").html("编码："+empcode);
 			$("#empnameBig").html(empname);
-			
-			var iframeids = ["mainframe"];
-			var iframehide = "yes";
-			function dyniframesize() {
-				var dyniframe = new Array()
-				for (i = 0; i < iframeids.length; i++) {
-					if (document.getElementById) {
-						dyniframe[dyniframe.length] = document.getElementById(iframeids[i]);
-						if (dyniframe[i] && !window.opera) {
-							dyniframe[i].style.display = "block"
-							if (dyniframe[i].contentDocument && dyniframe[i].contentDocument.body.offsetHeight)
-								dyniframe[i].height = dyniframe[i].contentDocument.body.offsetHeight;
-							else if (dyniframe[i].Document && dyniframe[i].Document.body.scrollHeight)
-								dyniframe[i].height = dyniframe[i].Document.body.scrollHeight;
-						}
-					}
-					if ((document.all || document.getElementById) && iframehide == "no") {
-						var tempobj = document.all ? document.all[iframeids[i]] : document.getElementById(iframeids[i])
-						tempobj.style.display = "block"
-					}
-				}
-			}
-			if (window.addEventListener)
-				window.addEventListener("load", dyniframesize, false)
-			else if (window.attachEvent)
-				window.attachEvent("onload", dyniframesize)
-			else
-				window.onload = dyniframesize
-			
-			/**
-			 * 点击菜单栏连接至主页面
-			 * @param {Object} url  需要跳转的页面
-			 */
-			function linkMainFrame(url){
-				$("#mainframe").attr('src',url);
-				dyniframesize();
-			}
-			 
-			 //Tab页初始化
-			function linkMainTab(url,tabcode,title){
-				//首先查找tabcode的tab是否存在
-				var tab = $("#"+tabcode).length;
-				//如果找到了激活该tab
-				if(tab> 0){
-					$("#mainTabs li").removeClass("active");//取消当前已激活的tab卡选项
-					$("#tabcontent div").removeClass("active");//取消当前已激活的tab卡内容
-					$("#"+tabcode).parent().addClass("active");//将当前选项卡选项设置为激活状态
-					$("#"+tabcode+"_tab").addClass("active");//将当前选项卡内容设置为激活状态
-					$("#"+tabcode+'_tab').children().attr("src",url);
-				}else{
-				//未找到该选项卡则创建该选项卡并将该选项卡激活
-					$("#mainTabs li").removeClass("active");//取消当前已激活的tab卡选项
-					$("#tabcontent div").removeClass("active");//取消当前已激活的tab卡内容
-					var tabli = '<li class="active"><a href="#'+tabcode+'_tab" data-toggle="tab" id="'+tabcode+'">'+title+'</a></li>';//创建tab卡li 并设置为激活状态
-					var tabcontentdiv = '';
-					tabcontentdiv += '<div class="tab-pane active" id="'+tabcode+'_tab">                                                                 ';
-					tabcontentdiv += '  <iframe src="'+url+'" style="margin: 0; padding: 0; border: 0px;" width="100%" height="900px" ></iframe>';
-					tabcontentdiv += '</div>                                                                                                      ';
-					$("#mainTabs").append(tabli);
-					$("#tabcontent").append(tabcontentdiv);
-				}
-			}
-		</script>
+			initWebSocket();
+	</script>
   </body>
 </html>
 

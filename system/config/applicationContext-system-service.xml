@@ -57,6 +57,7 @@
 	<bean name="orderService" class="com.selforder.service.impl.OrderServiceImpl" scope="prototype">
 		<property name="orderDao" ref="orderDao"></property>
 		<property name="tableDao" ref="tableDao"></property>
+		<property name="pushMessage" ref="pushMessage"></property>
 	</bean>
 	<!--队列管理-->
 	<bean name="queueService" class="com.selforder.service.impl.QueueServiceImpl" scope="prototype">
@@ -74,6 +75,11 @@
 	<!--评论管理-->
 	<bean name="commentService" class="com.selforder.service.impl.CommentServiceImpl" scope="prototype">
 		<property name="commentDao" ref="commentDao"></property>
+	</bean>
+	<!--消息推送管理-->
+	<bean name="pushMessage" class="com.selforder.util.PushMessage" scope="prototype">
+		<property name="pushMessageDao" ref="pushMessageDao"></property>
+		<property name="orderDao" ref="orderDao"></property>
 	</bean>
 	
 	
@@ -129,8 +135,12 @@
 	<bean name="weixinApiDao" class="com.selforder.dao.impl.WeixinApiDaoImpl" scope="prototype">
 		<property name="sqlSessionTemplate" ref="sqlSessionTemplate"></property>
 	</bean>
-	<!--微信API-->
+	<!--评论管理-->
 	<bean name="commentDao" class="com.selforder.dao.impl.CommentDaoImpl" scope="prototype">
+		<property name="sqlSessionTemplate" ref="sqlSessionTemplate"></property>
+	</bean>
+	<!--消息推送管理-->
+	<bean name="pushMessageDao" class="com.selforder.dao.impl.PushMessageDaoImpl" scope="prototype">
 		<property name="sqlSessionTemplate" ref="sqlSessionTemplate"></property>
 	</bean>
 </beans>

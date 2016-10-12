@@ -49,5 +49,6 @@
     	<mapper resource="sqlMap/activityMgr.xml"/>
     	<mapper resource="sqlMap/weixinMgr.xml"/>
     	<mapper resource="sqlMap/commentMgr.xml"/>
+    	<mapper resource="sqlMap/pushMessageMgr.xml"/>
     </mappers>
 </configuration> 

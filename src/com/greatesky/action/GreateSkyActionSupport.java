@@ -2,7 +2,6 @@ package com.greatesky.action;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.lang.reflect.Type;
@@ -27,8 +26,7 @@ import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import com.opensymphony.xwork2.ActionSupport;
 
-public class GreateSkyActionSupport extends ActionSupport implements Serializable {
-	private static final long serialVersionUID = -3705565947072550539L;
+public class GreateSkyActionSupport extends ActionSupport {
 	private Map resultJson;
 	public Map getResultJson() {
 		return resultJson;

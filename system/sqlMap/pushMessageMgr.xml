@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.selforder.pushmessage" >
+	<cache eviction="LRU" flushInterval="1000" size="1024" readOnly="false" />
+	<!--根据权限编码和商户ID获取该权限下的员工 -->
+	<select id="getEmpsByRoleAndWeid"  parameterType="java.util.Map" resultType="java.util.Map">
+		select emp.empid,
+				 emp.empname,
+				 org.oid,
+				 org.oname,
+				 role.rid,
+				 role.rcode,
+				 role.rname 
+		from wx_dish_role role
+		left join wx_dish_org_role_ref orgrole on orgrole.rid = role.rid
+		left join wx_dish_organization org on org.oid = orgrole.oid
+		left join wx_dish_org_emp_ref orgemp on orgemp.oid = org.oid
+		left join wx_dish_employee emp on emp.empid = orgemp.empid
+		where role.deleted = 0  
+		and orgrole.deleted = 0 
+		and org.deleted = 0 
+		and orgemp.deleted = 0 
+		and emp.deleted = 0 
+		and emp.`status` &lt;&gt; -1
+		and org.bid = #{weid}
+		and role.rcode = #{role_code}
+	</select>
+	
+</mapper>
+

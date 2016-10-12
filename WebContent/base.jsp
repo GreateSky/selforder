@@ -7,6 +7,7 @@
 	UserInfo userinfo = new Context().getLoginUserInfo();
 	String empname = userinfo.getName();
 	String empcode = userinfo.getCode();
+	String empid = userinfo.getEmpid();
 	String weid = userinfo.getBid();
 	String storeid = userinfo.getSid();
 %>
@@ -26,4 +27,5 @@
 	var cxtPath = '<%=cxtPath %>';
 	var weid = '<%=weid%>';
 	var storeid = '<%=storeid%>';
+	var empid = '<%=empid%>';
 </script>
