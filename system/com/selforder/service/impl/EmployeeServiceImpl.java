@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import com.selforder.bean.Business;
 import com.selforder.bean.Employee;
 import com.selforder.bean.Role;
@@ -18,7 +20,7 @@ import com.selforder.util.JsonResultUtil;
 import com.selforder.util.Tools;
 
 public class EmployeeServiceImpl implements EmployeeService {
-	
+	private Logger logger = Logger.getLogger(EmployeeServiceImpl.class);
 	private EmployeeDao employeeDao;
 	private PowerDao powerDao;
 	private ShopService shopService;
@@ -303,6 +305,34 @@ public class EmployeeServiceImpl implements EmployeeService {
 		}catch(Exception e){
 			e.printStackTrace();
 			return "";
+		}
+		return result;
+	}
+	
+	/**
+	 * 获取员工信息列表(不带分页)
+	 * @param employee
+	 * @return
+	 */
+	@Override
+	public String getEmployeeListWithNoPage(Employee employee){
+		String result = "";
+		try{
+			if(null != employee){
+				employee.setBid(new Context().getLoginUserInfo().getBid());
+				employee.setSid(new Context().getLoginUserInfo().getSid());
+				List<Employee> employeeList = employeeDao.getEmployeeListWithNoPage(employee);
+				if(null != employeeList && employeeList.size()>0){
+					result = JsonResultUtil.getJsonResult(0, "success","获取员工信息列表成功！",employeeList);
+				}else{
+					result = JsonResultUtil.getJsonResult(-1, "fail","获取员工信息列表失败！");
+				}
+			}else{
+				result = JsonResultUtil.getJsonResult(-1, "fail", "参数为空！");
+			}
+		}catch(Exception e){
+			logger.error("获取员工信息列表异常",e);
+			return JsonResultUtil.getJsonResult(-1, "fail", "获取员工信息列表异常！");
 		}
 		return result;
 	}

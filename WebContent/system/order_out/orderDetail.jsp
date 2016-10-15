@@ -32,11 +32,13 @@
 				height：高度
 			*/
 			.stepInfo{position:relative;background:#f2f2f2;margin:20px auto 0 auto;width:500px;}
-			.stepInfo li{float:left;width:24%;height:0.15em;background:#bbb;}
+			.stepInfo li{float:left;width:40%;height:0.15em;background:#bbb;}
 			.stepIco{border-radius:1em;padding:0.03em;background:#bbb;text-align:center;line-height:1.5em;color:#fff; position:absolute;width:1.4em;height:1.4em;}
 			.stepIco1{top:-0.7em;left:-1%;}
-			.stepIco2{top:-0.7em;left:21%;}
-			.stepIco3{top:-0.7em;left:46%;}
+			.stepIco2{top:-0.7em;left:20%;}
+			.stepIco3{top:-0.7em;left:40%;}
+			.stepIco4{top:-0.7em;left:60%;}
+			.stepIco5{top:-0.7em;left:80%;}
 			.stepText{color:#666;margin-top:0.2em;width:4em;text-align:center;margin-left:-1.4em;}
 		</style>
 	    <%
@@ -89,7 +91,13 @@
 								<div statusnum="1" class="stepIco stepIco2" id="check">2
 									<div class="stepText" id="checkText">商户确认</div>
 								</div>
-								<div statusnum="4" class="stepIco stepIco3" id="received">3
+								<div statusnum="2" class="stepIco stepIco3" id="pay">3
+									<div class="stepText" id="payText">客户付款</div>
+								</div>
+								<div statusnum="3" class="stepIco stepIco4" id="tran">4
+									<div class="stepText" id="tranText">商家配送</div>
+								</div>
+								<div statusnum="4" class="stepIco stepIco5" id="received">5
 									<div class="stepText" id="receivedText">交易完成</div>
 								</div>
 							</div>
@@ -142,16 +150,6 @@
 											<input type="text" class="form-control" id="crtdate" placeholder="创建时间" value="" readonly="readonly" >
 										  </div>
 										</div>
-										<div class="form-group has-warning" >
-										  <label for="inputEmail3" class="col-sm-2 control-label">餐桌号：</label>
-										  <div class="col-sm-3">
-										  	<input type="hidden" id="tableid"></input>
-											<input type="text" class="form-control" id="tablecode" placeholder="餐桌号" value="" readonly="readonly" >
-										  </div>
-										  <div class="col-sm-1">
-											<button tag="actionBtn_select" type="button" class="btn btn-warning" onclick="showTableWin()">选择</button>
-										  </div>
-										</div>
 										<div class="form-group has-warning">
 										  <label for="inputEmail3" class="col-sm-1 control-label" ></label>
 										  <label for="inputEmail3" class="col-sm-5 control-label" style="border-top: 1px dashed #C0C0C0" ></label>
@@ -166,6 +164,12 @@
 										  <label for="inputEmail3" class="col-sm-2 control-label">客户电话：</label>
 										  <div class="col-sm-3">
 											<input type="text" class="form-control" id="tel" placeholder="客户电话" value="" >
+										  </div>
+										</div>
+										<div class="form-group has-warning" >
+										  <label for="inputEmail3" class="col-sm-2 control-label">收货地址：</label>
+										  <div class="col-sm-3">
+											<input type="text" class="form-control" id="address" placeholder="收货地址" value="" >
 										  </div>
 										</div>
 										<div class="form-group has-warning" >
@@ -262,7 +266,7 @@
 		    </div><!-- /.modal-content -->
 		  </div><!-- /.modal-dialog -->
 		</div><!-- /<!--modal 食谱-->
-		<!--modal 餐桌选择-->
+		<!--modal 配送人员选择-->
         <div class="modal fade" id="tablesWin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
 		  <div class="modal-dialog">
 		    <div class="modal-content">
@@ -277,18 +281,18 @@
 	                    <button class="btn btn-info btn-flat" type="button" onclick="searchTableList();">Go!</button>
 	                </span>
 			    </div>
-				<table class="table table-striped animated flipInX" id="tableList">
+				<table class="table table-striped animated flipInX" id="transferList">
 			          <tr>
 	                     <th>#</th>
 	                     <th>编号</th>
-	                     <th>用餐人数</th>
+	                     <th>姓名</th>
 	                     <th>操作</th>
 			          </tr>
 			   </table>
 		      </div>
 		    </div><!-- /.modal-content -->
 		  </div><!-- /.modal-dialog -->
-		</div><!-- /<!--modal 餐桌选择-->
+		</div><!-- /<!--modal 配送人员选择-->
 	</body>
 	<!-- jQuery 2.1.4 -->
     <script src="<%=cxtPath%>/js/jQuery-2.1.4.min.js"></script>

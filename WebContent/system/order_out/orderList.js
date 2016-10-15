@@ -3,7 +3,7 @@ var pageSize = 20; //默认每页20条数据
 var pageStart = 0;
 var first = true;//是否第一次加载
 var currdate = (new Date()).Format("yyyy-MM")+"-01";//初始化时间
-var dining_mode=1;
+var dining_mode=2;
 $("#begindate").val(currdate);
 $(function(){
 	var param = {"order.begindate":currdate,"order.dining_mode":dining_mode};

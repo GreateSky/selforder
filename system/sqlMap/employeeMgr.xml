@@ -312,6 +312,58 @@
 		and orr.deleted = 0 
 		and oer.deleted = 0 
 		and oer.empid = #{empid}
-	</select>	
+	</select>
+	
+	<!--获取员工信息列表(不带分页) -->
+	<select id="getEmployeeListWithNoPage"  parameterType="employee" resultType="employee">
+		select
+		        emp.empid,
+		        emp.empcode,
+		        emp.loginname,
+		        emp.password,
+		        emp.empname,
+		        emp.sex,
+		        emp.status,
+		        emp.type,
+		        emp.phone,
+		        emp.homeaddress,
+		        emp.wechatid,
+		        emp.openid,
+		        emp.headimgurl,
+		        emp.contactname,
+		        emp.contactphone,
+		        emp.loginnum,
+		        emp.lastlogindate,
+		        emp.sid,
+		        emp.bid,
+		        business.bname,
+		        bs.sname,
+		        emp.crter,
+		        emp.crtdate,
+		        emp.opter,
+		        emp.optdate,
+		        emp.deleted
+		from
+		    wx_dish_employee emp
+		left join wx_dish_business business on business.bid = emp.bid
+		left join wx_dish_business_shop bs on bs.sid = emp.sid    
+		where emp.deleted = 0 
+		<if test="bid != null and bid !='' ">
+			and emp.bid =#{bid}
+		</if>  
+		<if test="sid != null and sid !='' ">
+			and emp.sid =#{sid}
+		</if> 
+		<if test="empname != null and empname !='' ">
+			and emp.empname like concat('%',#{empname},'%')
+		</if>
+		<if test="phone != null and phone !='' ">
+			and emp.phone like concat('%',#{phone},'%')
+		</if>
+		<if test="empcode != null and empcode !='' ">
+			and emp.empcode = #{empcode}
+		</if>
+		order by emp.optdate desc,crtdate desc
+	</select>
 </mapper>
 

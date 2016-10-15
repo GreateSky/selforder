@@ -125,7 +125,8 @@
 		FROM
 		    wx_dish_order ord
 		left join wx_dish_tables tab on (tab.id = ord.tableid and tab.deleted = 0) 
-		where ord.deleted = 0    
+		where ord.deleted = 0 
+		and ord.dining_mode = #{dining_mode}   
 		<if test="id != null and id !='' ">
 			and ord.id = #{id}
 		</if>
@@ -155,7 +156,8 @@
 		SELECT count(1)
 		FROM
 		    wx_dish_order ord
-		where ord.deleted = 0    
+		where ord.deleted = 0 
+		and ord.dining_mode = #{dining_mode}     
 		<if test="id != null and id !='' ">
 			and ord.id = #{id}
 		</if>

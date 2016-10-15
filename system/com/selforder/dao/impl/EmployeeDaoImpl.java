@@ -143,4 +143,13 @@ public class EmployeeDaoImpl extends SqlSessionDaoSupport implements EmployeeDao
 	public List<Role> getEmpRoles(Employee employee)throws Exception{
 		return getSqlSession().selectList("com.selforder.employee.getEmpRoles", employee);
 	}
+	
+	/**
+	 * 获取员工信息列表(不带分页)
+	 * @param employee
+	 * @return
+	 */
+	public List<Employee> getEmployeeListWithNoPage(Employee employee)throws Exception{
+		return getSqlSession().selectList("com.selforder.employee.getEmployeeListWithNoPage", employee);
+	}
 }

@@ -54,4 +54,11 @@ public interface EmployeeService {
 	 * @return
 	 */
 	public String getEmployeeRole4Admin(Employee employee);
+	
+	/**
+	 * 获取员工信息列表(不带分页)
+	 * @param employee
+	 * @return
+	 */
+	public String getEmployeeListWithNoPage(Employee employee);
 }

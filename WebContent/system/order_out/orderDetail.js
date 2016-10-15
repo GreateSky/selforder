@@ -1,6 +1,6 @@
 var orderStatus = 0;//订单状态
 var tableid = "";//餐桌ID
-var dining_mode=1;
+var dining_mode=2;
 $(function() {
 	changeDivStyle(orderStatus);
 	$("#dining_mode").val(dining_mode);
@@ -43,9 +43,10 @@ function loadOrder(){
 			var crtdate = orderInfo.crtdate;
 			var username = orderInfo.username;
 			var tel = orderInfo.tel;
+			var address = orderInfo.address;
 			var taste = orderInfo.taste;
 			var remark = orderInfo.remark;
-			var tablecode = orderInfo.tablecode;
+			//var tablecode = orderInfo.tablecode;
 			tableid = orderInfo.tableid;
 			var totalprice = parseFloat(orderInfo.totalprice).toFixed(2);
 			var realprice = parseFloat(orderInfo.realprice).toFixed(2);
@@ -65,16 +66,17 @@ function loadOrder(){
 			$("#remark").val(remark);
 			$("#totalprice").val(totalprice);
 			$("#realprice").val(realprice);
-			$("#tablecode").val(tablecode);
+			//$("#tablecode").val(tablecode);
 			$("#tableid").val(tableid);
 			$("#username").val(username);
 			$("#tel").val(tel);
+			$("#address").val(address);
 			//已交易完成的订单取消操作功能
 			if(status == 4){
 				$("button[tag *='actionBtn']").attr("disabled","disabled");
 				$("input").attr("readonly","readonly");
 			}
-			changeDivStyle(status);//根据状态值显示
+			changeDivStyle(orderStatus);//根据状态值显示
 			//订单非0和-1状态禁用确认订单按钮
 			if(status !=0 && status != -1){
 				$("#affirmBtn").attr("disabled","disabled");
@@ -206,14 +208,25 @@ function updateOrder(){
 	var tableid = $("#tableid").val();
 	var username = $("#username").val();
 	var tel = $("#tel").val();
+	var address = $("#address").val();
 	var taste = $("#taste").val();
 	var remark = $("#remark").val();
 	var dining_mode = $("#dining_mode").val();
+	if(!checkValueWithInfo(username,"客户名称不能为空！")){
+		return;
+	}
+	if(!checkValueWithInfo(tel,"客户电话不能为空！")){
+		return;
+	}
+	if(!checkValueWithInfo(address,"收货地址不能为空！")){
+		return;
+	}
 	var param = {};
 	param["order.id"] = oid;
 	param["order.tableid"] = tableid;
 	param["order.username"] = username;
 	param["order.tel"] = tel;
+	param["order.address"] = address;
 	param["order.taste"] = taste;
 	param["order.remark"] = remark;
 	param["order.dining_mode"] = dining_mode;
@@ -267,9 +280,19 @@ function addOrder(){
 	var tableid = $("#tableid").val();
 	var username = $("#username").val();
 	var tel = $("#tel").val();
+	var address = $("#address").val();
 	var taste = $("#taste").val();
 	var remark = $("#remark").val();
 	var dining_mode = $("#dining_mode").val();
+	if(!checkValueWithInfo(username,"客户名称不能为空！")){
+		return;
+	}
+	if(!checkValueWithInfo(tel,"客户电话不能为空！")){
+		return;
+	}
+	if(!checkValueWithInfo(address,"收货地址不能为空！")){
+		return;
+	}
 	var param = {};
 	param["order.tableid"] = tableid;
 	param["order.username"] = username;
@@ -447,23 +470,22 @@ function balanceOrder(){
 }
 //****************************************************食谱选择操作end*************************************
 
-//*******************************************餐桌选择操作start**********************************
+//*******************************************配送人员选择操作start**********************************
 /**
  * 显示餐桌列表
  */
-function showTableWin(param){
-	$("tr[tag='tablesTrAppend']").remove();
+function showTransferWin(param){
+	$("tr[tag='transferTrAppend']").remove();
 	if(param == null ){
 		param = {};
 	}
-	param["table.weid"] = weid;
-	param["table.storeid"] = storeid;
-	param["table.status"] = 0;
+	param["employee.weid"] = weid;
+	param["employee.storeid"] = storeid;
 	
 	//加载食谱列表
 	$.ajax({
 		type:"POST",
-		url:"/selforder/api/table/allTableList.action",
+		url:"/selforder/api/employee/getEmployeeListWithNoPage.action",
 		data:param,
 		dataType:"json",
 		success:function(res){
@@ -513,7 +535,7 @@ function searchTableList(){
  */
 function selectTab(id,title){
 	$("#tableid").val(id);
-	$("#tablecode").val(title);
+	//$("#tablecode").val(title);
 	$("#tablesWin").modal("hide");
 }
-//*******************************************餐桌选择操作end**********************************
+//*******************************************配送人员选择操作end**********************************
