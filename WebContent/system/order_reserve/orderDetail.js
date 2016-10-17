@@ -237,7 +237,7 @@ function updateOrder(){
 		var goods_id = $(this).attr("goods_id");
 		var num = $(this).children().children("input").val();
 		var price = $(this).children("td[tag='price']").html();
-		var cost = price*num;
+		var cost = price*num;  
 		param["addDetailList["+i+"].did"] = did;
 		param["addDetailList["+i+"].oid"] = oid;
 		param["addDetailList["+i+"].price"] = price;
