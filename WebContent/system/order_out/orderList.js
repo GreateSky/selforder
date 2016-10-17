@@ -280,6 +280,7 @@ function affirmOrder(orderid){
 						}else{
 							layer.msg(message,{icon:6});
 						}
+						var param = {"order.begindate":currdate,"order.dining_mode":dining_mode};
 						loadOrderList("init",param);
 					}
 				});

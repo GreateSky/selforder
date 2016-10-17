@@ -1,6 +1,6 @@
 var orderStatus = 0;//订单状态
 var tableid = "";//餐桌ID
-var dining_mode=1;
+var dining_mode=3;
 $(function() {
 	changeDivStyle(orderStatus);
 	$("#dining_mode").val(dining_mode);
@@ -209,6 +209,12 @@ function updateOrder(){
 	var taste = $("#taste").val();
 	var remark = $("#remark").val();
 	var dining_mode = $("#dining_mode").val();
+	if(!checkValueWithInfo(username,"客户名称不能为空！")){
+		return;
+	}
+	if(!checkValueWithInfo(tel,"客户电话不能为空！")){
+		return;
+	}
 	var param = {};
 	param["order.id"] = oid;
 	param["order.tableid"] = tableid;
@@ -270,6 +276,12 @@ function addOrder(){
 	var taste = $("#taste").val();
 	var remark = $("#remark").val();
 	var dining_mode = $("#dining_mode").val();
+	if(!checkValueWithInfo(username,"客户名称不能为空！")){
+		return;
+	}
+	if(!checkValueWithInfo(tel,"客户电话不能为空！")){
+		return;
+	}
 	var param = {};
 	param["order.tableid"] = tableid;
 	param["order.username"] = username;

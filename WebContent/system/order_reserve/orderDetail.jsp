@@ -132,7 +132,7 @@
 										  	<select class="form-control" id="dining_mode" disabled="disabled">
 										  		<option value="1">到店</option>
 										  		<option value="2">外卖</option>
-										  		<option value="2">预定</option>
+										  		<option value="3">预定</option>
 										  	</select>
 										  </div>
 										</div>
