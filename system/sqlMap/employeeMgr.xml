@@ -363,6 +363,10 @@
 		<if test="empcode != null and empcode !='' ">
 			and emp.empcode = #{empcode}
 		</if>
+		<if test="keyword != null and keyword !='' ">
+			and concat(emp.empcode,emp.empname,emp.phone) like concat('%',#{keyword},'%')
+		</if>
+
 		order by emp.optdate desc,crtdate desc
 	</select>
 </mapper>

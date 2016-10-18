@@ -19,5 +19,6 @@ public class test {
 		System.out.println("t2.name=============="+t2.name);
 		System.out.println("t1.address=============="+t1.address);
 		System.out.println("t2.address=============="+t2.address);
+		System.out.println("t2.address==========++++++++++++++++++===="+t2.address);
 	}
 }
