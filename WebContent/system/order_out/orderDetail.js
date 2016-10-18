@@ -46,6 +46,8 @@ function loadOrder(){
 			var address = orderInfo.address;
 			var taste = orderInfo.taste;
 			var remark = orderInfo.remark;
+			var transferid = orderInfo.transferid;
+			var transfername = orderInfo.transfername;
 			//var tablecode = orderInfo.tablecode;
 			tableid = orderInfo.tableid;
 			var totalprice = parseFloat(orderInfo.totalprice).toFixed(2);
@@ -65,6 +67,8 @@ function loadOrder(){
 			$("#taste").val(taste);
 			$("#remark").val(remark);
 			$("#totalprice").val(totalprice);
+			$("#transferid").val(transferid);
+			$("#transfername").val(transfername);
 			$("#realprice").val(realprice);
 			//$("#tablecode").val(tablecode);
 			$("#tableid").val(tableid);
@@ -212,6 +216,7 @@ function updateOrder(){
 	var taste = $("#taste").val();
 	var remark = $("#remark").val();
 	var dining_mode = $("#dining_mode").val();
+	var transferid = $("#transferid").val();
 	if(!checkValueWithInfo(username,"客户名称不能为空！")){
 		return;
 	}
@@ -230,6 +235,7 @@ function updateOrder(){
 	param["order.taste"] = taste;
 	param["order.remark"] = remark;
 	param["order.dining_mode"] = dining_mode;
+	param["order.transferid"] = transferid;
 	//获取修改的明细集合
 	$("tr[optType='update']").each(function(i){
 		var did = $(this).attr("did");
@@ -284,6 +290,7 @@ function addOrder(){
 	var taste = $("#taste").val();
 	var remark = $("#remark").val();
 	var dining_mode = $("#dining_mode").val();
+	var transferid = $("#transferid").val();
 	if(!checkValueWithInfo(username,"客户名称不能为空！")){
 		return;
 	}
@@ -300,6 +307,7 @@ function addOrder(){
 	param["order.taste"] = taste;
 	param["order.remark"] = remark;
 	param["order.dining_mode"] = dining_mode;
+	param["order.transferid"] = transferid;
 	//获取新增的明细集合
 	$("tr[optType='add']").each(function(i){
 		var goods_id = $(this).attr("goods_id");
@@ -475,12 +483,12 @@ function balanceOrder(){
  * 显示餐桌列表
  */
 function showTransferWin(param){
-	$("tr[tag='transferTrAppend']").remove();
+	$("tr[tag='tablesTrAppend']").remove();
 	if(param == null ){
 		param = {};
 	}
-	param["employee.weid"] = weid;
-	param["employee.storeid"] = storeid;
+	param["employee.bid"] = weid;
+	param["employee.sid"] = storeid;
 	
 	//加载食谱列表
 	$.ajax({
@@ -495,47 +503,51 @@ function showTransferWin(param){
 				layer.msg(message,{icon:5});
 				return;
 			}
-			var tableList = res.data;
-			if(tableList.length>0){
-				for(var i=0;i<tableList.length;i++){
-					var row = tableList[i];
-					var id = row.id;
-					var title = row.title;
-					var user_count = row.user_count;
+			var rows = res.data;
+			if(rows.length>0){
+				for(var i=0;i<rows.length;i++){
+					var row = rows[i];
+					var empid = row.empid;
+					var empname = row.empname;
+					var empcode = row.empcode;
+					var phone = row.phone;
 					var tr = "";
-					tr += '<tr tag="tablesTrAppend" id="'+id+'" class="animated flipInX">       ';
+					tr += '<tr tag="tablesTrAppend" id="'+empid+'" class="animated flipInX">       ';
 					tr += '	<td>'+(i+1)+'</td>';
-					tr += '	<td>'+title+'</td>';
-					tr += '	<td>'+user_count+'</td>';
-					tr += '	<td><button type="button" class="btn btn-warning" onclick="selectTab(\''+id+'\',\''+title+'\')">选择</button></td>';
+					tr += '	<td>'+empcode+'</td>';
+					tr += '	<td>'+empname+'</td>';
+					tr += '	<td>'+phone+'</td>';
+					tr += '	<td><button type="button" class="btn btn-warning" onclick="selectTransfer(\''+empid+'\',\''+empname+'\')">选择</button></td>';
 					tr += '</tr>      ';
-					$("#tableList").append(tr);
+					$("#transferList").append(tr);
 				}
 			}
 		}
 	});
-	$("#tablesWin").modal("show");
+	$("#transferWin").modal("show");
 }
 
 /**
  * 搜索食谱列表
  */
-function searchTableList(){
-	var table_title = $("#table_title").val();
+function searchTransferList(){
+	var transferKeyword = $("#transferKeyword").val();
 	var param = {};
-	param["table.title"] = table_title;
-	showTableWin(param);
+	param["employee.keyword"] = transferKeyword;
+	showTransferWin(param);
 	
 }
 
 /**
- * 选择餐桌
- * @param id 餐桌id
- * @param title 餐桌名称
+ * 选择配送人
+ * @param empid 配送人ID
+ * @param empname 配送人name
+ * @returns
  */
-function selectTab(id,title){
-	$("#tableid").val(id);
-	//$("#tablecode").val(title);
-	$("#tablesWin").modal("hide");
+function selectTransfer(empid,empname){
+	$("#transfername").val(empname);
+	$("#transferid").val(empid);
+	$("#transferWin").modal("hide");
 }
+
 //*******************************************配送人员选择操作end**********************************

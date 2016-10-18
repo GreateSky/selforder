@@ -49,7 +49,8 @@
 			        crtdate,
 			        opter,
 			        optdate,
-			        deleted
+			        deleted,
+			        transferid
 			    )
 			    VALUES
 			    (
@@ -83,7 +84,8 @@
 					sysdate(),
 					#{opter},
 					sysdate(),
-					0
+					0,
+					#{transferid}
 			    )
 	</insert>
 	
@@ -121,10 +123,13 @@
 		        ord.crtdate,
 		        ord.opter,
 		        ord.optdate,
-		        ord.deleted
+		        ord.deleted,
+		        ord.transferid,
+		        emp.empname as transfername
 		FROM
 		    wx_dish_order ord
 		left join wx_dish_tables tab on (tab.id = ord.tableid and tab.deleted = 0) 
+		left join wx_dish_employee emp on emp.empid =  ord.transferid    
 		where ord.deleted = 0 
 		and ord.dining_mode = #{dining_mode}   
 		<if test="id != null and id !='' ">
@@ -215,10 +220,13 @@
 		        ord.crtdate,
 		        ord.opter,
 		        ord.optdate,
-		        ord.deleted
+		        ord.deleted,
+		        ord.transferid,
+		        emp.empname as transfername
 		FROM
 		    wx_dish_order ord
-		left join wx_dish_tables tab on (tab.id = ord.tableid and tab.deleted = 0)     
+		left join wx_dish_tables tab on (tab.id = ord.tableid and tab.deleted = 0)
+		left join wx_dish_employee emp on emp.empid =  ord.transferid    
 		where ord.deleted = 0    
 		<if test="id != null and id !='' ">
 			and ord.id = #{id}
@@ -306,6 +314,9 @@
 			</if>
 			<if test="deleted != null and deleted !='' ">
 				, deleted = #{deleted}
+			</if>
+			<if test="transferid != null and transferid !='' ">
+				, transferid = #{transferid}
 			</if>
 		WHERE
 		    id = #{id}      

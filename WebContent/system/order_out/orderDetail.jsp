@@ -150,6 +150,16 @@
 											<input type="text" class="form-control" id="crtdate" placeholder="创建时间" value="" readonly="readonly" >
 										  </div>
 										</div>
+										<div class="form-group has-warning" >
+										  <label for="inputEmail3" class="col-sm-2 control-label">配送人：</label>
+										  <div class="col-sm-3">
+										  	<input type="hidden" id="transferid"></input>
+											<input type="text" class="form-control" id="transfername" placeholder="配送人" value="" readonly="readonly" >
+										  </div>
+										  <div class="col-sm-1">
+											<button tag="actionBtn_select" type="button" class="btn btn-warning" onclick="showTransferWin()">选择</button>
+										  </div>
+										</div>
 										<div class="form-group has-warning">
 										  <label for="inputEmail3" class="col-sm-1 control-label" ></label>
 										  <label for="inputEmail3" class="col-sm-5 control-label" style="border-top: 1px dashed #C0C0C0" ></label>
@@ -267,7 +277,7 @@
 		  </div><!-- /.modal-dialog -->
 		</div><!-- /<!--modal 食谱-->
 		<!--modal 配送人员选择-->
-        <div class="modal fade" id="tablesWin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+        <div class="modal fade" id="transferWin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
 		  <div class="modal-dialog">
 		    <div class="modal-content">
 		      <div class="modal-header">
@@ -276,9 +286,9 @@
 		      </div>
 		      <div class="modal-body">
 		      	<div class="input-group " style="width: 97%;margin: 10px">
-			      	<input type="text" class="form-control" id="table_title"  placeholder="餐桌编号" value="" >
+			      	<input type="text" class="form-control" id="transferKeyword"  placeholder="名称/电话" value="" >
 			      	<span class="input-group-btn">
-	                    <button class="btn btn-info btn-flat" type="button" onclick="searchTableList();">Go!</button>
+	                    <button class="btn btn-info btn-flat" type="button" onclick="searchTransferList();">Go!</button>
 	                </span>
 			    </div>
 				<table class="table table-striped animated flipInX" id="transferList">
@@ -286,6 +296,7 @@
 	                     <th>#</th>
 	                     <th>编号</th>
 	                     <th>姓名</th>
+	                     <th>电话</th>
 	                     <th>操作</th>
 			          </tr>
 			   </table>

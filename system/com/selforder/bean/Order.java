@@ -50,6 +50,14 @@ public class Order extends baseBean {
 	private long begindateLine;
 	private long enddateLine;
 	private String tablecode;//餐桌号
+	private String transferid;
+	private String transfername;
+	public String getTransfername() {
+		return transfername;
+	}
+	public void setTransfername(String transfername) {
+		this.transfername = transfername;
+	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
@@ -280,5 +288,11 @@ public class Order extends baseBean {
 	}
 	public void setEnddateLine(long enddateLine) {
 		this.enddateLine = enddateLine;
+	}
+	public String getTransferid() {
+		return transferid;
+	}
+	public void setTransferid(String transferid) {
+		this.transferid = transferid;
 	}
 }

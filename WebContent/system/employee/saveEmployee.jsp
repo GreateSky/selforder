@@ -3,9 +3,9 @@
 <%@include file="/base.jsp"%>    
 <%
 	String opt = request.getParameter("opt");
-	String empid = "";
+	String empids="";
 	if(null != opt && "update".equalsIgnoreCase(opt)){
-		empid = request.getParameter("empid");
+		empids = request.getParameter("empid");
 	}else{
 		opt = "";
 	}
@@ -28,7 +28,7 @@
 	    <link href="<%=cxtPath%>/plugins/datepicker/datepicker3.css"/>
 	    <script language="JavaScript" type="application/javascript">
 	    	var opt = '<%=opt%>';
-	    	var empid = '<%=empid%>';
+	    	var empid = '<%=empids%>';
 	    </script>
 	</head>
 	<body style="margin: 0; padding: 0; background-color: #ECF0F5; width: 100%; height: 100%;" >
