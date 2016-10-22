@@ -135,6 +135,7 @@
 		        tab.user_count,
 		        tab.qrcodeid,
 		        room.id room_id,
+		        room.rname room_name,
 		        tab.displayorder,
 		        tab.dateline,
 		        tab.status,

@@ -140,3 +140,4 @@ function formatDate(jsonData){
     str += date.getSeconds()<10?("0"+date.getSeconds()):date.getSeconds();
     return str;
 }
+

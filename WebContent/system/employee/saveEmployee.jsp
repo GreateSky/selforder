@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@include file="/base.jsp"%>    
+<%@include file="/base.jsp"%>
 <%
 	String opt = request.getParameter("opt");
 	String empids="";
@@ -29,6 +29,7 @@
 	    <script language="JavaScript" type="application/javascript">
 	    	var opt = '<%=opt%>';
 	    	var empid = '<%=empids%>';
+			var emp_type = '<%=emp_type%>';//当前登录人类型
 	    </script>
 	</head>
 	<body style="margin: 0; padding: 0; background-color: #ECF0F5; width: 100%; height: 100%;" >
@@ -135,12 +136,14 @@
 					<div class="form-group has-warning">
 					  <label for="inputEmail3" class="col-sm-1 control-label">类型：</label>
 					  <div class="col-sm-2">
-						<select class="form-control" id="type" name="employee.type">
-							<option selected="B" value="0">商户</option>
-							<option value="S">门店</option>
-							<option value="A">管理</option>
-						</select>
+						<select class="form-control" id="type" name="employee.type" onchange="showSelectShop()"></select>
+					  </div>
+					</div>
+					<div class="form-group has-warning" id="selectShop" style="display: none">
+					  <label for="inputEmail3" class="col-sm-1 control-label">所属门店：</label>
+					  <div class="col-sm-2">
 						<input type="hidden" value="" id="sid" name="employee.sid"></input>
+						<input type="text" class="form-control" value="" id="sname" readonly="readonly"></input>
 					  </div>
 					  <div class="col-sm-2">
 						<button type="button" class="btn btn-default" onclick="storeList()">选择</button>
@@ -156,13 +159,13 @@
               </div><!-- /.box -->
         </section><!-- /.content -->
         <img id="headimgurl" src="" width="150px" height="150px" style="position:absolute;top: 120px; left: 550px; border-radius: 5px;"></img>
-        <!--modal 百度地图-->
+        <!--modal 门店选择-->
         <div class="modal fade" id="employeeWin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
 		  <div class="modal-dialog">
 		    <div class="modal-content">
 		      <div class="modal-header">
 		        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-		        <h4 class="modal-title" id="myModalLabel">地图定位</h4>
+		        <h4 class="modal-title" id="myModalLabel">门店选择</h4>
 		      </div>
 		      <div class="modal-body">
 		      	<div class="input-group " style="width: 97%;margin: 10px">
@@ -182,7 +185,7 @@
 		      </div>
 		    </div><!-- /.modal-content -->
 		  </div><!-- /.modal-dialog -->
-		</div><!-- /<!--modal 百度地图-->
+		</div><!-- /<!--modal 门店选择-->
 	</body>
 	<!-- jQuery 2.1.4 -->
     <script src="<%=cxtPath%>/js/jQuery-2.1.4.min.js"></script>

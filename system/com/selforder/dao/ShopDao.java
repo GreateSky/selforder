@@ -1,5 +1,6 @@
 package com.selforder.dao;
 
+import java.io.IOException;
 import java.util.List;
 
 import com.selforder.bean.Shop;

@@ -59,7 +59,7 @@
                 <form class="form-horizontal">
                   <div class="box-body">
                   <div class="row">
-                  	<div class="col-md-4" style="border-right: 1px #cccccc dashed">
+                  	<div class="col-md-6" style="border-right: 1px #cccccc dashed">
                   		<!--活动维护 start-->
 						<div class="form-group has-warning">
 						  <label for="inputEmail3" class="col-sm-3 control-label">活动名称：</label>
@@ -132,7 +132,7 @@
 						<!-- /活动维护 start-->
                   	</div>
                   	<!-- 活动已关联食谱列表 -->
-                  	<div class="col-md-8">
+                  	<div class="col-md-6">
                   		<table class="table table-striped animated flipInX" id="activityGoodsList">
                 			<tr>
 			                      <th>#</th>
@@ -155,7 +155,7 @@
                   </div><!-- /.box-footer -->
                 </form><!--/form end-->
               </div><!-- /.box -->
-              <img id="imgid" src="" width="150px" height="150px" style="position:absolute;top: 110px; left: 410px; border-radius: 8px;"></img>
+              <img id="imgid" src="" width="150px" height="150px" style="position:absolute;top: 110px; left: 30%; border-radius: 8px;"></img>
         </section><!-- /.content -->
          <!--modal 未关联食谱选择-->
         <div class="modal fade" id="selectGoodsWin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >

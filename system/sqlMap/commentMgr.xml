@@ -126,6 +126,8 @@
 	<select id="getCommentDetail" parameterType="comment" resultType="java.util.Map">
 		select comments.rid,
 				 comments.from_user,
+				 comments.weid,
+				 comments.storeid,
 				 fans.nickname,
 				 fans.username,
 				 fans.headimgurl,
@@ -141,9 +143,13 @@
 		left join wx_dish_fans fans on fans.from_user = comments.from_user
 		left join wx_dish_employee emp on emp.empcode = comments.replyer
 		where comments.deleted = 0 
-		and comments.from_user = #{from_user}
+		<if test="rid != null and rid !='' ">
+			and comments.rid = #{rid}
+		</if>
+		<if test="from_user != null and from_user !='' ">
+			and comments.from_user = #{from_user}
+		</if>
 		order by comments.crtdate asc
-		
 	</select>
 	
 	<!-- 更新阅读状态 -->

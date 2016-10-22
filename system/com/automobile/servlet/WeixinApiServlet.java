@@ -57,8 +57,13 @@ public class WeixinApiServlet extends HttpServlet {
 			String result = weixinApiService.getAccessToken(weid);
 			response.getWriter().write(result);
 		}else if("pushMessage".equals(method)){
-			//消息推送
-			String messageType = request.getParameter("messageType");//消息类型
+			/**
+			 * 消息推送接口
+			 * 消息类型messageType:createOrder，updateOrder，payOrder,comment,callService
+			 * 接口所需参数：messageType、id（各个业务实体ID）、
+			 * 访问地址：http://127.0.0.1:7080/selforder/api/pushMessage?method=pushMessage&messageType=comment&id=sdfasdfasdfasdf
+			 */
+			String messageType = request.getParameter("messageType");
 			//初始化dao层bean
 			ServletContext application;     
 			WebApplicationContext wac;     
@@ -66,10 +71,18 @@ public class WeixinApiServlet extends HttpServlet {
 			application = getServletContext();     
 			wac = WebApplicationContextUtils.getWebApplicationContext(application);//获取spring的context     
 			PushMessage  pushMessage = (PushMessage) wac.getBean("pushMessage");
-			if(!"comment".equals(messageType)){
+			if("createOrder".equals(messageType)||"updateOrder".equals(messageType)||"payOrder".equals(messageType)){
 				//推送订单类消息
-				String orderid = request.getParameter("orderid");//订单ID
+				String orderid = request.getParameter("id");//订单ID
 				String result = pushMessage.sendOrderMessgeToUser(messageType, orderid);
+			}else if("comment".equals(messageType)){
+				//推送评论类消息
+				String rid =  request.getParameter("id");//评论ID
+				String result = pushMessage.sendCommentMessageToUser(rid);
+			}else if("callService".equals(messageType)){
+				//推送呼叫服务类消息
+				String tableid =  request.getParameter("id");//餐桌ID
+				String result = pushMessage.sendCallServiceMessageToUser(tableid);
 			}
 		}else{
 			response.getWriter().write("无请求内容！");

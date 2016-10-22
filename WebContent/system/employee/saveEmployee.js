@@ -1,10 +1,42 @@
 $(function(){
+	setTypeByLoginUserType(emp_type);//根据当前登录人类型设置用户类型
 	if("update" == opt){
 		$("div[tag='login']").remove();
 		getEmployeeInfo();
 	}
 });
 
+/**
+ * 根据当前登录人类型设置用户类型
+ * @param emp_type
+ */
+function setTypeByLoginUserType(emp_type){
+	var option = "";
+	if(emp_type == "A"){
+		option += '<option selected="B" value="0">商户</option> ';
+		option += '<option value="S">门店</option>              ';
+		option += '<option value="A">管理</option>              ';
+	}else if(emp_type == "B"){
+		option += '<option selected="B" value="0">商户</option> ';
+		option += '<option value="S">门店</option>              ';
+	}else if(emp_type == "S"){
+		option += '<option value="S">门店</option>              ';
+	}
+	$("#type").append(option);
+	
+}
+
+/**
+ * 根据所选的操作员类型显示门店选择
+ */
+function showSelectShop(){
+	var type = $("#type").val();
+	if(type == "S"){
+		$("#selectShop").css("display","block");
+	}else{
+		$("#selectShop").css("display","none");
+	}
+}
 /**
  * 获取员工详情
  */
@@ -221,7 +253,7 @@ function storeList(){
 						tr += '     <td>'+(i+1)+'</td>    ';
 						tr += '     <td>'+row.title+'</td> ';
 						tr += '     <td>'+row.tel+'</td> ';
-						tr += '     <td><button type="button" class="btn btn-warning" onclick="selectShop(\''+row.id+'\')">选择</button></td> ';
+						tr += '     <td><button type="button" class="btn btn-warning" onclick="selectShop(\''+row.id+'\',\''+row.title+'\')">选择</button></td> ';
 						tr += '</tr>              ';
 						$("#storeList").append(tr);
 					}
@@ -237,7 +269,8 @@ function storeList(){
  * 
  * @param id
  */
-function selectShop(id){
+function selectShop(id,title){
 	$("#sid").val(id);
+	$("#sname").val(title);
 	$("#employeeWin").modal('hide');
 }

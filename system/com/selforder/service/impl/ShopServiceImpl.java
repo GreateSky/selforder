@@ -37,7 +37,7 @@ public class ShopServiceImpl implements ShopService {
 		try{
 			result = shopDao.saveShop(shop);
 		}catch(Exception e){
-			logger.error("获取门店列表:shopList异常"+e.getMessage());
+			logger.error("保存门店信息:saveShop异常"+e.getMessage());
 			return JsonResultUtil.getJsonResult(-1, "fail", "操作异常!");
 		}
 		return result;

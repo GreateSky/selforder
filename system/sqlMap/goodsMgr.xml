@@ -103,6 +103,9 @@
 		<if test="weid != null and weid !='' ">
 			and goods.weid = #{weid}
 		</if>
+		<if test="storeid != null and storeid !='' ">
+			and goods.storeid = #{storeid}
+		</if>
 		<if test="id != null and id !='' ">
 			and goods.id = #{id}
 		</if> 
@@ -128,6 +131,9 @@
 		where goods.deleted = 0 
 		<if test="weid != null and weid !='' ">
 			and goods.weid = #{weid}
+		</if>
+		<if test="storeid != null and storeid !='' ">
+			and goods.storeid = #{storeid}
 		</if>
 		<if test="id != null and id !='' ">
 			and goods.id = #{id}
@@ -329,6 +335,9 @@
 		<if test="name != null and name !='' ">
 			and cate.name = #{name}
 		</if>
+		<if test="storeid != null and storeid !='' ">
+			and cate.storeid = #{storeid}
+		</if>
 		order BY cate.displayorder desc
 	</select>
 	
@@ -340,6 +349,7 @@
 		from wx_dish_goods goods 
 		where goods.deleted = 0 
 		and goods.weid = #{weid}
+		and goods.storeid = #{storeid}
 		and goods.id not in (
 			select od.goods_id
 			from wx_dish_order_detail od 

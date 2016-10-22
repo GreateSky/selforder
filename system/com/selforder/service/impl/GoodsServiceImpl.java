@@ -41,7 +41,9 @@ public class GoodsServiceImpl implements GoodsService {
 		String result = "";
 		Map resultMap = new HashMap();
 		String bid = new Context().getLoginUserInfo().getBid();
+		String sid = new Context().getLoginUserInfo().getSid();
 		goods.setWeid(bid);
+		goods.setStoreid(sid);
 		try{
 			//查询食谱列表
 			List<Goods> goodsList = goodsDao.goodsList(goods);
@@ -69,7 +71,9 @@ public class GoodsServiceImpl implements GoodsService {
 	public String goodsInfo(Goods goods){
 		String result = "";
 		String bid = new Context().getLoginUserInfo().getBid();
+		String sid = new Context().getLoginUserInfo().getSid();
 		goods.setWeid(bid);
+		goods.setStoreid(sid);
 		try{
 			Goods goodsinfo = goodsDao.goodsInfo(goods);
 			if(goodsinfo != null){
@@ -94,8 +98,10 @@ public class GoodsServiceImpl implements GoodsService {
 		try{
 			String crter = new Context().getLoginUserInfo().getCode();
 			String bid = new Context().getLoginUserInfo().getBid();
+			String sid = new Context().getLoginUserInfo().getSid();
 			goods.setCrter(crter);
 			goods.setWeid(bid);
+			goods.setStoreid(sid);
 			int temp = goodsDao.insertGoods(goods);
 			if(temp > 0){
 				result = JsonResultUtil.getJsonResult(0, "success", "新增食谱成功!");
@@ -142,8 +148,10 @@ public class GoodsServiceImpl implements GoodsService {
 		try{
 			String crter = new Context().getLoginUserInfo().getCode();
 			String bid = new Context().getLoginUserInfo().getBid();
+			String sid = new Context().getLoginUserInfo().getSid();
 			goodsCategory.setCrter(crter);
 			goodsCategory.setWeid(bid);
+			goodsCategory.setStoreid(sid);
 			int temp = goodsDao.insertGoodsCategory(goodsCategory);
 			if(temp > 0){
 				result = JsonResultUtil.getJsonResult(0, "success", "新增食谱分类成功!");
@@ -189,10 +197,12 @@ public class GoodsServiceImpl implements GoodsService {
 	public String goodsCategoryList(GoodsCategory goodsCategory){
 		String result = "";
 		String bid = new Context().getLoginUserInfo().getBid();
+		String sid = new Context().getLoginUserInfo().getSid();
 		if(null == goodsCategory){
 			goodsCategory = new GoodsCategory();
 		}
 		goodsCategory.setWeid(bid);
+		goodsCategory.setStoreid(sid);
 		try{
 			List<GoodsCategory> goodsCategoryList = goodsDao.goodsCategoryList(goodsCategory);
 			if(null != goodsCategoryList && goodsCategoryList.size()> 0){
@@ -215,7 +225,9 @@ public class GoodsServiceImpl implements GoodsService {
 	public String getGoodsListIgnoreOrderId(Goods goods){
 		String result = "";
 		String bid = new Context().getLoginUserInfo().getBid();
+		String sid = new Context().getLoginUserInfo().getSid();
 		goods.setWeid(bid);
+		goods.setStoreid(sid);
 		try{
 			List<Goods> goodsList = goodsDao.getGoodsListIgnoreOrderId(goods);
 			if(null != goodsList && goodsList.size()> 0){

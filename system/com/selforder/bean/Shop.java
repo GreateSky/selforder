@@ -1,8 +1,5 @@
 package com.selforder.bean;
 
-import java.io.Serializable;
-import java.util.Date;
-
 import com.automobile.bean.baseBean;
 
 /**
@@ -40,18 +37,61 @@ public class Shop extends baseBean{
 	private String is_delivery;
 	private String is_reservation;
 	private String is_queue;
-	private String delivery_within_days;
-	private String delivery_radius;
-	private String not_in_delivery_radius;
-	private String sendingprice;
-	private String consume;
-	private String level;
+	private int delivery_within_days;
+	private int delivery_radius;
+	private int not_in_delivery_radius;
+	private int sendingprice; 
+	private int consume; 
+	private int level;
 	private String updatetime;
 	private String dateline;
 	private String content;
 	private String begintime;
 	private String endtime;
 	private String bid;//商户ID
+	private int seconsumendingprice;
+	public int getSeconsumendingprice() {
+		return seconsumendingprice;
+	}
+	public void setSeconsumendingprice(int seconsumendingprice) {
+		this.seconsumendingprice = seconsumendingprice;
+	}
+	public int getDelivery_within_days() {
+		return delivery_within_days;
+	}
+	public int getDelivery_radius() {
+		return delivery_radius;
+	}
+	public int getNot_in_delivery_radius() {
+		return not_in_delivery_radius;
+	}
+	public int getSendingprice() {
+		return sendingprice;
+	}
+	public int getConsume() {
+		return consume;
+	}
+	public int getLevel() {
+		return level;
+	}
+	public void setDelivery_within_days(int delivery_within_days) {
+		this.delivery_within_days = delivery_within_days;
+	}
+	public void setDelivery_radius(int delivery_radius) {
+		this.delivery_radius = delivery_radius;
+	}
+	public void setNot_in_delivery_radius(int not_in_delivery_radius) {
+		this.not_in_delivery_radius = not_in_delivery_radius;
+	}
+	public void setSendingprice(int sendingprice) {
+		this.sendingprice = sendingprice;
+	}
+	public void setConsume(int consume) {
+		this.consume = consume;
+	}
+	public void setLevel(int level) {
+		this.level = level;
+	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
@@ -135,24 +175,6 @@ public class Shop extends baseBean{
 	}
 	public String getIs_queue() {
 		return is_queue;
-	}
-	public String getDelivery_within_days() {
-		return delivery_within_days;
-	}
-	public String getDelivery_radius() {
-		return delivery_radius;
-	}
-	public String getNot_in_delivery_radius() {
-		return not_in_delivery_radius;
-	}
-	public String getSendingprice() {
-		return sendingprice;
-	}
-	public String getConsume() {
-		return consume;
-	}
-	public String getLevel() {
-		return level;
 	}
 	public String getUpdatetime() {
 		return updatetime;
@@ -249,24 +271,6 @@ public class Shop extends baseBean{
 	}
 	public void setIs_queue(String is_queue) {
 		this.is_queue = is_queue;
-	}
-	public void setDelivery_within_days(String delivery_within_days) {
-		this.delivery_within_days = delivery_within_days;
-	}
-	public void setDelivery_radius(String delivery_radius) {
-		this.delivery_radius = delivery_radius;
-	}
-	public void setNot_in_delivery_radius(String not_in_delivery_radius) {
-		this.not_in_delivery_radius = not_in_delivery_radius;
-	}
-	public void setSendingprice(String sendingprice) {
-		this.sendingprice = sendingprice;
-	}
-	public void setConsume(String consume) {
-		this.consume = consume;
-	}
-	public void setLevel(String level) {
-		this.level = level;
 	}
 	public void setUpdatetime(String updatetime) {
 		this.updatetime = updatetime;

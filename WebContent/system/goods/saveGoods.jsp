@@ -49,43 +49,43 @@
                   <div class="box-body">
                   	<!--食谱维护 start-->
 					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-1 control-label">名称:</label>
+					  <label for="inputEmail3" class="col-sm-2 control-label">名称:</label>
 					  <div class="col-sm-2">
 						<input type="text" class="form-control" id="title" placeholder="名称" value="" onblur="checkGoodsName()">
 					  </div>
 					</div>
 					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-1 control-label">图片:</label>
+					  <label for="inputEmail3" class="col-sm-2 control-label">图片:</label>
 					  <div class="col-sm-2">
 						<input type="file" id="fileid" name="fileid" class="form-control" />
 					  </div>
 					</div>
 					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-1 control-label">所属食谱分类:</label>
+					  <label for="inputEmail3" class="col-sm-2 control-label">所属食谱分类:</label>
 					  <div class="col-sm-2">
 						<select class="form-control" id="goodsCategoryCommbox"></select>
 					  </div>
 					</div>
 					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-1 control-label">市场价格(￥):</label>
+					  <label for="inputEmail3" class="col-sm-2 control-label">市场价格(￥):</label>
 					  <div class="col-sm-2">
 						<input type="number" class="form-control" id=marketprice placeholder="市场价格(￥)" value="">
 					  </div>
 					</div>
 					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-1 control-label">成本价格(￥):</label>
+					  <label for="inputEmail3" class="col-sm-2 control-label">成本价格(￥):</label>
 					  <div class="col-sm-2">
 						<input type="number" class="form-control" id="productprice" placeholder="成本价格(￥)" value="">
 					  </div>
 					</div>
 					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-1 control-label">计量单位:</label>
+					  <label for="inputEmail3" class="col-sm-2 control-label">计量单位:</label>
 					  <div class="col-sm-2">
 						<input type="text" class="form-control" id="unitname" placeholder="计量单位" value="">
 					  </div>
 					</div>
 					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-1 control-label">状态:</label>
+					  <label for="inputEmail3" class="col-sm-2 control-label">状态:</label>
 					  <div class="col-sm-2">
 						<select class="form-control" id="status">
 							<option value="0">上架</option>
@@ -95,7 +95,7 @@
 					  </div>
 					</div>
 					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-1 control-label">是否推荐:</label>
+					  <label for="inputEmail3" class="col-sm-2 control-label">是否推荐:</label>
 					  <div class="col-sm-4">
 						<div class="radio">
 	                        <label>
@@ -110,7 +110,7 @@
 					  </div>
 					</div>
 					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-1 control-label">是否特殊:</label>
+					  <label for="inputEmail3" class="col-sm-2 control-label">是否特殊:</label>
 					  <div class="col-sm-4">
 						<div class="radio">
 	                        <label>
@@ -125,19 +125,19 @@
 					  </div>
 					</div>
 					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-1 control-label">口味:</label>
+					  <label for="inputEmail3" class="col-sm-2 control-label">口味:</label>
 					  <div class="col-sm-2">
 						<input type="text" class="form-control" id="taste" placeholder="口味" value="">
 					  </div>
 					</div>
 					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-1 control-label">排序(越大越靠前):</label>
+					  <label for="inputEmail3" class="col-sm-2 control-label">排序(越大越靠前):</label>
 					  <div class="col-sm-2">
 						<input type="number" class="form-control" id="displayorder" placeholder="排序(越大越靠前)" value="0">
 					  </div>
 					</div>
 					<div class="form-group has-warning" >
-					  <label for="inputEmail3" class="col-sm-1 control-label">描述:</label>
+					  <label for="inputEmail3" class="col-sm-2 control-label">描述:</label>
 					  <div class="col-sm-2">
 						<textarea rows="5" class="form-control" id="description"></textarea>
 					  </div>

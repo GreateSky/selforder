@@ -374,9 +374,6 @@
 			<if test="not_in_delivery_radius != null and not_in_delivery_radius !='' ">
 				, not_in_delivery_radius = #{not_in_delivery_radius}
 			</if>
-			<if test="sendingprice != null and sendingprice !='' ">
-				, sendingprice = #{sendingprice}
-			</if>
 			<if test="consume != null and seconsumendingprice !='' ">
 				, consume = #{consume}
 			</if>

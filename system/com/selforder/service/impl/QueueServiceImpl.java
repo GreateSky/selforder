@@ -113,7 +113,6 @@ public class QueueServiceImpl implements QueueService{
 	public String getQueueSettingList(QueueSetting queueSetting){
 		String result = "";
 		String sid = new Context().getLoginUserInfo().getSid();
-		sid = "23cc1304a48d1034b0cfb95476544456";//无门店暂时固定值替代
 		if(queueSetting == null)
 			queueSetting = new QueueSetting();
 		queueSetting.setStoreid(sid);

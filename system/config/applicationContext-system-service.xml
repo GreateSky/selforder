@@ -80,6 +80,8 @@
 	<bean name="pushMessage" class="com.selforder.util.PushMessage" scope="prototype">
 		<property name="pushMessageDao" ref="pushMessageDao"></property>
 		<property name="orderDao" ref="orderDao"></property>
+		<property name="commentDao" ref="commentDao"></property>
+		<property name="tableDao" ref="tableDao"></property>
 	</bean>
 	
 	

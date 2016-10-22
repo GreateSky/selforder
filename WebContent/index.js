@@ -1,5 +1,8 @@
 var websocket;
 var sound = "messageTip/audio/news.mp3";//提示音
+var sound = "messageTip/audio/notify.wav";//提示音
+var messageNo = "";
+
 //Tab页初始化
 function linkMainTab(url,tabcode,title){
 	//首先查找tabcode的tab是否存在
@@ -91,9 +94,11 @@ function saveBtn(e){
 }
 
 //******************************webSocket操作start****************************
-function initWebSocket(){
+var localhost = "localhost";
+localhost= "www.shcebang.com";
+function initWebSocket(){ 
  	if(window.WebSocket){
- 		websocket = new WebSocket(encodeURI('ws://localhost:7080/selforder/api/SendMsg?empid='+empid));
+ 		websocket = new WebSocket(encodeURI('ws://'+localhost+':9700/selforder/api/SendMsg?empid='+empid));
  		websocket.onopen = function() {  
  		    //连接成功  
  		    //$("#content").append("<p>连接成功!  </p>");
@@ -107,7 +112,11 @@ function initWebSocket(){
  		websocket.onmessage = function(messageObj) {
  			var message = messageObj.data;
  			message = JSON.parse(message);
- 			showPushMessage(message);
+ 			var no = message.NO;//消息编码
+ 			if(messageNo.indexOf(no) == -1){//判断消息是否重复
+ 				messageNo += no;
+ 				showPushMessage(message);
+ 			}
  		};
  	}else{
  		alert("浏览器不支持WebSocket,请更新您的浏览器！");
@@ -126,49 +135,124 @@ function logOut(){
  */
 function showPushMessage(message){
 	var messageType = message.messageType;//消息类型 createOrder,updateOrder,payOrder,comment
-	if(messageType != "comment"){
-		//处理非评论信息
-		var diningMode = message.diningMode;//订单类型：1、店内点单   2、外卖订单  3、预定订单
-		var ordersn = message.ordersn;//订单编号
-		var message = "";
-		if(diningMode == 1){
-			//处理店内点单消息
-			if(messageType == "createOrder"){
-				message = "订单【"+ordersn+"】已创建,请及时确认！";
-			}else if(messageType == "updateOrder"){
-				message = "订单【"+ordersn+"】已更新,请及时查看！";
-			}else if(messageType == "payOrder"){
-				message = "订单【"+ordersn+"】已付款,请及时查看！";
-			}
-			$("#incomeOrder_a").css({"-webkit-animation":"twinkling 1s infinite ease-in-out"}); //店内点单图标动画
-			$.notifySetup({sound:sound});//播放提示音
-			$('<p>'+message+'</p>').notify();//弹出提示音
-			var appendLi = "";
-			appendLi += '<li>                                                ';
-			appendLi += '  <a href="#">                                      ';
-			appendLi += '    <i class="fa  fa-pencil-square-o text-aqua">'+message+'</i>';
-			appendLi += '  </a>                                              ';
-			appendLi += '</li>                                               ';
-			$("#incomeOrder_menu").prepend(appendLi);//将最新的消息插入第一条
-			var incomeOrder_menu_length = $("#incomeOrder_menu").children().length;//下拉列表中当前的数据行数
-			$("#incomeOrder_num").html(incomeOrder_menu_length);
-			//$("#incomeOrder_head").html(incomeOrder_menu_length+"条订单信息");
-		}else if(diningMode == 2){
-			//处理外卖订单消息
-		}else if(diningMode == 3){
-			//处理预定订单消息
-		}
-		
+	if(messageType == "createOrder" || messageType == "updateOrder" || messageType == "payOrder"){
+		execOrderMsg(message);//处理订单推送的消息
+	}else if(messageType == "comment"){
+		execCommentMsg(message);//处理评论推送的消息
+	}else if(messageType == "callService"){
+		execCallServiceMsg(message);
 	}
 	
 }
 
 /**
- * 显示推送的订单信息
- * @param orderType 订单类型
+ * 处理订单推送的消息
+ * @param message
  */
-function showOrderMessage(orderType){
-	$("#"+orderType+"_a").attr("style","");
-	$("#"+orderType+"_num").html("");
+function execOrderMsg(message){
+	var messageType = message.messageType;
+	var diningMode = message.diningMode;//订单类型：1、店内点单   2、外卖订单  3、预定订单
+	var ordersn = message.ordersn;//订单编号
+	var message = "";
+	//处理店内点单消息
+	if(messageType == "createOrder"){
+		message = "订单【"+ordersn+"】已创建,请及时确认！";
+	}else if(messageType == "updateOrder"){
+		message = "订单【"+ordersn+"】已更新,请及时查看！";
+	}else if(messageType == "payOrder"){
+		message = "订单【"+ordersn+"】已付款,请及时查看！";
+	}
+	$("#incomeOrder_a").css({"-webkit-animation":"twinkling 1s infinite ease-in-out"}); //店内点单图标动画
+	$.notifySetup({sound:sound});//播放提示音
+	$('<p>'+message+'</p>').notify();//弹出提示音
+	var appendLi = "";
+	appendLi += '<li>                                                ';
+	appendLi += '  <a href="#">                                      ';
+	appendLi += '    <i class="fa  fa-pencil-square-o text-aqua">'+message+'</i>';
+	appendLi += '  </a>                                              ';
+	appendLi += '</li>                                               ';
+	$("#incomeOrder_menu").prepend(appendLi);//将最新的消息插入第一条
+	var incomeOrder_menu_length = $("#incomeOrder_menu").children().length;//下拉列表中当前的数据行数
+	$("#incomeOrder_num").html(incomeOrder_menu_length);
+}
+
+/**
+ * 处理评论推送的消息
+ * @param message
+ */
+function execCommentMsg(message){
+	if(!checkValue(message)){
+		return;
+	}
+	var username = message.username;
+	var nickname = message.nickname;
+	var description = message.description;
+	var crtdate = message.crtdate;
+	var rid = message.rid;
+	var showMessage = "新评论："+description;
+	$("#comment_a").css({"-webkit-animation":"twinkling 1s infinite ease-in-out"}); //店内点单图标动画
+	$.notifySetup({sound:sound});//播放提示音
+	$('<p>'+showMessage+'</p>').notify();//弹出提示音
+	var message = "";
+	message +='<li><!-- start message -->                                                        ';
+	message +='  <a href="#">                                                                    ';
+	message +='    <div class="pull-left">                                                       ';
+	message +='      <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" />';
+	message +='    </div>                                                                        ';
+	message +='    <h4>                                                                          ';
+	message +='      '+username+'                                                               ';
+	message +='      <small><i class="fa fa-clock-o"></i> '+crtdate+'</small>                       ';
+	message +='    </h4>                                                                         ';
+	message +='    <p>'+description+'</p>                                                               ';
+	message +='  </a>                                                                            ';
+	message +='</li><!-- end message -->                                                         ';
+	$("#comment_menu").prepend(message);//将最新的消息插入第一条
+	var comment_menu_length = $("#comment_menu").children().length;//下拉列表中当前的数据行数
+	$("#comment_num").html(comment_menu_length);
+}
+
+/**
+ * 处理呼叫服务推送的消息
+ * @param message
+ */
+function execCallServiceMsg(message){
+	if(!checkValue(message)){
+		return;
+	}
+	var tablecode = message.tablecode;
+	var room_name = message.room_name;
+	var callTime = message.callTime;
+	var showMessage = "【"+tablecode+"】"+"号餐桌呼叫服务请及时处理！";
+	$("#callService_a").css({"-webkit-animation":"twinkling 1s infinite ease-in-out"}); //店内点单图标动画
+	$.notifySetup({sound:sound});//播放提示音
+	$('<p>'+showMessage+'</p>').notify();//弹出提示音
+	var appendLi = "";
+	appendLi += '<li>                                                ';
+	appendLi += '  <a href="#">                                      ';
+	appendLi += '    <span>'+showMessage+'<small>'+callTime+'</small></span>';
+	appendLi += '  </a>                                              ';
+	appendLi += '</li>                                               ';
+	$("#callService_menu").prepend(appendLi);//将最新的消息插入第一条
+	var callService_menu_length = $("#callService_menu").children().length;//下拉列表中当前的数据行数
+	$("#callService_num").html(callService_menu_length);
+}
+
+/**
+ * 取消消息提示
+ * @param em
+ */
+function cancelMessageNotify(em){
+	$("#"+em+"_a").attr("style","");
+	$("#"+em+"_num").html("");
+}
+
+
+/**
+ * 清空数据
+ * @param em
+ */
+function clearDate(em){
+	$("#"+em+"_menu").children().remove();
+	
 }
 

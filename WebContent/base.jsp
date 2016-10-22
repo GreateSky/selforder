@@ -10,6 +10,7 @@
 	String empid = userinfo.getEmpid();
 	String weid = userinfo.getBid();
 	String storeid = userinfo.getSid();
+	String emp_type = userinfo.getType();
 %>
 <!DOCTYPE html>
 <html>
@@ -28,4 +29,5 @@
 	var weid = '<%=weid%>';
 	var storeid = '<%=storeid%>';
 	var empid = '<%=empid%>';
+	var emp_type = '<%=emp_type%>';
 </script>

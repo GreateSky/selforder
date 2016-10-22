@@ -9,7 +9,6 @@
 	String empname = userinfo.getName();
 	String empcode = userinfo.getCode();
 	String empid = userinfo.getEmpid();
-	String emp_type = userinfo.getType();
 %> 
 <!DOCTYPE html>
 <html>
@@ -31,6 +30,14 @@
     <link href="dist/css/skins/skin-yellow-light.min.css" rel="stylesheet" type="text/css" />
     <!-- iCheck -->
     <link href="plugins/iCheck/flat/blue.css" rel="stylesheet" type="text/css" />
+    <!-- Morris chart -->
+    <link href="plugins/morris/morris.css" rel="stylesheet" type="text/css" />
+    <!-- jvectormap -->
+    <link href="plugins/jvectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet" type="text/css" />
+    <!-- Date Picker -->
+    <link href="plugins/datepicker/datepicker3.css" rel="stylesheet" type="text/css" />
+    <!-- Daterange picker -->
+    <link href="plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
     <!-- bootstrap wysihtml5 - text editor -->
     <link href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css" rel="stylesheet" type="text/css" />
 	<!-- 消息提醒 -->
@@ -56,7 +63,6 @@
     	var empid = '<%=empid%>';
     	var empname = "<%=empname%>";
 		var empcode = "<%=empcode%>";
-		var emp_type = '<%=emp_type%>';
     </script>
   </head>
   <body class="skin-yellow-light sidebar-mini">
@@ -350,21 +356,21 @@
         <!-- Custom Tabs -->
         <div class="nav-tabs-custom">
           <ul class="nav nav-tabs" id="mainTabs">
-            <li class="active"><a href="#home_tab" data-toggle="tab" id="home">首页	</a></li>
+            <li class="active"><a href="#home_tab" data-toggle="tab" id="home">首页</a></li>
           </ul>
           <div class="tab-content" id="tabcontent">
             <div class="tab-pane active" id="home_tab">
-              <iframe src="" style="margin: 0; padding: 0; border: 0px;" width="100%" height="900px" ></iframe>
+              <iframe src="home.html" style="margin: 0; padding: 0; border: 0px;" width="100%" height="900px" ></iframe>
             </div><!-- /.tab-pane -->
           </div><!-- /.tab-content -->
         </div><!-- nav-tabs-custom -->
       </div><!-- /.content-wrapper -->
-     <!-- <footer class="main-footer">
-         <div class="pull-right hidden-xs">
+      <footer class="main-footer">
+        <div class="pull-right hidden-xs">
           <b>Version</b> 2.2.0
         </div>
-        <strong>Copyright &copy; 2014-2016 <a href="#">Self Order</a>.</strong> All rights reserved. 
-      </footer>-->
+        <strong>Copyright &copy; 2014-2016 <a href="#">Self Order</a>.</strong> All rights reserved.
+      </footer>
     </div><!-- ./wrapper -->
 	<!--modal 修改密码-->
     <div class="modal fade" id="updatePasswordWin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -400,11 +406,34 @@
     <!-- jQuery 2.1.4 -->
     <script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>
     <!-- jQuery UI 1.11.4 -->
-    <script src="js/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js" type="text/javascript"></script>
+    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
     <!-- Bootstrap 3.3.2 JS -->
     <script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <!-- Sparkline -->
+    <script src="plugins/sparkline/jquery.sparkline.min.js" type="text/javascript"></script>
+    <!-- jvectormap -->
+    <script src="plugins/jvectormap/jquery-jvectormap-1.2.2.min.js" type="text/javascript"></script>
+    <script src="plugins/jvectormap/jquery-jvectormap-world-mill-en.js" type="text/javascript"></script>
+    <!-- jQuery Knob Chart -->
+    <script src="plugins/knob/jquery.knob.js" type="text/javascript"></script>
+    <!-- daterangepicker -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js" type="text/javascript"></script>
+    <script src="plugins/daterangepicker/daterangepicker.js" type="text/javascript"></script>
+    <!-- datepicker -->
+    <script src="plugins/datepicker/bootstrap-datepicker.js" type="text/javascript"></script>
+    <!-- Bootstrap WYSIHTML5 -->
+    <script src="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js" type="text/javascript"></script>
+    <!-- Slimscroll -->
+    <script src="plugins/slimScroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+    <!-- FastClick -->
+    <script src="plugins/fastclick/fastclick.min.js" type="text/javascript"></script>
     <!-- AdminLTE App -->
     <script src="dist/js/app.min.js" type="text/javascript"></script>
+    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+    <script src="dist/js/pages/dashboard.js" type="text/javascript"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="dist/js/demo.js" type="text/javascript"></script>
     <script type="text/javascript" src="js/common.js"></script>
     <script src="plugins/layer/layer.js"></script>
     <script type="text/javascript" src="messageTip/js/jquery.notify.js"></script>
@@ -413,13 +442,6 @@
 			$("#empname").html("您好，"+empname);
 			$("#empcode").html("编码："+empcode);
 			$("#empnameBig").html(empname);
-			if(emp_type == "A"){
-				linkMainTab('home_admin.jsp','home','首页');
-			}else if(emp_type == "B"){
-				linkMainTab('home_business.jsp','home','首页');
-			}else if(emp_type == "S"){
-				linkMainTab('home_shop.jsp','home','首页');
-			}
 			initWebSocket();
 	</script>
   </body>

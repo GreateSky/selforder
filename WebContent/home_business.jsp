@@ -1,3 +1,7 @@
+<%@page import="com.sun.xml.internal.bind.v2.schemagen.xmlschema.Import"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -46,52 +50,39 @@
               <!-- small box -->
               <div class="small-box bg-aqua">
                 <div class="inner">
-                  <h3>餐桌状态</h3>
-                  <p>查看餐桌使用状态</p>
+                  <h3>门店查看</h3>
+                  <p>查看门店信息</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-stats-bars"></i>
                 </div>
-                <a href="system/dinnerTable/tableView.html" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="javascript:void(0);" onclick="linkMainTab('system/shop/shopList.jsp','shoplist','门店列表')" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
               </div>
             </div><!-- ./col -->
             <div class="col-lg-3 col-xs-6">
               <!-- small box -->
               <div class="small-box bg-green">
                 <div class="inner">
-                  <h3>订单查看</h3>
-                  <p>查看订单情况</p>
+                  <h3>组织架构</h3>
+                  <p>查看组织架构</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-stats-bars"></i>
                 </div>
-                <a href="system/order/orderList.html" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="javascript:void(0);" onclick="linkMainTab('system/organization/organizationList.jsp','organizationlist','组织架构')" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
               </div>
             </div><!-- ./col -->
             <div class="col-lg-3 col-xs-6">
               <!-- small box -->
               <div class="small-box bg-yellow">
                 <div class="inner">
-                  <h3>外卖查看</h3>
-                  <p>查看外卖情况</p>
+                  <h3>员工管理</h3>
+                  <p>创建员工</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-person-add"></i>
                 </div>
-                <a href="system/outsell/outsellList.html" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-              </div>
-            </div><!-- ./col -->
-            <div class="col-lg-3 col-xs-6">
-              <!-- small box -->
-              <div class="small-box bg-red">
-                <div class="inner">
-                  <h3>排号查看</h3>
-                  <p>查看排号情况</p>
-                </div>
-                <div class="icon">
-                  <i class="ion ion-pie-graph"></i>
-                </div>
-                <a href="system/array/arrayList.html" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="javascript:void(0);" onclick="linkMainTab('system/employee/saveEmployee.jsp','saveemp','员工信息维护')" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
               </div>
             </div><!-- ./col -->
           </div><!-- /.row -->
@@ -107,4 +98,10 @@
     <script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
     <!-- AdminLTE App -->
     <script src="dist/js/app.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="js/common.js"></script>
+    <script>
+    	function linkMainTab(url,tabcode,title){
+    		parent.linkMainTab(url,tabcode,title);
+    	}
+    </script>
 </html>

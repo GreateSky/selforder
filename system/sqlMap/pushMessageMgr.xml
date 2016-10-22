@@ -23,8 +23,22 @@
 		and orgemp.deleted = 0 
 		and emp.deleted = 0 
 		and emp.`status` &lt;&gt; -1
+		and emp.sid = #{storeid}
 		and org.bid = #{weid}
 		and role.rcode = #{role_code}
+		union all
+		select emp.empid,
+				 emp.empname,
+				 '' oid,
+				 '' oname,
+				 '' rid,
+				 '' rcode,
+				 '' rname
+		from wx_dish_employee emp
+		where emp.deleted = 0 
+		and emp.`status` != -1
+		and emp.isadmin = 1
+		and emp.bid = #{weid}
 	</select>
 	
 </mapper>

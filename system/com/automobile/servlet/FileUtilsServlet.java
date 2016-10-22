@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
@@ -276,9 +277,12 @@ public class FileUtilsServlet extends HttpServlet {
 	    return ip;  
 	}  
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws UnsupportedEncodingException {
 		String test = "2016_3d\\_abstract_polygon_\\wallpaper_cs9_fx_design\\-wallpaper-1920x1080.jpg";
 		test = test.replaceAll("\\\\", "/");
 		System.out.println(test);
+		String zh = "我";
+		byte[] barray = zh.getBytes("UTF-8");
+		System.out.println("");
 	}
 }
