@@ -2,10 +2,10 @@ var total = 0;
 var pageSize = 20; //默认每页20条数据
 var pageStart = 0;
 $(function(){
+	controlBtn();
 	//加载商户列表
 	loadBusinessList("init",null);
 	keyEvent();
-	//pageOption();
 });
 
 /**
@@ -144,11 +144,11 @@ function loadBusinessList(type,param){
 						tr +='	<td>'+address+'</td>';
 						tr +='	<td>'+begindate+'</td>                    ';
 						tr +='	<td>'+enddate+'</td>                    ';
-						tr +='	<td><button type="button" class="btn btn-danger" onclick="updateBusiness(\''+bid+'\')">修改</button></td>                    ';
+						tr +='	<td><button role="btn-business-update" type="button" class="btn btn-danger" onclick="updateBusiness(\''+bid+'\')">修改</button></td>                    ';
 						tr +='</tr>                                    ';
 						$("#businessList").append(tr);
 					}
-					//未新增的tr添加点击事件
+					controlBtn();
 				}
 			}
 		},

@@ -1,5 +1,6 @@
 var imgid = "";//活动图片ID
 $(function(){
+	controlBtn();
 	if(opt == "update"){
 		getActivityInfo();
 		getActivityGoodsList();

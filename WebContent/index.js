@@ -256,3 +256,29 @@ function clearDate(em){
 	
 }
 
+/**
+ * 更新个人信息
+ * @param empid 
+ */
+function updateSelfInfo(empid){
+	//window.location.href = "system/employee/saveEmployee.jsp?opt=update&empid="+empid;
+}
+
+function showCurrentDate(){
+	setInterval(function(){
+		var d=new Date();
+		var day=new Array(7);
+		day[0]="星期日";
+		day[1]="星期一";
+		day[2]="星期二";
+		day[3]="星期三";
+		day[4]="星期四";
+		day[5]="星期五";
+		day[6]="星期六";
+		var week = day[d.getDay()];
+		var currDate = d.Format("yyyy-MM-dd hh:mm:ss");
+		var show = "今天是："+currDate+"，"+week;
+		$("#showCurrentDate").html(show);
+	}, 1000);
+}
+

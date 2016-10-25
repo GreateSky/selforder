@@ -67,4 +67,11 @@ public interface TableService {
 	 * @return
 	 */
 	public String allTableList(Table table);
+	
+	/**
+	 * 重新生成二维码
+	 * @param table
+	 * @return
+	 */
+	public String updateQrcode(Table table);
 }

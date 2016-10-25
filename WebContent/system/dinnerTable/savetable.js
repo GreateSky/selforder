@@ -4,6 +4,8 @@ $(function(){
 		getTableInfo();//获取餐桌详情
 		//显示二维码图片
 		$("#qrcodeDiv").css("display","block");
+		$("#service_qrcodeDiv").css("display","block");
+		$("#update_qrcodeDiv").css("display","block");
 	}
 });
 
@@ -28,13 +30,16 @@ function getTableInfo(){
 				var limit_price = row.limit_price;
 				var displayorder = row.displayorder;
 				var qrcodeid = row.qrcodeid;
+				var service_qrcodeid = row.service_qrcodeid;
 				var imgsrc = "/selforder/api/fileutil?method=download&fileid="+qrcodeid;
+				var simg = "/selforder/api/fileutil?method=download&fileid="+service_qrcodeid;
 				$("#title").val(title);
 				$("#roomSelect").val(room_id);
 				$("#user_count").val(user_count);
 				$("#limit_price").val(limit_price);
 				$("#displayorder").val(displayorder);
 				$("#qrcodeid").attr("src",imgsrc);
+				$("#service_qrcodeid").attr("src",simg);
 			}
 		}
 	});
@@ -187,4 +192,29 @@ function checkTableCode(){
 			}
 		});
 	}
+}
+
+/**
+ * 更新餐桌二维码
+ */
+function updateQrcode(){
+	if(!checkValueWithInfo(id,"餐桌ID不能为空！")){
+		return;
+	}
+	$.ajax({
+		type:"POST",
+		url:"/selforder/api/table/updateQrcode.action",
+		data:{"table.id":id},
+		dataType:"json",
+		success:function(res){
+			var retCode = res.retCode;
+			var message = res.message;
+			if(retCode >= 0){
+				layer.msg(message,{"icon":6});
+			}else{
+				layer.msg(message,{"icon":5});
+			}
+			getTableInfo();
+		}
+	});
 }

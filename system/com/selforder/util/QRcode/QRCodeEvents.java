@@ -2,6 +2,7 @@ package com.selforder.util.QRcode;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -28,8 +29,26 @@ import com.selforder.util.Uuid;
  * 2016-7-22
  */
 public class QRCodeEvents {
-	public static void main(String []args){   
-		createTableQRcode("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa7e5917aec187a5d&redirect_uri=http://soa.joyoung.com/soa/mp/qyauth2?url=http://soa.joyoung.com/soa/finemill/feedback/feedback.jsp&response_type=code&scope=snsapi_base&state=123#wechat_redirect","dce9a551a7064cbbaebf6cfa1d682af1","87fb60d69aeb1034980f71d9ea096f11");
+	public static void main(String []args) throws UnsupportedEncodingException{   
+		//createTableQRcode("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa7e5917aec187a5d&redirect_uri=http://soa.joyoung.com/soa/mp/qyauth2?url=http://soa.joyoung.com/soa/finemill/feedback/feedback.jsp&response_type=code&scope=snsapi_base&state=123#wechat_redirect","dce9a551a7064cbbaebf6cfa1d682af1","87fb60d69aeb1034980f71d9ea096f11");
+//		int i=2;
+//		switch(i){
+//		case 1:
+//			System.out.println("1");
+//		case 2:
+//			System.out.println("2");
+//		case 3:
+//			System.out.println("3");
+//			break;
+//		default:
+//			System.out.println("default");
+//			break;
+//		}
+		
+		int [] array = {1, 2, 3, 4, 5};
+		System.arraycopy (array, 2, array, 1, 2);// 1 2 3 2 3 4 5 
+		System.out.print (array [1]);
+		System.out.print (array[4]);
 	}
 	
 	/**
@@ -92,5 +111,7 @@ public class QRCodeEvents {
 		System.out.println("生成餐桌二维码:"+result);
 		return result;
 	}
+	
+
 }
 

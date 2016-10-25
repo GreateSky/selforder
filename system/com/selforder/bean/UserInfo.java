@@ -23,6 +23,15 @@ public class UserInfo extends User {
 	private String name;
 	private String code;
 	private String loginname;
+	private String appid;
+	public String getAppid() {
+		return appid;
+	}
+
+	public void setAppid(String appid) {
+		this.appid = appid;
+	}
+
 	private int sex;
 	
 	public UserInfo(String username, String password, boolean enabled,

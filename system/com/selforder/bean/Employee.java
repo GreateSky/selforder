@@ -38,6 +38,7 @@ public class Employee extends baseBean {
 	private Date upddate;
 	private String deleted;
 	private String bname;
+	private String appid;
 	private String sname;
 	private String role;
 	private String newpassword;
@@ -47,6 +48,12 @@ public class Employee extends baseBean {
 	private String oname;//组织架构名称
 	private String isadmin;//是否系统管理员
 	private String keyword;//搜索关键字
+	public String getAppid() {
+		return appid;
+	}
+	public void setAppid(String appid) {
+		this.appid = appid;
+	}
 	public String getKeyword() {
 		return keyword;
 	}

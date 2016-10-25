@@ -6,6 +6,7 @@ $(function(){
 	//加载活动列表
 	loadActivityList("init",null);
 	keyEvent();
+	controlBtn();
 });
 
 /**
@@ -112,10 +113,11 @@ function loadActivityList(queueType,param){
 						tr +='	<td>'+leastcost+'</td>                    ';
 						tr +='	<td>'+0+'</td>                    ';
 						tr +='	<td>'+0+'</td>                    ';
-						tr +='	<td><button type="button" class="btn btn-warning" onclick="updateActivity(\''+id+'\')">编辑</button>&nbsp;<button type="button" class="btn btn-danger" onclick="delActivity(\''+id+'\')">删除</button></td>                    ';
+						tr +='	<td><button role="btn-shop-update" type="button" class="btn btn-warning" onclick="updateActivity(\''+id+'\')">编辑</button>&nbsp;<button role="btn-shop-remove" type="button" class="btn btn-danger" onclick="delActivity(\''+id+'\')">删除</button></td>                    ';
 						tr +='</tr>                                    ';
 						$("#activityList").append(tr);
 					}
+					controlBtn();
 				}
 			}
 		},

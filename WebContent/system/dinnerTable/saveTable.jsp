@@ -85,6 +85,18 @@
 					  <div class="col-sm-2">
 						<img src="" width="200px" height="200px" id="qrcodeid"></img>
 					  </div>
+					</div>
+					<div class="form-group has-warning" id="service_qrcodeDiv" style="display: none">
+					  <label for="inputEmail3" class="col-sm-1 control-label">呼叫服务：</label>
+					  <div class="col-sm-2">
+						<img src="" width="200px" height="200px" id="service_qrcodeid"></img>
+					  </div>
+					</div>
+					<div class="form-group has-warning" id="update_qrcodeDiv" style="display: none">
+					  <label for="inputEmail3" class="col-sm-1 control-label"></label>
+					  <div class="col-sm-2">
+						<button type="button" class="btn btn-info" onclick="updateQrcode()">更新餐桌二维码</button>
+					  </div>
 					</div><!-- /门店维护 start-->
                   </div><!-- /.box-body -->
                   <div class="box-footer">

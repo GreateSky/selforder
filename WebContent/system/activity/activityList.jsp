@@ -66,7 +66,7 @@
 	                	<div class="col-sm-6">
 	                        <button type="button" class="btn btn-info" onclick="search()"><i class="fa fa-search"></i>&nbsp;查询</button>
 	                        <button type="button" class="btn btn-info" onclick="clearParam()"><i class="fa fa-refresh"></i>&nbsp;重置</button>
-	                        <button type="button" class="btn btn-warning" onclick="javascript:window.location.href='saveActivity.jsp'"><i class="fa fa-plus-circle"></i>&nbsp;新增</button>
+	                        <button role="btn-shop-add" type="button" class="btn btn-warning" onclick="javascript:window.location.href='saveActivity.jsp'"><i class="fa fa-plus-circle"></i>&nbsp;新增</button>
                         </div>
                     </div><!--/搜索信息 start-->
                     <!--门店列表start-->

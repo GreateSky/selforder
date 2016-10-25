@@ -26,6 +26,7 @@ public class Table extends baseBean {
 	private String room_name;
 	private int tabnum;//餐桌数量
 	private String qrcodeid;//餐桌二维码id
+	private String service_qrcodeid;//呼叫服务二维码ID
 	public int getTabnum() {
 		return tabnum;
 	}
@@ -140,6 +141,12 @@ public class Table extends baseBean {
 	}
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	public String getService_qrcodeid() {
+		return service_qrcodeid;
+	}
+	public void setService_qrcodeid(String service_qrcodeid) {
+		this.service_qrcodeid = service_qrcodeid;
 	}
 	
 }

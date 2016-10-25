@@ -88,7 +88,9 @@ function loadTableList(type,param){
 						var displayorder = row.displayorder ;
 						var status = row.status;
 						var qrcodeid = row.qrcodeid;
+						var service_qrcodeid = row.service_qrcodeid;
 						var imgsrc = "/selforder/api/fileutil?method=download&fileid="+qrcodeid;
+						var simgsrc = "/selforder/api/fileutil?method=download&fileid="+service_qrcodeid;
 						var statusStr = "";
 						if(status == "0"){
 							statusStr = "空闲";
@@ -108,6 +110,7 @@ function loadTableList(type,param){
 						tr +='	<td>'+statusStr+'</td>';
 						tr +='	<td>'+displayorder+'</td>';
 						tr +='	<td><img src="'+imgsrc+'" width="60px" height="60px"></img></td>';
+						tr +='	<td><img src="'+simgsrc+'" width="60px" height="60px"></img></td>';
 						tr +='	<td><button type="button" class="btn btn-warning" onclick="updateTable(\''+id+'\')">编辑</button>&nbsp;<button type="button" class="btn btn-danger" onclick="delTable(\''+id+'\')">删除</button></td>                    ';
 						tr +='</tr>                                    ';
 						$("#tableList").append(tr);

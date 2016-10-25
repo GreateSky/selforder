@@ -30,4 +30,31 @@
 	var storeid = '<%=storeid%>';
 	var empid = '<%=empid%>';
 	var emp_type = '<%=emp_type%>';
+	function controlBtn(){
+		/*if(emp_type == "A"){
+			$("button[role='btn-shop-add']").remove();
+			$("button[role='btn-shop-update']").remove();
+			$("button[role='btn-shop-remove']").remove();
+			
+			$("button[role='btn-business-add']").remove();
+			$("button[role='btn-business-update']").remove();
+			$("button[role='btn-business-remove']").remove();
+		}else if(emp_type == "B"){
+			$("button[role='btn-shop-add']").remove();
+			$("button[role='btn-shop-update']").remove();
+			$("button[role='btn-shop-remove']").remove();
+			
+			$("button[role='btn-admin-add']").remove();
+			$("button[role='btn-admin-update']").remove();
+			$("button[role='btn-admin-remove']").remove();
+		}else if(emp_type == "S"){
+			$("button[role='btn-business-add']").remove();
+			$("button[role='btn-business-update']").remove();
+			$("button[role='btn-business-remove']").remove();
+			
+			$("button[role='btn-admin-add']").remove();
+			$("button[role='btn-admin-update']").remove();
+			$("button[role='btn-admin-remove']").remove();
+		}*/
+	}
 </script>

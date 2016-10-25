@@ -65,7 +65,7 @@
 	                	<div class="col-sm-6">
 	                        <button type="button" onclick="search();" class="btn btn-info"><i class="fa fa-search"></i>&nbsp;查询</button>
 	                        <button type="button" onclick="clearParam();" class="btn btn-info"><i class="fa fa-refresh"></i>&nbsp;重置</button>
-	                        <button type="button" onclick="javascript:window.location.href='saveBusiness.jsp'" class="btn btn-warning"><i class="fa fa-plus-circle"></i>&nbsp;新增</button>
+	                        <button role="btn-business-add" type="button" onclick="javascript:window.location.href='saveBusiness.jsp'" class="btn btn-warning"><i class="fa fa-plus-circle"></i>&nbsp;新增</button>
                         </div>
                     </div><!--/搜索信息 start-->
                     <!--门店列表start-->

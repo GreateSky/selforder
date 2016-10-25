@@ -127,6 +127,7 @@ public class MyUserDetailsService implements UserDetailsService  {
 			userinfo.setWechatid(emp.getWechatid());
 			userinfo.setEmpid(emp.getEmpid());
 			userinfo.setLoginname(emp.getLoginname());
+			userinfo.setAppid(emp.getAppid());
 			return userinfo;
 			
 		}else{

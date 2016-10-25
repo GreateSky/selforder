@@ -27,6 +27,7 @@
 			        room_id,
 			        user_count,
 			        qrcodeid,
+			        service_qrcodeid,
 			        displayorder,
 			        dateline,
 			        status,
@@ -38,7 +39,7 @@
 			    )
 			    VALUES
 			    (
-			        replace(uuid(),'-',''),
+			        #{id},
 					#{weid},
 					#{storeid},
 					#{limit_price},
@@ -46,6 +47,7 @@
 					#{room_id},
 					#{user_count},
 					#{qrcodeid},
+					#{service_qrcodeid},
 					#{displayorder},
 					UNIX_TIMESTAMP(sysdate()),
 					#{status},
@@ -67,6 +69,7 @@
 		        tab.title,
 		        tab.user_count,
 		        tab.qrcodeid,
+		        tab.service_qrcodeid,
 		        room.rname room_name,
 		        tab.displayorder,
 		        tab.dateline,
@@ -134,6 +137,7 @@
 		        tab.title,
 		        tab.user_count,
 		        tab.qrcodeid,
+		        tab.service_qrcodeid,
 		        room.id room_id,
 		        room.rname room_name,
 		        tab.displayorder,
@@ -192,6 +196,12 @@
 			</if>
 			<if test="status != null and status !='' ">
 				, status = #{status}
+			</if>
+			<if test="qrcodeid != null and qrcodeid !='' ">
+				, qrcodeid = #{qrcodeid}
+			</if>
+			<if test="service_qrcodeid != null and service_qrcodeid !='' ">
+				, service_qrcodeid = #{service_qrcodeid}
 			</if>
 			<if test="deleted != null and deleted !='' ">
 				, deleted = #{deleted}
@@ -273,6 +283,7 @@
 		        tab.title,
 		        tab.user_count,
 		        tab.qrcodeid,
+		        tab.service_qrcodeid,
 		        room.rname room_name,
 		        tab.displayorder,
 		        tab.dateline,

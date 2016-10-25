@@ -54,6 +54,12 @@
 				<param name="root">resultJson</param>
 			</result> 
 		</action>
+		<!--更新餐桌二维码-->
+		<action name = "updateQrcode" class="tableAction" method="updateQrcode">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
 	</package>
 	
 </struts>

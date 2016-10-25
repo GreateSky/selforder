@@ -13,14 +13,14 @@ $(function(){
 function setTypeByLoginUserType(emp_type){
 	var option = "";
 	if(emp_type == "A"){
-		option += '<option selected="B" value="0">商户</option> ';
+		option += '<option selected="A" value="A">管理</option>              ';
+		option += '<option value="B">商户</option> ';
 		option += '<option value="S">门店</option>              ';
-		option += '<option value="A">管理</option>              ';
 	}else if(emp_type == "B"){
-		option += '<option selected="B" value="0">商户</option> ';
+		option += '<option selected="B" value="B">商户</option> ';
 		option += '<option value="S">门店</option>              ';
 	}else if(emp_type == "S"){
-		option += '<option value="S">门店</option>              ';
+		option += '<option selected="S" value="S">门店</option>              ';
 	}
 	$("#type").append(option);
 	

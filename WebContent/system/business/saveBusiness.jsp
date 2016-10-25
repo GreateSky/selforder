@@ -158,7 +158,7 @@
                 </form><!--/form end-->
               </div><!-- /.box -->
         </section><!-- /.content -->
-        <img id="licenseImg" src="" width="300px" height="400px" style="position:absolute;top: 120px; left: 600px; border-radius: 5px;"></img>
+        <img id="licenseImg" src=""  style="position:absolute;top: 120px; left: 500px; border-radius: 5px;"></img>
 	</body>
 	<!-- jQuery 2.1.4 -->
     <script src="<%=cxtPath%>/js/jQuery-2.1.4.min.js"></script>

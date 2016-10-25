@@ -67,7 +67,7 @@ return fmt;
  * 根据时间戳和日期格式返回字符串日期
  */
 function getDateByTime(time,format){
-	if(typeof(time) != "undefined" && time != null){
+	if(checkValue(time)){
 		var date = new Date();
 		date.setTime(time);
 		var dateStr = date.Format(format);

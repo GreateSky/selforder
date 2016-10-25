@@ -44,11 +44,12 @@ function getBusinessInfo(){
 					$("#phone").val(phone);
 					$("#email").val(email);
 					$("#faxes").val(faxes);
-					$("#begindate").val(getDateByTime(begindate.time,"yyyy-MM-dd"));
-					$("#enddate").val(getDateByTime(enddate.time,"yyyy-MM-dd"));
+					$("#begindate").val(null == begindate?"":getDateByTime(begindate.time,"yyyy-MM-dd"));
+					$("#enddate").val(null == enddate?"":getDateByTime(enddate.time,"yyyy-MM-dd"));
 					$("#address").val(address);
 					$("#status").val(status);
 					$("#appid").val(appid);
+					$("#bcode").val(bcode);
 					$("#appsecret").val(appsecret);
 					var imgsrc = "/selforder/api/fileutil?method=download&fileid="+licenseid;
 					$("#licenseImg").attr("src",imgsrc);

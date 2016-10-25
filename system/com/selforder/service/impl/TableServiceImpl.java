@@ -13,6 +13,7 @@ import com.selforder.dao.TableDao;
 import com.selforder.service.TableService;
 import com.selforder.util.Context;
 import com.selforder.util.JsonResultUtil;
+import com.selforder.util.Uuid;
 import com.selforder.util.QRcode.QRCodeEvents;
 
 public class TableServiceImpl implements TableService {
@@ -106,13 +107,15 @@ public class TableServiceImpl implements TableService {
 			String crter = new Context().getLoginUserInfo().getCode();
 			String bid = new Context().getLoginUserInfo().getBid();
 			String sid = new Context().getLoginUserInfo().getSid();
+			String appid = new Context().getLoginUserInfo().getAppid();
+			String tableid = Uuid.getUuid();
 			table.setCrter(crter);
 			table.setWeid(bid);
 			table.setStoreid(sid);
+			table.setId(tableid);
 			//根据餐桌信息生成二维码
 			String content = "";//二维码内容
-			String domain_selforder = SystemConfig.get("domain_selforder");//获取基本URL地址
-			content = domain_selforder + "/system/order/createOrder.jsp?bid="+bid+"&sid="+table.getStoreid();//组装URL地址
+			content = "http://www.shcebang.com/dishProject/dish/qr.do?pageid=13&storeid="+sid+"&tableid="+tableid+"&appid="+appid;
 			String qrcodeInfo = QRCodeEvents.createTableQRcode(content, bid, table.getStoreid());//创建二维码
 			String saveFileInfo = "";//保存二维码结果
 			String fileid = "";//二维码文件ID
@@ -132,6 +135,27 @@ public class TableServiceImpl implements TableService {
 				return saveFileInfo;
 			}
 			table.setQrcodeid(fileid);//餐桌二维码ID赋值
+			//根据餐桌信息生成呼叫服务二维码
+			content = "http://www.shcebang.com/dishProject/dish/qr.do?pageid=14&storeid="+sid+"&tableid="+tableid+"&appid="+appid;
+			String service_qrcodeInfo = QRCodeEvents.createTableQRcode(content, bid, table.getStoreid());//创建二维码
+			String service_saveFileInfo = "";//保存二维码结果
+			String service_fileid = "";//二维码文件ID
+			if(service_qrcodeInfo.indexOf("fail") != -1){//创建二维码失败
+				return service_qrcodeInfo;
+			}else{//二维码成功
+				//保存附件信息至附件表
+				Gson gson = new Gson();
+				HashMap map = gson.fromJson(service_qrcodeInfo,HashMap.class);
+				LinkedTreeMap fileInfo = (LinkedTreeMap)map.get("data");
+				System.out.println(fileInfo.get("fileid"));
+				fileid = fileInfo.get("fileid").toString();
+				service_saveFileInfo = systemMgrDao.insertUpload(fileInfo);
+				
+			}
+			if(service_saveFileInfo.indexOf("success") == -1){//保存附件信息至附件表异常
+				return service_saveFileInfo;
+			}
+			table.setService_qrcodeid(fileid);//餐桌呼叫服务二维码ID赋值
 			int temp = tableDao.insertTable(table);
 			if(temp > 0){
 				result = JsonResultUtil.getJsonResult(0, "success", "新增餐桌成功!");
@@ -263,6 +287,69 @@ public class TableServiceImpl implements TableService {
 			}else{
 				result = JsonResultUtil.getJsonResult(-1, "fail", "查询数据为空!");
 			}
+		}catch(Exception e){
+			e.printStackTrace();
+			return JsonResultUtil.getJsonResult(-1, "fail", "操作异常!");
+		}
+		return result;
+	}
+	
+	/**
+	 * 重新生成二维码
+	 * @param table
+	 * @return
+	 */
+	public String updateQrcode(Table table){
+		String result = "";
+		String crter = new Context().getLoginUserInfo().getCode();
+		String bid = new Context().getLoginUserInfo().getBid();
+		String sid = new Context().getLoginUserInfo().getSid();
+		String appid = new Context().getLoginUserInfo().getAppid();
+		try{
+			//根据餐桌信息生成二维码
+			String content = "";//二维码内容
+			content = "http://www.shcebang.com/dishProject/dish/qr.do?pageid=13&storeid="+sid+"&tableid="+table.getId()+"&appid="+appid;
+			String qrcodeInfo = QRCodeEvents.createTableQRcode(content, bid, sid);//创建二维码
+			String saveFileInfo = "";//保存二维码结果
+			String fileid = "";//二维码文件ID
+			if(qrcodeInfo.indexOf("fail") != -1){//创建二维码失败
+				return qrcodeInfo;
+			}else{//二维码成功
+				//保存附件信息至附件表
+				Gson gson = new Gson();
+				HashMap map = gson.fromJson(qrcodeInfo,HashMap.class);
+				LinkedTreeMap fileInfo = (LinkedTreeMap)map.get("data");
+				System.out.println(fileInfo.get("fileid"));
+				fileid = fileInfo.get("fileid").toString();
+				saveFileInfo = systemMgrDao.insertUpload(fileInfo);
+				
+			}
+			if(saveFileInfo.indexOf("success") == -1){//保存附件信息至附件表异常
+				return saveFileInfo;
+			}
+			table.setQrcodeid(fileid);//餐桌二维码ID赋值
+			//根据餐桌信息生成呼叫服务二维码
+			content = "http://www.shcebang.com/dishProject/dish/qr.do?pageid=14&storeid="+sid+"&tableid="+table.getId()+"&appid="+appid;
+			String service_qrcodeInfo = QRCodeEvents.createTableQRcode(content, bid,sid);//创建二维码
+			String service_saveFileInfo = "";//保存二维码结果
+			String service_fileid = "";//二维码文件ID
+			if(service_qrcodeInfo.indexOf("fail") != -1){//创建二维码失败
+				return service_qrcodeInfo;
+			}else{//二维码成功
+				//保存附件信息至附件表
+				Gson gson = new Gson();
+				HashMap map = gson.fromJson(service_qrcodeInfo,HashMap.class);
+				LinkedTreeMap fileInfo = (LinkedTreeMap)map.get("data");
+				System.out.println(fileInfo.get("fileid"));
+				fileid = fileInfo.get("fileid").toString();
+				service_saveFileInfo = systemMgrDao.insertUpload(fileInfo);
+				
+			}
+			if(service_saveFileInfo.indexOf("success") == -1){//保存附件信息至附件表异常
+				return service_saveFileInfo;
+			}
+			table.setService_qrcodeid(fileid);//餐桌呼叫服务二维码ID赋值
+			result = updateTable(table);
 		}catch(Exception e){
 			e.printStackTrace();
 			return JsonResultUtil.getJsonResult(-1, "fail", "操作异常!");

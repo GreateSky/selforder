@@ -80,11 +80,14 @@
             <ul class="nav navbar-nav">
               <!-- Messages: style can be found in dropdown.less-->
               <li class="dropdown messages-menu" id="comment">
+                <a id="showCurrentDate" href="#" class="dropdown-toggle"></a>
+              </li>
+              <li class="dropdown messages-menu" id="comment">
                 <a id="comment_a" href="#" class="dropdown-toggle" data-toggle="dropdown" onclick="cancelMessageNotify('comment')">
                   <i class="fa fa-comments"></i>
                   <span class="label label-success" id="comment_num"></span>
                 </a>
-                <ul class="dropdown-menu">
+                <ul class="dropdown-menu" style="width: 400px">
                   <li>
                     <!-- inner menu: contains the actual data -->
                     <ul class="menu" id="comment_menu">
@@ -135,7 +138,7 @@
                 <ul class="dropdown-menu">
                   <!-- User image -->
                   <li class="user-header">
-                    <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
+                    <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" onclick="updateSelfInfo('<%=empid%>')" />
                     <p id="empname">
                       <small id="empcode"></small>
                     </p>
@@ -166,7 +169,7 @@
               <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
             </div>
             <div class="pull-left info">
-              <p>SelfOrder</p>
+              <p><%=empname%></p>
               <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
           </div>
@@ -227,7 +230,7 @@
             	<li class="treeview">
 	              <a href="#">
 	                <i class="fa fa-folder"></i>
-	                <span>外卖订单管理</span>
+	                <span>外卖订单</span>
 	                <i class="fa fa-angle-left pull-right"></i>
 	              </a>
 	              <ul class="treeview-menu">
@@ -240,7 +243,7 @@
             	<li class="treeview">
 	              <a href="#">
 	                <i class="fa fa-folder"></i>
-	                <span>预定订单管理</span>
+	                <span>预定订单</span>
 	                <i class="fa fa-angle-left pull-right"></i>
 	              </a>
 	              <ul class="treeview-menu">
@@ -421,6 +424,7 @@
 				linkMainTab('home_shop.jsp','home','首页');
 			}
 			initWebSocket();
+			showCurrentDate();
 	</script>
   </body>
 </html>
