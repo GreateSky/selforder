@@ -61,7 +61,13 @@ function getEmployeeInfo(){
 					$("#contactphone").val(emp.contactphone);
 					$("#wechatid").val(emp.wechatid);
 					$("#status").val(emp.status);
-					$("#sid").val(emp.sid);
+					var type = emp.type;
+					$("#type").val(type);
+					if(type == "S"){
+						$("#sid").val(emp.sid);
+						$("#sname").val(emp.sname);
+						$("#selectShop").css("display","block");
+					}
 					$("#headimgurl").attr("src","/selforder/api/fileutil?method=download&fileid="+emp.headimgurl);
 				}
 			}
@@ -273,4 +279,37 @@ function selectShop(id,title){
 	$("#sid").val(id);
 	$("#sname").val(title);
 	$("#employeeWin").modal('hide');
+}
+
+/**
+ * 重置密码
+ * @returns
+ */
+function resetPwd(){
+	if(!checkValueWithInfo(empid,"参数异常！")){
+		return;
+	}
+	layer.confirm("确定要重置密码吗？",
+		  {btn:["确定","取消"]},
+		  function(){
+			  layer.closeAll();
+			  $.ajax({
+				  type:"POST",
+				  url:"",
+				  data:{"employee.empid":empid},
+				  dataType:"json",
+				  success:function(res){
+					  var retCode = res.retCode;
+					  var message = res.message;
+					  if(retCode <0){
+						  layer.msg(message,{icon:5});
+					  }else{
+						  layer.msg("密码已重置为【000000】",{icon:6});
+					  }
+				  }
+			  })
+		  },
+		  function(){
+			  layer.closeAll();
+		  });
 }

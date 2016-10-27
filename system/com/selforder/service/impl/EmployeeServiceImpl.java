@@ -336,4 +336,41 @@ public class EmployeeServiceImpl implements EmployeeService {
 		}
 		return result;
 	}
+	
+	/**
+	 * 重置密码
+	 * @param employee
+	 * @return
+	 */
+	@Override
+	public String resetPwd(Employee employee){
+		String result = "";
+		try{
+			if(null != employee){
+				//获取员工基本信息
+				Employee temp_emp = employeeDao.getEmployeeInfo(employee);
+				if(null != temp_emp){
+					String loginname = temp_emp.getLoginname();
+					String password = "000000";
+					String securityPassword = Tools.MD5(password+"{"+loginname+"}");
+					Employee emp = new Employee();
+					emp.setEmpid(temp_emp.getEmpid());
+					emp.setPassword(securityPassword);
+					emp.setOpter(new Context().getLoginUserInfo().getCode());
+					int update = employeeDao.updatePassword(employee);
+					if(update >0){
+						result = JsonResultUtil.getJsonResult(0, "success", "重置密码成功！");
+					}else{
+						result = JsonResultUtil.getJsonResult(-1, "fail", "重置密码失败！");
+					}
+				}
+			}else{
+				result = JsonResultUtil.getJsonResult(-1, "fail", "参数为空！");
+			}
+		}catch(Exception e){
+			logger.error("重置密码异常",e);
+			return JsonResultUtil.getJsonResult(-1, "fail", "重置密码异常！");
+		}
+		return result;
+	}
 }

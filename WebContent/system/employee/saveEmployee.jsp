@@ -152,13 +152,14 @@
 					<!-- /门店维护 start-->
                   </div><!-- /.box-body -->
                   <div class="box-footer">
-                  	<button type="submit" class="btn btn-default">取消</button>
+                  	<button type="button" class="btn btn-default">取消</button>
                     <button type="button" onclick="saveEmployee()" class="btn btn-info pull-right">保存</button>
                   </div><!-- /.box-footer -->
                 </form><!--/form end-->
               </div><!-- /.box -->
         </section><!-- /.content -->
         <img id="headimgurl" src="" width="150px" height="150px" style="position:absolute;top: 120px; left: 550px; border-radius: 5px;"></img>
+        <button type="button" onclick="resetPwd()" class="btn btn-danger" style="position: absolute; top: 300px; left: 550px; width: 150px;">重置密码</button>
         <!--modal 门店选择-->
         <div class="modal fade" id="employeeWin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
 		  <div class="modal-dialog">

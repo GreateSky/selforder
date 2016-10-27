@@ -92,7 +92,7 @@
 		        emp.sid,
 		        emp.bid,
 		        business.bname,
-		        bs.sname,
+		        bs.title sname,
 		        emp.crter,
 		        emp.crtdate,
 		        emp.opter,
@@ -101,7 +101,7 @@
 		from
 		    wx_dish_employee emp
 		left join wx_dish_business business on business.bid = emp.bid
-		left join wx_dish_business_shop bs on bs.sid = emp.sid    
+		left join wx_dish_stores bs on bs.id = emp.sid
 		where emp.deleted = 0 
 		<if test="bid != null and bid !='' ">
 			and emp.bid =#{bid}
@@ -118,7 +118,13 @@
 		<if test="empcode != null and empcode !='' ">
 			and emp.empcode = #{empcode}
 		</if>
-		order by emp.optdate desc,crtdate desc
+		<if test="status != null and status !='' ">
+			and emp.status = #{status}
+		</if>
+		<if test="type != null and type !='' ">
+			and emp.type = #{type}
+		</if>
+		order by bs.id
 		<include refid="limit"></include>
 		
 	</select>
@@ -129,7 +135,7 @@
 		from
 		    wx_dish_employee emp
 		left join wx_dish_business business on business.bid = emp.bid
-		left join wx_dish_business_shop bs on bs.sid = emp.sid    
+		left join wx_dish_stores bs on bs.id = emp.sid
 		where emp.deleted = 0 
 		<if test="bid != null and bid !='' ">
 			and emp.bid =#{bid}
@@ -172,17 +178,16 @@
 		        emp.bid,
 		        business.bname,
 		        business.appid,
-		        bs.sname,
+		        bs.title sname,
 		        emp.crter,
 		        emp.crtdate,
 		        emp.opter,
 		        emp.optdate,
-		        emp.deleted,
-		        emp.isadmin
+		        emp.deleted
 		from
 		    wx_dish_employee emp
 		left join wx_dish_business business on business.bid = emp.bid
-		left join wx_dish_business_shop bs on bs.sid = emp.sid    
+		left join wx_dish_stores bs on bs.id = emp.sid
 		where emp.deleted = 0 
 		<if test="bid != null and bid !='' ">
 			and emp.bid =#{bid}
@@ -190,9 +195,6 @@
 		<if test="sid != null and sid !='' ">
 			and emp.sid =#{sid}
 		</if> 
-		<if test="sid != null and sid !='' ">
-			and emp.sid =#{sid}
-		</if>
 		<if test="empname != null and empname !='' ">
 			and emp.empname like concat('%',#{empname},'%')
 		</if>
@@ -338,7 +340,7 @@
 		        emp.sid,
 		        emp.bid,
 		        business.bname,
-		        bs.sname,
+		        bs.title sname,
 		        emp.crter,
 		        emp.crtdate,
 		        emp.opter,
@@ -347,7 +349,7 @@
 		from
 		    wx_dish_employee emp
 		left join wx_dish_business business on business.bid = emp.bid
-		left join wx_dish_business_shop bs on bs.sid = emp.sid    
+		left join wx_dish_stores bs on bs.id = emp.sid
 		where emp.deleted = 0 
 		<if test="bid != null and bid !='' ">
 			and emp.bid =#{bid}
@@ -367,7 +369,6 @@
 		<if test="keyword != null and keyword !='' ">
 			and concat(emp.empcode,emp.empname,emp.phone) like concat('%',#{keyword},'%')
 		</if>
-
 		order by emp.optdate desc,crtdate desc
 	</select>
 </mapper>

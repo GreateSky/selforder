@@ -61,4 +61,11 @@ public interface EmployeeService {
 	 * @return
 	 */
 	public String getEmployeeListWithNoPage(Employee employee);
+	
+	/**
+	 * 重置密码
+	 * @param employee
+	 * @return
+	 */
+	public String resetPwd(Employee employee);
 }
