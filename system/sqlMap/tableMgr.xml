@@ -50,7 +50,7 @@
 					#{service_qrcodeid},
 					#{displayorder},
 					UNIX_TIMESTAMP(sysdate()),
-					#{status},
+					0,
 					#{crter},
 					sysdate(),
 					#{opter},

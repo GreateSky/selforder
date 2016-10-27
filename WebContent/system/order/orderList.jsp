@@ -39,11 +39,11 @@
                   	<!--搜索信息 start-->
                     <div class="form-group has-warning">
                       <label for="inputEmail3" class="col-sm-1 control-label">编码：</label>
-                      <div class="col-sm-1">
+                      <div class="col-sm-2">
                         <input type="text" class="form-control" id="ordersn" placeholder="订单编码 "  value="">
                       </div>
                       <label for="inputEmail3" class="col-sm-1 control-label">状态：</label>
-                      <div class="col-sm-1">
+                      <div class="col-sm-2">
                         <select class="form-control" id="status">
 							<option value="">全部</option>
                         	<option value="0">用户下单</option>
@@ -53,11 +53,11 @@
                         	<option value="-1">已取消</option>
 						</select>
                       </div>
-                      <label for="inputEmail3" class="col-sm-1 control-label">订单开始日期：</label>
+                      <label for="inputEmail3" class="col-sm-1 control-label">开始日期：</label>
                       <div class="col-sm-2">
                         <input type="date" class="form-control" id="begindate" placeholder="订单开始日期">
                       </div>
-                      <label for="inputEmail3" class="col-sm-1 control-label">订单结束日期：</label>
+                      <label for="inputEmail3" class="col-sm-1 control-label">结束日期：</label>
                       <div class="col-sm-2">
                         <input type="date" class="form-control" id="enddate" placeholder="订单结束日期">
                       </div>

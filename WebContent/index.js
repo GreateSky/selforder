@@ -95,7 +95,7 @@ function saveBtn(e){
 
 //******************************webSocket操作start****************************
 var localhost = "localhost";
-localhost= "www.shcebang.com";
+//localhost= "www.shcebang.com";
 function initWebSocket(){ 
  	if(window.WebSocket){
  		websocket = new WebSocket(encodeURI('ws://'+localhost+':9700/selforder/api/SendMsg?empid='+empid));
