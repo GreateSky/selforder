@@ -77,7 +77,11 @@
                   	<!--时间轴 box-->
                   	<div class="box box-warning">
                   		<div class="box-header with-border">
-                  			<h4 class="box-title"><b id="title_ordersn">订单号：</b></h4>
+                  			<h4 class="box-title">
+                  				<b id="title_ordersn" style="float:left;margin: 2px;">订单号：</b>
+                  				<label class="label label-info" id="payInfo" style="display: none;float:left;margin: 2px;"></label>
+								<label class="label label-info" id="checkPayInfo" style="display: none;float:left;margin: 2px;" onclick="javascript:window.open('https://pay.weixin.qq.com/index.php/core/home/login')">去商户平台查看</label>
+                  			</h4>
                   		</div>
                   		<div class="box-body" style="height: 80px;">
                   			<div id="stepinfo" class="stepInfo">

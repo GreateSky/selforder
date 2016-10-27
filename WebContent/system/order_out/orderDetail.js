@@ -46,6 +46,12 @@ function loadOrder(){
 			var address = orderInfo.address;
 			var taste = orderInfo.taste;
 			var remark = orderInfo.remark;
+			var transid = orderInfo.transid;
+			if(typeof(transid)!= "undefined" && null != transid && "" != transid && "0" != transid){
+				$("#payInfo").html("微信订单号："+transid);
+				$("#payInfo").css("display","block");
+				$("#checkPayInfo").css("display","block");
+			}
 			var transferid = orderInfo.transferid;
 			var transfername = orderInfo.transfername;
 			//var tablecode = orderInfo.tablecode;
