@@ -23,5 +23,6 @@ public class test {
 		System.out.println("提价测试"+t2.address);
 		System.out.println("提价测试2"+t2.address);
 		System.out.println("提价测试3"+t2.address);
+		System.out.println("提价测试4"+t2.address);
 	}
 }
