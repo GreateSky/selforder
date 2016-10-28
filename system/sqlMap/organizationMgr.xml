@@ -157,9 +157,11 @@
 				 emp.EMPNAME,
 				 emp.EMPCODE,
 				 orgnames.ONAME,
-				 orgnames.levelpath
+				 orgnames.levelpath,
+				 shop.title as sname
 		from wx_dish_employee emp
 		left join  view_emp_org orgnames on orgnames.EMPID = emp.EMPID
+		left join wx_dish_stores shop on shop.id = emp.sid
 		where emp.DELETED = 0 
 		and emp.BID = #{bid}
 		<if test="oid != null and oid !='' ">
@@ -180,6 +182,7 @@
 		select count(1)
 		from wx_dish_employee emp
 		left join  view_emp_org orgnames on orgnames.EMPID = emp.EMPID
+		left join wx_dish_stores shop on shop.id = emp.sid
 		where emp.DELETED = 0 
 		and emp.BID = #{bid}
 		<if test="oid != null and oid !='' ">

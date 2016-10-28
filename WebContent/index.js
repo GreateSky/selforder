@@ -154,13 +154,21 @@ function execOrderMsg(message){
 	var diningMode = message.diningMode;//订单类型：1、店内点单   2、外卖订单  3、预定订单
 	var ordersn = message.ordersn;//订单编号
 	var message = "";
+	var mode = "";
+	if(diningMode == 1){
+		mode = "店内";
+	}else if(diningMode == 2){
+		mode = "外卖";
+	}else if(diningMode == 3){
+		mode = "预定";
+	}
 	//处理店内点单消息
 	if(messageType == "createOrder"){
-		message = "订单【"+ordersn+"】已创建,请及时确认！";
+		message = mode+"订单【"+ordersn+"】已创建,请及时确认！";
 	}else if(messageType == "updateOrder"){
-		message = "订单【"+ordersn+"】已更新,请及时查看！";
+		message = mode+"订单【"+ordersn+"】已更新,请及时查看！";
 	}else if(messageType == "payOrder"){
-		message = "订单【"+ordersn+"】已付款,请及时查看！";
+		message = mode+"订单【"+ordersn+"】已付款,请及时查看！";
 	}
 	$("#incomeOrder_a").css({"-webkit-animation":"twinkling 1s infinite ease-in-out"}); //店内点单图标动画
 	$.notifySetup({sound:sound});//播放提示音

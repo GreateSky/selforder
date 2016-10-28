@@ -29,7 +29,7 @@ public class PushMessage {
 	private OrderDao orderDao;
 	private CommentDao commentDao;
 	private TableDao tableDao;
-	private enum ROLE_CODE{ROLE_ORDER_MGR,ROLE_ORDER_OUT_MGR,ROLE_ORDER_RESERVE};
+	private enum ROLE_CODE{ROLE_ORDER_MGR,ROLE_ORDER_OUT_MGR,ROLE_ORDER_RESERVE,ROLE_COMMENT_MGR,ROLE_CALLSERVICE_MGR};
 	public TableDao getTableDao() {
 		return tableDao;
 	}
@@ -164,6 +164,7 @@ public class PushMessage {
 			String ordersn = orderInfo.getOrdersn();
 			int diningMode = orderInfo.getDining_mode();
 			String weid = orderInfo.getWeid();//商户ID
+			String storeid = orderInfo.getStoreid();
 			String role_code = "";//要推送的权限
 			if(diningMode == 1){
 				role_code = ROLE_CODE.ROLE_ORDER_MGR.toString();
@@ -178,7 +179,8 @@ public class PushMessage {
 			//组装参数
 			HashMap param  = new HashMap();
 			param.put("weid", weid);
-			param.put("role_code", "ROLE_ORDER_MGR");
+			param.put("storeid", storeid);
+			param.put("role_code", role_code);
 			//查询消息接受者集合
 			List<Map<String,String>> emplist = pushMessageDao.emplist(param);
 			if(null != emplist && emplist.size()>0){
@@ -228,7 +230,7 @@ public class PushMessage {
 			HashMap param  = new HashMap();
 			param.put("weid", weid);
 			param.put("storeid", storeid);
-			param.put("role_code", "ROLE_COMMENT_MGR");
+			param.put("role_code", ROLE_CODE.ROLE_COMMENT_MGR.toString());
 			//查询消息接受者集合
 			List<Map<String,String>> emplist = pushMessageDao.emplist(param);
 			if(null != emplist && emplist.size()>0){
@@ -274,7 +276,7 @@ public class PushMessage {
 			HashMap param  = new HashMap();
 			param.put("weid", weid);
 			param.put("storeid", storeid);
-			param.put("role_code", "ROLE_CALLSERVICE_MGR");
+			param.put("role_code", ROLE_CODE.ROLE_CALLSERVICE_MGR.toString());
 			//查询消息接受者集合
 			List<Map<String,String>> emplist = pushMessageDao.emplist(param);
 			if(null != emplist && emplist.size()>0){

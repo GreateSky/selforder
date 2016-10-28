@@ -87,10 +87,15 @@ function loadOrganizationList(type,param){
 						var empcode  = row.empcode;
 						var empname = row.empname;
 						var oname = row.oname;
+						var sname = row.sname;
+						if(!checkValue(sname)){
+							sname = "";
+						}
 						tr +='<tr tag="append" empid="'+empid+'" class="animated flipInX">                                     ';
 						tr +='	<td>'+(i+1)+'</td>                             ';
 						tr +='	<td>'+empname+'</td>    ';
 						tr +='	<td>'+empcode+'</td>                        ';
+						tr +='	<td>'+sname+'</td>                        ';
 						tr +='	<td>'+oname+'</td>                  ';
 						tr +='	<td><button type="button" class="btn btn-warning" onclick="delRef(\''+empid+'\')">删除</button></td>                    ';
 						tr +='</tr>                                    ';

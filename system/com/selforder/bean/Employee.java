@@ -46,8 +46,15 @@ public class Employee extends baseBean {
 	private String oid;//所属组织架构ID
 	private String oeid;//组织架构与人员关联表ID
 	private String oname;//组织架构名称
+	private String levelpath;
 	private String isadmin;//是否系统管理员
 	private String keyword;//搜索关键字
+	public String getLevelpath() {
+		return levelpath;
+	}
+	public void setLevelpath(String levelpath) {
+		this.levelpath = levelpath;
+	}
 	public String getAppid() {
 		return appid;
 	}

@@ -183,7 +183,8 @@
 		        emp.crtdate,
 		        emp.opter,
 		        emp.optdate,
-		        emp.deleted
+		        emp.deleted,
+		        emp.isadmin
 		from
 		    wx_dish_employee emp
 		left join wx_dish_business business on business.bid = emp.bid

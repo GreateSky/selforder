@@ -39,11 +39,11 @@
                   	<!--搜索信息 start-->
                     <div class="form-group has-warning">
                       <label for="inputEmail3" class="col-sm-1 control-label">编码：</label>
-                      <div class="col-sm-1">
+                      <div class="col-sm-2">
                         <input type="text" class="form-control" id="ordersn" placeholder="订单编码 "  value="">
                       </div>
                       <label for="inputEmail3" class="col-sm-1 control-label">状态：</label>
-                      <div class="col-sm-1">
+                      <div class="col-sm-2">
                         <select class="form-control" id="status">
 							<option value="">全部</option>
                         	<option value="0">用户下单</option>

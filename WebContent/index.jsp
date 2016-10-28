@@ -247,8 +247,8 @@
 	                <i class="fa fa-angle-left pull-right"></i>
 	              </a>
 	              <ul class="treeview-menu">
-	                <li><a href="javascript:viod(0);" onclick="linkMainTab('system/order_out/orderList.jsp','orderlist','预定外卖订单列表')"><i class="fa fa-circle-o"></i> 订单列表</a></li>
-	                <li><a href="javascript:viod(0);" onclick="linkMainTab('system/order_out/orderDetail.jsp','orderinfo','预定外卖订单详情')"><i class="fa fa-circle-o"></i> 订单详情</a></li>
+	                <li><a href="javascript:viod(0);" onclick="linkMainTab('system/order_reserve/orderList.jsp','orderlist','预定外卖订单列表')"><i class="fa fa-circle-o"></i> 订单列表</a></li>
+	                <li><a href="javascript:viod(0);" onclick="linkMainTab('system/order_reserve/orderDetail.jsp','orderinfo','预定外卖订单详情')"><i class="fa fa-circle-o"></i> 订单详情</a></li>
 	              </ul>
 	            </li>
             </sec:authorize >
@@ -339,7 +339,8 @@
 	                <i class="fa fa-angle-left pull-right"></i>
 	              </a>
 	              <ul class="treeview-menu">
-	                <li><a href="javascript:viod(0);" onclick="linkMainTab('system/employee/saveEmployee.jsp','saveemp','员工信息维护')"><i class="fa fa-circle-o"></i> 个人信息维护</a></li>
+	              	<li><a href="javascript:viod(0);" onclick="linkMainTab('system/employee/employeeList.jsp','emplist','员工列表')"><i class="fa fa-circle-o"></i> 员工列表</a></li>
+	                <li><a href="javascript:viod(0);" onclick="linkMainTab('system/employee/saveEmployee.jsp','saveemp','员工信息维护')"><i class="fa fa-circle-o"></i> 员工信息维护</a></li>
 	              </ul>
 	            </li>
             </sec:authorize >

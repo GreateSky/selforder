@@ -295,7 +295,7 @@ function resetPwd(){
 			  layer.closeAll();
 			  $.ajax({
 				  type:"POST",
-				  url:"",
+				  url:"/selforder/api/employee/resetPwd.action",
 				  data:{"employee.empid":empid},
 				  dataType:"json",
 				  success:function(res){

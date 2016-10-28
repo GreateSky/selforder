@@ -42,6 +42,12 @@
 				<param name="root">resultJson</param>
 			</result> 
 		</action>
+		<!--重置登录密码-->
+		<action name ="resetPwd" class="employeeAction" method="resetPwd">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
 	</package>
 	
 </struts>
