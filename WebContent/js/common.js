@@ -141,3 +141,74 @@ function formatDate(jsonData){
     return str;
 }
 
+/**
+ * 检查附件格式及大小
+ * @returns
+ */
+function checkFile(file){
+	// 判断是否为IE浏览器： /msie/i.test(navigator.userAgent) 为一个简单正则
+    var isIE = /msie/i.test(navigator.userAgent) && !window.opera;
+    var fileSize = 0;
+    //判断附件格式
+    var str = $(file).val();
+    var reg = ".*\\.(jpg|png|gif|JPG|PNG|GIF)";
+    if(str.length>0){
+    	var r = str.match(reg);
+    	if(r == null){
+    		layer.msg("只能上传.jpg、.png、.gif类文件！",{icon:5});
+    		clearInputFile(file);
+    		return false;
+	    }
+    }
+    var r = str.match(reg);
+    if (isIE && !file.files) {    // IE浏览器
+        var filePath = file.value; // 获得上传文件的绝对路径
+        /**
+         * ActiveXObject 对象为IE和Opera所兼容的JS对象
+         * 用法：
+         *         var newObj = new ActiveXObject( servername.typename[, location])
+         *         其中newObj是必选项。返回 ActiveXObject对象 的变量名。
+         *        servername是必选项。提供该对象的应用程序的名称。
+         *        typename是必选项。要创建的对象的类型或类。
+         *        location是可选项。创建该对象的网络服务器的名称。
+         *\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+         *    Scripting.FileSystemObject 为 IIS 内置组件，用于操作磁盘、文件夹或文本文件，
+         *    其中返回的 newObj 方法和属性非常的多
+         *    如：var file = newObj.CreateTextFile("C:\test.txt", true) 第二个参表示目标文件存在时是否覆盖
+         *    file.Write("写入内容");    file.Close();
+         */
+        var fileSystem = new ActiveXObject("Scripting.FileSystemObject");
+        // GetFile(path) 方法从磁盘获取一个文件并返回。
+        var file = fileSystem.GetFile(filePath);
+        fileSize = file.Size;    // 文件大小，单位：b
+    }
+    else {    // 非IE浏览器
+        fileSize = file.files[0].size;
+    }
+    var size = fileSize/1024/1024;
+    if (size > 1) {
+    	layer.msg("上传的附件大小不能超过1M",{icon:5});
+    	clearInputFile(file);
+    	return false;
+    }else{
+    	return true
+    }
+}
+
+/*
+ * 情况file元素中内容
+ */
+function clearInputFile(f){  
+    if(f.value){  
+        try{  
+            f.value = ''; //for IE11, latest Chrome/Firefox/Opera...  
+        }catch(err){  
+        }  
+        if(f.value){ //for IE5 ~ IE10  
+            var form = document.createElement('form'), ref = f.nextSibling, p = f.parentNode;  
+            form.appendChild(f);  
+            form.reset();  
+            p.insertBefore(f,ref);  
+        }  
+    }  
+} 

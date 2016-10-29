@@ -444,5 +444,10 @@
 		where detail.deleted = 0 
 		and detail.oid = #{oid}
 	</select>
+	
+	<!--更新订单打印状态 -->
+	<update id="updateOrderPrintStatus"  parameterType="orderDetail">
+		update wx_dish_order_detail detail set detail.isprint = 1 where detail.oid =  #{oid}
+	</update>
 </mapper>
 

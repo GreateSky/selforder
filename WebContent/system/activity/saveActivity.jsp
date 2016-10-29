@@ -85,7 +85,7 @@
 						<div class="form-group has-warning">
 						  <label for="inputEmail3" class="col-sm-3 control-label">宣传图片：</label>
 						  <div class="col-sm-4">
-							<input type="file" id="fileid" name="fileid" class="form-control" />
+							<input type="file" id="fileid" name="fileid" class="form-control" onchange="checkFile(this)" />
 						  </div>
 						</div>
 						<div class="form-group has-warning">

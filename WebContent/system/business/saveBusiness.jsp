@@ -93,7 +93,7 @@
 					<div class="form-group has-warning">
 					  <label for="inputEmail3" class="col-sm-1 control-label">营业执照：</label>
 					  <div class="col-sm-2">
-						<input type="file" id="fileid" name="filename" class="form-control" id="inputEmail3" placeholder="营业执照" value="" >
+						<input type="file" id="fileid" name="filename" class="form-control" id="inputEmail3" placeholder="营业执照" value=""  onchange="checkFile(this)" accept=".jpeg,.jpg,.png">
 					  </div>
 					</div>
 					<div class="form-group has-warning">
@@ -158,15 +158,9 @@
                 </form><!--/form end-->
               </div><!-- /.box -->
         </section><!-- /.content -->
-        <img id="licenseImg" src=""  style="position:absolute;top: 120px; left: 500px; border-radius: 5px;"></img>
+        <img id="licenseImg" src=""  style="position:absolute;top: 120px; left: 500px; border-radius: 5px;width: 400px"></img>
 	</body>
-	<!-- jQuery 2.1.4 -->
-    <script src="<%=cxtPath%>/js/jQuery-2.1.4.min.js"></script>
-    <!-- Bootstrap 3.3.2 JS -->
-    <script src="<%=cxtPath%>/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-    <script src="<%=cxtPath%>/js/ajaxfileupload.js"></script>
-    <script src="<%=cxtPath%>/js/common.js"></script>
-    <script src="<%=cxtPath%>/plugins/layer/layer.js"></script>
+	<script src="<%=cxtPath%>/js/ajaxfileupload.js"></script>
     <script src="saveBusiness.js"></script>
     <script src="<%=cxtPath%>/plugins/datepicker/bootstrap-datepicker.js"></script>
     <script src="<%=cxtPath%>/plugins/datepicker/locales/bootstrap-datepicker.zh-CN.js"></script>

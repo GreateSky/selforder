@@ -96,4 +96,12 @@ public interface OrderDao {
 	 */
 	public double getTotalPriceByOrdid(String oid) throws Exception;
 	
+	/**
+	 * 更新订单明细打印状态
+	 * @param orderDetail
+	 * @return
+	 * @throws SQLException
+	 */
+	public int updateOrderPrintStatus(OrderDetail orderDetail)throws SQLException;
+	
 }

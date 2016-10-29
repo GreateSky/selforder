@@ -57,7 +57,7 @@
 					<div class="form-group has-warning">
 					  <label for="inputEmail3" class="col-sm-2 control-label">图片:</label>
 					  <div class="col-sm-2">
-						<input type="file" id="fileid" name="fileid" class="form-control" />
+						<input type="file" id="fileid" name="fileid" class="form-control" onchange="checkFile(this)" />
 					  </div>
 					</div>
 					<div class="form-group has-warning">
@@ -152,12 +152,6 @@
         </section><!-- /.content -->
         <img id="goodsImg" src="" width="150px" height="150px" style="position:absolute;top: 110px; left: 600px; border-radius: 8px;"></img>
 	</body>
-	<!-- jQuery 2.1.4 -->
-    <script src="<%=cxtPath%>/js/jQuery-2.1.4.min.js"></script>
-    <!-- Bootstrap 3.3.2 JS -->
-    <script src="<%=cxtPath%>/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
     <script src="<%=cxtPath%>/js/ajaxfileupload.js"></script>
-    <script src="<%=cxtPath%>/js/common.js"></script>
-    <script src="<%=cxtPath%>/plugins/layer/layer.js"></script>
     <script src="saveGoods.js"></script>
 </html>

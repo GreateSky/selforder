@@ -124,4 +124,14 @@ public class OrderDaoImpl extends SqlSessionDaoSupport implements OrderDao {
 	public double getTotalPriceByOrdid(String oid) throws Exception{
 		return (Double)getSqlSession().selectOne("com.selforder.order.getTotalPriceByOrdid", oid);
 	}
+	
+	/**
+	 * 更新订单明细打印状态
+	 * @param orderDetail
+	 * @return
+	 * @throws SQLException
+	 */
+	public int updateOrderPrintStatus(OrderDetail orderDetail)throws SQLException{
+		return getSqlSession().update("com.selforder.order.updateOrderPrintStatus", orderDetail);
+	}
 }

@@ -70,7 +70,7 @@
 					<div class="form-group has-warning">
 					  <label for="inputEmail3" class="col-sm-2 control-label">LOGO：</label>
 					  <div class="col-sm-2">
-						<input type="file" id="fileid" name="fileid" class="form-control" />
+						<input type="file" id="fileid" name="fileid" class="form-control" onchange="checkFile(this)" />
 					  </div>
 					</div>
 					<div class="form-group has-warning">

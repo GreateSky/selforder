@@ -1,5 +1,6 @@
 package com.selforder.service;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -61,4 +62,12 @@ public interface OrderService {
 	 * @return
 	 */
 	public String updateOrderStatus(Order order);
+	
+	/**
+	 * 更新订单明细打印状态
+	 * @param orderDetail
+	 * @return
+	 */
+	public String updateOrderPrintStatus(OrderDetail orderDetail);
+	
 }

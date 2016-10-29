@@ -296,4 +296,28 @@ public class OrderServiceImpl implements OrderService {
 		}
 		return result;
 	}
+	
+	/**
+	 * 更新订单明细打印状态
+	 * @param orderDetail
+	 * @return
+	 */
+	public String updateOrderPrintStatus(OrderDetail orderDetail){
+		String result = "";
+		try{
+			if(null == orderDetail){
+				return JsonResultUtil.getJsonResult(-1, "fail", "参数异常！");
+			}
+			int temp = orderDao.updateOrderPrintStatus(orderDetail);
+			if(temp > 0){
+				result = JsonResultUtil.getJsonResult(0, "success", "更新打印状态成功！");
+			}else{
+				result = JsonResultUtil.getJsonResult(-1, "fail", "更新打印状态失败！");
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			return JsonResultUtil.getJsonResult(-1, "fail", "操作异常!");
+		}
+		return result;
+	}
 }
