@@ -212,3 +212,23 @@ function clearInputFile(f){
         }  
     }  
 } 
+
+/**
+ * 将内容复制至粘贴板
+ * @param elmentId
+ * @param value
+ * @returns
+ * 使用要求：需引入jquery和jquery.zclip.min.js
+ * 使用时直接传入触发复制的元素ID和需要复制的内容
+ */
+function copyText(elmentId,value){
+	$('#'+elment).zclip({
+        path: "ZeroClipboard.swf",
+        copy: function(){
+	        return value;
+	　 　}, 
+		afterCopy: function(){//复制成功 
+			layer.msg("内容已复制至粘贴板",{icon:6});
+		}
+    });
+}
