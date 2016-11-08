@@ -151,7 +151,7 @@ function checkFile(file){
     var fileSize = 0;
     //判断附件格式
     var str = $(file).val();
-    var reg = ".*\\.(jpg|png|gif|JPG|PNG|GIF)";
+    var reg = ".*\\.(jpg|png|gif|JPG|PNG|GIF|swf)";
     if(str.length>0){
     	var r = str.match(reg);
     	if(r == null){
@@ -222,8 +222,8 @@ function clearInputFile(f){
  * 使用时直接传入触发复制的元素ID和需要复制的内容
  */
 function copyText(elmentId,value){
-	$('#'+elment).zclip({
-        path: "ZeroClipboard.swf",
+	$('#'+elmentId).zclip({
+        path: cxtPath+"/js/ZeroClipboard.swf",
         copy: function(){
 	        return value;
 	　 　}, 

@@ -51,6 +51,8 @@ function loadOrder(){
 				$("#payInfo").html("微信订单号："+transid);
 				$("#payInfo").css("display","block");
 				$("#checkPayInfo").css("display","block");
+				$("#payInfo").attr("transid",transid);
+				copyTest();
 			}
 			var transferid = orderInfo.transferid;
 			var transfername = orderInfo.transfername;
@@ -343,6 +345,29 @@ function addOrder(){
 			window.location.href = 'orderList.jsp';
 		}
 	});
+}
+
+/**
+ * 检查订单付款状态
+ * @returns
+ */
+function checkOrderPayStatus(){
+	var transid = $("#payInfo").attr("transid");
+	copyText("checkPayInfo",transid)
+	//window.open('https://pay.weixin.qq.com/index.php/core/home/login');
+}
+
+function copyTest(){
+	$('#checkPayInfo').zclip({
+        path:"/selforder/api/fileutil?method=download&fileid=1b9e924cd268448dae216bf9882977c5",//1b9e924cd268448dae216bf9882977c5
+        copy:function(){
+        	var transid = $("#payInfo").attr("transid");
+	        return transid;
+	　 　}, 
+		afterCopy: function(){//复制成功 
+			layer.msg("内容已复制至粘贴板",{icon:6});
+		}
+    });
 }
 
 //****************************************************食谱选择操作start*************************************

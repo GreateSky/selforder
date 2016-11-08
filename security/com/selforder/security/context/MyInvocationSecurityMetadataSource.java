@@ -70,6 +70,7 @@ import com.selforder.dao.impl.PowerDaoImpl;
           ConfigAttribute ca  = new SecurityConfig( "ROLE_LOGIN" );
           atts.add(ca);
           resourceMap.put( "/**" , atts);
+          resourceMap.put( "/js/ZeroClipboard.swf" , atts);
           resourceMap.put( "/index.jsp" , atts);
          
      } 
