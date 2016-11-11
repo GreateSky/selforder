@@ -27,6 +27,7 @@ public class Goods extends baseBean {
 	private int isspecial;
 	private double marketprice;
 	private double productprice;
+	private double discount_price;//优惠后的价格
 	private int subcount;
 	private String cid;
 	private String cname;//所属分类名称
@@ -194,5 +195,11 @@ public class Goods extends baseBean {
 	}
 	public void setOid(String oid) {
 		this.oid = oid;
+	}
+	public double getDiscount_price() {
+		return discount_price;
+	}
+	public void setDiscount_price(double discount_price) {
+		this.discount_price = discount_price;
 	}
 }

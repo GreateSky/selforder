@@ -106,7 +106,7 @@
 					</div>
                   </div><!-- /.box-body -->
                   <div class="box-footer">
-                  	<button type="submit" class="btn btn-default">取消</button>
+                  	<button type="button" class="btn btn-default" onclick="javascript:history.go(-1)">返回</button>
                     <button type="button" class="btn btn-info pull-right" onclick="saveQueueSetting()">保存</button>
                   </div><!-- /.box-footer -->
                 </form><!--/form end-->

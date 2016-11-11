@@ -43,8 +43,6 @@
 	    	String oid = request.getParameter("oid");
 	    	String opt = request.getParameter("opt");
 	    %>
-	    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=FC766111331538a002147e7996dc6623" ></script>
-	    <script async src="http://c.cnzz.com/core.php"></script>
 	    <script language="JavaScript" type="application/javascript">
 	    	var oid = '<%=oid%>';
 			var opt = '<%=opt%>';
@@ -255,6 +253,7 @@
 	                     <th>#</th>
 	                     <th>名称</th>
 	                     <th>价格</th>
+	                     <th>优惠后价格</th>
 	                     <th>操作</th>
 			          </tr>
 			   </table>

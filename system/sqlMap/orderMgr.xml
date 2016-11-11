@@ -96,7 +96,7 @@
 		        ord.weid,
 		        ord.storeid,
 		        ord.from_user,
-		        ord.totalprice,
+		        format(ord.totalprice,2) as totalprice,
 		        ord.ordersn,
 		        ord.status,
 		        ord.ispay,
@@ -392,12 +392,10 @@
 			</if>
 			<if test="num != null and num !='' ">
 				, num = #{num}
+				, cost = cost/num*#{num}
 			</if>
 			<if test="price != null and price !='' ">
 				, price = #{price}
-			</if>
-			<if test="cost != null and cost !='' ">
-				, cost = #{cost}
 			</if>
 			<if test="deleted != null and deleted !='' ">
 				, deleted = #{deleted}

@@ -301,7 +301,7 @@
 				<div id="allmap"></div>
 		      </div>
 		      <div class="modal-footer">
-		        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">取消</button>
+		        <button type="button" class="btn btn-default" onclick="javascript:history.go(-1)">返回</button>
 		        <button type="button" class="btn btn-primary" onclick="pointOK()">保存</button>
 		      </div>
 		    </div><!-- /.modal-content -->

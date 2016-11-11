@@ -84,8 +84,8 @@ function loadActivityList(queueType,param){
 						var url = row.url;
 						var status = row.status;
 						var type = row.type;
-						var begindate = formatDate(row.begindate);
-						var enddate = formatDate(row.enddate);
+						var begindate = formatDateNoWithTime(row.begindate);
+						var enddate = formatDateNoWithTime(row.enddate);
 						var discount = row.discount;
 						var leastcost = row.leastcost;
 						if(status == 0 ){
@@ -104,15 +104,12 @@ function loadActivityList(queueType,param){
 						tr +='<tr tag="appendActivityTr" id="'+id+'" class="animated flipInX">                                     ';
 						tr +='	<td>'+(i+1)+'</td>                             ';
 						tr +='	<td>'+title+'</td>    ';
+						tr +='	<td>'+discount+'</td>                    ';
+						tr +='	<td>'+status+'</td>                    ';
+						tr +='	<td>'+type+'</td>                    ';
 						tr +='	<td>'+begindate+'</td>                        ';
 						tr +='	<td>'+enddate+'</td>                  ';
 						tr +='	<td>'+url+'</td>';
-						tr +='	<td>'+type+'</td>                    ';
-						tr +='	<td>'+status+'</td>                    ';
-						tr +='	<td>'+discount+'</td>                    ';
-						tr +='	<td>'+leastcost+'</td>                    ';
-						tr +='	<td>'+0+'</td>                    ';
-						tr +='	<td>'+0+'</td>                    ';
 						tr +='	<td><button role="btn-shop-update" type="button" class="btn btn-warning" onclick="updateActivity(\''+id+'\')">编辑</button>&nbsp;<button role="btn-shop-remove" type="button" class="btn btn-danger" onclick="delActivity(\''+id+'\')">删除</button></td>                    ';
 						tr +='</tr>                                    ';
 						$("#activityList").append(tr);

@@ -50,6 +50,17 @@ function getActivityInfo(){
 
 //上传附件
 function uploadFile(){
+	//验证输入的数据
+	if(!checkValueWithInfo($("#title").val(),"请输入名称！"))return;
+	if(!checkValueWithInfo($("#discount").val(),"请输入折扣数！"))return;
+	if(!checkValueWithInfo($("#begindate").val(),"请选择开始时间！"))return;
+	if(!checkValueWithInfo($("#enddate").val(),"请选择结束时间！"))return;
+	var begindateStr = $("#begindate").val();
+	var enddateStr = $("#enddate").val();
+	if(begindateStr> enddateStr){
+		layer.msg("开始日期不能大于结束日期",{icon:5});
+		return;
+	}
 	ajaxFileUpload("saveActivity");
 }
 
@@ -81,13 +92,6 @@ function addActivity(){
 	var enddate = $("#enddate").val();
 	var status = $("#status").val();
 	var remark = $("#remark").val();
-	if(!checkValueWithInfo(title,"活动名称不能为空！"))return;
-	if(!checkValueWithInfo(type,"活动类型不能为空！"))return;
-	if(!checkValueWithInfo(discount,"优惠/折扣金额不能为空！"))return;
-	if(!checkValueWithInfo(leastcost,"最少消费不能为空！"))return;
-	if(!checkValueWithInfo(begindate,"活动开始时间不能为空！"))return;
-	if(!checkValueWithInfo(enddate,"活动结束时间不能为空！"))return;
-	if(!checkValueWithInfo(status,"活动状态不能为空！"))return;
 	var goods = getAddGoods();
 	var param = {};
 	param["activity.title"] = title;
@@ -133,13 +137,6 @@ function updateActivity(){
 	var enddate = $("#enddate").val();
 	var status = $("#status").val();
 	var remark = $("#remark").val();
-	if(!checkValueWithInfo(title,"活动名称不能为空！"))return;
-	if(!checkValueWithInfo(type,"活动类型不能为空！"))return;
-	if(!checkValueWithInfo(discount,"优惠/折扣金额不能为空！"))return;
-	if(!checkValueWithInfo(leastcost,"最少消费不能为空！"))return;
-	if(!checkValueWithInfo(begindate,"活动开始时间不能为空！"))return;
-	if(!checkValueWithInfo(enddate,"活动结束时间不能为空！"))return;
-	if(!checkValueWithInfo(status,"活动状态不能为空！"))return;
 	var goods = getAddGoods();
 	var param = {};
 	param["activity.title"] = title;
@@ -205,6 +202,7 @@ function getActivityGoodsList(){
 						tr +='	<td>'+(i+1)+'</td>                             ';
 						tr +='	<td>'+row.title+'</td>    ';
 						tr +='	<td>'+row.marketprice+'</td>                        ';
+						tr +='	<td>'+row.discount_price+'</td>                        ';
 						tr +='	<td><button type="button" class="btn btn-danger" onclick="delActivityGoods('+1+',\''+row.id+'\')">删除</button></td>                    ';
 						tr +='</tr>                                    ';
 						$("#activityGoodsList").append(tr);
@@ -303,6 +301,9 @@ function loadNoSelectGoods(){
  */
 function selectGoods(goodsid,title,marketprice){
 	var length = $("tr[tag='appendActivityGoodsTr']").length;//获取当前已关联食谱个数
+	var discount = $("#discount").val();
+	var discount_price = marketprice*discount*0.1;
+	discount_price = discount_price.toFixed(2);
 	$("#"+goodsid).remove();//删除已选中的食谱
 	//向已关联食谱列表中添加选择物料
 	var tr = "";
@@ -310,6 +311,7 @@ function selectGoods(goodsid,title,marketprice){
 	tr +='	<td>'+(length+1)+'</td>                             ';
 	tr +='	<td>'+title+'</td>    ';
 	tr +='	<td>'+marketprice+'</td>                        ';
+	tr +='	<td>'+discount_price+'</td>                        ';
 	tr +='	<td><button type="button" class="btn btn-danger" onclick="delActivityGoods('+2+',\''+goodsid+'\')">删除</button></td>                    ';
 	tr +='</tr>                                    ';
 	$("#activityGoodsList").append(tr);

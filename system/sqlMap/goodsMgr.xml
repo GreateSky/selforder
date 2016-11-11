@@ -345,8 +345,12 @@
 	<select id="getGoodsListIgnoreOrderId" parameterType="java.lang.String" resultType="goods">
 		select goods.id,
 			goods.marketprice,
+			case 
+				when ifnull(acg.discount,0) =0 then goods.marketprice
+			else format(ifnull(goods.marketprice,0)*ifnull(acg.discount,0)*0.1,2) end  as discount_price,
 			goods.title
 		from wx_dish_goods goods 
+		left join view_activity_goods acg on (acg.goodsid = goods.id and goods.weid = acg.weid and goods.storeid = acg.storeid)
 		where goods.deleted = 0 
 		and goods.weid = #{weid}
 		and goods.storeid = #{storeid}

@@ -9,6 +9,7 @@ public class ActivityGoods extends baseBean{
 	private String goodsid;
 	private String title;
 	private double marketprice;
+	private double discount_price;//优惠后的价格
 	private String crter;
 	private Date crtdate;
 	private String opter;
@@ -77,5 +78,11 @@ public class ActivityGoods extends baseBean{
 		this.deleted = deleted;
 	}
 	private int deleted;
+	public double getDiscount_price() {
+		return discount_price;
+	}
+	public void setDiscount_price(double discount_price) {
+		this.discount_price = discount_price;
+	}
 	
 }

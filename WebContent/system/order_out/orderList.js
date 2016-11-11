@@ -3,10 +3,12 @@ var pageSize = 20; //默认每页20条数据
 var pageStart = 0;
 var first = true;//是否第一次加载
 var currdate = (new Date()).Format("yyyy-MM")+"-01";//初始化时间
+var enddate = (new Date()).Format("yyyy-MM-dd");//初始化时间
 var dining_mode=2;
 $("#begindate").val(currdate);
+$("#enddate").val(enddate);
 $(function(){
-	var param = {"order.begindate":currdate,"order.dining_mode":dining_mode};
+	var param = {"order.begindate":currdate,"order.dining_mode":dining_mode,"order.enddate":enddate};
 	//加载商户列表
 	loadOrderList("init",param);
 	keyEvent();

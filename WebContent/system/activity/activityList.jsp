@@ -5,14 +5,6 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<!-- Tell the browser to be responsive to screen width -->
-	    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-	    <!-- Bootstrap 3.3.4 -->
-	    <link href="<%=cxtPath%>/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-	    <!-- FontAwesome 4.3.0 -->
-	    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-	    <link href="<%=cxtPath%>/dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
-	    <link href="<%=cxtPath%>/css/animate.css" rel="stylesheet" type="text/css" />
 	</head>
 	<body style="margin: 0; padding: 0; background-color: #ECF0F5; width: 100%; height: 100%;" >
         <!-- Content Header (Page header) -->
@@ -42,14 +34,6 @@
                       <div class="col-sm-1">
                         <input type="text" class="form-control" id="search_title" placeholder="活动名称">
                       </div>
-                      <label for="inputEmail3" class="col-sm-1 control-label">活动类型：</label>
-                      <div class="col-sm-1">
-                        <select class="form-control" id="search_type">
-                        	<option value="" selected="selected">全部</option>
-                        	<option value="1">折扣</option>
-                        	<option value="2">优惠</option>
-                        </select>
-                      </div>
                       <label for="inputEmail3" class="col-sm-1 control-label">活动状态：</label>
                       <div class="col-sm-1">
                         <select class="form-control" id="search_status">
@@ -74,15 +58,12 @@
 	                    <tr>
 	                      <th>#</th>
 	                      <th>活动名称</th>
+	                      <th>折扣</th>
+	                      <th>活动状态</th>
+	                      <th>活动类型</th>
 	                      <th>开始日期</th>
 	                      <th>结束日期</th>
 	                      <th>活动地址</th>
-	                      <th>活动类型</th>
-	                      <th>活动状态</th>
-	                      <th>折扣/优惠金额</th>
-	                      <th>使用下限</th>
-	                      <th>活动使用次数</th>
-	                      <th>活动使用金额</th>
 	                      <th>操作</th>
 	                    </tr>
                   	</table><!--/门店列表-->
@@ -95,11 +76,6 @@
               </div><!-- /.box -->
         </section><!-- /.content -->
 	</body>
-	<!-- jQuery 2.1.4 -->
-    <script src="<%=cxtPath%>/plugins/jQuery/jQuery-2.1.4.min.js"></script>
-    <script src="<%=cxtPath%>/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-    <script src="<%=cxtPath%>/js/common.js"></script>
-    <script src="<%=cxtPath%>/plugins/layer/layer.js"></script>
     <script src="<%=cxtPath%>/js/jquery.twbsPagination.min.js"></script>
     <script src="activityList.js"></script>
 </html>

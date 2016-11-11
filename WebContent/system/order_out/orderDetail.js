@@ -51,8 +51,18 @@ function loadOrder(){
 				$("#payInfo").html("微信订单号："+transid);
 				$("#payInfo").css("display","block");
 				$("#checkPayInfo").css("display","block");
+				$("#copybtn").css("display","block");
 				$("#payInfo").attr("transid",transid);
-				copyTest();
+				$('#copybtn').zclip({
+			        path:"ZeroClipboard.swf",
+			        copy:function(){
+			        	var temp_transid = $("#payInfo").attr("transid");
+				        return temp_transid;
+				　 　}, 
+					afterCopy: function(){//复制成功 
+						layer.msg("内容已复制至粘贴板",{icon:6});
+					}
+			    });
 			}
 			var transferid = orderInfo.transferid;
 			var transfername = orderInfo.transfername;
@@ -358,16 +368,7 @@ function checkOrderPayStatus(){
 }
 
 function copyTest(){
-	$('#checkPayInfo').zclip({
-        path:"/selforder/api/fileutil?method=download&fileid=1b9e924cd268448dae216bf9882977c5",//1b9e924cd268448dae216bf9882977c5
-        copy:function(){
-        	var transid = $("#payInfo").attr("transid");
-	        return transid;
-	　 　}, 
-		afterCopy: function(){//复制成功 
-			layer.msg("内容已复制至粘贴板",{icon:6});
-		}
-    });
+	
 }
 
 //****************************************************食谱选择操作start*************************************
@@ -400,12 +401,14 @@ function showGoodsWin(param){
 					var id = row.id;
 					var title = row.title;
 					var marketprice = row.marketprice;
+					var discount_price = row.discount_price;
 					var tr = "";
 					tr += '<tr tag="goodsTrAppend" id="'+id+'" class="animated flipInX">       ';
 					tr += '	<td>'+(i+1)+'</td>';
 					tr += '	<td>'+title+'</td>';
 					tr += '	<td>￥'+marketprice+'</td>';
-					tr += '	<td><button type="button" class="btn btn-warning" onclick="addGoods(\''+id+'\',\''+title+'\',\''+marketprice+'\',this)">添加</button></td>';
+					tr += '	<td>￥'+discount_price+'</td>';
+					tr += '	<td><button type="button" class="btn btn-warning" onclick="addGoods(\''+id+'\',\''+title+'\',\''+discount_price+'\',this)">添加</button></td>';
 					tr += '</tr>      ';
 					$("#goodsList").append(tr);
 				}
@@ -432,7 +435,7 @@ function searchGoodsList(){
  * @param title 食谱名称
  * @param price 价格
  */
-function addGoods(id,title,price,e){
+function addGoods(id,title,discount_price,e){
 	$("tr[tag='appendDetailTr']:last").remove();//删除合计行
 	var index = $("tr[tag='appendDetailTr']").length;//获取已有订单行数记录数
 	//拼接订单行
@@ -440,10 +443,10 @@ function addGoods(id,title,price,e){
 	tr += '<tr tag="appendDetailTr" class="animated flipInX" did="" optType="add" goods_id="'+id+'">                                                             ';
 	tr += '	<td>'+(index+1)+'</td>                                                      ';
 	tr += '	<td>'+title+'</td>                                               ';
-	tr += '	<td tag="price">'+price+'</td>                                              ';
+	tr += '	<td tag="price">'+discount_price+'</td>                                              ';
 	tr += '	<td><input tag="goodsnum" type="number" min="1" max="10" tag="num" value="'+1+'" onchange="editCost(this)"></input></td>';
 	tr += '	<td>                                                            ';
-	tr += '		<button type="button" class="btn btn-warning" onclick="delGoods()">取消</button>   ';
+	tr += '		<button type="button" class="btn btn-warning" onclick="delNewGoods(this)">取消</button>   ';
 	tr += '	</td>                                                           ';
 	tr += '</tr>                                                            ';
 	$("#orderDetailList").append(tr);
@@ -458,10 +461,23 @@ function addGoods(id,title,price,e){
 	var total = "";
 	total += '<tr tag="appendDetailTr">                                                                 ';
 	total += '	<td colspan="4" align="right"><h4>合计：</h4></td>                 ';
-	total += '	<td><h4><label id="totalCost" class="label label-info">￥'+totalCost+'&nbsp;元</label></h4></td>';
+	total += '	<td><h4><label id="totalCost" class="label label-info">￥'+totalCost.toFixed(2)+'&nbsp;元</label></h4></td>';
 	total += '</tr>                                                                ';
 	$("#orderDetailList").append(total);
 	$(e).parent().parent().remove();//清除改行菜谱
+}
+
+//删除新增的订单行
+function delNewGoods(e){
+	$(e).parent().parent().remove();
+	//计算合计费用
+	var totalCost = 0;//合计费用
+	$("input[tag='goodsnum']").each(function(){//遍历input[tag='goodsnum'] 的输入框
+		var value = $(this).val();
+		var price = $(this).parent().prev("td").html();
+		totalCost += price*value
+	});
+	$("#totalCost").html('￥'+totalCost.toFixed(2)+'&nbsp;元');
 }
 
 /**

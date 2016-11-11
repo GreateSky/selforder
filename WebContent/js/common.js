@@ -141,6 +141,15 @@ function formatDate(jsonData){
     return str;
 }
 
+function formatDateNoWithTime(jsonData){
+	var time = jsonData.time;
+    var date = new Date(time);
+    var str = date.getFullYear() + "-";
+    str += ((date.getMonth()+1)<10?("0"+(date.getMonth()+1)):(date.getMonth()+1)) +"-" ;
+    str += (date.getDate()<10?("0"+ date.getDate()): date.getDate());
+    return str;
+}
+
 /**
  * 检查附件格式及大小
  * @returns

@@ -213,6 +213,7 @@
 		        ag.goodsid,
 		        goods.title,
         		goods.marketprice,
+        		FORMAT(ifnull(act.discount,0)*ifnull(goods.marketprice,0)*0.1,2) as discount_price,
 		        ag.crter,
 		        ag.crtdate,
 		        ag.opter,
@@ -220,6 +221,7 @@
 		        ag.deleted
 		FROM
 		    wx_dish_activity_goods ag
+		left join wx_dish_activity act on act.id = ag.activityid    
 		left join wx_dish_goods goods on goods.id = ag.goodsid    
 		where ag.deleted = 0 
 		 and goods.deleted = 0 

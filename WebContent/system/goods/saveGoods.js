@@ -85,6 +85,9 @@ function loadGoodsCategoryCommbox(){
 
 //上传附件
 function uploadFile(){
+	if(!checkValueWithInfo($("#title").val(),"食谱名称不能为空!"))return;
+	if(!checkValueWithInfo($("#productprice").val(),"请输入成品价格!"))return;
+	if(!checkValueWithInfo($("#marketprice").val(),"请输入市场价格!"))return;
 	saveing = layer.load(2, {shade: [1, 'rgba(0,0,0,.5)']});
 	ajaxFileUpload("saveGoods");
 }
@@ -118,26 +121,6 @@ function addGoods(){
 	var status = $("#status").val();
 	var description = $("#description").val();
 	var displayorder = $("#displayorder").val();
-	if(!checkValueWithInfo(title,"食谱名称不能为空!")){
-		layer.close(saveing);
-		return;
-	}
-	if(!checkValueWithInfo(productprice,"请输入成品价格!")){
-		layer.close(saveing);
-		return;
-	}
-	if(!checkValueWithInfo(marketprice,"请输入市场价格!")){
-		layer.close(saveing);
-		return;
-	}
-	if(!checkValueWithInfo(unitname,"请输入计量单位!")){
-		layer.close(saveing);
-		return;
-	}
-	if(!checkValueWithInfo(taste,"请输入口味!")){
-		layer.close(saveing);
-		return;
-	}
 	var param = {};
 	param["goods.title"] = title;
 	param["goods.cid"] = cid;
