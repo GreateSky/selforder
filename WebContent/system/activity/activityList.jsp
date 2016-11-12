@@ -31,11 +31,11 @@
                   	<!--搜索信息 start-->
                     <div class="form-group has-warning">
                       <label for="inputEmail3" class="col-sm-1 control-label">活动名称：</label>
-                      <div class="col-sm-1">
+                      <div class="col-sm-2">
                         <input type="text" class="form-control" id="search_title" placeholder="活动名称">
                       </div>
                       <label for="inputEmail3" class="col-sm-1 control-label">活动状态：</label>
-                      <div class="col-sm-1">
+                      <div class="col-sm-2">
                         <select class="form-control" id="search_status">
                         	<option value="" selected="selected">全部</option>
                         	<option value="0">未开启</option>

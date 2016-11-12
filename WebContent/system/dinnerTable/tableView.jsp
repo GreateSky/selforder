@@ -5,14 +5,6 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<!-- Tell the browser to be responsive to screen width -->
-	    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-	    <!-- Bootstrap 3.3.4 -->
-	    <link href="<%=cxtPath%>/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-	    <!-- FontAwesome 4.3.0 -->
-	    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-	    <link href="<%=cxtPath%>/dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
-	    <link href="<%=cxtPath%>/css/animate.css" rel="stylesheet" type="text/css" />
 	    <%
 	    	String sid = request.getParameter("sid");
 	    %>
@@ -153,10 +145,6 @@
           </div><!-- /.box -->
         </section><!-- /.content -->
 	</body>
-	<script src="<%=cxtPath%>/plugins/jQuery/jQuery-2.1.4.min.js"></script>
-    <script src="<%=cxtPath%>/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-    <script src="tableView.js"></script>
-    <script src="<%=cxtPath%>/js/common.js"></script>
-    <script src="<%=cxtPath%>/plugins/layer/layer.js"></script>
     <script src="<%=cxtPath%>/js/jquery.twbsPagination.min.js"></script>
+    <script src="tableView.js"></script>
 </html>

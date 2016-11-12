@@ -5,17 +5,6 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<!-- Tell the browser to be responsive to screen width -->
-	    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-	    <!-- Bootstrap 3.3.4 -->
-	    <link href="<%=cxtPath%>/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-	    <!-- FontAwesome 4.3.0 -->
-	    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-	    <!-- Theme style -->
-	    <link href="<%=cxtPath%>/dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
-	    <!-- AdminLTE Skins. Choose a skin from the css/skins
-	         folder instead of downloading all of them to reduce the load. -->
-	    <link href="<%=cxtPath%>/dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
 	    <%
 	    	String opt = request.getParameter("opt");//操作类型
 	    	String id = request.getParameter("id");//食谱ID

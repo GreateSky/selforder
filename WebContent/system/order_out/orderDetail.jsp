@@ -5,8 +5,6 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<!-- Tell the browser to be responsive to screen width -->
-	    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 	    <style type="text/css">
 			*{margin:0;padding:0;list-style-type:none;}
 			a,img{border:0;}

@@ -21,9 +21,9 @@
     <!-- Bootstrap 3.3.4 -->
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <!-- FontAwesome 4.3.0 -->
-    <link href="dist/FontAwesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <!-- Ionicons 2.0.0 -->
-    <link href="dist/ionicons/css/ionicons.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css" />
     <!-- Theme style -->
     <link href="dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
     <!-- AdminLTE Skins. Choose a skin from the css/skins
@@ -187,6 +187,7 @@
 	              </a>
 	              <ul class="treeview-menu">
 	                <li><a href="javascript:viod(0);" onclick="linkMainTab('system/business/businessList.jsp','businesslist','商户列表')"><i class="fa fa-circle-o"></i> 商户列表</a></li>
+	                <li><a href="javascript:viod(0);" onclick="linkMainTab('system/business/saveBusiness.jsp','savebusiness','商户维护')"><i class="fa fa-circle-o"></i> 商户维护</a></li>
 	              </ul>
 	            </li>
             </sec:authorize >
@@ -197,6 +198,7 @@
 	              </a>
 	              <ul class="treeview-menu">
 	                <li class="active"><a href="javascript:viod(0);" onclick="linkMainTab('system/shop/shopList.jsp','shoplist','门店列表')"><i class="fa fa-circle-o"></i> 门店列表</a></li>
+	                <li class="active"><a href="javascript:viod(0);" onclick="linkMainTab('system/shop/saveShop.jsp','shopedit','门店维护')"><i class="fa fa-circle-o"></i> 门店维护</a></li>
 	              </ul>
 	            </li>
             </sec:authorize >
@@ -207,6 +209,7 @@
 	              </a>
 	              <ul class="treeview-menu">
 	                <li class="active"><a href="javascript:viod(0);" onclick="linkMainTab('system/goods/goodsList.jsp','goodsmgr','食谱列表')"><i class="fa fa-circle-o"></i> 食谱列表</a></li>
+	                <li class="active"><a href="javascript:viod(0);" onclick="linkMainTab('system/goods/saveGoods.jsp','goodsedit','食谱维护')"><i class="fa fa-circle-o"></i> 食谱维护</a></li>
 	              </ul>
 	            </li>
             </sec:authorize >
@@ -219,6 +222,7 @@
 	              </a>
 	              <ul class="treeview-menu">
 	                <li><a href="javascript:viod(0);" onclick="linkMainTab('system/order/orderList.jsp','orderlist','订单列表')"><i class="fa fa-circle-o"></i> 订单列表</a></li>
+	                <li><a href="javascript:viod(0);" onclick="linkMainTab('system/order/orderDetail.jsp','orderinfo','订单详情')"><i class="fa fa-circle-o"></i> 订单详情</a></li>
 	              </ul>
 	            </li>
             </sec:authorize >
@@ -231,6 +235,7 @@
 	              </a>
 	              <ul class="treeview-menu">
 	                <li><a href="javascript:viod(0);" onclick="linkMainTab('system/order_out/orderList.jsp','orderlist','外卖订单列表')"><i class="fa fa-circle-o"></i> 订单列表</a></li>
+	                <li><a href="javascript:viod(0);" onclick="linkMainTab('system/order_out/orderDetail.jsp','orderinfo','外卖订单详情')"><i class="fa fa-circle-o"></i> 订单详情</a></li>
 	              </ul>
 	            </li>
             </sec:authorize >
@@ -243,6 +248,7 @@
 	              </a>
 	              <ul class="treeview-menu">
 	                <li><a href="javascript:viod(0);" onclick="linkMainTab('system/order_reserve/orderList.jsp','orderlist','预定外卖订单列表')"><i class="fa fa-circle-o"></i> 订单列表</a></li>
+	                <li><a href="javascript:viod(0);" onclick="linkMainTab('system/order_reserve/orderDetail.jsp','orderinfo','预定外卖订单详情')"><i class="fa fa-circle-o"></i> 订单详情</a></li>
 	              </ul>
 	            </li>
             </sec:authorize >
@@ -255,6 +261,7 @@
 	              </a>
 	              <ul class="treeview-menu">
 	                <li><a href="javascript:viod(0);" onclick="linkMainTab('system/queue/queueList.jsp','queuelist','排号列表')"><i class="fa fa-circle-o"></i> 排号列表</a></li>
+	                <li><a href="javascript:viod(0);" onclick="linkMainTab('system/queue/saveQueueSetting.jsp','queueSetting','排号设置')"><i class="fa fa-circle-o"></i> 排号设置</a></li>
 	              </ul>
 	            </li>
             </sec:authorize >
@@ -267,6 +274,8 @@
 	              </a>
 	              <ul class="treeview-menu">
 	                <li><a href="javascript:viod(0);" onclick="linkMainTab('system/dinnerTable/tableList.jsp','tablelist','餐桌列表')"><i class="fa fa-circle-o"></i> 餐桌列表</a></li>
+	                <li><a href="javascript:viod(0);" onclick="linkMainTab('system/dinnerTable/saveTable.jsp','saveTable','餐桌维护')"><i class="fa fa-circle-o"></i> 餐桌维护</a></li>
+	                <!-- <li><a href="javascript:viod(0);" onclick="linkMainTab('system/dinnerTable/tableView.jsp','tableView','餐桌运营')"><i class="fa fa-circle-o"></i> 餐桌运营</a></li> -->
 	              </ul>
 	            </li>
             </sec:authorize >
@@ -279,6 +288,7 @@
 	              </a>
 	              <ul class="treeview-menu">
 	              	<li><a href="javascript:viod(0);" onclick="linkMainTab('system/activity/activityList.jsp','activitylist','活动列表')"><i class="fa fa-circle-o"></i> 活动列表</a></li>
+	              	<li><a href="javascript:viod(0);" onclick="linkMainTab('system/activity/saveActivity.jsp','activityedit','活动维护')"><i class="fa fa-circle-o"></i> 活动维护</a></li>
 	              </ul>
 	            </li>
             </sec:authorize >
@@ -291,6 +301,7 @@
 	              </a>
 	              <ul class="treeview-menu">
 	              	<li><a href="javascript:viod(0);" onclick="linkMainTab('system/comment/commentList.html','commentlist','评论列表')"><i class="fa fa-circle-o"></i> 评论列表</a></li>
+	              	<li><a href="javascript:viod(0);" onclick="linkMainTab('system/comment/auditComment.html','auditcomment','审核/回复')"><i class="fa fa-circle-o"></i> 审核/回复表</a></li>
 	              </ul>
 	            </li>
             </sec:authorize >
@@ -329,6 +340,7 @@
 	              </a>
 	              <ul class="treeview-menu">
 	              	<li><a href="javascript:viod(0);" onclick="linkMainTab('system/employee/employeeList.jsp','emplist','员工列表')"><i class="fa fa-circle-o"></i> 员工列表</a></li>
+	                <li><a href="javascript:viod(0);" onclick="linkMainTab('system/employee/saveEmployee.jsp','saveemp','员工信息维护')"><i class="fa fa-circle-o"></i> 员工信息维护</a></li>
 	              </ul>
 	            </li>
             </sec:authorize >
