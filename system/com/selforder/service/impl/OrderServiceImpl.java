@@ -320,4 +320,37 @@ public class OrderServiceImpl implements OrderService {
 		}
 		return result;
 	}
+	
+	//*********************预定订单操作start********************
+	/**
+	 * 查询预定订单
+	 * @param order
+	 * @return
+	 */
+	public String reserveOrderList(Order order){
+		String result = "";
+		Map resultMap = new HashMap();
+		String bid = new Context().getLoginUserInfo().getBid();
+		String sid = new Context().getLoginUserInfo().getSid();
+		order.setWeid(bid);
+		order.setStoreid(sid);
+		try{
+			//查询门店列表
+			List<Order> orderList = orderDao.reserveOrderList(order);
+			if(orderList != null && orderList.size()>0){
+				//查询统计数
+				int count = orderDao.reserveOrderListCount(order);
+				resultMap.put("rows", orderList);
+				resultMap.put("total", count);
+				result = JsonResultUtil.MapToJsonStr(resultMap);
+			}else{
+				result = JsonResultUtil.getJsonResult(-1,"fail", "无数据!");
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			return result = JsonResultUtil.getJsonResult(-1,"fail", "查询异常!");
+		}
+		return result;
+	}
+	//*********************预定订单操作end********************
 }

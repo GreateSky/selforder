@@ -39,8 +39,9 @@
                         <select class="form-control" id="status">
 							<option value="">全部</option>
                         	<option value="0">用户下单</option>
-                        	<option value="1">已确认</option>
-                        	<option value="4">已完成</option>
+                        	<option value="1">商户确认</option>
+                        	<option value="2">商家配送</option>
+                        	<option value="3">交易完成</option>
                         	<option value="-1">已取消</option>
 						</select>
                       </div>
@@ -66,10 +67,14 @@
                       <th>#</th>
                       <th>订单编码</th>
                       <th>订单日期</th>
-                      <th>状态</th>
+                      <th>订单类型</th>
+                      <th>餐桌号</th>
                       <th>客户姓名</th>
                       <th>电话</th>
-                      <th>用餐时间</th>
+                      <th>消费金额(元)</th>
+                      <th>实收金额(元)</th>
+                      <th>订单状态</th>
+                      <th>口味</th>
                       <th>备注</th>
                       <th>操作</th>
                     </tr>
@@ -85,5 +90,5 @@
         </section><!-- /.content -->
 	</body>
     <script src="<%=cxtPath%>/js/jquery.twbsPagination.min.js"></script>
-    <script src="orderList.js"></script>
+    <script src="orderList2.js"></script>
 </html>

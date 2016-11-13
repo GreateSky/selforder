@@ -69,5 +69,13 @@ public interface OrderService {
 	 * @return
 	 */
 	public String updateOrderPrintStatus(OrderDetail orderDetail);
+	//*********************预定订单操作start********************
+	/**
+	 * 查询预定订单
+	 * @param order
+	 * @return
+	 */
+	public String reserveOrderList(Order order);
+	//*********************预定订单操作end********************
 	
 }

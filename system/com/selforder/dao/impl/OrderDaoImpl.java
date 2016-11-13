@@ -134,4 +134,26 @@ public class OrderDaoImpl extends SqlSessionDaoSupport implements OrderDao {
 	public int updateOrderPrintStatus(OrderDetail orderDetail)throws SQLException{
 		return getSqlSession().update("com.selforder.order.updateOrderPrintStatus", orderDetail);
 	}
+	
+	//*********************预定订单操作start********************
+	/**
+	 * 查询预定订单列表
+	 * @param order
+	 * @return
+	 * @throws SQLException
+	 */
+	public List<Order> reserveOrderList(Order order) throws SQLException{
+		return getSqlSession().selectList("com.selforder.order.getReserveOrderList", order);
+	}
+	
+	/**
+	 * 查询预定订单列表统计数
+	 * @param order
+	 * @return
+	 * @throws SQLException
+	 */
+	public int reserveOrderListCount(Order order)throws SQLException{
+		return (Integer)getSqlSession().selectOne("com.selforder.order.getReserveOrderListCount", order);
+	}
+	//*********************预定订单操作end********************
 }

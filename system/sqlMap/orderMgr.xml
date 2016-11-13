@@ -447,5 +447,85 @@
 	<update id="updateOrderPrintStatus"  parameterType="orderDetail">
 		update wx_dish_order_detail detail set detail.isprint = 1 where detail.oid =  #{oid}
 	</update>
+	
+	<!-- 预定订单操作start -->
+	<!-- 查询预定订单列表 -->
+	<select id="getReserveOrderList"  parameterType="order" resultType="order">
+		select ord.id,
+			 ord.weid,
+			 ord.storeid,
+			 ord.ordersn,
+			 ord.crtdate,
+			 ord.from_user,
+			 ord.username,
+			 ord.tel,
+			 ord.meal_time,
+			 ord.status
+		from wx_dish_order ord
+		where ord.deleted = 0 
+		and ord.dining_mode = 3
+		<if test="id != null and id !='' ">
+			and ord.id = #{id}
+		</if>
+		<if test="weid != null and weid !='' ">
+			and ord.weid = #{weid}
+		</if>
+		<if test="storeid != null and storeid !='' ">
+			and ord.storeid = #{storeid}
+		</if>
+		<if test="status != null and status !='' ">
+			and ord.status = #{status}
+		</if>
+		<if test="ordersn != null and ordersn !='' ">
+			and ord.ordersn like concat('%',#{ordersn},'%')
+		</if>
+		<if test="username != null and username !='' ">
+			and ord.username like concat('%',#{username},'%')
+		</if>
+		<if test="tel != null and tel !='' ">
+			and ord.tel like concat('%',#{tel},'%')
+		</if>
+		<if test="begindateLine != null and begindateLine !='' ">
+			and ord.dateline &gt;= ${begindateLine}
+		</if>
+		<if test="enddateLine != null and enddateLine !='' ">
+			and ord.dateline &lt;= ${enddateLine}
+		</if>
+		order by ord.optdate desc
+		<include refid="limit"></include>   
+	</select>
+	<!--查询订单列表统计数  用于列表分页 -->
+	<select id="getReserveOrderListCount" parameterType="order" resultType="int">
+		select count(1)
+		from wx_dish_order ord
+		where ord.deleted = 0 
+		and ord.dining_mode = 3
+		<if test="id != null and id !='' ">
+			and ord.id = #{id}
+		</if>
+		<if test="weid != null and weid !='' ">
+			and ord.weid = #{weid}
+		</if>
+		<if test="storeid != null and storeid !='' ">
+			and ord.storeid = #{storeid}
+		</if>
+		<if test="ordersn != null and ordersn !='' ">
+			and ord.ordersn like concat('%',#{ordersn},'%')
+		</if>
+		<if test="username != null and username !='' ">
+			and ord.username like concat('%',#{username},'%')
+		</if>
+		<if test="tel != null and tel !='' ">
+			and ord.tel like concat('%',#{tel},'%')
+		</if>
+		<if test="begindateLine != null and begindateLine !='' ">
+			and ord.dateline &gt;= ${begindateLine}
+		</if>
+		<if test="enddateLine != null and enddateLine !='' ">
+			and ord.dateline &lt;= ${enddateLine}
+		</if>
+	</select>
+	<!-- 预定订单操作end   -->
+	
 </mapper>
 

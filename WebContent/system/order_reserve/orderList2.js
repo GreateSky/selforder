@@ -64,7 +64,7 @@ function loadOrderList(type,param){
 	$("tr[tag='appendOrderTr']").remove();
 	$.ajax({
 		type:"POST",
-		url:"/selforder/api/order/reserveOrderList.action",
+		url:"/selforder/api/order/getOrderList.action",
 		data:param,
 		dataType:'json',
 		success:function(data){
@@ -86,12 +86,13 @@ function loadOrderList(type,param){
 						var weid = row.weid;
 						var storeid = row.storeid;
 						var from_user = row.from_user;
+						var totalprice = row.totalprice;
+						var tableid = row.tableid;
+						var tablecode = row.tablecode;
+						var dining_mode = row.dining_mode;
 						var username = row.username;
+						var address = row.address;
 						var tel = row.tel;
-						var meal_time = row.meal_time;
-						var remark = row.remark;
-						var crtdate = row.crtdate;
-						var crtdateStr = formatDate(crtdate);
 						var status = row.status;
 						var statusStr = "";
 						if(status == -1){
@@ -105,26 +106,49 @@ function loadOrderList(type,param){
 						}else if(status == 3){
 							statusStr = "配送中";
 						}else if(status == 4){
-							statusStr = "已到店";
+							statusStr = "交易完成";
 						}
+						
+						var dining_modeStr = "";
+						if(dining_mode == 1){
+							dining_modeStr = "到店";
+						}else if(dining_mode == 2){
+							dining_modeStr = "外卖";
+						}else if(dining_mode == 3){
+							dining_modeStr = "预约";
+						}
+						var taste = row.taste;
+						var remark = row.remark;
+						var crtdate = row.crtdate;
+						var crtdateStr = formatDate(crtdate);
+						var realprice = row.realprice;
+						var tablecode = row.tablecode;
 						var appendTr = "";
 						appendTr += '<tr tag="appendOrderTr" id="'+id+'" class="animated flipInX">                                                  ';
 						appendTr += '	<td>'+(i+1)+'</td>                                           ';
 						appendTr += '	<td>'+ordersn+'</td>                          ';
 						appendTr += '	<td>'+crtdateStr+'</td>                         ';
-						appendTr += '	<td>'+statusStr+'</td>                         ';
-						appendTr += '	<td>'+username+'</td>                         ';
-						appendTr += '	<td>'+tel+'</td>                                       ';
-						appendTr += '	<td>'+meal_time+'</td>                                            ';
+						appendTr += '	<td>'+dining_modeStr+'</td>                         ';
+						appendTr += '	<td>'+tablecode+'</td>                                       ';
+						appendTr += '	<td>'+username+'</td>                                            ';
+						appendTr += '	<td>'+tel+'</td>                                            ';
+						appendTr += '	<td>                                                 ';
+						appendTr += '		<label class="label label-primary">￥'+totalprice+'</label>';
+						appendTr += '	</td>                                                ';
+						appendTr += '	<td>                                                 ';
+						appendTr += '		<label class="label label-danger">￥'+realprice+'</label>   ';
+						appendTr += '	</td>                                                ';
+						appendTr += '	<td>                                                 ';
+						appendTr += '		<label class="label label-warning">'+statusStr+'</label>  ';
+						appendTr += '	</td>                                                ';
+						appendTr += '	<td>'+taste+'</td>                                        ';
 						appendTr += '	<td>'+remark+'</td>                            ';
 						appendTr += '	<td>                                                 ';
 						if(status == 0){
 							appendTr += '		<button type="button" class="btn btn-warning" onclick="affirmOrder(\''+id+'\')">确认</button>      ';
 						}
-						if(status != 4){
-							appendTr += '		<button type="button" class="btn btn-info" onclick="arriveStore(\''+id+'\')">已到店</button>         ';
-							appendTr += '		<button type="button" class="btn btn-danger" onclick="cancleOrder(\''+id+'\')">取消</button>       ';
-						}
+						appendTr += '		<button type="button" class="btn btn-info" onclick="goDetail(\''+id+'\')">详情</button>         ';
+						appendTr += '		<button type="button" class="btn btn-danger" onclick="cancleOrder(\''+id+'\')">取消</button>       ';
 						appendTr += '	</td>                                                ';
 						appendTr += '</tr>                                                 ';
 						$("#orderList").append(appendTr);
@@ -246,37 +270,6 @@ function affirmOrder(orderid){
 					type:"POSt",
 					url:"/selforder/api/order/updateOrderStatus.action",
 					data:{"order.status":1,"order.id":orderid},
-					dataType:"json",
-					success:function(res){
-						layer.closeAll();
-						var retCode = res.retCode;
-						var message = res.message;
-						if(retCode < 0 ){
-							layer.msg(message,{icon:5});
-						}else{
-							layer.msg(message,{icon:6});
-						}
-						var param = {"order.begindate":currdate,"order.dining_mode":dining_mode};
-						loadOrderList("init",param);
-					}
-				});
-			},
-			function(){
-				layer.closeAll();
-			});
-}
-
-/**
- * 客户已到店
- */
-function arriveStore(orderid){
-	layer.confirm("确定客户已到店吗？",
-			{btn:["确定","取消"]},
-			function(){
-				$.ajax({
-					type:"POSt",
-					url:"/selforder/api/order/updateOrderStatus.action",
-					data:{"order.status":4,"order.id":orderid},
 					dataType:"json",
 					success:function(res){
 						layer.closeAll();

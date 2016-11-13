@@ -104,4 +104,23 @@ public interface OrderDao {
 	 */
 	public int updateOrderPrintStatus(OrderDetail orderDetail)throws SQLException;
 	
+	//*********************预定订单操作start********************
+	/**
+	 * 查询预定订单列表
+	 * @param order
+	 * @return
+	 * @throws SQLException
+	 */
+	public List<Order> reserveOrderList(Order order) throws SQLException;
+	
+	/**
+	 * 查询预定订单列表统计数
+	 * @param order
+	 * @return
+	 * @throws SQLException
+	 */
+	public int reserveOrderListCount(Order order)throws SQLException;
+	//*********************预定订单操作end********************
+	
+	
 }

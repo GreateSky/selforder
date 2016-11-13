@@ -42,6 +42,12 @@
 				<param name="root">resultJson</param>
 			</result> 
 		</action>
+		<!--查询预定订单-->
+		<action name = "reserveOrderList" class="orderAction" method="reserveOrderList">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
 	</package>
 	
 </struts>
