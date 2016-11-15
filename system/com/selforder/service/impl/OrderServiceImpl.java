@@ -352,5 +352,85 @@ public class OrderServiceImpl implements OrderService {
 		}
 		return result;
 	}
+	
+	/**
+	 * 新增预定订单
+	 * @param order
+	 * @return
+	 */
+	public String insertReserveOrder(Order order){
+		String result = "";
+		try{
+			String crter = new Context().getLoginUserInfo().getCode();
+			String bid = new Context().getLoginUserInfo().getBid();
+			String sid = new Context().getLoginUserInfo().getSid();
+			order.setCrter(crter);
+			order.setWeid(bid);
+			order.setStoreid(sid);
+			order.setDining_mode(3);
+			String ordersn = orderDao.getNextOrderSn(bid);//获取订单号
+			String id = Uuid.getUuid();//生成订单主键
+			order.setOrdersn(ordersn);
+			order.setId(id);
+			order.setStatus("0");
+			double totalprice = 0.00;//总金额
+			//组装订单明细
+			order.setTotalprice(totalprice);
+			int temp = orderDao.insertOrder(order);//插入订单
+			if(temp > 0){//保存订单明细
+				result = JsonResultUtil.getJsonResult(0, "success", "新增订单成功!");
+				String pushCreateOrderMessage = pushMessage.sendOrderMessgeToUser("createOrder", order.getId());
+			}else{
+				result = JsonResultUtil.getJsonResult(-1, "fail", "新增订单失败!");
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			return JsonResultUtil.getJsonResult(-1, "fail", "操作异常!");
+		}
+		return result;
+	}
+	
+	/**
+	 * 获取订单详情
+	 * @param Order
+	 * @return
+	 */
+	public String reserveOrderInfo(Order order){
+		String result = "";
+		try{
+			//获取订单详情
+			Order currorder = orderDao.orderInfo(order);
+			if(null == currorder){ 
+				return JsonResultUtil.getJsonResult(-1,"fail", "查询订单详情失败!");
+			}
+			result = JsonResultUtil.getJsonResult(0, "succecss", "查询订单详情成功!", currorder);
+		}catch(Exception e){
+			e.printStackTrace();
+			return result = JsonResultUtil.getJsonResult(-1,"fail", "查询异常!");
+		}
+		return result;
+	}
+	
+	/**
+	 * 更新预定订单
+	 * @param order
+	 * @return
+	 */
+	public String updateReserveOrder(Order order){
+		String result = "";
+		try{
+			int temp = orderDao.updateOrder(order);
+			if(temp > 0){
+				result= JsonResultUtil.getJsonResult(0,"success", "更新订单成功！");
+			}else{
+				result= JsonResultUtil.getJsonResult(-1,"fail", "更新订单失败！");
+			}
+			String pushCreateOrderMessage = pushMessage.sendOrderMessgeToUser("updateOrder", order.getId());
+		}catch(Exception e){
+			e.printStackTrace();
+			return JsonResultUtil.getJsonResult(-1,"fail", "更新订单异常！");
+		}
+		return result;
+	}
 	//*********************预定订单操作end********************
 }

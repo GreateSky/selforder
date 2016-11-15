@@ -76,6 +76,27 @@ public interface OrderService {
 	 * @return
 	 */
 	public String reserveOrderList(Order order);
+	
+	/**
+	 * 新增预定订单
+	 * @param order
+	 * @return
+	 */
+	public String insertReserveOrder(Order order);
+	
+	/**
+	 * 获取订单详情
+	 * @param Order
+	 * @return
+	 */
+	public String reserveOrderInfo(Order order);
+	
+	/**
+	 * 更新预定订单
+	 * @param order
+	 * @return
+	 */
+	public String updateReserveOrder(Order order);
 	//*********************预定订单操作end********************
 	
 }

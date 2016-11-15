@@ -123,6 +123,7 @@ function loadOrderList(type,param){
 						}
 						if(status != 4){
 							appendTr += '		<button type="button" class="btn btn-info" onclick="arriveStore(\''+id+'\')">已到店</button>         ';
+							appendTr += '		<button type="button" class="btn btn-success" onclick="editOrder(\''+id+'\')">编辑</button>         ';
 							appendTr += '		<button type="button" class="btn btn-danger" onclick="cancleOrder(\''+id+'\')">取消</button>       ';
 						}
 						appendTr += '	</td>                                                ';
@@ -159,19 +160,28 @@ function updateShop(sid){
 }
 
 /**
+ * 编辑订单
+ * @param id
+ * @returns
+ */
+function editOrder(id){
+	window.location.href = "saveOrder.jsp?opt=update&oid="+id;
+}
+
+/**
  * 搜索
  */
 function search(){
-	var ordersn = $("#ordersn").val();
-	var status = $("#status").val();
 	var begindate = $("#begindate").val();
 	var enddate = $("#enddate").val();
+	var username = $("#username_search").val();
+	var tel = $("#tel_search").val();
 	var param = {};
-	param["order.ordersn"] = ordersn;
-	param["order.status"] = status;
 	param["order.begindate"] = begindate;
 	param["order.enddate"] = enddate;
 	param["order.dining_mode"] = dining_mode;
+	param["order.username"] = username;
+	param["order.tel"] = tel;
 	first = true;
 	loadOrderList("init",param);
 }
@@ -182,9 +192,10 @@ function search(){
  */
 function clearParam(){
 	$("#ordersn").val("");
-	$("#status").val("");
 	$("#begindate").val("");
 	$("#enddate").val("");
+	$("#username_search").val("");
+	$("#tel_search").val("");
 	first = true;
 	loadOrderList("init",null);
 }
@@ -256,8 +267,8 @@ function affirmOrder(orderid){
 						}else{
 							layer.msg(message,{icon:6});
 						}
-						var param = {"order.begindate":currdate,"order.dining_mode":dining_mode};
-						loadOrderList("init",param);
+						//var param = {"order.begindate":currdate,"order.dining_mode":dining_mode};
+						loadOrderList("init",null);
 					}
 				});
 			},

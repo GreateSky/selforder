@@ -13,16 +13,16 @@
 	    </style>
 	    <%
 	    	String opt = request.getParameter("opt");
-	    	String sid = "";
+	    	String oid = "";
 	    	if(null != opt && "update".equalsIgnoreCase(opt)){
-	    		sid = request.getParameter("sid");
+	    		oid = request.getParameter("oid");
 	    	}else{
 	    		opt = "";
 	    	}
 	    %>
  	    <script language="JavaScript" type="application/javascript">
 	    	var opt = '<%=opt%>'
-	    	var sid = '<%=sid%>';
+	    	var oid = '<%=oid%>';
 	    </script>
 	</head>
 	<body style="margin: 0; padding: 0; background-color: #ECF0F5; width: 100%; height: 100%;" >
@@ -51,7 +51,7 @@
 					<div class="form-group has-warning">
 					  <label for="inputEmail3" class="col-sm-2 control-label">姓名：</label>
 					  <div class="col-sm-2">
-						<input type="text" class="form-control" id="title" placeholder="姓名" value="">
+						<input type="text" class="form-control" id="username" placeholder="姓名" value="">
 					  </div>
 					</div>
 					<div class="form-group has-warning">
@@ -63,7 +63,7 @@
 					<div class="form-group has-warning">
 					  <label for="inputEmail3" class="col-sm-2 control-label">用餐时间：</label>
 					  <div class="col-sm-2">
-						<input type="datetime-local" class="form-control" id="info" placeholder="用餐时间" value="">
+						<input type="datetime-local" class="form-control" id="meal_time" placeholder="用餐时间" value="">
 					  </div>
 					</div>
 					<div class="form-group has-warning" >
@@ -75,11 +75,11 @@
                   </div><!-- /.box-body -->
                   <div class="box-footer">
                   	<button type="button" class="btn btn-default">取消</button>
-                    <button type="button" onclick="uploadFile()" class="btn btn-info pull-right">保存</button>
+                    <button type="button" onclick="saveOrder()" class="btn btn-info pull-right">保存</button>
                   </div><!-- /.box-footer -->
                 </form><!--/form end-->
               </div><!-- /.box -->
         </section><!-- /.content -->
 	</body>
-    <script src="<%=cxtPath%>/plugins/layer/layer.js"></script>
+    <script src="saveOrder.js"></script>
 </html>

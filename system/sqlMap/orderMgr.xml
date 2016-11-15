@@ -464,6 +464,7 @@
 		from wx_dish_order ord
 		where ord.deleted = 0 
 		and ord.dining_mode = 3
+		and ord.status &lt;&gt; -1
 		<if test="id != null and id !='' ">
 			and ord.id = #{id}
 		</if>
@@ -491,7 +492,7 @@
 		<if test="enddateLine != null and enddateLine !='' ">
 			and ord.dateline &lt;= ${enddateLine}
 		</if>
-		order by ord.optdate desc
+		order by ord.status asc,ord.crtdate desc
 		<include refid="limit"></include>   
 	</select>
 	<!--查询订单列表统计数  用于列表分页 -->
@@ -500,6 +501,7 @@
 		from wx_dish_order ord
 		where ord.deleted = 0 
 		and ord.dining_mode = 3
+		and ord.status &lt;&gt; -1
 		<if test="id != null and id !='' ">
 			and ord.id = #{id}
 		</if>

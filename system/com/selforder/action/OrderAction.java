@@ -298,5 +298,89 @@ public class OrderAction extends GreateSkyActionSupport {
 		}
 		return this.SUCCESS;
 	}
+	
+	/**
+	 * 新增预定订单
+	 * @return
+	 */
+	public String insertReserveOrder(){
+		HttpServletResponse response=ServletActionContext.getResponse();
+		/*
+		 * 在调用getWriter之前未设置编码(既调用setContentType或者setCharacterEncoding方法设置编码),
+		 * HttpServletResponse则会返回一个用默认的编码(既ISO-8859-1)编码的PrintWriter实例。这样就会
+		 * 造成中文乱码。而且设置编码时必须在调用getWriter之前设置,不然是无效的。
+		 * */
+		response.setContentType("text/html;charset=utf-8");
+		Writer out;
+		String result;
+		try{
+			out = response.getWriter();
+			result = orderService.insertReserveOrder(order);
+			System.out.println("新增预定订单========"+result);
+			out.write(result);
+			out.flush();
+			out.close();
+		}catch(Exception e){
+			e.printStackTrace();
+			return this.ERROR;
+		}
+		return this.SUCCESS;
+	}
+	
+	/**
+	 * 获取预定订单详情
+	 * @return
+	 */
+	public String reserveOrderInfo(){
+		HttpServletResponse response=ServletActionContext.getResponse();
+		/*
+		 * 在调用getWriter之前未设置编码(既调用setContentType或者setCharacterEncoding方法设置编码),
+		 * HttpServletResponse则会返回一个用默认的编码(既ISO-8859-1)编码的PrintWriter实例。这样就会
+		 * 造成中文乱码。而且设置编码时必须在调用getWriter之前设置,不然是无效的。
+		 * */
+		response.setContentType("text/html;charset=utf-8");
+		Writer out;
+		String result;
+		try{
+			out = response.getWriter();
+			result = orderService.reserveOrderInfo(order);
+			System.out.println("获取预定订单详情========"+result);
+			out.write(result);
+			out.flush();
+			out.close();
+		}catch(Exception e){
+			e.printStackTrace();
+			return this.ERROR;
+		}
+		return this.SUCCESS;
+	}
+	
+	/**
+	 * 更新预定订单
+	 * @return
+	 */
+	public String updateReserveOrder(){
+		HttpServletResponse response=ServletActionContext.getResponse();
+		/*
+		 * 在调用getWriter之前未设置编码(既调用setContentType或者setCharacterEncoding方法设置编码),
+		 * HttpServletResponse则会返回一个用默认的编码(既ISO-8859-1)编码的PrintWriter实例。这样就会
+		 * 造成中文乱码。而且设置编码时必须在调用getWriter之前设置,不然是无效的。
+		 * */
+		response.setContentType("text/html;charset=utf-8");
+		Writer out;
+		String result;
+		try{
+			out = response.getWriter();
+			result = orderService.updateReserveOrder(order);
+			System.out.println("更新预定订单========"+result);
+			out.write(result);
+			out.flush();
+			out.close();
+		}catch(Exception e){
+			e.printStackTrace();
+			return this.ERROR;
+		}
+		return this.SUCCESS;
+	}
 	//*********************预定订单操作end********************
 }

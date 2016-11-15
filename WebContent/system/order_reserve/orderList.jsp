@@ -30,19 +30,13 @@
                   <div class="box-body">
                   	<!--搜索信息 start-->
                     <div class="form-group has-warning">
-                      <label for="inputEmail3" class="col-sm-1 control-label">编码：</label>
+                      <label for="inputEmail3" class="col-sm-1 control-label">姓名：</label>
                       <div class="col-sm-2">
-                        <input type="text" class="form-control" id="ordersn" placeholder="订单编码 "  value="">
+                        <input type="text" class="form-control" id="username_search" placeholder="姓名 "  value="">
                       </div>
-                      <label for="inputEmail3" class="col-sm-1 control-label">状态：</label>
+                      <label for="inputEmail3" class="col-sm-1 control-label">电话：</label>
                       <div class="col-sm-2">
-                        <select class="form-control" id="status">
-							<option value="">全部</option>
-                        	<option value="0">用户下单</option>
-                        	<option value="1">已确认</option>
-                        	<option value="4">已完成</option>
-                        	<option value="-1">已取消</option>
-						</select>
+                        <input type="text" class="form-control" id="tel_search" placeholder="电话 "  value="">
                       </div>
                       <label for="inputEmail3" class="col-sm-1 control-label">订单开始日期：</label>
                       <div class="col-sm-2">
@@ -57,7 +51,7 @@
 	                	<div class="col-sm-6">
 	                        <button type="button" class="btn btn-info" onclick="search()"><i class="fa fa-search"></i>&nbsp;查询</button>
 	                        <button type="button"  class="btn btn-info" onclick="clearParam()"><i class="fa fa-refresh"></i>&nbsp;重置</button>
-	                        <button type="button"  class="btn btn-warning" onclick="javascript:window.location.href='orderDetail.jsp'"><i class="fa fa-plus-circle"></i>&nbsp;新增</button>
+	                        <button type="button"  class="btn btn-warning" onclick="javascript:window.location.href='saveOrder.jsp'"><i class="fa fa-plus-circle"></i>&nbsp;新增</button>
                         </div>
                     </div><!--/搜索信息 start-->
                     <!--门店列表start-->
