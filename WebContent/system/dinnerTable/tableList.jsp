@@ -43,7 +43,7 @@
                       <label for="inputEmail3" class="col-sm-1 control-label">状态：</label>
                       <div class="col-sm-2">
                         <select class="form-control" id="status_search">
-							<option value="">全部</option>
+							<option value="" >全部</option>
 							<option value="0">空闲</option>
 							<option value="1">已下单</option>
 							<option value="2">已开台</option>

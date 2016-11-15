@@ -425,14 +425,13 @@ function balanceOrder(){
 	var realprice = $("#realprice").val();
 	if(!checkValueWithInfo(totalprice,"应付金额不能为空！")) return;
 	if(!checkValueWithInfo(realprice,"实付金额不能为空！")) return;
-	layer.confirm("本单应付金额为：【"+totalprice+"】,实付金额为【"+realprice+"】,确定已结算成功吗？",
+	layer.confirm("本单应付金额为：【"+totalprice+"】,实付金额为【<font color='red'>"+realprice+"</font>】,确定已结算成功吗？",
 			{btn:["确定","取消"]},
 			function(){
 				layer.closeAll();
 				$.ajax({
 					type:"POST",
 					url:"/selforder/api/order/updateOrderStatus.action",
-					data:{"order.status":1,"order.id":oid},
 					data:{"order.id":oid,"order.realprice":realprice,"order.status":4},
 					dataType:"json",
 					success:function(res){

@@ -92,15 +92,32 @@ function loadTableList(type,param){
 						var imgsrc = "/selforder/api/fileutil?method=download&fileid="+qrcodeid;
 						var simgsrc = "/selforder/api/fileutil?method=download&fileid="+service_qrcodeid;
 						var statusStr = "";
+						var option = "";
 						if(status == "0"){
-							statusStr = "空闲";
+							option += '<option value="0" selected="selected" >空闲</option>  ';
+							option += '<option value="1">已下单</option>';
+							option += '<option value="2">已开台</option>';
+							option += '<option value="3">已预约</option>';
 						}else if(status == "1"){
-							statusStr = "已下单";
+							option += '<option value="0">空闲</option>  ';
+							option += '<option value="1" selected="selected" >已下单</option>';
+							option += '<option value="2">已开台</option>';
+							option += '<option value="3">已预约</option>';
 						}else if(status == "2"){
-							statusStr = "已开台";
+							option += '<option value="0">空闲</option>  ';
+							option += '<option value="1">已下单</option>';
+							option += '<option value="2" selected="selected" >已开台</option>';
+							option += '<option value="3">已预约</option>';
 						}else if(status == "3"){
-							statusStr = "已预约";
+							option += '<option value="0">空闲</option>  ';
+							option += '<option value="1">已下单</option>';
+							option += '<option value="2">已开台</option>';
+							option += '<option value="3" selected="selected" >已预约</option>';
 						}
+						statusStr += '<select class="form-control" style="width:90px" onchange="updateTableStatus(\''+id+'\',this)">      ';
+						statusStr += option;
+						statusStr += '</select>                         ';
+						
 						tr +='<tr tag="appendTableTr" sid="'+id+'" class="animated flipInX">                                     ';
 						tr +='	<td>'+(i+1)+'</td>                             ';
 						tr +='	<td>'+room_name+'</td>    ';
@@ -121,6 +138,39 @@ function loadTableList(type,param){
 	});
 }
 
+/**
+ * 修改餐桌状态
+ * @param id
+ * @param e
+ * @returns
+ */
+function updateTableStatus(id,e){
+	var status = $(e).val();
+	layer.confirm("确定要修改餐桌的状态吗？",
+			{btn:["确定","取消"]},
+			function(){
+				$.ajax({
+					type:"POST",
+					url:"/selforder/api/table/updateTable.action",
+					data:{"table.id":id,"table.status":status},
+					dataType:"json",
+					success:function(res){
+						var retCode = res.retCode;
+						var message = res.message;
+						if(retCode < 0 ){
+							layer.msg(message,{icon:5});
+						}else{
+							layer.msg(message,{icon:6});
+						}
+						search();
+					}
+				});
+			},
+			function(){
+				layer.closeAll();
+			}
+	);
+}
 
 /**
  * 搜索
@@ -184,7 +234,7 @@ function delTable(id){
 						}else{
 							layer.msg(message,{icon:6});
 						}
-						loadTableList("init",null);
+						search();
 					}
 				});
 			},

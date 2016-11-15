@@ -131,7 +131,7 @@
 		left join wx_dish_tables tab on (tab.id = ord.tableid and tab.deleted = 0) 
 		left join wx_dish_employee emp on emp.empid =  ord.transferid    
 		where ord.deleted = 0 
-		and ord.dining_mode = #{dining_mode}   
+		and ord.dining_mode = #{dining_mode}
 		<if test="id != null and id !='' ">
 			and ord.id = #{id}
 		</if>
@@ -153,7 +153,7 @@
 		<if test="enddateLine != null and enddateLine !='' ">
 			and ord.dateline &lt;= ${enddateLine}
 		</if>
-		order by ord.optdate desc
+		order by ord.crtdate desc
 		<include refid="limit"></include>   
 	</select>
 	<!--查询订单列表统计数  用于列表分页 -->

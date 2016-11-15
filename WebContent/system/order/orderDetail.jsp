@@ -109,13 +109,13 @@
                   					<form class="form-horizontal">
                   						<div class="form-group has-warning">
 										  <label for="inputEmail3" class="col-sm-2 control-label">订单号：</label>
-										  <div class="col-sm-3">
+										  <div class="col-sm-4">
 											<input type="text" class="form-control" id="ordersn" placeholder="订单号" value="" readonly="readonly" >
 										  </div>
 										</div>
 										<div class="form-group has-warning">
 										  <label for="inputEmail3" class="col-sm-2 control-label">订单类型：</label>
-										  <div class="col-sm-3">
+										  <div class="col-sm-4">
 										  	<select class="form-control" id="dining_mode" disabled="disabled">
 										  		<option value="1">到店</option>
 										  		<option value="2">外卖</option>
@@ -125,13 +125,13 @@
 										</div>
 										<div class="form-group has-warning">
 										  <label for="inputEmail3" class="col-sm-2 control-label">创建时间：</label>
-										  <div class="col-sm-3">
+										  <div class="col-sm-4">
 											<input type="text" class="form-control" id="crtdate" placeholder="创建时间" value="" readonly="readonly" >
 										  </div>
 										</div>
 										<div class="form-group has-warning" >
 										  <label for="inputEmail3" class="col-sm-2 control-label">餐桌号：</label>
-										  <div class="col-sm-3">
+										  <div class="col-sm-4">
 										  	<input type="hidden" id="tableid"></input>
 											<input type="text" class="form-control" id="tablecode" placeholder="餐桌号" value="" readonly="readonly" >
 										  </div>
@@ -145,25 +145,25 @@
 										</div>
 										<div class="form-group has-warning" >
 										  <label for="inputEmail3" class="col-sm-2 control-label">客户名称：</label>
-										  <div class="col-sm-3">
+										  <div class="col-sm-4">
 											<input type="text" class="form-control" id="username" placeholder="客户名称" value="" >
 										  </div>
 										</div>
 										<div class="form-group has-warning" >
 										  <label for="inputEmail3" class="col-sm-2 control-label">客户电话：</label>
-										  <div class="col-sm-3">
+										  <div class="col-sm-4">
 											<input type="text" class="form-control" id="tel" placeholder="客户电话" value="" >
 										  </div>
 										</div>
 										<div class="form-group has-warning" >
 										  <label for="inputEmail3" class="col-sm-2 control-label">口味：</label>
-										  <div class="col-sm-3">
+										  <div class="col-sm-4">
 											<input type="text" class="form-control" id="taste" placeholder="微辣" value="" >
 										  </div>
 										</div>
 										<div class="form-group has-warning" >
 										  <label for="inputEmail3" class="col-sm-2 control-label">客户留言：</label>
-										  <div class="col-sm-3">
+										  <div class="col-sm-4">
 											<input type="text" class="form-control" id="remark" placeholder="客户留言" value="微辣"  >
 										  </div>
 										</div>
@@ -173,19 +173,19 @@
 										</div>
 										<div class="form-group has-warning" >
 										  <label for="inputEmail3" class="col-sm-2 control-label">应付金额：</label>
-										  <div class="col-sm-3">
+										  <div class="col-sm-4">
 											<input type="number" class="form-control" id="totalprice" placeholder="￥0.00元" value=""  >
 										  </div>
 										</div>
 										<div class="form-group has-warning" >
 										  <label for="inputEmail3" class="col-sm-2 control-label">实付金额：</label>
-										  <div class="col-sm-3">
+										  <div class="col-sm-4">
 											<input type="number" class="form-control" id="realprice" placeholder="￥0.00元" value="" >
 										  </div>
 										</div>
 										<div class="form-group has-warning" >
 										  <label for="inputEmail3" class="col-sm-2 control-label">支付方式：</label>
-										  <div class="col-sm-3">
+										  <div class="col-sm-4">
 											<div class="radio">
 						                        <label>
 						                          <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked />

@@ -268,7 +268,8 @@ public class Order extends baseBean {
 	public void setEnddate(Date enddate) {
 		this.enddate = enddate;
 		if(enddate != null){
-			this.setEnddateLine(enddate.getTime()/1000);
+			//说明：结束时间计算时是按照2016-11-11 00:00:00这个时间计算的，那么为了统计到这一整天的数据还需加上24个小时对应的秒数：23*59*60
+			this.setEnddateLine(enddate.getTime()/1000+(23*59*60));
 		}
 	}
 	public String getStatus() {

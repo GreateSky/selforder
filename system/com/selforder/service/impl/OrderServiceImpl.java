@@ -116,6 +116,7 @@ public class OrderServiceImpl implements OrderService {
 			order.setCrter(crter);
 			order.setWeid(bid);
 			order.setStoreid(sid);
+			order.setStatus("0");
 			//保存用户信息
 			String ordersn = orderDao.getNextOrderSn(bid);//获取订单号
 			String id = Uuid.getUuid();//生成订单主键
@@ -205,16 +206,12 @@ public class OrderServiceImpl implements OrderService {
 			double total = orderDao.getTotalPriceByOrdid(order.getId());
 			order.setId(order.getId());
 			order.setTotalprice(total);
+			//如果是到店订单更新时处理餐桌状态
+			if(order.getDining_mode() == 1){
+				updateTableStatus(order);
+			}
 			//更新订单
 			int ordTemp = orderDao.updateOrder(order);
-			//更新餐桌状态
-			String tablieid = order.getTableid();
-			if(!"".equals(tablieid)){
-				Table table = new Table();
-				table.setId(tablieid);
-				table.setStatus("1");
-				int uptable = tableDao.updateTable(table);
-			}
 			result = JsonResultUtil.getJsonResult(0, "success", "更新订单成功!");
 			String pushCreateOrderMessage = pushMessage.sendOrderMessgeToUser("updateOrder", order.getId());
 		}catch(Exception e){
@@ -284,6 +281,10 @@ public class OrderServiceImpl implements OrderService {
 		String opter  = new Context().getLoginUserInfo().getCode();
 		try{
 			order.setOpter(opter);
+			//如果是到店点单订单则同步更新餐桌状态
+			if(1 == order.getDining_mode()){
+				updateTableStatus(order);
+			}
 			int update = orderDao.updateOrder(order);
 			if(update >0){
 				result = JsonResultUtil.getJsonResult(0, "success", "更新订单状态成功!");
@@ -317,6 +318,51 @@ public class OrderServiceImpl implements OrderService {
 		}catch(Exception e){
 			e.printStackTrace();
 			return JsonResultUtil.getJsonResult(-1, "fail", "操作异常!");
+		}
+		return result;
+	}
+	
+	/**
+	 * 根据订单信息更新对应的餐桌状态
+	 * @param orderInfo
+	 * @return
+	 * @see 逻辑过程：
+	 * 判断更新的订单状态若为取消状态则将订单中涉及的餐桌状态设置为空闲
+	 * 若为更新订单则判断是否对餐桌做了更新，如果更新了餐桌则将更新前的餐桌设置为空闲将待更新订单中涉及的餐桌设置为已下单状态
+	 */
+	public int updateTableStatus(Order orderInfo){
+		int result = 0;
+		try{
+			//查询更新前的订单信息
+			Order oldOrderInfo =  new Order();
+			oldOrderInfo.setId(orderInfo.getId());
+			oldOrderInfo =orderDao.orderInfo(oldOrderInfo);
+			if(null == oldOrderInfo ) return -1;
+			//判断待更新的订单是否将状态设置为取消状态（若是则将涉及的餐桌设置为空闲状态）
+			String status = orderInfo.getStatus();
+			if("-1".equals(status)){
+				Table table = new Table();
+				table.setId(oldOrderInfo.getTableid());
+				table.setStatus("0");
+				return result = tableDao.updateTable(table);
+			}else{//只更新订单信息时判断是否更新了餐桌，如果更新了餐桌则修改对应的餐桌状态
+				String oldTableid = oldOrderInfo.getTableid();
+				String tableid = orderInfo.getTableid();
+				if(null != oldTableid && null != tableid && !tableid.equals(oldTableid)){//更新了餐桌信息则将老的餐桌设置为空闲，新的餐桌设置为已下单
+					//更新老的餐桌为空闲
+					Table oldtable = new Table();
+					oldtable.setId(oldTableid);
+					oldtable.setStatus("0");
+					result = tableDao.updateTable(oldtable);
+					//新的餐桌设置为已下单
+					Table table = new Table();
+					table.setId(tableid);
+					table.setStatus("1");
+					result = tableDao.updateTable(table);
+				}
+			}
+		}catch(Exception e){
+			e.printStackTrace();
 		}
 		return result;
 	}

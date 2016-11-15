@@ -236,7 +236,7 @@ function cancleOrder(id){
 						}else{
 							layer.msg(message,{icon:6});
 						}
-						loadOrderList("init",null);
+						search();
 					}
 				});
 			},
@@ -267,8 +267,7 @@ function affirmOrder(orderid){
 						}else{
 							layer.msg(message,{icon:6});
 						}
-						//var param = {"order.begindate":currdate,"order.dining_mode":dining_mode};
-						loadOrderList("init",null);
+						search();
 					}
 				});
 			},
@@ -298,8 +297,7 @@ function arriveStore(orderid){
 						}else{
 							layer.msg(message,{icon:6});
 						}
-						var param = {"order.begindate":currdate,"order.dining_mode":dining_mode};
-						loadOrderList("init",param);
+						search();
 					}
 				});
 			},

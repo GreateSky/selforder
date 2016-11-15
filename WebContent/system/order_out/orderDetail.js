@@ -367,10 +367,6 @@ function checkOrderPayStatus(){
 	//window.open('https://pay.weixin.qq.com/index.php/core/home/login');
 }
 
-function copyTest(){
-	
-}
-
 //****************************************************食谱选择操作start*************************************
 /**
  * 显示菜谱列表
@@ -481,22 +477,20 @@ function delNewGoods(e){
 }
 
 /**
- * 结算订单
+ * 订单配送
+ * @returns
  */
-function balanceOrder(){
-	var totalprice = $("#totalprice").val();
-	var realprice = $("#realprice").val();
-	if(!checkValueWithInfo(totalprice,"应付金额不能为空！")) return;
-	if(!checkValueWithInfo(realprice,"实付金额不能为空！")) return;
-	layer.confirm("本单应付金额为：【"+totalprice+"】,实付金额为【"+realprice+"】,确定已结算成功吗？",
+function orderTranslate(){
+	var transferid = $("#transferid").val();
+	if(!checkValueWithInfo(transferid,"请选择配送人！")) return;
+	layer.confirm("确定要开始配送该订单吗？",
 			{btn:["确定","取消"]},
 			function(){
 				layer.closeAll();
 				$.ajax({
 					type:"POST",
 					url:"/selforder/api/order/updateOrderStatus.action",
-					data:{"order.status":1,"order.id":oid},
-					data:{"order.id":oid,"order.realprice":realprice,"order.status":4},
+					data:{"order.status":3,"order.id":oid},
 					dataType:"json",
 					success:function(res){
 						var retCode = res.retCode;
@@ -504,16 +498,7 @@ function balanceOrder(){
 						if(retCode < 0){
 							layer.msg(message,{icon:5});
 						}else{
-							//更新餐桌状态为空闲
-							$.ajax({
-								type:"POST",
-								url:"/selforder/api/table/updateTable.action",
-								data:{"table.id":tableid,"table.status":0},
-								dataType:"json",
-								success:function(res){
-									
-								}
-							});
+							layer.msg(message,{icon:6});
 						}
 						window.location.href = 'orderList.jsp';
 					}
@@ -523,6 +508,42 @@ function balanceOrder(){
 				layer.closeAll();
 			});
 }
+
+/**
+ * 订单完成
+ * @returns
+ */
+function done(){
+	var totalprice = $("#totalprice").val();
+	var realprice = $("#realprice").val();
+	if(!checkValueWithInfo(totalprice,"应付金额不能为空！")) return;
+	if(!checkValueWithInfo(realprice,"实付金额不能为空！")) return;
+	layer.confirm("本单应付金额为：【"+totalprice+"】,实付金额为【<font color='red'>"+realprice+"</font>】,确定已完成吗？",
+			{btn:["确定","取消"]},
+			function(){
+				layer.closeAll();
+				$.ajax({
+					type:"POST",
+					url:"/selforder/api/order/updateOrderStatus.action",
+					data:{"order.id":oid,"order.realprice":realprice,"order.status":4},
+					dataType:"json",
+					success:function(res){
+						var retCode = res.retCode;
+						var message = res.message;
+						if(retCode < 0){
+							layer.msg(message,{icon:5});
+						}else{
+							layer.msg(message,{icon:6});
+						}
+						window.location.href = 'orderList.jsp';
+					}
+				});
+			},
+			function(){
+				layer.closeAll();
+			});
+}
+
 //****************************************************食谱选择操作end*************************************
 
 //*******************************************配送人员选择操作start**********************************
@@ -595,6 +616,21 @@ function selectTransfer(empid,empname){
 	$("#transfername").val(empname);
 	$("#transferid").val(empid);
 	$("#transferWin").modal("hide");
+	$.ajax({
+		type:"POST",
+		url:"/selforder/api/order/updateOrderStatus.action",
+		data:{"order.transferid":empid,"order.id":oid},
+		dataType:"json",
+		success:function(res){
+			var retCode = res.retCode;
+			var message = res.message;
+			if(retCode < 0){
+				layer.msg(message,{icon:5});
+			}else{
+				layer.msg("分配配送人成功！",{icon:6});
+			}
+		}
+	});
 }
 
 //*******************************************配送人员选择操作end**********************************

@@ -146,11 +146,22 @@ function loadOrderList(type,param){
 						appendTr += '	<td>'+taste+'</td>                                        ';
 						appendTr += '	<td>'+remark+'</td>                            ';
 						appendTr += '	<td>                                                 ';
-						if(status == 0){
-							appendTr += '		<button type="button" class="btn btn-warning" onclick="affirmOrder(\''+id+'\')">确认</button>      ';
+						switch(parseInt(status)){
+							case 0://已下单状态订单添加确认、详情、取消操作
+								appendTr += '		<button type="button" class="btn btn-warning" onclick="affirmOrder(\''+id+'\')">确认</button>      ';
+								appendTr += '		<button type="button" class="btn btn-info" onclick="goDetail(\''+id+'\')">详情</button>         ';
+								appendTr += '		<button type="button" class="btn btn-danger" onclick="cancleOrder(\''+id+'\')">取消</button>       ';
+								break;
+							case -1://取消的订单不做任何处理按钮
+								break;
+							case 4://已完成订单添加详情查看操作
+								appendTr += '		<button type="button" class="btn btn-info" onclick="goDetail(\''+id+'\')">详情</button>         ';
+								break;
+							default://默认状态订单详情、取消操作
+								appendTr += '		<button type="button" class="btn btn-info" onclick="goDetail(\''+id+'\')">详情</button>         ';
+								appendTr += '		<button type="button" class="btn btn-danger" onclick="cancleOrder(\''+id+'\')">取消</button>       ';
+								break;
 						}
-						appendTr += '		<button type="button" class="btn btn-info" onclick="goDetail(\''+id+'\')">详情</button>         ';
-						appendTr += '		<button type="button" class="btn btn-danger" onclick="cancleOrder(\''+id+'\')">取消</button>       ';
 						appendTr += '	</td>                                                ';
 						appendTr += '</tr>                                                 ';
 						$("#orderList").append(appendTr);
@@ -241,7 +252,7 @@ function cancleOrder(id){
 				$.ajax({
 					type:"POST",
 					url:"/selforder/api/order/updateOrderStatus.action",
-					data:{"order.id":id,"order.status":-1},
+					data:{"order.id":id,"order.status":-1,"order.dining_mode":dining_mode},
 					dataType:"json",
 					success:function(res){
 						var retCode = res.retCode;
@@ -251,7 +262,7 @@ function cancleOrder(id){
 						}else{
 							layer.msg(message,{icon:6});
 						}
-						loadOrderList("init",null);
+						search();
 					}
 				});
 			},
@@ -282,8 +293,7 @@ function affirmOrder(orderid){
 						}else{
 							layer.msg(message,{icon:6});
 						}
-						var param = {"order.begindate":currdate,"order.dining_mode":dining_mode};
-						loadOrderList("init",param);
+						search();
 					}
 				});
 			},
