@@ -38,7 +38,7 @@
                   <div class="box-body">
                   	<!--食谱维护 start-->
 					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-2 control-label">名称:</label>
+					  <label for="inputEmail3" class="col-sm-2 control-label"><font color="red">*</font>&nbsp;名称:</label>
 					  <div class="col-sm-2">
 						<input type="text" class="form-control" id="title" placeholder="名称" value="" onblur="checkGoodsName()">
 					  </div>
@@ -50,19 +50,19 @@
 					  </div>
 					</div>
 					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-2 control-label">所属食谱分类:</label>
+					  <label for="inputEmail3" class="col-sm-2 control-label"><font color="red">*</font>&nbsp;所属食谱分类:</label>
 					  <div class="col-sm-2">
 						<select class="form-control" id="goodsCategoryCommbox"></select>
 					  </div>
 					</div>
 					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-2 control-label">市场价格(￥):</label>
+					  <label for="inputEmail3" class="col-sm-2 control-label"><font color="red">*</font>&nbsp;市场价格(￥):</label>
 					  <div class="col-sm-2">
 						<input type="number" class="form-control" id=marketprice placeholder="市场价格(￥)" value="">
 					  </div>
 					</div>
 					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-2 control-label">成本价格(￥):</label>
+					  <label for="inputEmail3" class="col-sm-2 control-label"><font color="red">*</font>&nbsp;成本价格(￥):</label>
 					  <div class="col-sm-2">
 						<input type="number" class="form-control" id="productprice" placeholder="成本价格(￥)" value="">
 					  </div>

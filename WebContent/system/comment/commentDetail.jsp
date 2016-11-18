@@ -48,7 +48,7 @@
 		    <div class="modal-content">
 		      <div class="modal-header">
 		        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-		        <h4 class="modal-title" id="myModalLabel">业务类型保存</h4>
+		        <h4 class="modal-title" id="myModalLabel">评论审核</h4>
 		      </div>
 		      <div class="modal-body">
 				<form role="form">
@@ -72,7 +72,7 @@
 				</form>
 		      </div>
 		      <div class="modal-footer">
-		        <button type="button" class="btn btn-default" onclick="javascript:history.go(-1)">返回</button>
+		        <button type="button" class="btn btn-default" onclick="javascript:$('#commentWin').modal('hide')">取消</button>
 		        <button type="button" class="btn btn-primary" onclick="saveAuditComment()">保存</button>
 		      </div>
 		    </div><!-- /.modal-content -->

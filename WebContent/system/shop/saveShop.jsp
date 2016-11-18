@@ -21,7 +21,6 @@
 	    	}
 	    %>
 	    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=FC766111331538a002147e7996dc6623" ></script>
-	    <script async src="http://c.cnzz.com/core.php"></script>
 	    <script language="JavaScript" type="application/javascript">
 	    	var opt = '<%=opt%>'
 	    	var sid = '<%=sid%>';
@@ -51,7 +50,7 @@
                   <div class="box-body">
                   	<!--门店维护 start-->
 					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-2 control-label">门店：</label>
+					  <label for="inputEmail3" class="col-sm-2 control-label"><font color="red">*</font>&nbsp;门店：</label>
 					  <div class="col-sm-2">
 						<input type="text" class="form-control" id="title" placeholder="门店" value="">
 					  </div>
@@ -63,7 +62,7 @@
 					  </div>
 					</div>
 					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-2 control-label">电话：</label>
+					  <label for="inputEmail3" class="col-sm-2 control-label"><font color="red">*</font>&nbsp;电话：</label>
 					  <div class="col-sm-2">
 						<input type="text" class="form-control" id="tel" placeholder="电话" value="">
 					  </div>
@@ -81,31 +80,31 @@
 					  </div>
 					</div>
 					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-2 control-label">省：</label>
+					  <label for="inputEmail3" class="col-sm-2 control-label"><font color="red">*</font>&nbsp;省：</label>
 					  <div class="col-sm-2">
 						<input type="text" class="form-control" id="location_p" placeholder="省" value="">
 					  </div>
 					</div>
 					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-2 control-label">市：</label>
+					  <label for="inputEmail3" class="col-sm-2 control-label"><font color="red">*</font>&nbsp;市：</label>
 					  <div class="col-sm-2">
 						<input type="text" class="form-control" id="location_c" placeholder="市" value="">
 					  </div>
 					</div>
 					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-2 control-label">县/区：</label>
+					  <label for="inputEmail3" class="col-sm-2 control-label"><font color="red">*</font>&nbsp;县/区：</label>
 					  <div class="col-sm-2">
 						<input type="text" class="form-control" id="location_a" placeholder="区" value="">
 					  </div>
 					</div>
 					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-2 control-label">地址：</label>
+					  <label for="inputEmail3" class="col-sm-2 control-label"><font color="red">*</font>&nbsp;地址：</label>
 					  <div class="col-sm-2">
 						<input type="text" class="form-control" id="address" name="shop.address" placeholder="地址" value="">
 					  </div>
 					</div>
 					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-2 control-label">经/纬度：</label>
+					  <label for="inputEmail3" class="col-sm-2 control-label"><font color="red">*</font>&nbsp;经/纬度：</label>
 					  <div class="col-sm-1">
 						<input type="text" class="form-control" id="longitude" name="shop.longitude" placeholder="经度" readonly="readonly" value="">
 					  </div>
@@ -118,7 +117,7 @@
 					  </div>
 					</div>
 					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-2 control-label">营业开始时间：</label>
+					  <label for="inputEmail3" class="col-sm-2 control-label"><font color="red">*</font>&nbsp;营业开始时间：</label>
 					  <div class="col-sm-2">
 						<select id="begintime" class="form-control">
 							<option value="0">00:00</option>
@@ -149,7 +148,7 @@
 					  </div>
 					</div>
 					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-2 control-label">营业结束时间：</label>
+					  <label for="inputEmail3" class="col-sm-2 control-label"><font color="red">*</font>&nbsp;营业结束时间：</label>
 					  <div class="col-sm-2">
 						<select id="endtime" class="form-control">
 							<option value="0">00:00</option>
@@ -265,7 +264,7 @@
 					</div> <!-- /门店维护 start-->
                   </div><!-- /.box-body -->
                   <div class="box-footer">
-                  	<button type="button" class="btn btn-default">取消</button>
+                  	<button type="button" class="btn btn-default" onclick="javascript:history.go(-1)">返回</button>
                     <button type="button" onclick="uploadFile()" class="btn btn-info pull-right">保存</button>
                   </div><!-- /.box-footer -->
                 </form><!--/form end-->
@@ -290,13 +289,13 @@
 				<div id="allmap"></div>
 		      </div>
 		      <div class="modal-footer">
-		        <button type="button" class="btn btn-default" onclick="javascript:history.go(-1)">返回</button>
+		        <button type="button" class="btn btn-default" onclick="javascript:$('#mapWin').modal('hide')">取消</button>
 		        <button type="button" class="btn btn-primary" onclick="pointOK()">保存</button>
 		      </div>
 		    </div><!-- /.modal-content -->
 		  </div><!-- /.modal-dialog -->
 		</div><!-- /<!--modal 百度地图-->
 	</body>
-    <script src="<%=cxtPath%>/plugins/layer/layer.js"></script>
+	<script src="<%=cxtPath%>/js/ajaxfileupload.js"></script>
     <script src="saveShop.js"></script>
 </html>

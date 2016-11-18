@@ -74,11 +74,11 @@
 		      <div class="modal-body">
 				<form role="form">
 				   <div class="form-group has-warning" >
-				      <label for="wcode">名称</label>
+				      <label for="wcode"><font color="red">*</font>&nbsp;名称</label>
 				      <input type="text" class="form-control" id="rname" name="resource.rname" placeholder="名称" value="" >
 				   </div>
 				   <div class="form-group has-warning" >
-				      <label for="wcode">URL</label>
+				      <label for="wcode"><font color="red">*</font>&nbsp;URL</label>
 				      <input type="text" class="form-control" id="rurl" name="resource.rurl" placeholder="URL" value="" >
 				   </div>
 				   <div class="form-group has-warning">

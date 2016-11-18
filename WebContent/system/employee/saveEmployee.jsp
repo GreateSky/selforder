@@ -44,13 +44,13 @@
                   <div class="box-body">
                   	<!--门店维护 start-->
 					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-1 control-label">姓名：</label>
+					  <label for="inputEmail3" class="col-sm-1 control-label"><font color="red">*</font>&nbsp;姓名：</label>
 					  <div class="col-sm-2">
 						<input type="text" class="form-control" id="empname" name="employee.empname" placeholder="姓名" value="" >
 					  </div>
 					</div>
 					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-1 control-label">性别：</label>
+					  <label for="inputEmail3" class="col-sm-1 control-label"><font color="red">*</font>&nbsp;性别：</label>
 					  <div class="col-sm-2">
 						<select class="form-control" id="sex" name="employee.sex">
 							<option selected="selected" value="1">男</option>
@@ -59,25 +59,25 @@
 					  </div>
 					</div>
 					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-1 control-label">电话：</label>
+					  <label for="inputEmail3" class="col-sm-1 control-label"><font color="red">*</font>&nbsp;电话：</label>
 					  <div class="col-sm-2">
 						<input type="text" class="form-control" id="phone" name="employee.phone" placeholder="电话" value="">
 					  </div>
 					</div>
 					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-1 control-label">家庭住址：</label>
+					  <label for="inputEmail3" class="col-sm-1 control-label"><font color="red">*</font>&nbsp;家庭住址：</label>
 					  <div class="col-sm-2">
 						<input type="text" class="form-control" id="homeaddress" name="employee.homeaddress" placeholder="家庭住址" value="">
 					  </div>
 					</div>
 					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-1 control-label">紧急联系人：</label>
+					  <label for="inputEmail3" class="col-sm-1 control-label"><font color="red">*</font>&nbsp;紧急联系人：</label>
 					  <div class="col-sm-2">
 						<input type="text" class="form-control" id="contactname" name="employee.contactname" placeholder="紧急联系人" >
 					  </div>
 					</div>
 					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-1 control-label">紧急联系人电话：</label>
+					  <label for="inputEmail3" class="col-sm-1 control-label"><font color="red">*</font>&nbsp;紧急联系人电话：</label>
 					  <div class="col-sm-2">
 						<input type="text" class="form-control" id="contactphone" name="employee.contactphone" placeholder="紧急联系人电话" >
 					  </div>
@@ -111,7 +111,7 @@
 					  </div>
 					</div>
 					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-1 control-label">状态：</label>
+					  <label for="inputEmail3" class="col-sm-1 control-label"><font color="red">*</font>&nbsp;状态：</label>
 					  <div class="col-sm-2">
 						<select class="form-control" id="status" name="employee.status">
 							<option selected="selected" value="0">实习</option>
@@ -122,7 +122,7 @@
 					  </div>
 					</div>
 					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-1 control-label">类型：</label>
+					  <label for="inputEmail3" class="col-sm-1 control-label"><font color="red">*</font>&nbsp;类型：</label>
 					  <div class="col-sm-2">
 						<select class="form-control" id="type" name="employee.type" onchange="showSelectShop()"></select>
 					  </div>

@@ -43,15 +43,15 @@
                   <div class="box-body">
                   	<!--门店维护 start-->
 					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-1 control-label" >名称：</label>
+					  <label for="inputEmail3" class="col-sm-1 control-label" ><font color="red">*</font>&nbsp;名称：</label>
 					  <div class="col-sm-2">
 						<input type="text" class="form-control" id="rname" name="role.rname" placeholder="名称" value="" >
 					  </div>
 					</div>
 					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-1 control-label">编码：</label>
+					  <label for="inputEmail3" class="col-sm-1 control-label"><font color="red">*</font>&nbsp;编码：</label>
 					  <div class="col-sm-2">
-						<input type="text" class="form-control" id="rcode" name="role.rcode" placeholder="编码" value="" onblur="checkCode()">
+						<input type="text" class="form-control" id="rcode" name="role.rcode" placeholder="编码" value="" onchange="checkCode()">
 					  </div>
 					</div>
 					<div class="form-group has-warning">

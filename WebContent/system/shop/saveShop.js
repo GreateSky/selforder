@@ -94,6 +94,16 @@ function uploadFile(){
 
 //保存商户信息
 function saveShop(args){
+	if(!checkValueWithInfo($("#title").val(),"门店名称不能为空！"))return;
+	if(!checkValueWithInfo($("#tel").val(),"电话不能为空！"))return;
+	if(!checkValueWithInfo($("#location_p").val(),"省份不能为空！"))return;
+	if(!checkValueWithInfo($("#location_c").val(),"城市不能为空！"))return;
+	if(!checkValueWithInfo($("#location_a").val(),"县/区不能为空！"))return;
+	if(!checkValueWithInfo($("#address").val(),"地址不能为空！"))return;
+	if(!checkValueWithInfo($("#longitude").val(),"经度不能为空！"))return;
+	if(!checkValueWithInfo($("#latitude").val(),"纬度不能为空！"))return;
+	if(!checkValueWithInfo($("#begintime").val(),"营业开始时间不能为空！"))return;
+	if(!checkValueWithInfo($("#endtime").val(),"营业结束时间不能为空！"))return;
 	if(typeof(args) != "undefined" && args != ""){ 
 		shopimg = args[0].fileid;
 	}

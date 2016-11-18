@@ -282,7 +282,7 @@
 	              </ul>
 	            </li>
             </sec:authorize >
-            <sec:authorize ifAnyGranted ="">
+            <sec:authorize ifAnyGranted ="ROLE_COMMENT_MGR">
             	<li class="treeview">
 	              <a href="#">
 	                <i class="fa fa-folder"></i>
@@ -290,7 +290,7 @@
 	                <i class="fa fa-angle-left pull-right"></i>
 	              </a>
 	              <ul class="treeview-menu">
-	              	<li><a href="javascript:viod(0);" onclick="linkMainTab('system/comment/commentList.html','commentlist','评论列表')"><i class="fa fa-circle-o"></i> 评论列表</a></li>
+	              	<li><a href="javascript:viod(0);" onclick="linkMainTab('system/comment/commentList.jsp','commentlist','评论列表')"><i class="fa fa-circle-o"></i> 评论列表</a></li>
 	              </ul>
 	            </li>
             </sec:authorize >

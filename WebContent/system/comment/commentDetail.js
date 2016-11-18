@@ -42,7 +42,7 @@ function loadCommentDetail(){
 						var replydateStr = checkValue(replydate)?formatDate(replydate):"";
 						var status = row.status;
 						if(!checkValue(headimgurl)){
-							headimgurl = "../../img/customer2.png";
+							headimgurl = "../../img/comment.png";
 						}
 						if(!checkValue(replyheadimg)){
 							replyheadimg = "../../img/server.png";
@@ -56,9 +56,9 @@ function loadCommentDetail(){
 						appendComment += '<div class="direct-chat-msg" id="'+rid+'">                                                                                  ';
 						appendComment += '  <div class="direct-chat-info clearfix">                                                                      ';
 						appendComment += '    <span class="direct-chat-name pull-left">'+nickname+'('+username+')</span>                                                           ';
-						appendComment += '    <span class="direct-chat-timestamp pull-left">'+crtdateStr+'</span>                                                      ';
+						appendComment += '    <span class="direct-chat-timestamp pull-left">&nbsp;&nbsp;'+crtdateStr+'</span>                                                      ';
 						appendComment += '  </div>                                                                                                       ';
-						appendComment += '  <img class="direct-chat-img" src="'+headimgurl+'" alt="头像" />              ';
+						appendComment += '  <img style="width:30px;float:left" src="'+headimgurl+'" alt="头像" />              ';
 						appendComment += '  <div class="direct-chat-text" >                                                                              ';
 						appendComment += '    	 '+description+'                                                                                                        ';
 						appendComment += '   '+actionBtn+' 	';
@@ -71,7 +71,7 @@ function loadCommentDetail(){
 							appendReply += '<div class="direct-chat-msg right">                                                              ';
 							appendReply += '  <div class="direct-chat-info clearfix">                                                        ';
 							appendReply += '    <span class="direct-chat-name pull-right">'+replyname+'</span>                                            ';
-							appendReply += '    <span class="direct-chat-timestamp pull-left">'+replydateStr+'</span>                                        ';
+							appendReply += '    <span class="direct-chat-timestamp pull-left">&nbsp;&nbsp;'+replydateStr+'</span>                                        ';
 							appendReply += '  </div>                                                                                         ';
 							appendReply += '  <img class="direct-chat-img" src="'+replyheadimg+'" alt="头像" />';
 							appendReply += '  <div class="direct-chat-text" style="color: #F49C12;">                                         ';

@@ -51,13 +51,13 @@
                   	<div class="col-md-6" style="border-right: 1px #cccccc dashed">
                   		<!--活动维护 start-->
 						<div class="form-group has-warning">
-						  <label for="inputEmail3" class="col-sm-3 control-label">活动名称：</label>
+						  <label for="inputEmail3" class="col-sm-3 control-label"><font color="red">*</font>&nbsp;活动名称：</label>
 						  <div class="col-sm-4">
 							<input type="text" class="form-control" id="title" placeholder="活动名称" value="" >
 						  </div>
 						</div>
 						<div class="form-group has-warning">
-						  <label for="inputEmail3" class="col-sm-3 control-label">活动类型：</label>
+						  <label for="inputEmail3" class="col-sm-3 control-label"><font color="red">*</font>&nbsp;活动类型：</label>
 						  <div class="col-sm-4">
 							<select class="form-control" id="type">
 								<option selected="selected" value="1">折扣</option>
@@ -77,25 +77,25 @@
 						  </div>
 						</div>
 						<div class="form-group has-warning">
-						  <label for="inputEmail3" class="col-sm-3 control-label">折扣：</label>
+						  <label for="inputEmail3" class="col-sm-3 control-label"><font color="red">*</font>&nbsp;折扣：</label>
 						  <div class="col-sm-4">
 							<input type="number" class="form-control" id="discount" placeholder="范围：1-9.9折" value="" min=1 max=9.9>
 						  </div>
 						</div>
 						<div class="form-group has-warning">
-						  <label for="inputEmail3" class="col-sm-3 control-label">开始时间：</label>
+						  <label for="inputEmail3" class="col-sm-3 control-label"><font color="red">*</font>&nbsp;开始时间：</label>
 						  <div class="col-sm-4">
 							<input type="date" class="form-control" id="begindate" placeholder="开始时间" value="">
 						  </div>
 						</div>
 						<div class="form-group has-warning">
-						  <label for="inputEmail3" class="col-sm-3 control-label">结束日期：</label>
+						  <label for="inputEmail3" class="col-sm-3 control-label"><font color="red">*</font>&nbsp;结束日期：</label>
 						  <div class="col-sm-4">
 							<input type="date" class="form-control" id="enddate" placeholder="结束日期" value="">
 						  </div>
 						</div>
 						<div class="form-group has-warning">
-						  <label for="inputEmail3" class="col-sm-3 control-label">活动状态：</label>
+						  <label for="inputEmail3" class="col-sm-3 control-label"><font color="red">*</font>&nbsp;活动状态：</label>
 						  <div class="col-sm-4">
 							<select class="form-control" id="status" >
 								<option selected="selected" value="0">未开启</option>

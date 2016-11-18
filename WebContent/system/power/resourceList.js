@@ -132,6 +132,8 @@ function openResourceWin(type,rid){
  * 提交按钮
  */
 function saveBtn(){
+	if(!checkValueWithInfo($("#rname").val(),"资源名称不能为空！")) return;
+	if(!checkValueWithInfo($("#rurl").val(),"资源URL不能为空！")) return;
 	var openType = $("#resourceWin").attr("openType");
 	if("add" == openType){
 		addResource();

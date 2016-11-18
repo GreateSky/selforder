@@ -5,7 +5,6 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-	    <link href="<%=cxtPath%>/plugins/datepicker/datepicker3.css"/>
 	    <%
 	    	String opt = request.getParameter("opt");
 	    	String bid = "";
@@ -44,49 +43,49 @@
                   <div class="box-body">
                   	<!--门店维护 start-->
 					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-1 control-label" >名称：</label>
+					  <label for="inputEmail3" class="col-sm-2 control-label" ><font color="red">*</font>&nbsp;名称：</label>
 					  <div class="col-sm-2">
 						<input type="text" class="form-control" id="bname" name="business.bname" placeholder="名称" value="" >
 					  </div>
 					</div>
 					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-1 control-label" >编码：</label>
+					  <label for="inputEmail3" class="col-sm-2 control-label" ><font color="red">*</font>&nbsp;编码：</label>
 					  <div class="col-sm-2">
-						<input type="text" class="form-control" id="bcode" name="business.bcode" placeholder="编码" value="" onblur="checkCode()" >
+						<input type="text" class="form-control" id="bcode" name="business.bcode" placeholder="编码" value="" onchange="checkCode()" >
 					  </div>
 					</div>
 					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-1 control-label">法人：</label>
+					  <label for="inputEmail3" class="col-sm-2 control-label"><font color="red">*</font>&nbsp;法人：</label>
 					  <div class="col-sm-2">
 						<input type="text" class="form-control" id="legaler" name="business.legaler" placeholder="法人" value="" >
 					  </div>
 					</div>
 					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-1 control-label">电话：</label>
+					  <label for="inputEmail3" class="col-sm-2 control-label"><font color="red">*</font>&nbsp;电话：</label>
 					  <div class="col-sm-2">
 						<input type="tel" class="form-control" id="phone" name="business.phone" placeholder="电话" value="" >
 					  </div>
 					</div>
 					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-1 control-label">邮箱：</label>
+					  <label for="inputEmail3" class="col-sm-2 control-label">邮箱：</label>
 					  <div class="col-sm-2">
 						<input type="email" class="form-control" id="email" name="business.email" placeholder="邮箱" value="" >
 					  </div>
 					</div>
 					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-1 control-label">地址：</label>
+					  <label for="inputEmail3" class="col-sm-2 control-label"><font color="red">*</font>&nbsp;地址：</label>
 					  <div class="col-sm-2">
 						<input type="text" class="form-control" id="address" name="business.address" placeholder="地址" value="" >
 					  </div>
 					</div>
 					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-1 control-label">营业执照：</label>
+					  <label for="inputEmail3" class="col-sm-2 control-label">营业执照：</label>
 					  <div class="col-sm-2">
 						<input type="file" id="fileid" name="filename" class="form-control" id="inputEmail3" placeholder="营业执照" value=""  onchange="checkFile(this)" accept=".jpeg,.jpg,.png">
 					  </div>
 					</div>
 					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-1 control-label">合作状态：</label>
+					  <label for="inputEmail3" class="col-sm-2 control-label"><font color="red">*</font>&nbsp;合作状态：</label>
 					  <div class="col-sm-2">
 						<select class="form-control" id="status" name="business.status"> 
 							<option value="0" selected="selected">试点</option>
@@ -97,43 +96,43 @@
 					  </div>
 					</div>
 					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-1 control-label">开始合作时间：</label>
+					  <label for="inputEmail3" class="col-sm-2 control-label"><font color="red">*</font>&nbsp;开始合作时间：</label>
 					  <div class="col-sm-2">
-						<input type="text" class="form-control" id="begindate" name="business.begindate" >
+						<input type="date" class="form-control" id="begindate" name="business.begindate" >
 					  </div>
 					</div>
 					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-1 control-label">结束合作时间：</label>
+					  <label for="inputEmail3" class="col-sm-2 control-label"><font color="red">*</font>&nbsp;结束合作时间：</label>
 					  <div class="col-sm-2">
-						<input type="text" class="form-control" id="enddate" name="business.enddate" >
+						<input type="date" class="form-control" id="enddate" name="business.enddate" >
 					  </div>
 					</div>
 					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-1 control-label">微信Appid：</label>
+					  <label for="inputEmail3" class="col-sm-2 control-label">微信Appid：</label>
 					  <div class="col-sm-2">
 						<input type="text" class="form-control" id="appid" name="business.appid" placeholder="微信Appid" value="" >
 					  </div>
 					</div>
 					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-1 control-label">微信AppSecret：</label>
+					  <label for="inputEmail3" class="col-sm-2 control-label">微信AppSecret：</label>
 					  <div class="col-sm-2">
 						<input type="text" class="form-control" id="appsecret" name="business.appsecret" placeholder="微信AppSecret" value="" >
 					  </div>
 					</div>
 					<div class="form-group has-warning" tag="add">
-					  <label for="inputEmail3" class="col-sm-1 control-label">系统管理员：</label>
+					  <label for="inputEmail3" class="col-sm-2 control-label"><font color="red">*</font>&nbsp;系统管理员：</label>
 					  <div class="col-sm-2">
-						<input type="text" class="form-control" id="sysadmin" name="business.sysadmin" placeholder="系统管理员" value="" >
+						<input type="text" class="form-control" id="sysadmin" name="business.sysadmin" placeholder="系统管理员" value="" onchange="checkSystemAdmin();" >
 					  </div>
 					</div>
 					<div class="form-group has-warning" tag="add">
-					  <label for="inputEmail3" class="col-sm-1 control-label">登录密码：</label>
+					  <label for="inputEmail3" class="col-sm-2 control-label"><font color="red">*</font>&nbsp;登录密码：</label>
 					  <div class="col-sm-2">
 						<input type="password" class="form-control" id="password" name="business.password" placeholder="登录密码" value="" >
 					  </div>
 					</div>
 					<div class="form-group has-warning" tag="add">
-					  <label for="inputEmail3" class="col-sm-1 control-label">密码确认：</label>
+					  <label for="inputEmail3" class="col-sm-2 control-label"><font color="red">*</font>&nbsp;密码确认：</label>
 					  <div class="col-sm-2">
 						<input type="password" class="form-control" id="passwordagain" name="" placeholder="密码确认" value="" >
 					  </div>
@@ -150,11 +149,5 @@
         <img id="licenseImg" src=""  style="position:absolute;top: 120px; left: 500px; border-radius: 5px;width: 400px"></img>
 	</body>
 	<script src="<%=cxtPath%>/js/ajaxfileupload.js"></script>
-    <script src="<%=cxtPath%>/plugins/datepicker/bootstrap-datepicker.js"></script>
-    <script src="<%=cxtPath%>/plugins/datepicker/locales/bootstrap-datepicker.zh-CN.js"></script>
     <script src="saveBusiness.js"></script>
-    <script>
-    	$("#begindate").datepicker();
-    	$("#enddate").datepicker();
-    </script>
 </html>

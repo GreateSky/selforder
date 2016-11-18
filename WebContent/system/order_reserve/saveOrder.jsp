@@ -49,19 +49,19 @@
                   <div class="box-body">
                   	<!--门店维护 start-->
 					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-2 control-label">姓名：</label>
+					  <label for="inputEmail3" class="col-sm-2 control-label"><font color="red">*</font>&nbsp;姓名：</label>
 					  <div class="col-sm-2">
 						<input type="text" class="form-control" id="username" placeholder="姓名" value="">
 					  </div>
 					</div>
 					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-2 control-label">电话：</label>
+					  <label for="inputEmail3" class="col-sm-2 control-label"><font color="red">*</font>&nbsp;电话：</label>
 					  <div class="col-sm-2">
 						<input type="text" class="form-control" id="tel" placeholder="电话" value="">
 					  </div>
 					</div>
 					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-2 control-label">用餐时间：</label>
+					  <label for="inputEmail3" class="col-sm-2 control-label"><font color="red">*</font>&nbsp;用餐时间：</label>
 					  <div class="col-sm-2">
 						<input type="datetime-local" class="form-control" id="meal_time" placeholder="用餐时间" value="">
 					  </div>

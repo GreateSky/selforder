@@ -34,8 +34,10 @@ function getBusinessInfo(){
 					var faxes = businessInfo.faxes;
 					var address = businessInfo.address;
 					var status = businessInfo.status;
-					var begindate = businessInfo.begindate;
-					var enddate = businessInfo.enddate;
+					var begindate = formatDate(businessInfo.begindate);
+					begindate = begindate.substring(0,10);
+					var enddate = formatDate(businessInfo.enddate);
+					enddate = enddate.substring(0,10);
 					var appid = businessInfo.appid;
 					var appsecret = businessInfo.appsecret;
 					var licenseid = businessInfo.licenseid;
@@ -44,8 +46,8 @@ function getBusinessInfo(){
 					$("#phone").val(phone);
 					$("#email").val(email);
 					$("#faxes").val(faxes);
-					$("#begindate").val(null == begindate?"":getDateByTime(begindate.time,"yyyy-MM-dd"));
-					$("#enddate").val(null == enddate?"":getDateByTime(enddate.time,"yyyy-MM-dd"));
+					$("#begindate").val(begindate);
+					$("#enddate").val(enddate);
 					$("#address").val(address);
 					$("#status").val(status);
 					$("#appid").val(appid);
@@ -61,6 +63,34 @@ function getBusinessInfo(){
 
 //上传附件
 function uploadFile(){
+	var bname = $("#bname").val();
+	var bcode = $("#bcode").val();
+	var legaler = $("#legaler").val();
+	var phone = $("#phone").val();
+	var address = $("#address").val();
+	var status = $("#status").val();
+	var begindate = $("#begindate").val();
+	var enddate = $("#enddate").val();
+	var sysadmin = $("#sysadmin").val();
+	var password = $("#password").val();
+	var passwordagain = $("#passwordagain").val();
+	if(!checkValueWithInfo(bname,"商户名称不能为空！")) return;
+	if(!checkValueWithInfo(bcode,"商户编码不能为空！")) return;
+	if(!checkValueWithInfo(legaler,"法人不能为空！")) return;
+	if(!checkValueWithInfo(phone,"电话不能为空！")) return;
+	if(!checkValueWithInfo(address,"地址不能为空！")) return;
+	if(!checkValueWithInfo(status,"状态不能为空！")) return;
+	if(!checkValueWithInfo(begindate,"开始合作日期不能为空！")) return;
+	if(!checkValueWithInfo(enddate,"结束合作日期不能为空！")) return;
+	if(opt != "update"){
+		if(!checkValueWithInfo(sysadmin,"系统管理员不能为空！")) return;
+		if(!checkValueWithInfo(password,"登录密码不能为空！")) return;
+		if(!checkValueWithInfo(passwordagain,"确认密码不能为空！"	)) return;
+		if(password != passwordagain){
+			layer.msg("两次输入密码不一致！",{icon:5});
+			return;
+		}
+	}
 	ajaxFileUpload("saveBusiness");
 }
 
@@ -80,10 +110,6 @@ function saveBusiness(args){
  * 更新商户
  */
 function updateBusiness(){
-	//验证参数
-	if(checkParam() < 0){
-		return;
-	}
 	//组装参数
 	var param = {};
 	var load = layer.load(2);
@@ -106,9 +132,9 @@ function updateBusiness(){
 			var message = data.message;
 			layer.close(load);
 			if(retCode < 0){
-				layer.msg(message, {icon: 2});
+				layer.msg(message, {icon: 5});
 			}else{
-				layer.msg(message, {icon: 1});
+				layer.msg(message, {icon: 6});
 			}
 			setTimeout(function(){
 				window.location.href = 'businessList.jsp';
@@ -118,9 +144,6 @@ function updateBusiness(){
 }
 //新增商户
 function addBusiness(){
-	if(checkParam() < 0 ){
-		return;
-	}
 	var param = {};
 	var load = layer.load(2);
 	$(".form-horizontal *[name *='business.']").each(function(i){
@@ -146,52 +169,6 @@ function addBusiness(){
 	});
 }
 
-/**
- * 参数验证
- */
-function checkParam(){
-	var temp = -1;
-	var bname = $("#bname").val();
-	var bcode = $("#bcode").val();
-	var legaler = $("#legaler").val();
-	var phone = $("#phone").val();
-	var email = $("#email").val();
-	var address = $("#address").val();
-	var status = $("#status").val();
-	var begindate = $("#begindate").val();
-	var sysadmin = $("#sysadmin").val();
-	var password = $("#password").val();
-	var passwordagain = $("#passwordagain").val();
-	if(typeof(bname) == "undefined" || bname == "" || bname == null || bname == "null"){
-		layer.alert("商户名称不能为空！",{icon:5});
-	}else if(typeof(bcode) == "undefined" || bcode == "" || bcode == null || bcode == "null"){
-		layer.alert("编码不能为空！",{icon:5});
-	}else if(typeof(legaler) == "undefined" || legaler == "" || legaler == null || legaler == "null"){
-		layer.alert("法人不能为空！",{icon:5});
-	}else if(typeof(phone) == "undefined" || phone == "" || phone == null || phone == "null"){
-		layer.alert("电话不能为空！",{icon:5});
-	}else if(typeof(email) == "undefined" || email == "" || email == null || email == "null"){
-		layer.alert("邮箱不能为空！",{icon:5});
-	}else if(typeof(address) == "undefined" || address == "" || address == null || address == "null"){
-		layer.alert("地址不能为空！",{icon:5});
-	}else if(typeof(status) == "undefined" || status == "" || status == null || status == "null"){
-		layer.alert("状态不能为空！",{icon:5});
-	}else if(typeof(begindate) == "undefined" || begindate == "" || begindate == null || begindate == "null"){
-		layer.alert("开始合作时间不能为空！",{icon:5});
-	}else if((typeof(sysadmin) == "undefined" || sysadmin == "" || sysadmin == null || sysadmin == "null") && opt !="update"){
-		layer.alert("系统管理员不能为空！",{icon:5});
-	}else if((typeof(password) == "undefined" || password == "" || password == null || password == "null") && opt !="update"){
-		layer.alert("登录密码不能为空！",{icon:5});
-	}else if((typeof(passwordagain) == "undefined" || passwordagain == "" || passwordagain == null || passwordagain == "null") && opt != "update"){
-		layer.alert("登录密码确认不能为空！",{icon:5});
-	}else if((passwordagain !=  password) && opt !="update"){
-		layer.alert("两次密码不一致！",{icon:5});
-	}else{
-		temp = 0;
-	}
-	return temp;
-}
-
 //检查编码是否重复
 function checkCode(){
 	var bcode = $("#bcode").val();
@@ -213,3 +190,26 @@ function checkCode(){
 		}
 	});
 }
+
+//检查管理员登录名是否存在
+function checkSystemAdmin(){
+	var sysadmin = $("#sysadmin").val();
+	if(typeof(sysadmin) == "undefined" || sysadmin == "" || sysadmin == null || sysadmin == "null"){
+		return "";
+	}
+	$.ajax({
+		type:"POST",
+		url:"/selforder/api/employee/getEmployeeInfo.action",
+		data:{"employee.loginname":sysadmin},
+		dataType:"json",
+		success:function(data){
+			var data = data.data;
+			if(typeof(data) !="undefined" && data != null){
+				layer.alert("登录名已存在，请重新输入！",{icon:5});
+				$("#sysadmin").val("");
+				return ;
+			}
+		}
+	});
+}
+

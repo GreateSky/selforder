@@ -46,6 +46,7 @@ function loadOrder(){
 			var taste = orderInfo.taste;
 			var remark = orderInfo.remark;
 			var tablecode = orderInfo.tablecode;
+			var paytype = orderInfo.paytype;
 			tableid = orderInfo.tableid;
 			var totalprice = parseFloat(orderInfo.totalprice).toFixed(2);
 			var realprice = parseFloat(orderInfo.realprice).toFixed(2);
@@ -69,6 +70,12 @@ function loadOrder(){
 			$("#tableid").val(tableid);
 			$("#username").val(username);
 			$("#tel").val(tel);
+			$("input[name='payType']").each(function(){
+				var value = $(this).val();
+				if(value == paytype){
+					$(this).prop("checked",true);
+				}
+			});
 			//已交易完成的订单取消操作功能
 			if(status == 4){
 				$("button[tag *='actionBtn']").attr("disabled","disabled");
@@ -423,6 +430,12 @@ function delNewGoods(e){
 function balanceOrder(){
 	var totalprice = $("#totalprice").val();
 	var realprice = $("#realprice").val();
+	var payTypeRadio = $("input:checked");
+	if(payTypeRadio.length != 1){
+		layer.msg("请选择付款方式！",{icon:5});
+		return;
+	}
+	var payType = $(payTypeRadio).val();
 	if(!checkValueWithInfo(totalprice,"应付金额不能为空！")) return;
 	if(!checkValueWithInfo(realprice,"实付金额不能为空！")) return;
 	layer.confirm("本单应付金额为：【"+totalprice+"】,实付金额为【<font color='red'>"+realprice+"</font>】,确定已结算成功吗？",
@@ -432,7 +445,7 @@ function balanceOrder(){
 				$.ajax({
 					type:"POST",
 					url:"/selforder/api/order/updateOrderStatus.action",
-					data:{"order.id":oid,"order.realprice":realprice,"order.status":4},
+					data:{"order.id":oid,"order.realprice":realprice,"order.status":4,"order.paytype":payType},
 					dataType:"json",
 					success:function(res){
 						var retCode = res.retCode;

@@ -38,13 +38,13 @@
                   <div class="box-body">
                   	<!--门店维护 start-->
 					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-2 control-label">队列名称：</label>
+					  <label for="inputEmail3" class="col-sm-2 control-label"><font color="red">*</font>&nbsp;队列名称：</label>
 					  <div class="col-sm-2">
 						<input type="text" class="form-control" id="title" placeholder="例如：1-2人桌" value="" >
 					  </div>
 					</div>
 					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-2 control-label">用餐人数少于等于：</label>
+					  <label for="inputEmail3" class="col-sm-2 control-label"><font color="red">*</font>&nbsp;用餐人数少于等于：</label>
 					  <div class="col-sm-2">
 						<input type="number" class="form-control" id="limit_num" placeholder="" value="" min="2" >
 					  </div>
@@ -61,7 +61,7 @@
 	                  </div>
 					</div>
 					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-2 control-label">队列号前缀：</label>
+					  <label for="inputEmail3" class="col-sm-2 control-label"><font color="red">*</font>&nbsp;队列号前缀：</label>
 					  <div class="col-sm-2">
 						<input type="text" class="form-control" id="prefix" placeholder="例如:C-" value="" >
 					  </div>
@@ -69,7 +69,7 @@
 					<div class="form-group has-warning">
 					  <label for="inputEmail3" class="col-sm-2 control-label">提前通知人数：</label>
 					  <div class="col-sm-2">
-						<input type="number" class="form-control" id="notify_number" placeholder="提前通知人数" value="" >
+						<input type="number" class="form-control" id="notify_number" placeholder="提前通知人数" value="0" min="0" >
 					  </div>
 					</div>
 					<div class="form-group has-warning">
@@ -79,7 +79,7 @@
 					  </div>
 					</div>
 					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-2 control-label">是否启用：</label>
+					  <label for="inputEmail3" class="col-sm-2 control-label"><font color="red">*</font>&nbsp;是否启用：</label>
 					  <div class="col-sm-2">
 						<div class="radio">
 	                        <label>

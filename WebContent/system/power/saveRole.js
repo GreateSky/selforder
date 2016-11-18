@@ -55,6 +55,8 @@ function getRoleInfo(){
 
 //保存角色信息
 function saveRole(){
+	if(!checkValueWithInfo($("#rname").val(),"角色名称不能为空！")) return;
+	if(!checkValueWithInfo($("#rcode").val(),"角色编码不能为空！")) return;
 	if("update"== opt){
 		updateRole();
 	}else{

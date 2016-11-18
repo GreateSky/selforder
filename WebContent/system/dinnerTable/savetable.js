@@ -81,6 +81,14 @@ function loadRoomCommbox(){
  * 保存餐桌
  */
 function saveTable(){
+	var title = $("#title").val();
+	var room_id = $("#roomSelect").val();
+	var user_count = $("#user_count").val();
+	var limit_price = $("#limit_price").val();
+	var displayorder = $("#displayorder").val();
+	if(!checkValueWithInfo(title,"餐桌编码不能为空!"))return;
+	if(!checkValueWithInfo(room_id,"请选择餐桌所属包厢!"))return;
+	if(!checkValueWithInfo(user_count,"请输入最大用餐人数!"))return;
 	if(opt == "update"){
 		updateTable();
 	}else{
@@ -97,15 +105,6 @@ function addTable(){
 	var user_count = $("#user_count").val();
 	var limit_price = $("#limit_price").val();
 	var displayorder = $("#displayorder").val();
-	if(!checkValueWithInfo(title,"餐桌编码不能为空!")){
-		return;
-	}
-	if(!checkValueWithInfo(room_id,"请选择餐桌所属包厢!")){
-		return;
-	}
-	if(!checkValueWithInfo(user_count,"请输入最大用餐人数!")){
-		return;
-	}
 	var param = {};
 	param["table.storeid"] = sid;
 	param["table.title"] = title;
@@ -136,15 +135,6 @@ function updateTable(){
 	var user_count = $("#user_count").val();
 	var limit_price = $("#limit_price").val();
 	var displayorder = $("#displayorder").val();
-	if(!checkValueWithInfo(title,"餐桌编码不能为空!")){
-		return;
-	}
-	if(!checkValueWithInfo(room_id,"请选择餐桌所属包厢!")){
-		return;
-	}
-	if(!checkValueWithInfo(user_count,"请输入最大用餐人数!")){
-		return;
-	}
 	var param = {};
 	param["table.storeid"] = sid;
 	param["table.title"] = title;

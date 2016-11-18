@@ -25,7 +25,11 @@ function getOrderInfo(){
 				var row = res.data;
 				$("#username").val(row.username);
 				$("#tel").val(row.tel);
-				$("#meal_time").val(row.meal_time);
+				var time = row.meal_time;
+				if(checkValue(time)){
+					time = time.replace(" ","T");
+					$("#meal_time").val(time);
+				}
 				$("#remark").val(row.remark);
 			}
 		}

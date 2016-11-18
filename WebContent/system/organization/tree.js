@@ -64,6 +64,7 @@ function addTreeNode() {
  * 新增树节点
  */
 function saveEditTree(){
+	if(!checkValueWithInfo($("#edit_oname").val(),"名称不能为空！")) return;
 	var optType = $("#editTreeWin").attr("openType");
 	if("update" == optType){//修改节点
 		var oid = $("#editTreeWin").attr("oid");

@@ -40,33 +40,33 @@
                   <div class="box-body">
                   	<!--门店维护 start-->
 					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-1 control-label">编码：</label>
+					  <label for="inputEmail3" class="col-sm-1 control-label"><font color="red">*</font>&nbsp;编码：</label>
 					  <div class="col-sm-2">
-						<input type="text" class="form-control" id="title" placeholder="编码" value="" onblur="checkTableCode()">
+						<input type="text" class="form-control" id="title" placeholder="编码" value="" onchange="checkTableCode()">
 					  </div>
 					</div>
 					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-1 control-label">所属包厢：</label>
+					  <label for="inputEmail3" class="col-sm-1 control-label"><font color="red">*</font>&nbsp;所属包厢：</label>
 					  <div class="col-sm-2">
 						<select class="form-control" id="roomSelect"></select>
 					  </div>
 					</div>
 					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-1 control-label">用餐人数：</label>
+					  <label for="inputEmail3" class="col-sm-1 control-label"><font color="red">*</font>&nbsp;用餐人数：</label>
 					  <div class="col-sm-2">
-						<input type="number" class="form-control" id="user_count" placeholder="用餐人数" value="">
+						<input type="number" class="form-control" id="user_count" placeholder="用餐人数" value="" min="0">
 					  </div>
 					</div>
 					<div class="form-group has-warning">
 					  <label for="inputEmail3" class="col-sm-1 control-label">最小消费价格(￥):</label>
 					  <div class="col-sm-2">
-						<input type="number" class="form-control" id="limit_price" placeholder="最小消费价格(￥)" value="">
+						<input type="number" class="form-control" id="limit_price" placeholder="最小消费价格(￥)" value="" min="0">
 					  </div>
 					</div>
 					<div class="form-group has-warning">
 					  <label for="inputEmail3" class="col-sm-1 control-label">排序(越大越靠前):</label>
 					  <div class="col-sm-2">
-						<input type="number" class="form-control" id="displayorder" placeholder="排序(越大越靠前)" value="0">
+						<input type="number" class="form-control" id="displayorder" placeholder="排序(越大越靠前)" value="0" min="0">
 					  </div>
 					</div>
 					<div class="form-group has-warning" id="qrcodeDiv" style="display: none">

@@ -157,19 +157,19 @@
 										  <label for="inputEmail3" class="col-sm-5 control-label" style="border-top: 1px dashed #C0C0C0" ></label>
 										</div>
 										<div class="form-group has-warning" >
-										  <label for="inputEmail3" class="col-sm-2 control-label">客户名称：</label>
+										  <label for="inputEmail3" class="col-sm-2 control-label"><font color="red">*</font>&nbsp;客户名称：</label>
 										  <div class="col-sm-4">
 											<input type="text" class="form-control" id="username" placeholder="客户名称" value="" >
 										  </div>
 										</div>
 										<div class="form-group has-warning" >
-										  <label for="inputEmail3" class="col-sm-2 control-label">客户电话：</label>
+										  <label for="inputEmail3" class="col-sm-2 control-label"><font color="red">*</font>&nbsp;客户电话：</label>
 										  <div class="col-sm-4">
 											<input type="text" class="form-control" id="tel" placeholder="客户电话" value="" >
 										  </div>
 										</div>
 										<div class="form-group has-warning" >
-										  <label for="inputEmail3" class="col-sm-2 control-label">收货地址：</label>
+										  <label for="inputEmail3" class="col-sm-2 control-label"><font color="red">*</font>&nbsp;收货地址：</label>
 										  <div class="col-sm-4">
 											<input type="text" class="form-control" id="address" placeholder="收货地址" value="" >
 										  </div>
@@ -193,30 +193,38 @@
 										<div class="form-group has-warning" >
 										  <label for="inputEmail3" class="col-sm-2 control-label">应付金额：</label>
 										  <div class="col-sm-4">
-											<input type="number" class="form-control" id="totalprice" placeholder="￥0.00元" value=""  >
+											<input type="number" class="form-control" id="totalprice" placeholder="￥0.00元" value="" min="0"  >
 										  </div>
 										</div>
 										<div class="form-group has-warning" >
 										  <label for="inputEmail3" class="col-sm-2 control-label">实付金额：</label>
 										  <div class="col-sm-4">
-											<input type="number" class="form-control" id="realprice" placeholder="￥0.00元" value="" >
+											<input type="number" class="form-control" id="realprice" placeholder="￥0.00元" value="" min="0">
 										  </div>
 										</div>
 										<div class="form-group has-warning" >
 										  <label for="inputEmail3" class="col-sm-2 control-label">支付方式：</label>
-										  <div class="col-sm-4">
+										  <div class="col-sm-5">
 											<div class="radio">
-						                        <label>
-						                          <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked />
+												<label>
+						                          <input type="radio" name="payType" value="1"  />
+						                          	现金
+						                        </label>
+												<label>
+						                          <input type="radio" name="payType"  value="2"  />
 						                          	支付宝
 						                        </label>
-						                        <label>
-						                          <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1"  />
+												<label>
+						                          <input type="radio" name="payType" value="3" checked  />
 						                          	微信
 						                        </label>
 						                        <label>
-						                          <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1"  />
-						                          	现金
+						                          <input type="radio" name="payType" value="4"  />
+						                          	刷卡
+						                        </label>
+						                        <label>
+						                          <input type="radio" name="payType" value="5"  />
+						                          	签单
 						                        </label>
 						                      </div>
 										  </div>
