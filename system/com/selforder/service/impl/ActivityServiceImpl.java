@@ -92,6 +92,8 @@ public class ActivityServiceImpl implements ActivityService {
 	 * 新增活动
 	 * @param activity
 	 * @return
+	 * @see 如果新增的活动为开启状态时则判断新增的活动中包含的食谱是否已存在当前正在执行中的活动中
+	 * 		如果有则将当前新增活动更新为未开启状态
 	 */
 	public String insertActivity (Activity activity){
 		String result = "";
@@ -127,6 +129,18 @@ public class ActivityServiceImpl implements ActivityService {
 			}
 			if(temp > 0){
 				result = JsonResultUtil.getJsonResult(0, "success", "新增活动成功!");
+				//如果新增的食谱为开启状态则判断活动所包含的食谱是否已存在在当前有效的活动中
+				if("1".equals(activity.getStatus())){
+					//检查是否有正在参与的食谱
+					boolean checkResult = checkActivityGoods(activity);
+					if(!checkResult){//活动中的食谱包含在当前有效的活动中   将当前活动更新为未开始状态
+						Activity update = new Activity();
+						update.setId(activity.getId());
+						update.setStatus("0");
+						int temp_update = activityDao.updateActivity(activity);
+						result = JsonResultUtil.getJsonResult(0, "success", "新增活动成功,当前活动中食谱与存在于当前有效的活动中活动重置为未开启状态！");
+					}
+				}
 			}else{
 				result = JsonResultUtil.getJsonResult(-1, "fail", "新增活动失败!");
 			}
@@ -167,7 +181,20 @@ public class ActivityServiceImpl implements ActivityService {
 					int insertGoods = activityDao.insertAcrivcityGoods4Bach(activityGoodsList);
 				}
 			}
-			int temp = activityDao.updateActivity(activity);
+			int temp = 0;
+			//如果修改的活动状态为开启状态则检测包含的食谱
+			if("1".equals(activity.getStatus())){
+				String sid = new Context().getLoginUserInfo().getSid();
+				activity.setStoreid(sid);
+				boolean checkResult = checkActivityGoods(activity); 
+				if(!checkResult){//当前活动的食谱包含在正在进行的食谱中不能更改活动状态
+					return JsonResultUtil.getJsonResult(-1, "fail", "当前活动中包含的食谱正在参与活动中，请调整后再开启!");
+				}else{//不包含  修改活动状态
+					temp= activityDao.updateActivity(activity);
+				}
+			}else{
+				temp= activityDao.updateActivity(activity);
+			}
 			if(temp > 0){
 				result = JsonResultUtil.getJsonResult(0, "success", "更新活动成功!");
 			}else{
@@ -270,6 +297,25 @@ public class ActivityServiceImpl implements ActivityService {
 		}catch(Exception e){
 			logger.error("查询异常!", e);
 			return result = JsonResultUtil.getJsonResult(-1,"fail", "查询异常!");
+		}
+		return result;
+	}
+	
+	/**
+	 * 判断当前的活动包含的食谱是否已存在有效的活动中
+	 * @param activity
+	 * @return true：不包含   false：包含
+	 */
+	public boolean checkActivityGoods(Activity activity){
+		boolean result = false;
+		try{
+			int includeGoods = activityDao.getIncludeGoodsCount(activity);
+			if(includeGoods <=0){
+				result = true;
+			}
+		}catch(Exception e){
+			logger.error("查询异常!", e);
+			return false;
 		}
 		return result;
 	}

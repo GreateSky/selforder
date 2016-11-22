@@ -144,6 +144,9 @@
 		<if test="ordersn != null and ordersn !='' ">
 			and ord.ordersn like concat('%',#{ordersn},'%')
 		</if>
+		<if test="tablecode != null and tablecode !='' ">
+			and tab.title like concat('%',#{tablecode},'%')
+		</if>
 		<if test="from_user != null and from_user !='' ">
 			and ord.from_user = #{from_user}
 		</if>
@@ -158,11 +161,14 @@
 	</select>
 	<!--查询订单列表统计数  用于列表分页 -->
 	<select id="getOrderListCount" parameterType="order" resultType="int">
-		SELECT count(1)
+		SELECT
+		        count(1)
 		FROM
 		    wx_dish_order ord
+		left join wx_dish_tables tab on (tab.id = ord.tableid and tab.deleted = 0) 
+		left join wx_dish_employee emp on emp.empid =  ord.transferid    
 		where ord.deleted = 0 
-		and ord.dining_mode = #{dining_mode}     
+		and ord.dining_mode = #{dining_mode}
 		<if test="id != null and id !='' ">
 			and ord.id = #{id}
 		</if>
@@ -174,6 +180,9 @@
 		</if>
 		<if test="ordersn != null and ordersn !='' ">
 			and ord.ordersn like concat('%',#{ordersn},'%')
+		</if>
+		<if test="tablecode != null and tablecode !='' ">
+			and tab.title like concat('%',#{tablecode},'%')
 		</if>
 		<if test="from_user != null and from_user !='' ">
 			and ord.from_user = #{from_user}

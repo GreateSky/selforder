@@ -5,6 +5,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
+		<link rel="stylesheet" href="<%=cxtPath%>/plugins/datepicker/bootstrap-datepicker3.min.css"/>
 	</head>
 	<body style="margin: 0; padding: 0; background-color: #ECF0F5; width: 100%; height: 100%;" >
         <!-- Content Header (Page header) -->
@@ -36,11 +37,11 @@
                       </div>
                       <label for="inputEmail3" class="col-sm-1 control-label">开始时间：</label>
                       <div class="col-sm-2">
-                        <input type="date" class="form-control" id="search_begindate" >
+                        <input id="search_begindate"  type="text" class="form-control datepicker" value="">
                       </div>
                       <label for="inputEmail3" class="col-sm-1 control-label">结束时间：</label>
                       <div class="col-sm-2">
-                        <input type="date" class="form-control" id="search_enddate" >
+                        <input id="search_enddate"  type="text" class="form-control datepicker" value="">
                       </div>
                     </div>
                     <div class="form-group has-warning">
@@ -74,5 +75,12 @@
         </section><!-- /.content -->
 	</body>
     <script src="<%=cxtPath%>/js/jquery.twbsPagination.min.js"></script>
+    <script src="<%=cxtPath%>/plugins/datepicker/bootstrap-datepicker.min.js"></script>
+	<script src="<%=cxtPath%>/plugins/datepicker/bootstrap-datepicker.zh-CN.min.js"></script>
     <script src="commentList.js"></script>
+    <script>
+    	$('.datepicker').datepicker({
+    	    language: "zh-CN"
+    	});
+    </script>
 </html>

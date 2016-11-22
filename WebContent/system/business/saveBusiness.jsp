@@ -14,6 +14,7 @@
 	    		opt = "";
 	    	}
 	    %>
+	    <link rel="stylesheet" href="<%=cxtPath%>/plugins/datepicker/bootstrap-datepicker3.min.css"/>
 	    <script language="JavaScript" type="application/javascript">
 	    	var opt = '<%=opt%>'
 	    	var bid = '<%=bid%>';
@@ -81,7 +82,8 @@
 					<div class="form-group has-warning">
 					  <label for="inputEmail3" class="col-sm-2 control-label">营业执照：</label>
 					  <div class="col-sm-2">
-						<input type="file" id="fileid" name="filename" class="form-control" id="inputEmail3" placeholder="营业执照" value=""  onchange="checkFile(this)" accept=".jpeg,.jpg,.png">
+						<input type="file" id="fileid" name="filename" class="form-control" id="inputEmail3" placeholder="营业执照" value=""  onchange="checkFile(this,'licenseImg')" accept=".jpeg,.jpg,.png">
+					  	<small>最佳尺寸：</small>
 					  </div>
 					</div>
 					<div class="form-group has-warning">
@@ -98,13 +100,23 @@
 					<div class="form-group has-warning">
 					  <label for="inputEmail3" class="col-sm-2 control-label"><font color="red">*</font>&nbsp;开始合作时间：</label>
 					  <div class="col-sm-2">
-						<input type="date" class="form-control" id="begindate" name="business.begindate" >
+						<div class="input-group">
+						    <input id="begindate" name="business.begindate" type="text" class="form-control datepicker" value="">
+						    <div class="input-group-addon" style="border-color: #f39c12">
+						       <i class="fa fa-calendar"></i>
+						    </div>
+						</div>
 					  </div>
 					</div>
 					<div class="form-group has-warning">
 					  <label for="inputEmail3" class="col-sm-2 control-label"><font color="red">*</font>&nbsp;结束合作时间：</label>
 					  <div class="col-sm-2">
-						<input type="date" class="form-control" id="enddate" name="business.enddate" >
+						<div class="input-group">
+						    <input id="enddate" name="business.enddate" type="text" class="form-control datepicker" value="">
+						    <div class="input-group-addon" style="border-color: #f39c12">
+						       <i class="fa fa-calendar"></i>
+						    </div>
+						</div>
 					  </div>
 					</div>
 					<div class="form-group has-warning">
@@ -119,7 +131,7 @@
 						<input type="text" class="form-control" id="appsecret" name="business.appsecret" placeholder="微信AppSecret" value="" >
 					  </div>
 					</div>
-					<div class="form-group has-warning" tag="add">
+					<div class="form-group has-warning" >
 					  <label for="inputEmail3" class="col-sm-2 control-label"><font color="red">*</font>&nbsp;系统管理员：</label>
 					  <div class="col-sm-2">
 						<input type="text" class="form-control" id="sysadmin" name="business.sysadmin" placeholder="系统管理员" value="" onchange="checkSystemAdmin();" >
@@ -146,8 +158,15 @@
                 </form><!--/form end-->
               </div><!-- /.box -->
         </section><!-- /.content -->
-        <img id="licenseImg" src=""  style="position:absolute;top: 120px; left: 500px; border-radius: 5px;width: 400px"></img>
+        <img id="licenseImg" src=""  style="position:absolute;top: 120px; left: 550px; border-radius: 5px;width: 400px"></img>
 	</body>
 	<script src="<%=cxtPath%>/js/ajaxfileupload.js"></script>
+	<script src="<%=cxtPath%>/plugins/datepicker/bootstrap-datepicker.min.js"></script>
+	<script src="<%=cxtPath%>/plugins/datepicker/bootstrap-datepicker.zh-CN.min.js"></script>
     <script src="saveBusiness.js"></script>
+    <script>
+    	$('.datepicker').datepicker({
+    	    language: "zh-CN"
+    	});
+    </script>
 </html>

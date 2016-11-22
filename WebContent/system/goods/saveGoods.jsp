@@ -46,7 +46,8 @@
 					<div class="form-group has-warning">
 					  <label for="inputEmail3" class="col-sm-2 control-label">图片:</label>
 					  <div class="col-sm-2">
-						<input type="file" id="fileid" name="fileid" class="form-control" onchange="checkFile(this)" />
+						<input type="file" id="fileid" name="fileid" class="form-control" onchange="checkFile(this,'goodsImg')" />
+						<small>最佳尺寸：200x200</small>
 					  </div>
 					</div>
 					<div class="form-group has-warning">
@@ -139,7 +140,7 @@
                 </form><!--/form end-->
               </div><!-- /.box -->
         </section><!-- /.content -->
-        <img id="goodsImg" src="" width="150px" height="150px" style="position:absolute;top: 110px; left: 600px; border-radius: 8px;"></img>
+        <img id="goodsImg" src="" width="200px"  style="position:absolute;top: 110px; left: 600px; border-radius: 8px;"></img>
 	</body>
     <script src="<%=cxtPath%>/js/ajaxfileupload.js"></script>
     <script src="saveGoods.js"></script>

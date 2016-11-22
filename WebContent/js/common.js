@@ -154,9 +154,10 @@ function formatDateNoWithTime(jsonData){
  * 检查附件格式及大小
  * @returns
  */
-function checkFile(file){
+function checkFile(file,showid){
 	// 判断是否为IE浏览器： /msie/i.test(navigator.userAgent) 为一个简单正则
     var isIE = /msie/i.test(navigator.userAgent) && !window.opera;
+    var filepath = "";
     var fileSize = 0;
     //判断附件格式
     var str = $(file).val();
@@ -171,7 +172,7 @@ function checkFile(file){
     }
     var r = str.match(reg);
     if (isIE && !file.files) {    // IE浏览器
-        var filePath = file.value; // 获得上传文件的绝对路径
+    	filepath = file.value; // 获得上传文件的绝对路径
         /**
          * ActiveXObject 对象为IE和Opera所兼容的JS对象
          * 用法：
@@ -200,6 +201,14 @@ function checkFile(file){
     	clearInputFile(file);
     	return false;
     }else{
+    	//如果显示图片的元素ID存在，则显示出所选的附件
+    	if(checkValue(showid)){
+    		var reader = new FileReader();
+        	reader.readAsDataURL(file.files[0]);
+        	reader.onload = function(){
+        		$("#"+showid).attr("src",reader.result);
+        	};
+    	}
     	return true
     }
 }

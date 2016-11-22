@@ -48,8 +48,10 @@ function getActivityInfo(){
 	});
 }
 
-//上传附件
-function uploadFile(){
+/**
+ * 保存活动
+ */
+function saveActivity(){
 	//验证输入的数据
 	if(!checkValueWithInfo($("#title").val(),"请输入名称！"))return;
 	if(!checkValueWithInfo($("#discount").val(),"请输入折扣数！"))return;
@@ -60,16 +62,6 @@ function uploadFile(){
 	if(begindateStr> enddateStr){
 		layer.msg("开始日期不能大于结束日期",{icon:5});
 		return;
-	}
-	ajaxFileUpload("saveActivity");
-}
-
-/**
- * 保存活动
- */
-function saveActivity(args){
-	if(typeof(args) != "undefined" && args != ""){ 
-		imgid = args[0].fileid;
 	}
 	if(opt == "update"){
 		updateActivity();
@@ -162,11 +154,11 @@ function updateActivity(){
 			var retCode = res.retCode;
 			var message = res.message;
 			if(retCode < 0 ){
-				layer.msg(message,{icon:5});
+				layer.alert(message,{icon:5});
 			}else{
 				layer.msg(message,{icon:6});
+				window.location.href = 'activityList.jsp';
 			}
-			window.location.href = 'activityList.jsp';
 		}
 	});
 }

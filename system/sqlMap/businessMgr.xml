@@ -151,9 +151,12 @@
 		    sb.CRTDATE,
 		    sb.OPTER,
 		    sb.OPTDATE,
-		    sb.DELETED
+		    sb.DELETED,
+		    emp.loginname as sysadmin,
+		    emp.password
 		FROM
 		    wx_dish_business sb
+		left join wx_dish_employee emp on (emp.bid = sb.bid and emp.isadmin = 1)
 		where sb.deleted = 0
 		<if test="bid != null and bid !='' ">
 			and sb.BID =#{bid}

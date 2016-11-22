@@ -55,16 +55,14 @@ function loadOrder(){
 				}
 			});
 			if(typeof(transid)!= "undefined" && null != transid && "" != transid && "0" != transid){
-				$("#payInfo").html("微信订单号："+transid);
+				$("#payInfo").html("微信订单号(点击进行复制)："+transid);
 				$("#payInfo").css("display","block");
 				$("#checkPayInfo").css("display","block");
-				$("#copybtn").css("display","block");
 				$("#payInfo").attr("transid",transid);
-				$('#copybtn').zclip({
+				$('#payInfo').zclip({
 			        path:"ZeroClipboard.swf",
 			        copy:function(){
-			        	var temp_transid = $("#payInfo").attr("transid");
-				        return temp_transid;
+				        return $("#payInfo").attr("transid");
 				　 　}, 
 					afterCopy: function(){//复制成功 
 						layer.msg("内容已复制至粘贴板",{icon:6});
@@ -141,7 +139,7 @@ function loadOrder(){
 				var total = "";
 				total += '<tr tag="appendDetailTr">                                                                 ';
 				total += '	<td colspan="4" align="right"><h4>合计：</h4></td>                 ';
-				total += '	<td><h4><label id="totalCost" class="label label-info">￥'+totalCost+'&nbsp;元</label></h4></td>';
+				total += '	<td><h4><label id="totalCost" class="label label-info">￥'+totalCost.toFixed(2)+'&nbsp;元</label></h4></td>';
 				total += '</tr>                                                                ';
 				$("#orderDetailList").append(total);
 			}
@@ -176,7 +174,7 @@ function editCost(e){
 		var price = $(this).parent().prev("td").html();
 		totalCost += price*value;
 	});
-	$("#totalCost").html("￥"+totalCost+"&nbsp元");
+	$("#totalCost").html("￥"+totalCost.toFixed(2)+"&nbsp元");
 	//将tr行标记为已修改状态
 	var currOptType = $(e).parent().parent().attr("optType");//获取当前修改的tr的optType类型
 	if("add" != currOptType){
@@ -369,8 +367,8 @@ function addOrder(){
  * @returns
  */
 function checkOrderPayStatus(){
-	var transid = $("#payInfo").attr("transid");
-	copyText("checkPayInfo",transid)
+	//var transid = $("#payInfo").attr("transid");
+	//copyText("checkPayInfo",transid)
 	//window.open('https://pay.weixin.qq.com/index.php/core/home/login');
 }
 

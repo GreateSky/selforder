@@ -5,6 +5,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
+		<link rel="stylesheet" href="<%=cxtPath%>/plugins/datepicker/bootstrap-datepicker3.min.css"/>
 	    <style type="text/css">
 	    	.checkbox label{
 	    		margin-left: 10px;
@@ -71,12 +72,6 @@
 						  </div>
 						</div>
 						<div class="form-group has-warning">
-						  <label for="inputEmail3" class="col-sm-3 control-label">宣传图片：</label>
-						  <div class="col-sm-4">
-							<input type="file" id="fileid" name="fileid" class="form-control" onchange="checkFile(this)" />
-						  </div>
-						</div>
-						<div class="form-group has-warning">
 						  <label for="inputEmail3" class="col-sm-3 control-label"><font color="red">*</font>&nbsp;折扣：</label>
 						  <div class="col-sm-4">
 							<input type="number" class="form-control" id="discount" placeholder="范围：1-9.9折" value="" min=1 max=9.9>
@@ -85,13 +80,23 @@
 						<div class="form-group has-warning">
 						  <label for="inputEmail3" class="col-sm-3 control-label"><font color="red">*</font>&nbsp;开始时间：</label>
 						  <div class="col-sm-4">
-							<input type="date" class="form-control" id="begindate" placeholder="开始时间" value="">
+							<div class="input-group">
+							    <input id="begindate"  type="text" class="form-control datepicker" value="">
+							    <div class="input-group-addon" style="border-color: #f39c12">
+							       <i class="fa fa-calendar"></i>
+							    </div>
+							</div>
 						  </div>
 						</div>
 						<div class="form-group has-warning">
 						  <label for="inputEmail3" class="col-sm-3 control-label"><font color="red">*</font>&nbsp;结束日期：</label>
 						  <div class="col-sm-4">
-							<input type="date" class="form-control" id="enddate" placeholder="结束日期" value="">
+							<div class="input-group">
+							    <input id="enddate"  type="text" class="form-control datepicker" value="">
+							    <div class="input-group-addon" style="border-color: #f39c12">
+							       <i class="fa fa-calendar"></i>
+							    </div>
+							</div>
 						  </div>
 						</div>
 						<div class="form-group has-warning">
@@ -134,11 +139,10 @@
                   </div><!-- /.box-body -->
                   <div class="box-footer">
                   	<button type="button" class="btn btn-default" onclick="javascript:history.go(-1)">返回</button>
-                    <button role="btn-shop-update" type="button" class="btn btn-info pull-right" onclick="uploadFile()">保存</button>
+                    <button role="btn-shop-update" type="button" class="btn btn-info pull-right" onclick="saveActivity()">保存</button>
                   </div><!-- /.box-footer -->
                 </form><!--/form end-->
               </div><!-- /.box -->
-              <img id="imgid" src="" width="150px" height="150px" style="position:absolute;top: 110px; left: 30%; border-radius: 8px;"></img>
         </section><!-- /.content -->
          <!--modal 未关联食谱选择-->
         <div class="modal fade" id="selectGoodsWin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
@@ -168,5 +172,12 @@
 		</div><!-- /<!--modal 未关联食谱选择-->
 	</body>
 	<script src="<%=cxtPath%>/js/ajaxfileupload.js"></script>
+	<script src="<%=cxtPath%>/plugins/datepicker/bootstrap-datepicker.min.js"></script>
+	<script src="<%=cxtPath%>/plugins/datepicker/bootstrap-datepicker.zh-CN.min.js"></script>
     <script src="saveActivity.js"></script>
+    <script>
+    	$('.datepicker').datepicker({
+    	    language: "zh-CN"
+    	});
+    </script>
 </html>

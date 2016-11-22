@@ -199,12 +199,12 @@ function updateShop(sid){
  * 搜索
  */
 function search(){
-	var ordersn = $("#ordersn").val();
+	var tablecode = $("#tablecode").val();
 	var status = $("#status").val();
 	var begindate = $("#begindate").val();
 	var enddate = $("#enddate").val();
 	var param = {};
-	param["order.ordersn"] = ordersn;
+	param["order.tablecode"] = tablecode;
 	param["order.status"] = status;
 	param["order.begindate"] = begindate;
 	param["order.enddate"] = enddate;
@@ -218,7 +218,7 @@ function search(){
  * @returns
  */
 function clearParam(){
-	$("#ordersn").val("");
+	$("#tablecode").val("");
 	$("#status").val("");
 	$("#begindate").val("");
 	$("#enddate").val("");

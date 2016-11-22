@@ -79,6 +79,14 @@ public interface ActivityDao {
 	 */
 	public List<Goods> getNotInActivityGoods(Goods goods) throws Exception;
 	
+	/**
+	 * 根据活动查询活动中包含的食谱已存在的当前有效的活动中的食谱个数
+	 * @param activity
+	 * @return
+	 * @throws SQLException
+	 */
+	public int getIncludeGoodsCount(Activity activity) throws SQLException;
+	
 	
 	
 }

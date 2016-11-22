@@ -56,11 +56,11 @@
 				      <label for="wcode">审核</label>
 				      <div class="radio">
                         <label>
-                          <input type="radio" name="audit" id="" value="1" checked="checked" />
+                          <input type="radio" name="audit"  value="1" checked="checked" />
                           	通过
                         </label>
                         <label>
-                          <input type="radio" name="audit" id="-1" value="option2"  />
+                          <input type="radio" name="audit"  value="-1"  />
                           	不通过
                         </label>
                       </div>

@@ -41,6 +41,7 @@ function getBusinessInfo(){
 					var appid = businessInfo.appid;
 					var appsecret = businessInfo.appsecret;
 					var licenseid = businessInfo.licenseid;
+					var sysadmin = businessInfo.sysadmin;
 					$("#bname").val(bname);
 					$("#legaler").val(legaler);
 					$("#phone").val(phone);
@@ -52,6 +53,8 @@ function getBusinessInfo(){
 					$("#status").val(status);
 					$("#appid").val(appid);
 					$("#bcode").val(bcode);
+					$("#sysadmin").val(sysadmin);
+					$("#sysadmin").attr("disabled","disabled");
 					$("#appsecret").val(appsecret);
 					var imgsrc = "/selforder/api/fileutil?method=download&fileid="+licenseid;
 					$("#licenseImg").attr("src",imgsrc);
@@ -82,6 +85,10 @@ function uploadFile(){
 	if(!checkValueWithInfo(status,"状态不能为空！")) return;
 	if(!checkValueWithInfo(begindate,"开始合作日期不能为空！")) return;
 	if(!checkValueWithInfo(enddate,"结束合作日期不能为空！")) return;
+	if(begindate>enddate){
+		layer.msg("开始日期不能大于结束日期!",{icon:"5"});
+		return;
+	}
 	if(opt != "update"){
 		if(!checkValueWithInfo(sysadmin,"系统管理员不能为空！")) return;
 		if(!checkValueWithInfo(password,"登录密码不能为空！")) return;

@@ -276,6 +276,26 @@
 		)
 		and goods.storeid = #{storeid}
 		order by goods.displayorder desc
+	</select>
+	
+	<!--查询活动中包含的食谱是否存在已有效活动的食谱 -->
+	<select id="getIncludeGoodsCount" parameterType="activity" resultType="int">
+		select count(1) count
+		from wx_dish_activity_goods ag 
+		where ag.deleted = 0 
+		and ag.goodsid in (
+			select distinct ag.goodsid
+			from wx_dish_activity ac 
+			left join wx_dish_activity_goods ag on ag.activityid = ac.id
+			where ac.status = 1
+			and ac.deleted = 0 
+			and ag.deleted = 0 
+			and ac.begindate &lt;=now()
+			and ac.enddate &gt;= now()
+			and ag.activityid &lt;&gt; #{id}
+			and ac.storeid = #{storeid}
+		)
+		and ag.activityid = #{id}
 	</select>	
 </mapper>
 

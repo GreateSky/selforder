@@ -127,7 +127,6 @@ function saveAuditComment(){
 							}
 							$("#commentWin").attr("commentid","");
 							$("#commentWin").modal('hide');
-							window.location.href = "commentList.jsp";
 						}
 					});
 				},
