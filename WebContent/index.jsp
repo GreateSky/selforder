@@ -230,7 +230,7 @@
 	                <i class="fa fa-angle-left pull-right"></i>
 	              </a>
 	              <ul class="treeview-menu">
-	                <li><a href="javascript:viod(0);" onclick="linkMainTab('system/order_out/orderList.jsp','orderlist','外卖订单列表')"><i class="fa fa-circle-o"></i> 订单列表</a></li>
+	                <li><a href="javascript:viod(0);" onclick="linkMainTab('system/order_out/orderList.jsp','outorderlist','外卖订单列表')"><i class="fa fa-circle-o"></i> 订单列表</a></li>
 	              </ul>
 	            </li>
             </sec:authorize >
@@ -242,7 +242,7 @@
 	                <i class="fa fa-angle-left pull-right"></i>
 	              </a>
 	              <ul class="treeview-menu">
-	                <li><a href="javascript:viod(0);" onclick="linkMainTab('system/order_reserve/orderList.jsp','orderlist','预定外卖订单列表')"><i class="fa fa-circle-o"></i> 订单列表</a></li>
+	                <li><a href="javascript:viod(0);" onclick="linkMainTab('system/order_reserve/orderList.jsp','reserveorderlist','预定外卖订单列表')"><i class="fa fa-circle-o"></i> 订单列表</a></li>
 	              </ul>
 	            </li>
             </sec:authorize >

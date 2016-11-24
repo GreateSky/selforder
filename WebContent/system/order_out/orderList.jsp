@@ -46,11 +46,11 @@
                         	<option value="-1">已取消</option>
 						</select>
                       </div>
-                      <label for="inputEmail3" class="col-sm-1 control-label">订单开始日期：</label>
+                      <label for="inputEmail3" class="col-sm-1 control-label">开始日期：</label>
                       <div class="col-sm-2">
                         <input id="begindate"  type="text" class="form-control datepicker" value="" placeholder="订单开始日期">
                       </div>
-                      <label for="inputEmail3" class="col-sm-1 control-label">订单结束日期：</label>
+                      <label for="inputEmail3" class="col-sm-1 control-label">结束日期：</label>
                       <div class="col-sm-2">
                         <input id="enddate"  type="text" class="form-control datepicker" value="">
                       </div>
@@ -68,15 +68,11 @@
                       <th>#</th>
                       <th>订单编码</th>
                       <th>订单日期</th>
-                      <th>订单类型</th>
-                      <th>餐桌号</th>
                       <th>客户姓名</th>
                       <th>电话</th>
                       <th>消费金额(元)</th>
                       <th>实收金额(元)</th>
                       <th>订单状态</th>
-                      <th>口味</th>
-                      <th>备注</th>
                       <th>操作</th>
                     </tr>
                   </table><!--/门店列表-->

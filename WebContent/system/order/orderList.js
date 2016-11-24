@@ -130,7 +130,6 @@ function loadOrderList(type,param){
 						appendTr += '	<td>'+(i+1)+'</td>                                           ';
 						appendTr += '	<td>'+ordersn+'</td>                          ';
 						appendTr += '	<td>'+crtdateStr+'</td>                         ';
-						appendTr += '	<td>'+dining_modeStr+'</td>                         ';
 						appendTr += '	<td>'+tablecode+'</td>                                       ';
 						appendTr += '	<td>'+username+'</td>                                            ';
 						appendTr += '	<td>'+tel+'</td>                                            ';
@@ -143,8 +142,6 @@ function loadOrderList(type,param){
 						appendTr += '	<td>                                                 ';
 						appendTr += '		<label class="label label-warning">'+statusStr+'</label>  ';
 						appendTr += '	</td>                                                ';
-						appendTr += '	<td>'+taste+'</td>                                        ';
-						appendTr += '	<td>'+remark+'</td>                            ';
 						appendTr += '	<td>                                                 ';
 						switch(parseInt(status)){
 							case 0://已下单状态订单添加确认、详情、取消操作

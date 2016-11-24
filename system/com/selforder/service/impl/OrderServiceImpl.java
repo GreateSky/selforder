@@ -91,6 +91,10 @@ public class OrderServiceImpl implements OrderService {
 			//获取订单明细
 			OrderDetail orderDetail = new OrderDetail();
 			orderDetail.setOid(order.getId());
+			//如果is_load_no_print=1 只加载未打印的明细信息（打印加菜单用）
+			if(1 == order.getIs_load_no_print()){
+				orderDetail.setIsprint("0");
+			}
 			List<OrderDetail> orderDetailList = orderDao.orderDetailList(orderDetail);
 			resultMap.put("order", currorder);
 			resultMap.put("orderDetailList", orderDetailList);
@@ -303,13 +307,13 @@ public class OrderServiceImpl implements OrderService {
 	 * @param orderDetail
 	 * @return
 	 */
-	public String updateOrderPrintStatus(OrderDetail orderDetail){
+	public String updateOrderPrintStatus(Order order){
 		String result = "";
 		try{
-			if(null == orderDetail){
+			if(null == order){
 				return JsonResultUtil.getJsonResult(-1, "fail", "参数异常！");
 			}
-			int temp = orderDao.updateOrderPrintStatus(orderDetail);
+			int temp = orderDao.updateOrderPrintStatus(order);
 			if(temp > 0){
 				result = JsonResultUtil.getJsonResult(0, "success", "更新打印状态成功！");
 			}else{

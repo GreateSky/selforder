@@ -116,7 +116,7 @@ function loadOrder(){
 				//组装合计行
 				var total = "";
 				total += '<tr tag="appendDetailTr">                                                                 ';
-				total += '	<td colspan="4" align="right"><h4>合计：</h4></td>                 ';
+				total += '	<td colspan="3" align="right"><h4>合计：</h4></td>                 ';
 				total += '	<td><h4><label id="totalCost" class="label label-info">￥'+totalCost.toFixed(2)+'&nbsp;元</label></h4></td>';
 				total += '</tr>                                                                ';
 				$("#orderDetailList").append(total);
@@ -544,3 +544,13 @@ function selectTab(id,title){
 	$("#tablesWin").modal("hide");
 }
 //*******************************************餐桌选择操作end**********************************
+
+/**
+ * 打印订单
+ * @param type 打印类型  all打印全部  add只打印加菜单
+ * @returns
+ */
+function doPrint(type){
+	var ifr = document.getElementById('printframe');
+	ifr.src = "printOrder.jsp?oid="+oid+"&printType="+type;
+}

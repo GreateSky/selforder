@@ -42,6 +42,12 @@
 				<param name="root">resultJson</param>
 			</result> 
 		</action>
+		<!--更新订单明细打印状态-->
+		<action name = "updateOrderPrintStatus" class="orderAction" method="updateOrderPrintStatus">
+			<result type="json">
+				<param name="root">resultJson</param>
+			</result> 
+		</action>
 		<!--查询预定订单-->
 		<action name = "reserveOrderList" class="orderAction" method="reserveOrderList">
 			<result type="json">

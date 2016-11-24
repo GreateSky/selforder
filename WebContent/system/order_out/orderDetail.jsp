@@ -113,7 +113,8 @@
                   					</table>
                   					<div class="row">
                   						<div class="col-md-12">
-                  							<button tag="actionBtn_add" type="button" class="btn btn-warning pull-right" onclick="showGoodsWin()">新增</button>
+                  							<button tag="actionBtn_add" type="button" class="btn btn-warning pull-left" onclick="showGoodsWin()">新增</button>
+                  							<button type="button" class="btn btn-info pull-right" onclick="doPrint()">打印</button>
                   						</div>
                   					</div>
                   				</div>
@@ -236,8 +237,8 @@
 										  <label for="inputEmail3" class="col-sm-1 control-label" ></label>
 										  <div class="col-sm-4">
 										  	<button tag="actionBtn_save" type="button" class="btn  btn-info" onclick="saveOrderDetail()">保存</button>
-										  	<button tag="actionBtn_balance" type="button" class="btn  btn-warning" onclick="orderTranslate()">配送</button>
-											<button tag="actionBtn_balance" type="button" class="btn  btn-danger" onclick="done()">完成</button>
+										  	<button tag="actionBtn_translate" type="button" class="btn  btn-warning" onclick="orderTranslate()">配送</button>
+											<button tag="actionBtn_done" type="button" class="btn  btn-danger" onclick="done()">完成</button>
 										  </div>
 										</div>
                   					</form>
@@ -305,6 +306,7 @@
 		    </div><!-- /.modal-content -->
 		  </div><!-- /.modal-dialog -->
 		</div><!-- /<!--modal 配送人员选择-->
+		<iframe id="printframe" name="exportframe" width="100%" height="0" style="display:none" ></iframe>
 	</body>
     <script src="<%=cxtPath%>/js/jquery.zclip.min.js"></script>
     <script src="orderDetail.js"></script>

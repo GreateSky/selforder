@@ -52,6 +52,7 @@ public class Order extends baseBean {
 	private String tablecode;//餐桌号
 	private String transferid;
 	private String transfername;
+	private int is_load_no_print = 0;//是否只加载未打印的明细   0：否   1：是
 	public String getTransfername() {
 		return transfername;
 	}
@@ -295,5 +296,11 @@ public class Order extends baseBean {
 	}
 	public void setTransferid(String transferid) {
 		this.transferid = transferid;
+	}
+	public int getIs_load_no_print() {
+		return is_load_no_print;
+	}
+	public void setIs_load_no_print(int is_load_no_print) {
+		this.is_load_no_print = is_load_no_print;
 	}
 }

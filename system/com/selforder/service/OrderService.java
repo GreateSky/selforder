@@ -68,7 +68,7 @@ public interface OrderService {
 	 * @param orderDetail
 	 * @return
 	 */
-	public String updateOrderPrintStatus(OrderDetail orderDetail);
+	public String updateOrderPrintStatus(Order order);
 	//*********************预定订单操作start********************
 	/**
 	 * 查询预定订单

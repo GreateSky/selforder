@@ -61,6 +61,8 @@ function getEmployeeInfo(){
 					$("#contactphone").val(emp.contactphone);
 					$("#wechatid").val(emp.wechatid);
 					$("#status").val(emp.status);
+					$("#loginname").val(emp.loginname);
+					$("#loginname").attr("disabled","disabled");
 					var type = emp.type;
 					$("#type").val(type);
 					if(type == "S"){
@@ -68,7 +70,6 @@ function getEmployeeInfo(){
 						$("#sname").val(emp.sname);
 						$("#selectShop").css("display","block");
 					}
-					$("#headimgurl").attr("src","/selforder/api/fileutil?method=download&fileid="+emp.headimgurl);
 				}
 			}
 		});

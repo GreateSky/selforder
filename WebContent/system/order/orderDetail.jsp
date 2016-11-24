@@ -101,7 +101,9 @@
                   					</table>
                   					<div class="row">
                   						<div class="col-md-12">
-                  							<button tag="actionBtn_add" type="button" class="btn btn-warning pull-right" onclick="showGoodsWin()">新增</button>
+                  							<button type="button" class="btn btn-info pull-right" onclick="doPrint('add')">打印加菜单</button>
+                  							<button type="button" class="btn btn-info pull-right" onclick="doPrint('all')" style="margin: 0px 3px;">打印</button>
+                  							<button tag="actionBtn_add" type="button" class="btn btn-warning pull-left" onclick="showGoodsWin()">新增</button>
                   						</div>
                   					</div>
                   				</div>
@@ -285,6 +287,7 @@
 		    </div><!-- /.modal-content -->
 		  </div><!-- /.modal-dialog -->
 		</div><!-- /<!--modal 餐桌选择-->
+		<iframe id="printframe" name="exportframe" width="100%" height="0" style="display:none" ></iframe>
 	</body>
     <script src="orderDetail.js"></script>
 </html>

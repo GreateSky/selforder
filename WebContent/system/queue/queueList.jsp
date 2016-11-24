@@ -89,7 +89,7 @@
 		      </div>
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">取消</button>
-		        <button type="button" class="btn btn-primary" onclick="pointOK()">打印</button>
+		        <button type="button" class="btn btn-primary" onclick="doPrint();">打印</button>
 		      </div>
 		    </div><!-- /.modal-content -->
 		  </div><!-- /.modal-dialog -->
@@ -128,6 +128,7 @@
 		    </div><!-- /.modal-content -->
 		  </div><!-- /.modal-dialog -->
 		</div><!-- /<!--modal 叫号-->
+		<iframe id="printframe" name="exportframe" width="100%" height="0" style="display:none" ></iframe>
 	</body>
     <script src="queueList.js"></script>
 </html>

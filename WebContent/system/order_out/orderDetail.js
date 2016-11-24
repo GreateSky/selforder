@@ -71,7 +71,6 @@ function loadOrder(){
 			}
 			var transferid = orderInfo.transferid;
 			var transfername = orderInfo.transfername;
-			//var tablecode = orderInfo.tablecode;
 			tableid = orderInfo.tableid;
 			var totalprice = parseFloat(orderInfo.totalprice).toFixed(2);
 			var realprice = parseFloat(orderInfo.realprice).toFixed(2);
@@ -93,7 +92,6 @@ function loadOrder(){
 			$("#transferid").val(transferid);
 			$("#transfername").val(transfername);
 			$("#realprice").val(realprice);
-			//$("#tablecode").val(tablecode);
 			$("#tableid").val(tableid);
 			$("#username").val(username);
 			$("#tel").val(tel);
@@ -104,9 +102,10 @@ function loadOrder(){
 				$("input").attr("readonly","readonly");
 			}
 			changeDivStyle(orderStatus);//根据状态值显示
-			//订单非0和-1状态禁用确认订单按钮
-			if(status !=0 && status != -1){
-				$("#affirmBtn").attr("disabled","disabled");
+			//订单非付款状态禁用配送和完成按钮
+			if(status <= 3){
+				$("button[tag='actionBtn_translate']").attr("disabled","disabled");
+				$("button[tag='actionBtn_done']").attr("disabled","disabled");
 			}
 			var totalCost = 0;//合计费用
 			//初始化订单明细
@@ -645,3 +644,9 @@ function selectTransfer(empid,empname){
 }
 
 //*******************************************配送人员选择操作end**********************************
+
+//打印订单
+function doPrint(){
+	var ifr = document.getElementById('printframe');
+	ifr.src = "printOrder.jsp?oid="+oid;
+}

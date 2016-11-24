@@ -102,7 +102,7 @@ public interface OrderDao {
 	 * @return
 	 * @throws SQLException
 	 */
-	public int updateOrderPrintStatus(OrderDetail orderDetail)throws SQLException;
+	public int updateOrderPrintStatus(Order order)throws SQLException;
 	
 	//*********************预定订单操作start********************
 	/**

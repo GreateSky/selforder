@@ -437,6 +437,9 @@
 		 and detail.deleted = 0
 		 and goods.deleted = 0 
 		 and detail.oid = #{oid}
+		 <if test="isprint != null and isprint !='' ">
+			and detail.isprint = #{isprint}
+		</if>
 	</select>
 	
 	<!--获取下一个订单号 -->
@@ -453,8 +456,8 @@
 	</select>
 	
 	<!--更新订单打印状态 -->
-	<update id="updateOrderPrintStatus"  parameterType="orderDetail">
-		update wx_dish_order_detail detail set detail.isprint = 1 where detail.oid =  #{oid}
+	<update id="updateOrderPrintStatus"  parameterType="order">
+		update wx_dish_order_detail detail set detail.isprint = 1 where detail.oid =  #{id}
 	</update>
 	
 	<!-- 预定订单操作start -->

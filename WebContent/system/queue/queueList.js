@@ -198,3 +198,12 @@ function delQueue(id){
 				layer.closeAll();
 			});
 }
+
+//打印
+function doPrint(){
+	var queueCode = $("#queueNum").html();
+	var waitNum = $("#pervNum").html();
+	waitNum = waitNum.substring(0,waitNum.length-1);
+	var ifr = document.getElementById('printframe');
+	ifr.src = "printQueue.jsp?queueCode="+queueCode+"&waitNum="+waitNum;
+}

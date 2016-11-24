@@ -19,7 +19,7 @@ public class OrderDetail extends baseBean {
 	private String opter;
 	private Date optdate;
 	private int deleted;
-	private int isprint;
+	private String isprint;
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
@@ -101,10 +101,10 @@ public class OrderDetail extends baseBean {
 	public void setGoods_name(String goods_name) {
 		this.goods_name = goods_name;
 	}
-	public int getIsprint() {
+	public String getIsprint() {
 		return isprint;
 	}
-	public void setIsprint(int isprint) {
+	public void setIsprint(String isprint) {
 		this.isprint = isprint;
 	}
 }

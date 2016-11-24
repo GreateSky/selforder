@@ -116,7 +116,6 @@ function loadOrderList(type,param){
 						appendTr += '	<td>'+username+'</td>                         ';
 						appendTr += '	<td>'+tel+'</td>                                       ';
 						appendTr += '	<td>'+meal_time+'</td>                                            ';
-						appendTr += '	<td>'+remark+'</td>                            ';
 						appendTr += '	<td>                                                 ';
 						if(status == 0){
 							appendTr += '		<button type="button" class="btn btn-warning" onclick="affirmOrder(\''+id+'\')">确认</button>      ';

@@ -86,7 +86,7 @@
 					  <label for="inputEmail3" class="col-sm-1 control-label" ></label>
 					  <label for="inputEmail3" class="col-sm-5 control-label" style="border-top: 1px dashed #C0C0C0" ></label>
 					</div>
-					<div class="form-group has-warning" tag="login">
+					<div class="form-group has-warning">
 					  <label for="inputEmail3" class="col-sm-1 control-label">登录名：</label>
 					  <div class="col-sm-2">
 						<input type="text" class="form-control" id="loginname" name="employee.loginname" placeholder="登录名" onblur="checkLoginName()" >
@@ -146,8 +146,7 @@
                 </form><!--/form end-->
               </div><!-- /.box -->
         </section><!-- /.content -->
-        <img id="headimgurl" src="" width="150px" height="150px" style="position:absolute;top: 120px; left: 550px; border-radius: 5px;"></img>
-        <button type="button" onclick="resetPwd()" class="btn btn-danger" style="position: absolute; top: 300px; left: 550px; width: 150px;">重置密码</button>
+        <button type="button" onclick="resetPwd()" class="btn btn-danger" style="position: absolute; top: 110px; left: 350px; width: 150px;">重置密码</button>
         <!--modal 门店选择-->
         <div class="modal fade" id="employeeWin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
 		  <div class="modal-dialog">

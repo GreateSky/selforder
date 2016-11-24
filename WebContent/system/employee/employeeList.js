@@ -87,6 +87,7 @@ function loadEmployeeList(queueType,param){
 						var phone = row.phone;
 						var bname = row.bname;
 						var sname = row.sname;
+						var isadmin = row.isadmin;
 						if(status == 0 ){
 							status = "实习";
 						}else if(status == 1 ){
@@ -113,7 +114,11 @@ function loadEmployeeList(queueType,param){
 						tr +='	<td>'+status+'</td>                    ';
 						tr +='	<td>'+phone+'</td>                    ';
 						tr +='	<td>'+type+'</td>                    ';
-						tr +='	<td><button role="btn-shop-update" type="button" class="btn btn-warning" onclick="updateEmployee(\''+empid+'\')">编辑</button>&nbsp;<button role="btn-shop-remove" type="button" class="btn btn-danger" onclick="delEmployee(\''+empid+'\')">删除</button></td>                    ';
+						if(isadmin == "1"){
+							tr +='	<td><button role="btn-shop-update" type="button" class="btn btn-warning" onclick="updateEmployee(\''+empid+'\')">编辑</button>&nbsp</td>                    ';
+						}else{
+							tr +='	<td><button role="btn-shop-update" type="button" class="btn btn-warning" onclick="updateEmployee(\''+empid+'\')">编辑</button>&nbsp;<button role="btn-shop-remove" type="button" class="btn btn-danger" onclick="delEmployee(\''+empid+'\')">删除</button></td>                    ';
+						}
 						tr +='</tr>                                    ';
 						$("#employeeList").append(tr);
 					}

@@ -39,11 +39,11 @@
                       <div class="col-sm-2">
                         <input type="text" class="form-control" id="tel_search" placeholder="电话 "  value="">
                       </div>
-                      <label for="inputEmail3" class="col-sm-1 control-label">订单开始日期：</label>
+                      <label for="inputEmail3" class="col-sm-1 control-label">开始日期：</label>
                       <div class="col-sm-2">
                         <input id="begindate"  type="text" class="form-control datepicker" value="">
                       </div>
-                      <label for="inputEmail3" class="col-sm-1 control-label">订单结束日期：</label>
+                      <label for="inputEmail3" class="col-sm-1 control-label">结束日期：</label>
                       <div class="col-sm-2">
                          <input id="enddate"  type="text" class="form-control datepicker" value="">
                       </div>
@@ -65,7 +65,6 @@
                       <th>客户姓名</th>
                       <th>电话</th>
                       <th>用餐时间</th>
-                      <th>备注</th>
                       <th>操作</th>
                     </tr>
                   </table><!--/门店列表-->
