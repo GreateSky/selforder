@@ -8,6 +8,11 @@
 	    <%
 	    	String sid = request.getParameter("sid");
 	    %>
+	    <style type="text/css">
+	    	#goodsList tr td{
+	    		line-height: 60px;
+	    	}
+	    </style>
 	    <script type="text/javascript">
 	    	var sid = '<%=sid%>';
 	    </script>
@@ -40,7 +45,7 @@
                       <div class="col-sm-2">
                         <input type="text" class="form-control" id="title_search" placeholder="名称"  value="">
                       </div>
-                      <label for="inputEmail3" class="col-sm-1 control-label">食谱分类：</label>
+                      <label for="inputEmail3" class="col-sm-1 control-label">分类：</label>
                       <div class="col-sm-2">
                         <select class="form-control" id="goodsCategoryCommbox">  </select>
                       </div>
@@ -58,12 +63,10 @@
                     	<tr>
 	                      <th >#</th>
 	                      <th ></th>
-	                      <th >所属分类</th>
+	                      <th >分类</th>
 	                      <th >名称</th>
 	                      <th >价格(元)</th>
-	                      <th >计量单位</th>
-	                      <th >是否推荐</th>
-	                      <th >是否特殊</th>
+	                      <th >单位</th>
 	                      <th >排序</th>
 	                      <th >状态</th>
 	                      <th >口味</th>

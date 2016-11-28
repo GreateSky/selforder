@@ -8,6 +8,11 @@
 	    <%
 	    	String sid = request.getParameter("sid");
 	    %>
+	    <style type="text/css">
+	    	#tableList tr td{
+	    		line-height: 60px;
+	    	}
+	    </style>
 	    <script type="text/javascript">
 	    	var sid = '<%=sid%>';
 	    </script>
@@ -71,7 +76,6 @@
 	                      <th >所属包厢</th>
 	                      <th >编码</th>
 	                      <th >用餐人数</th>
-	                      <th >最低消费(￥)</th>
 	                      <th >状态</th>
 	                      <th >排序</th>
 	                      <th >二维码</th>

@@ -24,6 +24,7 @@ public class UserInfo extends User {
 	private String code;
 	private String loginname;
 	private String appid;
+	private String isadmin;
 	public String getAppid() {
 		return appid;
 	}
@@ -150,6 +151,14 @@ public class UserInfo extends User {
 
 	public void setLoginname(String loginname) {
 		this.loginname = loginname;
+	}
+
+	public String getIsadmin() {
+		return isadmin;
+	}
+
+	public void setIsadmin(String isadmin) {
+		this.isadmin = isadmin;
 	}
 
 }

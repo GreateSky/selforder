@@ -116,8 +116,7 @@ function loadOrder(){
 				//组装合计行
 				var total = "";
 				total += '<tr tag="appendDetailTr">                                                                 ';
-				total += '	<td colspan="3" align="right"><h4>合计：</h4></td>                 ';
-				total += '	<td><h4><label id="totalCost" class="label label-info">￥'+totalCost.toFixed(2)+'&nbsp;元</label></h4></td>';
+				total += '	<td colspan="5" align="right"><h4>合计：<label id="totalCost" class="label label-info">￥'+totalCost.toFixed(2)+'&nbsp;元</label></h4></td>                 ';
 				total += '</tr>                                                                ';
 				$("#orderDetailList").append(total);
 			}
@@ -404,8 +403,7 @@ function addGoods(id,title,discount_price,e){
 	//组装合计行
 	var total = "";
 	total += '<tr tag="appendDetailTr">                                                                 ';
-	total += '	<td colspan="4" align="right"><h4>合计：</h4></td>                 ';
-	total += '	<td><h4><label id="totalCost" class="label label-info">￥'+totalCost.toFixed(2)+'&nbsp;元</label></h4></td>';
+	total += '	<td colspan="5" align="right"><h4>合计：<label id="totalCost" class="label label-info">￥'+totalCost.toFixed(2)+'&nbsp;元</label></h4></td>                 ';
 	total += '</tr>                                                                ';
 	$("#orderDetailList").append(total);
 	$(e).parent().parent().remove();//清除改行菜谱

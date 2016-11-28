@@ -5,6 +5,8 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
+		<link rel="stylesheet" href="<%=cxtPath%>/plugins/datetimepicker/css/bootstrap-datetimepicker.min.css"/>
+		<link rel="stylesheet" href=""/>
 	    <style type="text/css">
 	    	.checkbox label{
 	    		margin-left: 10px;
@@ -63,7 +65,7 @@
 					<div class="form-group has-warning">
 					  <label for="inputEmail3" class="col-sm-2 control-label"><font color="red">*</font>&nbsp;用餐时间：</label>
 					  <div class="col-sm-2">
-						<input type="datetime-local" class="form-control" id="meal_time" placeholder="用餐时间" value="">
+						<input id="meal_time"  type="text" class="form-control datepicker" value="">
 					  </div>
 					</div>
 					<div class="form-group has-warning" >
@@ -74,12 +76,20 @@
 					</div> <!-- /门店维护 start-->
                   </div><!-- /.box-body -->
                   <div class="box-footer">
-                  	<button type="button" class="btn btn-default">取消</button>
+                  	<button type="button" class="btn btn-default" onclick="javascript:history.go(-1)">返回</button>
                     <button type="button" onclick="saveOrder()" class="btn btn-info pull-right">保存</button>
                   </div><!-- /.box-footer -->
                 </form><!--/form end-->
               </div><!-- /.box -->
         </section><!-- /.content -->
 	</body>
+	<script src="<%=cxtPath%>/plugins/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+	<script src="<%=cxtPath%>/plugins/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
     <script src="saveOrder.js"></script>
+    <script >
+	    $('.datepicker').datetimepicker({
+	    	language: "zh-CN"
+	    });
+    </script>
+    
 </html>

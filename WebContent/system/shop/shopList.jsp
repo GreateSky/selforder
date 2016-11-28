@@ -54,16 +54,14 @@
                     <table class="table table-striped animated flipInX" id="shoplist">
                     <tr>
                       <th>#</th>
-                      <th>门店名</th>
+                      <th>名称</th>
                       <th>电话</th>
                       <th>营业时间</th>
-                      <th>店内点餐</th>
-                      <th>外卖订餐</th>
-                      <th>支持预定</th>
-                      <th>支持排队</th>
-                      <th>手机端显示</th>
-                      <th>半径</th>
-                      <th>地址</th>
+                      <th>点餐</th>
+                      <th>外卖</th>
+                      <th>预定</th>
+                      <th>排队</th>
+                      <th>微信显示</th>
                       <th>操作</th>
                     </tr>
                   </table><!--/门店列表-->

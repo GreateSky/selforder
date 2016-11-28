@@ -170,7 +170,7 @@ function execOrderMsg(message){
 	}else if(messageType == "payOrder"){
 		message = mode+"订单【"+ordersn+"】已付款,请及时查看！";
 	}
-	$("#incomeOrder_a").css({"-webkit-animation":"twinkling 1s infinite ease-in-out"}); //店内点单图标动画
+	$("#incomeOrder_a").css({"-webkit-animation":"twinkling 1s infinite ease-in-out"}); //点单图标动画
 	$.notifySetup({sound:sound});//播放提示音
 	$('<p>'+message+'</p>').notify();//弹出提示音
 	var appendLi = "";

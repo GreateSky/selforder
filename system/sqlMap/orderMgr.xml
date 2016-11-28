@@ -231,11 +231,15 @@
 		        ord.optdate,
 		        ord.deleted,
 		        ord.transferid,
-		        emp.empname as transfername
+		        emp.empname as transfername,
+		        stores.title as storename,
+		        stores.tel as storetel,
+		        concat(stores.location_p,stores.location_c,stores.location_a,stores.address) as  storeaddress
 		FROM
 		    wx_dish_order ord
 		left join wx_dish_tables tab on (tab.id = ord.tableid and tab.deleted = 0)
-		left join wx_dish_employee emp on emp.empid =  ord.transferid    
+		left join wx_dish_employee emp on emp.empid =  ord.transferid 
+		left join wx_dish_stores stores on stores.id = ord.storeid    
 		where ord.deleted = 0    
 		<if test="id != null and id !='' ">
 			and ord.id = #{id}

@@ -38,11 +38,11 @@
                       <div class="col-sm-2">
                         <input id="legaler_search" type="text" class="form-control" id="inputEmail3" placeholder="法人 "  value="">
                       </div>
-                      <label for="inputEmail3" class="col-sm-1 control-label">联系电话：</label>
+                      <label for="inputEmail3" class="col-sm-1 control-label">电话：</label>
                       <div class="col-sm-2">
                         <input id="phone_search" type="text" class="form-control" id="inputEmail3" placeholder="联系电话 "  value="">
                       </div>
-                      <label for="inputEmail3" class="col-sm-1 control-label">合作状态：</label>
+                      <label for="inputEmail3" class="col-sm-1 control-label">状态：</label>
                       <div class="col-sm-2">
                         <select id="status_search" class="form-control">
                         	<option selected="selected" value="">全部</option>

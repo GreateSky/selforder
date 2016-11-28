@@ -38,6 +38,9 @@ function pageOption(paginationid,totalpage){
         	var param = {};
         	param["business.bname"] = bname_search;
         	param["business.bcode"] = bcode_search;
+        	if(page >1){
+        		first = false;
+        	}
         	if(!first){
         		loadBusinessRoleList("pageQuery",param);
         	}

@@ -35,6 +35,9 @@ function pageOption(paginationid,totalpage){
             	pageSize = 20;
             }
         	var param = {};
+        	if(page >1){
+        		first = false;
+        	}
         	if(!first){
         		loadActivityList("pageQuery",param);
         	}
@@ -109,7 +112,6 @@ function loadActivityList(queueType,param){
 						tr +='	<td>'+type+'</td>                    ';
 						tr +='	<td>'+begindate+'</td>                        ';
 						tr +='	<td>'+enddate+'</td>                  ';
-						tr +='	<td>'+url+'</td>';
 						tr +='	<td><button role="btn-shop-update" type="button" class="btn btn-warning" onclick="updateActivity(\''+id+'\')">编辑</button>&nbsp;<button role="btn-shop-remove" type="button" class="btn btn-danger" onclick="delActivity(\''+id+'\')">删除</button></td>                    ';
 						tr +='</tr>                                    ';
 						$("#activityList").append(tr);

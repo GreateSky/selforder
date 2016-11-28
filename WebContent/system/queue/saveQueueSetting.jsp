@@ -49,7 +49,7 @@
 						<input type="number" class="form-control" id="limit_num" placeholder="" value="" min="2" >
 					  </div>
 					</div>
-					<div class="form-group has-warning">
+					<div class="form-group has-warning" style=" display: none">
 					  <label for="inputEmail3" class="col-sm-2 control-label">营业时间区间：</label>
 					  <div class="row">
 	                    <div class="col-xs-1">

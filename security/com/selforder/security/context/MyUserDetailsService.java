@@ -128,6 +128,7 @@ public class MyUserDetailsService implements UserDetailsService  {
 			userinfo.setEmpid(emp.getEmpid());
 			userinfo.setLoginname(emp.getLoginname());
 			userinfo.setAppid(emp.getAppid());
+			userinfo.setIsadmin(emp.getIsadmin());
 			return userinfo;
 			
 		}else{

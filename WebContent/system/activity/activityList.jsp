@@ -30,11 +30,11 @@
                   <div class="box-body">
                   	<!--搜索信息 start-->
                     <div class="form-group has-warning">
-                      <label for="inputEmail3" class="col-sm-1 control-label">活动名称：</label>
+                      <label for="inputEmail3" class="col-sm-1 control-label">名称：</label>
                       <div class="col-sm-2">
                         <input type="text" class="form-control" id="search_title" placeholder="活动名称">
                       </div>
-                      <label for="inputEmail3" class="col-sm-1 control-label">活动状态：</label>
+                      <label for="inputEmail3" class="col-sm-1 control-label">状态：</label>
                       <div class="col-sm-2">
                         <select class="form-control" id="search_status">
                         	<option value="" selected="selected">全部</option>
@@ -63,7 +63,6 @@
 	                      <th>活动类型</th>
 	                      <th>开始日期</th>
 	                      <th>结束日期</th>
-	                      <th>活动地址</th>
 	                      <th>操作</th>
 	                    </tr>
                   	</table><!--/门店列表-->

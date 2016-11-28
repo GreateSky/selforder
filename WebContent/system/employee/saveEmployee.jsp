@@ -44,13 +44,13 @@
                   <div class="box-body">
                   	<!--门店维护 start-->
 					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-1 control-label"><font color="red">*</font>&nbsp;姓名：</label>
+					  <label for="inputEmail3" class="col-sm-2 control-label"><font color="red">*</font>&nbsp;姓名：</label>
 					  <div class="col-sm-2">
 						<input type="text" class="form-control" id="empname" name="employee.empname" placeholder="姓名" value="" >
 					  </div>
 					</div>
 					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-1 control-label"><font color="red">*</font>&nbsp;性别：</label>
+					  <label for="inputEmail3" class="col-sm-2 control-label"><font color="red">*</font>&nbsp;性别：</label>
 					  <div class="col-sm-2">
 						<select class="form-control" id="sex" name="employee.sex">
 							<option selected="selected" value="1">男</option>
@@ -59,25 +59,25 @@
 					  </div>
 					</div>
 					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-1 control-label"><font color="red">*</font>&nbsp;电话：</label>
+					  <label for="inputEmail3" class="col-sm-2 control-label"><font color="red">*</font>&nbsp;电话：</label>
 					  <div class="col-sm-2">
 						<input type="text" class="form-control" id="phone" name="employee.phone" placeholder="电话" value="">
 					  </div>
 					</div>
 					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-1 control-label"><font color="red">*</font>&nbsp;家庭住址：</label>
+					  <label for="inputEmail3" class="col-sm-2 control-label"><font color="red">*</font>&nbsp;家庭住址：</label>
 					  <div class="col-sm-2">
 						<input type="text" class="form-control" id="homeaddress" name="employee.homeaddress" placeholder="家庭住址" value="">
 					  </div>
 					</div>
 					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-1 control-label"><font color="red">*</font>&nbsp;紧急联系人：</label>
+					  <label for="inputEmail3" class="col-sm-2 control-label"><font color="red">*</font>&nbsp;紧急联系人：</label>
 					  <div class="col-sm-2">
 						<input type="text" class="form-control" id="contactname" name="employee.contactname" placeholder="紧急联系人" >
 					  </div>
 					</div>
 					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-1 control-label"><font color="red">*</font>&nbsp;紧急联系人电话：</label>
+					  <label for="inputEmail3" class="col-sm-2 control-label"><font color="red">*</font>&nbsp;紧急联系人电话：</label>
 					  <div class="col-sm-2">
 						<input type="text" class="form-control" id="contactphone" name="employee.contactphone" placeholder="紧急联系人电话" >
 					  </div>
@@ -87,31 +87,34 @@
 					  <label for="inputEmail3" class="col-sm-5 control-label" style="border-top: 1px dashed #C0C0C0" ></label>
 					</div>
 					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-1 control-label">登录名：</label>
+					  <label for="inputEmail3" class="col-sm-2 control-label">登录名：</label>
 					  <div class="col-sm-2">
 						<input type="text" class="form-control" id="loginname" name="employee.loginname" placeholder="登录名" onblur="checkLoginName()" >
 					  </div>
+					  <div class="col-sm-1">
+						<button type="button" onclick="resetPwd()" class="btn btn-danger" style="width: 150px;">重置密码</button>
+					  </div>
 					</div>
 					<div class="form-group has-warning" tag="login">
-					  <label for="inputEmail3" class="col-sm-1 control-label">登录密码：</label>
+					  <label for="inputEmail3" class="col-sm-2 control-label">登录密码：</label>
 					  <div class="col-sm-2">
 						<input type="password" class="form-control" id="password" name="employee.password" placeholder="登录密码" >
 					  </div>
 					</div>
 					<div class="form-group has-warning" tag="login">
-					  <label for="inputEmail3" class="col-sm-1 control-label">确认密码：</label>
+					  <label for="inputEmail3" class="col-sm-2 control-label">确认密码：</label>
 					  <div class="col-sm-2">
 						<input type="password" class="form-control" id="password_again"  placeholder="确认密码" >
 					  </div>
 					</div>
 					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-1 control-label">微信号：</label>
+					  <label for="inputEmail3" class="col-sm-2 control-label">微信号：</label>
 					  <div class="col-sm-2">
 						<input type="text" class="form-control" id="wechatid" name="employee.wechatid" placeholder="微信号" >
 					  </div>
 					</div>
 					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-1 control-label"><font color="red">*</font>&nbsp;状态：</label>
+					  <label for="inputEmail3" class="col-sm-2 control-label"><font color="red">*</font>&nbsp;状态：</label>
 					  <div class="col-sm-2">
 						<select class="form-control" id="status" name="employee.status">
 							<option selected="selected" value="0">实习</option>
@@ -122,13 +125,13 @@
 					  </div>
 					</div>
 					<div class="form-group has-warning">
-					  <label for="inputEmail3" class="col-sm-1 control-label"><font color="red">*</font>&nbsp;类型：</label>
+					  <label for="inputEmail3" class="col-sm-2 control-label"><font color="red">*</font>&nbsp;类型：</label>
 					  <div class="col-sm-2">
 						<select class="form-control" id="type" name="employee.type" onchange="showSelectShop()"></select>
 					  </div>
 					</div>
 					<div class="form-group has-warning" id="selectShop" style="display: none">
-					  <label for="inputEmail3" class="col-sm-1 control-label">所属门店：</label>
+					  <label for="inputEmail3" class="col-sm-2 control-label">所属门店：</label>
 					  <div class="col-sm-2">
 						<input type="hidden" value="" id="sid" name="employee.sid"></input>
 						<input type="text" class="form-control" value="" id="sname" readonly="readonly"></input>
@@ -146,7 +149,6 @@
                 </form><!--/form end-->
               </div><!-- /.box -->
         </section><!-- /.content -->
-        <button type="button" onclick="resetPwd()" class="btn btn-danger" style="position: absolute; top: 110px; left: 350px; width: 150px;">重置密码</button>
         <!--modal 门店选择-->
         <div class="modal fade" id="employeeWin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
 		  <div class="modal-dialog">

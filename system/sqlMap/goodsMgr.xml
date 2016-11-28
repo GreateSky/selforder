@@ -354,6 +354,7 @@
 		where goods.deleted = 0 
 		and goods.weid = #{weid}
 		and goods.storeid = #{storeid}
+		and goods.status = 0
 		and goods.id not in (
 			select od.goods_id
 			from wx_dish_order_detail od 

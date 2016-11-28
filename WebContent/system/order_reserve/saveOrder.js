@@ -26,10 +26,7 @@ function getOrderInfo(){
 				$("#username").val(row.username);
 				$("#tel").val(row.tel);
 				var time = row.meal_time;
-				if(checkValue(time)){
-					time = time.replace(" ","T");
-					$("#meal_time").val(time);
-				}
+				$("#meal_time").val(time);
 				$("#remark").val(row.remark);
 			}
 		}

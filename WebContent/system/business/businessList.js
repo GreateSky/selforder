@@ -51,6 +51,9 @@ function pageOption(paginationid,totalpage){
         	var status = $("#status_search").val();
         	var legaler = $("#legaler_search").val();
         	var param = {};
+        	if(page >1){
+        		first = false;
+        	}
         	if(checkValue(bname)){
         		param["business.bname"] = bname;
         	}

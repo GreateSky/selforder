@@ -30,11 +30,11 @@
                   <div class="box-body">
                   	<!--搜索信息 start-->
                     <div class="form-group has-warning">
-                      <label for="inputEmail3" class="col-sm-1 control-label">队列名称：</label>
+                      <label for="inputEmail3" class="col-sm-1 control-label">名称：</label>
                       <div class="col-sm-2">
                         <input type="text" class="form-control" id="inputEmail3" placeholder="队列名称 "  value="">
                       </div>
-                      <label for="inputEmail3" class="col-sm-1 control-label">编号前缀：</label>
+                      <label for="inputEmail3" class="col-sm-1 control-label">前缀：</label>
                       <div class="col-sm-2">
                         <input type="text" class="form-control" id="inputEmail3" placeholder="队列编号前缀 "  value="">
                       </div>
@@ -52,7 +52,7 @@
                       <th>#</th>
                       <th>队列名称</th>
                       <th>状态</th>
-                      <th>提前通知人数</th>
+                      <th>通知人数</th>
                       <th>当前排队人数</th>
                       <th>下一排号</th>
                       <th>操作</th>

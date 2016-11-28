@@ -140,7 +140,20 @@ public class EmployeeServiceImpl implements EmployeeService {
 			//判断当前登录人的类型  A：运营人员查询全部员工   B：商户管理人员查询自己的员工  S：门店管理人员查询自己门店的员工
 			UserInfo user = new Context().getLoginUserInfo();
 			String type = user.getType();
-			if("A".equals(type)){//查询全部商户
+			String isadmin = user.getIsadmin(); 
+			if("A".equals(type) && "1".equals(isadmin)){//查询全部商户
+				//查询商户列表
+				List<Employee> employeeList = employeeDao.getEmployeeList(employee);
+				if(employeeList != null && employeeList.size()>0){
+					//查询统计数
+					int count = employeeDao.getEmployeeCount(employee);
+					resultMap.put("rows", employeeList);
+					resultMap.put("total", count);
+					result = JsonResultUtil.MapToJsonStr(resultMap);
+				}
+			}else if("A".equals(type)){//运营管理非管理员查询运营商户下的所有员工
+				String bid = user.getBid();
+				employee.setBid(bid);
 				//查询商户列表
 				List<Employee> employeeList = employeeDao.getEmployeeList(employee);
 				if(employeeList != null && employeeList.size()>0){

@@ -30,16 +30,16 @@
                   <div class="box-body">
                   	<!--搜索信息 start-->
                     <div class="form-group has-warning">
-                      <label for="inputEmail3" class="col-sm-1 control-label">员工名称：</label>
-                      <div class="col-sm-1">
+                      <label for="inputEmail3" class="col-sm-1 control-label">名称：</label>
+                      <div class="col-sm-2">
                         <input type="text" class="form-control" id="search_empname" placeholder="员工名称">
                       </div>
                        <label for="inputEmail3" class="col-sm-1 control-label">编码：</label>
-                      <div class="col-sm-1">
+                      <div class="col-sm-2">
                         <input type="text" class="form-control" id="search_empcode" placeholder="员工名称">
                       </div>
-                      <label for="inputEmail3" class="col-sm-1 control-label">员工类型：</label>
-                      <div class="col-sm-1">
+                      <label for="inputEmail3" class="col-sm-1 control-label">类型：</label>
+                      <div class="col-sm-2">
                         <select class="form-control" id="search_type">
                         	<option value="" selected="selected">全部</option>
                         	<option value="A">平台用户</option>
@@ -47,8 +47,8 @@
                         	<option value="S">门店用户</option>
                         </select>
                       </div>
-                      <label for="inputEmail3" class="col-sm-1 control-label">员工状态：</label>
-                      <div class="col-sm-1">
+                      <label for="inputEmail3" class="col-sm-1 control-label">状态：</label>
+                      <div class="col-sm-2">
                         <select class="form-control" id="search_status">
                         	<option value="" selected="selected">全部</option>
                         	<option value="1">实习</option>
@@ -70,7 +70,7 @@
                     <table class="table table-striped animated flipInX" id="employeeList">
 	                    <tr>
 	                      <th>#</th>
-	                      <th>门店</th>
+	                      <th id="th_store">门店</th>
 	                      <th>名称</th>
 	                      <th>编码</th>
 	                      <th>性别</th>

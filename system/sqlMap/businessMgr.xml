@@ -87,7 +87,8 @@
 		    sb.DELETED
 		FROM
 		    wx_dish_business sb
-		where sb.deleted = 0 
+		where sb.deleted = 0
+		and sb.bid &lt;&gt; '699c37fd6f974f5d97ac0f7224afa274' 
 		<if test="bid != null and bid !='' ">
 			and sb.BID = #{bid}
 		</if>   
@@ -119,6 +120,7 @@
 		FROM
 		    wx_dish_business sb
 		where sb.deleted = 0   
+		and sb.bid &lt;&gt; '699c37fd6f974f5d97ac0f7224afa274' 
 		<if test="bname != null and bname !='' ">
 			and sb.BNAME like CONCAT('%',#{bname},'%')
 		</if>    

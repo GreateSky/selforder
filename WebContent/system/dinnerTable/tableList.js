@@ -114,7 +114,7 @@ function loadTableList(type,param){
 							option += '<option value="2">已开台</option>';
 							option += '<option value="3" selected="selected" >已预约</option>';
 						}
-						statusStr += '<select class="form-control" style="width:90px" onchange="updateTableStatus(\''+id+'\',this)">      ';
+						statusStr += '<select class="form-control" style="width:90px;margin-top:15px;" onchange="updateTableStatus(\''+id+'\',this)">      ';
 						statusStr += option;
 						statusStr += '</select>                         ';
 						
@@ -123,7 +123,6 @@ function loadTableList(type,param){
 						tr +='	<td>'+room_name+'</td>    ';
 						tr +='	<td>'+title+'</td>    ';
 						tr +='	<td>'+user_count+'</td>                        ';
-						tr +='	<td>'+limit_price+'</td>                  ';
 						tr +='	<td>'+statusStr+'</td>';
 						tr +='	<td>'+displayorder+'</td>';
 						tr +='	<td><img src="'+imgsrc+'" width="60px" height="60px"></img></td>';

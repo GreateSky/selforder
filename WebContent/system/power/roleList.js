@@ -38,6 +38,9 @@ function pageOption(paginationid,totalpage){
         	var param = {};
         	param["role.rname"] = rname;
         	param["role.rcode"] = rcode;
+        	if(page >1){
+        		first = false;
+        	}
         	if(!first){
         		roleList("pageQuery",param);
         	}
@@ -93,7 +96,6 @@ function roleList(type,param){
 						tr +='	<td>'+(i+1)+'</td>                             ';
 						tr +='	<td>'+rname+'</td>    ';
 						tr +='	<td>'+rcode+'</td>                        ';
-						tr +='	<td>'+remark+'</td>                  ';
 						tr +='	<td resourceid="'+resourceid+'">'+resourcename+'</td>                  ';
 						tr +='	<td><button type="button" class="btn btn-warning" onclick="updateRole(\''+rid+'\')">修改</button>&nbsp;<button type="button" class="btn btn-danger" onclick="delRole(\''+rid+'\')">删除</button></td>                    ';
 						tr +='</tr>                                    ';

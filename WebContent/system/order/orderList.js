@@ -40,6 +40,9 @@ function pageOption(paginationid,totalpage){
             	pageSize = 20;
             }
         	var param = {};
+        	if(page >1){
+        		first = false;
+        	}
         	if(!first){
         		loadOrderList("pageQuery",param);
         	}
@@ -131,8 +134,6 @@ function loadOrderList(type,param){
 						appendTr += '	<td>'+ordersn+'</td>                          ';
 						appendTr += '	<td>'+crtdateStr+'</td>                         ';
 						appendTr += '	<td>'+tablecode+'</td>                                       ';
-						appendTr += '	<td>'+username+'</td>                                            ';
-						appendTr += '	<td>'+tel+'</td>                                            ';
 						appendTr += '	<td>                                                 ';
 						appendTr += '		<label class="label label-primary">￥'+totalprice+'</label>';
 						appendTr += '	</td>                                                ';

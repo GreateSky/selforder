@@ -110,13 +110,13 @@
                   				<div class="col-md-6" style="border-left: 1px dashed #C0C0C0">
                   					<form class="form-horizontal">
                   						<div class="form-group has-warning">
-										  <label for="inputEmail3" class="col-sm-2 control-label">订单号：</label>
+										  <label for="inputEmail3" class="col-sm-3 control-label">订单号：</label>
 										  <div class="col-sm-4">
 											<input type="text" class="form-control" id="ordersn" placeholder="订单号" value="" readonly="readonly" >
 										  </div>
 										</div>
 										<div class="form-group has-warning">
-										  <label for="inputEmail3" class="col-sm-2 control-label">订单类型：</label>
+										  <label for="inputEmail3" class="col-sm-3 control-label">订单类型：</label>
 										  <div class="col-sm-4">
 										  	<select class="form-control" id="dining_mode" disabled="disabled">
 										  		<option value="1">到店</option>
@@ -126,13 +126,13 @@
 										  </div>
 										</div>
 										<div class="form-group has-warning">
-										  <label for="inputEmail3" class="col-sm-2 control-label">创建时间：</label>
+										  <label for="inputEmail3" class="col-sm-3 control-label">创建时间：</label>
 										  <div class="col-sm-4">
 											<input type="text" class="form-control" id="crtdate" placeholder="创建时间" value="" readonly="readonly" >
 										  </div>
 										</div>
 										<div class="form-group has-warning" >
-										  <label for="inputEmail3" class="col-sm-2 control-label">餐桌号：</label>
+										  <label for="inputEmail3" class="col-sm-3 control-label">餐桌号：</label>
 										  <div class="col-sm-4">
 										  	<input type="hidden" id="tableid"></input>
 											<input type="text" class="form-control" id="tablecode" placeholder="餐桌号" value="" readonly="readonly" >
@@ -146,25 +146,25 @@
 										  <label for="inputEmail3" class="col-sm-5 control-label" style="border-top: 1px dashed #C0C0C0" ></label>
 										</div>
 										<div class="form-group has-warning" >
-										  <label for="inputEmail3" class="col-sm-2 control-label">客户名称：</label>
+										  <label for="inputEmail3" class="col-sm-3 control-label">客户名称：</label>
 										  <div class="col-sm-4">
 											<input type="text" class="form-control" id="username" placeholder="客户名称" value="" >
 										  </div>
 										</div>
 										<div class="form-group has-warning" >
-										  <label for="inputEmail3" class="col-sm-2 control-label">客户电话：</label>
+										  <label for="inputEmail3" class="col-sm-3 control-label">客户电话：</label>
 										  <div class="col-sm-4">
 											<input type="text" class="form-control" id="tel" placeholder="客户电话" value="" >
 										  </div>
 										</div>
 										<div class="form-group has-warning" >
-										  <label for="inputEmail3" class="col-sm-2 control-label">口味：</label>
+										  <label for="inputEmail3" class="col-sm-3 control-label">口味：</label>
 										  <div class="col-sm-4">
 											<input type="text" class="form-control" id="taste" placeholder="微辣" value="" >
 										  </div>
 										</div>
 										<div class="form-group has-warning" >
-										  <label for="inputEmail3" class="col-sm-2 control-label">客户留言：</label>
+										  <label for="inputEmail3" class="col-sm-3 control-label">客户留言：</label>
 										  <div class="col-sm-4">
 											<input type="text" class="form-control" id="remark" placeholder="客户留言" value="微辣"  >
 										  </div>
@@ -174,19 +174,19 @@
 										  <label for="inputEmail3" class="col-sm-5 control-label" style="border-top: 1px dashed #C0C0C0" ></label>
 										</div>
 										<div class="form-group has-warning" >
-										  <label for="inputEmail3" class="col-sm-2 control-label">应付金额：</label>
+										  <label for="inputEmail3" class="col-sm-3 control-label">应付金额：</label>
 										  <div class="col-sm-4">
 											<input type="number" class="form-control" id="totalprice" placeholder="￥0.00元" value="" min="0" >
 										  </div>
 										</div>
 										<div class="form-group has-warning" >
-										  <label for="inputEmail3" class="col-sm-2 control-label">实付金额：</label>
+										  <label for="inputEmail3" class="col-sm-3 control-label">实付金额：</label>
 										  <div class="col-sm-4">
 											<input type="number" class="form-control" id="realprice" placeholder="￥0.00元" value="" min="0" >
 										  </div>
 										</div>
 										<div class="form-group has-warning" >
-										  <label for="inputEmail3" class="col-sm-2 control-label">支付方式：</label>
+										  <label for="inputEmail3" class="col-sm-3 control-label">支付方式：</label>
 										  <div class="col-sm-5">
 											<div class="radio">
 												<label>

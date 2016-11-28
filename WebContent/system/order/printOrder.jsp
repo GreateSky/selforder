@@ -38,20 +38,23 @@
 				</thead>
 				<tbody id="orderDetail">
 					<tr tag="appendDetailTr">
-						<td style="word-wrap:break-word;" align="left">顶顶顶</td>
-						<td style="word-wrap:break-word;" align="center">12</td>
-						<td style="word-wrap:break-word;" align="center">2</td>
-						<td style="word-wrap:break-word;" align="center">24</td>
+						<td style="word-wrap:break-word;" align="left"></td>
+						<td style="word-wrap:break-word;" align="center"></td>
+						<td style="word-wrap:break-word;" align="center"></td>
+						<td style="word-wrap:break-word;" align="center"></td>
 					</tr>
 					<tr tag="appendDetailTr">
 						<td colspan="3" style="font-size: 15px;" align="right">合计</td>
-						<td  style="font-size: 15px;" align="center">24.00</td>
+						<td  style="font-size: 15px;" align="center"></td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
-		<div class="fooder">
-			<p>谢谢惠顾</p>
+		<div >
+			<p class="fooder">谢谢惠顾</p>
+			<p>商户：<span id="storename"></span></p>
+			<p>电话：<span id="storetel"></span></p>
+			<p>地址：<span id="storeaddress"></span></p>
 			<samp id="printTime">打印时间：</samp>
 		</div>
 	</div>
@@ -90,6 +93,9 @@
 				var crtdate = orderInfo.crtdate;
 				$("#tableCode").html(tablecode);		
 				$("#crtdate").html(formatDate(crtdate));
+				$("#storename").html(orderInfo.storename);
+				$("#storetel").html(orderInfo.storetel);
+				$("#storeaddress").html(orderInfo.storeaddress);
 				var totalCost = 0;//合计费用
 				if(null != orderDetailList && orderDetailList.length>0){
 					for(var i=0;i<orderDetailList.length;i++){

@@ -47,8 +47,8 @@
                     <table id="businessRoleList" class="table table-striped ">
                     <tr>
                       <th>#</th>
-                      <th>商户名称</th>
-                      <th>商户编码</th>
+                      <th>名称</th>
+                      <th>编码</th>
                       <th>已授权权限</th>
                       <th>操作</th>
                     </tr>

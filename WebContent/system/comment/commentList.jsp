@@ -31,15 +31,15 @@
                   <div class="box-body">
                   	<!--搜索信息 start-->
                     <div class="form-group has-warning">
-                      <label for="inputEmail3" class="col-sm-1 control-label">评论人：</label>
+                      <label for="inputEmail3" class="col-sm-2 control-label">评论人：</label>
                       <div class="col-sm-2">
                         <input type="text" class="form-control" id="search_username" placeholder="名称/昵称"  value="">
                       </div>
-                      <label for="inputEmail3" class="col-sm-1 control-label">开始时间：</label>
+                      <label for="inputEmail3" class="col-sm-2 control-label">开始时间：</label>
                       <div class="col-sm-2">
                         <input id="search_begindate"  type="text" class="form-control datepicker" value="">
                       </div>
-                      <label for="inputEmail3" class="col-sm-1 control-label">结束时间：</label>
+                      <label for="inputEmail3" class="col-sm-2 control-label">结束时间：</label>
                       <div class="col-sm-2">
                         <input id="search_enddate"  type="text" class="form-control datepicker" value="">
                       </div>

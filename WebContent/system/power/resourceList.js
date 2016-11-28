@@ -38,6 +38,9 @@ function pageOption(paginationid,totalpage){
         	var param = {};
         	param["resource.rname"] = rname;
         	param["resource.rurl"] = rurl;
+        	if(page >1){
+        		first = false;
+        	}
         	if(!first){
         		loadResourceList("pageQuery",param);
         	}

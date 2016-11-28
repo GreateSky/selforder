@@ -53,6 +53,9 @@ public class Order extends baseBean {
 	private String transferid;
 	private String transfername;
 	private int is_load_no_print = 0;//是否只加载未打印的明细   0：否   1：是
+	private String storename;
+	private String storetel;
+	private String storeaddress;
 	public String getTransfername() {
 		return transfername;
 	}
@@ -302,5 +305,23 @@ public class Order extends baseBean {
 	}
 	public void setIs_load_no_print(int is_load_no_print) {
 		this.is_load_no_print = is_load_no_print;
+	}
+	public String getStorename() {
+		return storename;
+	}
+	public void setStorename(String storename) {
+		this.storename = storename;
+	}
+	public String getStoretel() {
+		return storetel;
+	}
+	public void setStoretel(String storetel) {
+		this.storetel = storetel;
+	}
+	public String getStoreaddress() {
+		return storeaddress;
+	}
+	public void setStoreaddress(String storeaddress) {
+		this.storeaddress = storeaddress;
 	}
 }

@@ -34,6 +34,9 @@ function pageOption(paginationid,totalpage){
             	pageSize = 20;
             }
         	var param = {};
+        	if(page >1){
+        		first = false;
+        	}
         	if(!first){
         		loadEmployeeList("pageQuery",param);
         	}
@@ -107,7 +110,11 @@ function loadEmployeeList(queueType,param){
 						}
 						tr +='<tr tag="appendEmployeeTr" id="'+empid+'" class="animated flipInX">                                     ';
 						tr +='	<td>'+(i+1)+'</td>                             ';
-						tr +='	<td>'+sname+'</td>    ';
+						if(type == "平台员工"){
+							$("#th_store").remove();
+						}else{
+							tr +='	<td>'+sname+'</td>    ';
+						}
 						tr +='	<td>'+empname+'</td>                        ';
 						tr +='	<td>'+empcode+'</td>                  ';
 						tr +='	<td>'+sex+'</td>';

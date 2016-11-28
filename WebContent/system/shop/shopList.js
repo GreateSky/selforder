@@ -34,6 +34,9 @@ function pageOption(paginationid,totalpage){
             	pageSize = 20;
             }
         	var param = {};
+        	if(page >1){
+        		first = false;
+        	}
         	if(!first){
         		loadShopList("pageQuery",param);
         	}
@@ -133,8 +136,6 @@ function loadShopList(type,param){
 						tr +='	<td>'+is_reservation+'</td>                    ';
 						tr +='	<td>'+is_show+'</td>                    ';
 						tr +='	<td>'+is_queue+'</td>                    ';
-						tr +='	<td>'+delivery_radius+'Km</td>                    ';
-						tr +='	<td>'+address+'</td>                    ';
 						tr +='	<td><button type="button" class="btn btn-warning" onclick="updateShop(\''+id+'\')">编辑</button>&nbsp;<button type="button" class="btn btn-danger" onclick="delShop(\''+id+'\')">删除</button></td>                    ';
 						tr +='</tr>                                    ';
 						$("#shoplist").append(tr);

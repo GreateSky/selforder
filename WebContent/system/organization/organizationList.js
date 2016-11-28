@@ -39,6 +39,9 @@ function pageOption(paginationid,totalpage){
             var empname = $("#empname_search").val();
         	var empcode = $("#empcode_search").val();
         	var param = {};
+        	if(page >1){
+        		first = false;
+        	}
         	if(checkValue(empname)){
         		param["employee.empname"] = empname;
         	}
